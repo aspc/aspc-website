@@ -40,7 +40,8 @@ class SessionsController < ApplicationController
 
     # TODO: complete PHP session login/authentication and redirect user
     # return redirect_to PHP_AUTH_URL
-    return redirect_to root_url
+    flash.now[:notice] = "Welcome, #{current_user.first_name}"
+    redirect_to root_url
   end
 
   def _next_page_url
