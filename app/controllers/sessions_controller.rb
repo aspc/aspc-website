@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
     end
 
     # then create the login session for the user
-    session[:user_id] = user.id
+    session[:current_user_id] = user.id
 
     # TODO: complete PHP session login/authentication and redirect user
     # return redirect_to PHP_AUTH_URL
