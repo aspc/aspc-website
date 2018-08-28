@@ -28,11 +28,15 @@ else
     touch /root/apt.updated
 fi
 
+# Yarn / Node apt-get repositories
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 # Dependencies for ASPC Main Site
 apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
     libsasl2-dev libssl-dev libffi-dev gnupg2 nodejs \
-    curl libjpeg-dev libxml2-dev libxslt-dev
+    curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn
 
 
 # Set up PostgreSQL
@@ -61,12 +65,3 @@ bundle install
 
 # Some steps should be performed as the regular vagrant user
 sudo -u vagrant bash /vagrant/vagrant/init/init_as_user.sh
-
-# Set up public-facing nginx
-rm -f /etc/nginx/sites-enabled/default
-cp /vagrant/vagrant/srv/frontend_nginx.conf /etc/nginx/sites-enabled/
-service nginx restart && info "Started nginx"
-
-# Start GUnicorn as a daemon process
-info "Starting Puma from default config (/vagrant/config/puma.rb)"
-cd /vagrant && puma && info "Started Puma"
