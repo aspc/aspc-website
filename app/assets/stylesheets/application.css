@@ -10,6 +10,10 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require fullcalendar-3.9.0/fullcalendar.css
  *= require_self
+ *
+ *= require scaffolds.scss
+ *= require events.scss
+ *= require sessions.scss
  */

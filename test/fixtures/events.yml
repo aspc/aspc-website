@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  state: 2018-08-19 21:33:15
+  end: 2018-08-19 21:33:15
+  location: MyText
+  description: MyText
+  host: MyText
+  url: MyText
+  status: 1
+
+two:
+  name: MyText
+  state: 2018-08-19 21:33:15
+  end: 2018-08-19 21:33:15
+  location: MyText
+  description: MyText
+  host: MyText
+  url: MyText
+  status: 1

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'sessions#new'
 
+  resources :events
+
   scope controller: :sessions do
     get    'login' => :new
     delete 'logout' => :destroy
