@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
 
     current_user.is_admin?
   end
+
+  def authenticate_user!
+    redirect_to sessions_create_path unless logged_in?
+  end
 end
