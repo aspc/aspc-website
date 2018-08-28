@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   resources :events
 
   scope controller: :sessions do
-    get    'login' => :new
-    delete 'logout' => :destroy
-    match  'sessions/create' => :create, :via => [:get, :post]
+    get   'login' => :new
+    match 'logout' => :destroy, :via => [:get, :destroy]
+    match 'sessions/create' => :create, :via => [:get, :post]
   end
 end
