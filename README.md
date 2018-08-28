@@ -11,8 +11,8 @@ This repo is run and maintained by the ASPC Digital Media Group, but anyone may 
  1. Clone this repo
  2. Install [Vagrant and VMWare]()
  3. Run `vagrant provision` from inside the cloned directory. Follow the prompts, default options are fine. This will handle dependency installation and all that jazz. 
- 4. Run `vagrant up`. You should now be able to navigate to [localhost:8080](http://localhost:8080) and see a local copy of this website up and running! 
+ 4. Run `vagrant up`. You should now be able to navigate to [localhost:3000](http://localhost:3000) and see a local copy of this website up and running! 
 
- _Note: Vagrant may seem magical/opaque and hard to understand, but for the purposes of facilitating development we've provded a quick summary over [contanerization with Vagrant and VMWare]() should you be interested in learning more._
+ _Note: Vagrant may seem magical/opaque and hard to understand, but for the purposes of facilitating development we've provded a quick summary over [containerization with Vagrant and VMWare]() should you be interested in learning more._
 
 

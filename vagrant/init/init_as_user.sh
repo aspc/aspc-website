@@ -25,6 +25,7 @@ mkdir -p /home/vagrant/run
 cd /vagrant
 source /home/vagrant/.rvm/scripts/rvm
 rake db:create
+rake db:migrate
 
 # copy static files
 # python /vagrant/manage.py collectstatic --noinput

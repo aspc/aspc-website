@@ -68,5 +68,5 @@ cp /vagrant/vagrant/srv/frontend_nginx.conf /etc/nginx/sites-enabled/
 service nginx restart && info "Started nginx"
 
 # Start GUnicorn as a daemon process
-cd /vagrant && puma --config /vagrant/config/puma.rb && info "Started GUnicorn"
-
+info "Starting Puma from default config (/vagrant/config/puma.rb)"
+cd /vagrant && puma && info "Started Puma"

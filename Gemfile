@@ -39,6 +39,9 @@ gem 'httparty', '~> 0.16.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# For RubyMine debugging
+# gem 'ruby-debug-ide', '~> 0.6.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -51,6 +54,12 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Deployment tool
+  gem "capistrano", "~> 3.11", require: false
+  gem "capistrano-rails", "~> 1.4", require: false
+  gem "capistrano3-puma", "~> 3.1.1", require: false
+  gem "capistrano-rvm", require: false
+  gem "capistrano-rake", require: false
 end
 
 group :test do
