@@ -1,5 +1,7 @@
 {
   "name": "aspc-v2",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bulma": "^0.7.1"
+  }
 }
