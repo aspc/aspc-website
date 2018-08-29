@@ -4,7 +4,7 @@ class CreateCourseSections < ActiveRecord::Migration[5.2]
       t.string :code, :null => false
       t.string :code_slug, :null => false
       t.text :description
-      t.decimal :credit, :null => false, :default => true
+      t.decimal :credit, :null => false, :default => 1.00
       t.integer :perms
       t.integer :spots
       t.boolean :filled
