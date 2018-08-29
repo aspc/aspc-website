@@ -1,0 +1,2 @@
+class AcademicTerm < ApplicationRecord
+end
