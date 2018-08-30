@@ -21,5 +21,7 @@
 //= require fullcalendar-3.9.0/lib/moment.min.js
 //= require fullcalendar-3.9.0/fullcalendar.js
 
+//=  require bulma-calendar/dist/js/bulma-calendar.js
+
 //= require events.coffee
 //= require sessions.coffee

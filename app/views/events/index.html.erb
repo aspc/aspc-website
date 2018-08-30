@@ -13,7 +13,7 @@
 
 <div class="container calendarContainer">
   <%= render 'components/event_calendar', events: _to_event_calendar_mapping(@events) %>
+  <br/>
+  <%= link_to 'New Event', new_event_path, :class => 'button is-primary' %>
 </div>
-
-<%= link_to 'New Event', new_event_path, :class => 'button is-primary' %>
 
