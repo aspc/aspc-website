@@ -13,8 +13,11 @@
  *= require fullcalendar-3.9.0/fullcalendar.css
  *= require_self
  *=
- *= require bulma/css/bulma.css
  *= require scaffolds.scss
  *= require events.scss
  *= require sessions.scss
+ *= require bulma/css/bulma.css
+ *= require megamenu.scss
  */
+
+

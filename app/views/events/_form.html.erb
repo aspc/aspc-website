@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :start %>
-    <%= form.datetime_select :start %>
+    <%= (form.datetime_select :start) %>
   </div>
 
   <div class="field">
@@ -44,11 +44,6 @@
   <div class="field">
     <%= form.label :details_url %>
     <%= form.text_area :details_url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
   </div>
 
   <div class="actions">
