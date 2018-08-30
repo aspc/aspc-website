@@ -34,6 +34,7 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 # Dependencies for ASPC Main Site
+apt-get update
 apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
     libsasl2-dev libssl-dev libffi-dev gnupg2 nodejs \
     curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn
