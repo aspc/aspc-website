@@ -1,9 +1,200 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AspcV2</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <nav class="navbar ">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="http://aspc.pomona.edu">
+          <img src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://github.com/jgthms/bulma" target="_blank">
+      <span class="icon" style="color: #333;">
+        <i class="fa fa-github"></i>
+      </span>
+        </a>
+
+        <a class="navbar-item is-hidden-desktop" href="https://twitter.com/jgthms" target="_blank">
+      <span class="icon" style="color: #55acee;">
+        <i class="fa fa-twitter"></i>
+      </span>
+        </a>
+
+        <div class="navbar-burger burger" data-target="navMenubd-example">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <a class="navbar-item " href="http://bulma.io/expo/">
+        <span class="Menus"></span> &nbsp;Menus
+      </a>
+      <a class="navbar-item " href="http://bulma.io/love/">
+        <span class="Calendar"></span> &nbsp;Calendar
+      </a>
+
+
+      <div id="navMenubd-example" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/documentation/overview/start/">
+              Courses
+            </a>
+            <div class="navbar-dropdown ">
+              <a class="navbar-item " href="/documentation/overview/start/">
+                Course Planner
+              </a>
+              <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
+                Course Reviews
+              </a>
+
+              <div class="navbar-item">
+
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/documentation/overview/start/">
+              Services
+            </a>
+            <div class="navbar-dropdown ">
+              <a class="navbar-item " href="/documentation/overview/start/">
+                Mental Health Forum
+              </a>
+              <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
+                Financial Aid Forum
+              </a>
+              <a class="navbar-item " href="/documentation/overview/start/">
+                Housing
+              </a>
+              <a class="navbar-item " href="/documentation/overview/start/">
+                TurboVote
+              </a>
+
+              <div class="navbar-item">
+
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable is-mega">
+            <div class="navbar-link">
+              ASPC
+            </div>
+            <div id="blogDropdown" class="navbar-dropdown " data-style="width: 18rem;">
+              <div class="container is-fluid">
+                <div class="columns">
+                  <div class="column">
+                    <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
+                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
+                      <div class="navbar-content">
+
+                        <p>Senators</p>
+                      </div>
+                    </a>
+                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
+                      <div class="navbar-content">
+
+                        <p>Staff Members</p>
+                      </div>
+                    </a>
+                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
+                      <div class="navbar-content">
+
+                        <p>Committee Members</p>
+                      </div>
+                    </a>
+
+                  <a class="navbar-item" href="/2017/08/03/list-of-tags/">
+                    <div class="navbar-content">
+
+                      <p>Software Development Team</p>
+                    </div>
+                  </a>
+                  </div>
+                  <div class="column">
+                    <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
+                    <a class="navbar-item " href="/documentation/overview/start/">
+                      Positions
+                    </a>
+                    <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
+                      Policies
+                    </a>
+                    <a class="navbar-item " href="http://bulma.io/documentation/columns/basics/">
+                      Budget
+                    </a>
+                    <a class="navbar-item " href="http://bulma.io/documentation/columns/basics/">
+                      Meetings & Minutes
+                    </a>
+                  </div>
+                  <div class="column">
+                    <h1 class="title is-6 is-mega-menu-title">Frequent Actions</h1>
+                    <a class="navbar-item " href="/documentation/overview/start/">
+                      Funding Request
+                    </a>
+                    <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
+                      Agenda Item Submission
+                    </a>
+                    <a class="navbar-item " href="http://bulma.io/documentation/columns/basics/">
+                      Voting
+                      </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link  is-active" href="/documentation/overview/start/">
+              Resources
+            </a>
+            <div class="navbar-dropdown ">
+              <a class="navbar-item " href="/documentation/overview/start/">
+                PEC
+              </a>
+              <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
+                Club Resources
+              </a>
+              <a class="navbar-item " href="/documentation/overview/start/">
+                Coop Store
+              </a>
+              <a class="navbar-item " href="/documentation/overview/start/">
+                On-Campus Eateries
+              </a>
+
+              <div class="navbar-item">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <a class="navbar-item is-hidden-desktop-only" href="https://github.com/jgthms/bulma" target="_blank">
+        <span class="icon" style="color: #333;">
+          <i class="fa fa-github"></i>
+        </span>
+          </a>
+          <a class="navbar-item is-hidden-desktop-only" href="https://twitter.com/jgthms" target="_blank">
+        <span class="icon" style="color: #55acee;">
+          <i class="fa fa-twitter"></i>
+        </span>
+          </a>
+          <div class="navbar-item">
+            <div class="field is-grouped">
+
+              <p class="control">
+                <a class="button is-primary" href="https://github.com/jgthms/bulma/archive/0.5.1.zip">
+              <span class="icon">
+                <i class="fa fa-download"></i>
+              </span>
+                  <span>Login</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
