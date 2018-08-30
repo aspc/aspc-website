@@ -1,44 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Events</h1>
+<section class="hero is-primary">
+  <div class="hero">
+    <div class="container">
+      <h1 class="title" align="center">
+       5C Events
+      </h1>
+    </div>
+  </div>
+</section>
 
-<%= render 'components/event_calendar',
-           events: _to_event_calendar_mapping(@events) %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Start</th>
-      <th>End</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>Host</th>
-      <th>Url</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container calendarContainer">
+  <%= render 'components/event_calendar', events: _to_event_calendar_mapping(@events) %>
+  <br/>
+  <%= link_to 'New Event', new_event_path, :class => 'button is-primary' %>
+</div>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.name %></td>
-        <td><%= event.start %></td>
-        <td><%= event.end %></td>
-        <td><%= event.location %></td>
-        <td><%= event.description %></td>
-        <td><%= event.host %></td>s
-        <td><%= event.details_url %></td>
-        <td><%= event.status %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Event', new_event_path %>

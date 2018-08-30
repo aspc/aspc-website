@@ -11,47 +11,154 @@
     </div>
   <% end %>
 
+  <br/>
+
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_area :name %>
+    <%= form.label :event_name, :class => "label"%>
+    <div class="control">
+      <%= form.text_area :name, :class => "input"  , :class => "input is-rounded" %>
+    </div>
+  </div>
+
+  <div class="columns">
+
+    <div class="column">
+      <div class="field">
+        <%= form.label :start_date, :class => "label" %>
+        <%= form.date_field :start_date, :class => "input" , :class => "input is-rounded", :id => "datepickerDemo2" %>
+      </div>
+    </div>
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :hour, :class => "label" %>
+            <%= form.select :hour, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'] %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :minute, :class => "label" %>
+            <%= form.select :minute, ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
+                                      '12', '13', '14', '15', '16', '17', '18', '19',
+                                      '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
+                                      '30', '31', '32', '33', '34', '35', '36', '37', '38', '39',
+                                      '40', '41', '42', '43', '44', '45', '46', '47', '48', '49',
+                                      '50', '51', '52', '53', '54', '55', '56', '57', '58', '59'] %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :time, :class => "label" %>
+            <%= form.select :minute, ['AM', 'PM'] %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="columns">
+
+    <div class="column">
+      <div class="field">
+        <%= form.label :end_date, :class => "label" %>
+        <%= form.date_field :end_date, :class => "input" , :class => "input is-rounded", :id => "datepickerDemo2" %>
+      </div>
+    </div>
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :hour, :class => "label" %>
+            <%= form.select :hour, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'] %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :minute, :class => "label" %>
+            <%= form.select :minute, ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
+                                      '12', '13', '14', '15', '16', '17', '18', '19',
+                                      '20', '21', '22', '23', '24', '25', '26', '27', '28', '29',
+                                      '30', '31', '32', '33', '34', '35', '36', '37', '38', '39',
+                                      '40', '41', '42', '43', '44', '45', '46', '47', '48', '49',
+                                      '50', '51', '52', '53', '54', '55', '56', '57', '58', '59'] %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="column">
+      <div class ="field">
+        <div class="control">
+          <div class="select">
+            <%= form.label :time, :class => "label" %>
+            <%= form.select :minute, ['AM', 'PM'] %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :start %>
-    <%= form.datetime_select :start %>
+    <%= form.label :location, :class => "label" %>
+    <%= form.text_area :location, :class => "input" , :class => "input is-rounded" %>
   </div>
 
   <div class="field">
-    <%= form.label :end %>
-    <%= form.datetime_select :end %>
+    <%= form.label :description, :class => "label" %>
+    <%= form.text_area :description, :class => "input" , :class => "input is-rounded"   %>
   </div>
 
   <div class="field">
-    <%= form.label :location %>
-    <%= form.text_area :location %>
+    <%= form.label :host, :class => "label" %>
+    <%= form.text_area :host, :class => "input"  , :class => "input is-rounded"  %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.label :college_affiliation, :class => "label" %>
+    <%= form.text_area :college_affiliation, :class => "input"  , :class => "input is-rounded"  %>
   </div>
 
   <div class="field">
-    <%= form.label :host %>
-    <%= form.text_area :host %>
-  </div>
-
-  <div class="field">
-    <%= form.label :details_url %>
-    <%= form.text_area :details_url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.label :details_url, :class => "label" %>
+    <%= form.text_area :details_url, :class => "input"  , :class => "input is-rounded"  %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => "button is-primary" %>
+    <%= link_to 'Back', events_url, :class => "button" %>
   </div>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          let datePickers = bulmaCalendar.attach('[type="date"]', {
+              overlay: true,
+              minDate: '2018-01-01',
+              maxDate: '2020-12-31',
+              lang: 'en'
+          });
+
+          // Note: Hacky solution to remove header with undefined days
+          datePickers.map(function(pickerInstance) {
+              pickerInstance.on('datepicker:show', function(picker) {
+                  picker.elementCalendarHeader.innerHTML = ''
+              })
+          });
+      });
+  </script>
 <% end %>
