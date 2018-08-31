@@ -42,10 +42,12 @@
 }
 
 .wc-header{
-  background: #eee;
-  border-color: #aaa;
+  background: whitesmoke;
+  border-color: #dbdbdb;
   border-width:0 0 1px 0;
   border-style:solid;
+  padding: 10px 0;
+  height: 45px;
 }
 .wc-header table{
   width: 100%;
@@ -64,6 +66,9 @@
 .wc-header .wc-day-column-header {
   text-align: center;
   padding: 0.4em;
+  color: #363636;
+  font-size: 1.00em;
+  font-weight: 300;
 }
 
 .wc-header .wc-user-header{
@@ -101,7 +106,7 @@ table.wc-time-slots {
 }
 .wc-day-column-header{border-width: 0 0 1px 3px; border-style: solid;border-color:transparent;}
 .wc-scrollable-grid .wc-day-column-last,
-.wc-scrollable-grid .wc-day-column-middle{border-width: 0 0 0 1px; border-style: dashed; border-color: #aaa;}
+.wc-scrollable-grid .wc-day-column-middle{border-width: 0 0 0 1px; border-style: dashed; border-color: #dbdbdb;}
 .wc-scrollable-grid .wc-day-column-first{border-width: 0 0 0 1px; border-style: solid;}
 
 .wc-day-column-inner {
@@ -279,8 +284,8 @@ table.wc-time-slots {
 }
 
 #course-schedule .wc-container {
-  border: 1px solid #aaa;
-  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
   overflow: hidden;
 }
 

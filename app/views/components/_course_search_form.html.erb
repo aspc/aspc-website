@@ -1,0 +1,138 @@
+<% academic_terms = local_assigns.fetch(:academic_terms) %>
+<% departments = local_assigns.fetch(:departments) %>
+
+<nav class="panel">
+  <p class="panel-heading">
+      Course Search
+  </p>
+  <div class="panel-block">
+    <div class="field" style="flex: 0 0 100%">
+      <p class="help">I am searching for a course during</p>
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+          <select name="academic-term">
+            <% academic_terms.each do |term| -%>
+              <option value="<%= term.key %>"><%= "#{term.session} #{term.year}" %></option>
+            <% end -%>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field" style="flex: 0 0 100%">
+      <p class="help">In department</p>
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+          <select name="department">
+            <% departments.each do |department| -%>
+              <option value="<%= department.code %>"><%= department.name %></option>
+            <% end -%>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field">
+      <p class="help">Which meets on</p>
+      <div class="field is-grouped" style="flex: 0 0 100%">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">Mon
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">Tues
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">Wed
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">Thurs
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">Fri
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field">
+      <p class="help">At school</p>
+      <div class="field is-grouped" style="flex: 0 0 100%">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">PO
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">CM
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">HM
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">SC
+          </label>
+        </div>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">PZ
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field" style="flex: 0 0 100%">
+      <p class="help">Taught by</p>
+      <div class="control is-expanded">
+        <div class="control">
+          <input class="input" type="text" placeholder="Instructor">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field" style="flex: 0 0 100%">
+      <p class="help">Numbered</p>
+      <div class="control is-expanded">
+        <div class="control">
+          <input class="input" type="text" placeholder="Course Number">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-block">
+    <div class="field" style="flex: 0 0 100%">
+      <p class="help">Containing keyword</p>
+      <div class="control is-expanded">
+        <div class="control">
+          <input class="input" type="text" placeholder="Keyword">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="panel-block">
+        <button class="button is-link is-outlined is-fullwidth">
+            Search
+        </button>
+    </div>
+</nav>
