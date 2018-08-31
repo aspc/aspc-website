@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="title">Course Scheduler</h1>
       <h2 class="subtitle">
-        Browse courses and plan a schedule, so registration is a breeze.
+        Browse courses and plan your schedule
       </h2>
     </div>
   </div>
@@ -15,17 +15,15 @@
     <div class="columns">
       <div class="column">
         <div class="buttons">
-          <span class="button is-primary">Save schedule</span>
+          <span class="button is-info">Save schedule</span>
           <span class="button">Export schedule</span>
-          <span class="button">Clear schedule</span>
         </div>
         <%= render 'components/course_search_form', academic_terms: @academic_terms, departments: @departments %>
       </div>
       <div class="column">
-        <h3 class="has-text-weight-bold">Current schedule:</h3>
-        [Courses here]
-        <br>
-        <br>
+        <div class="buttons is-right">
+          <span class="button">Clear schedule</span>
+        </div>
         <%= render 'components/course_schedule' %>
       </div>
     </div>
