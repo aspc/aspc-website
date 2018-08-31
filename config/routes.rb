@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   resources :events
 
+  scope controller: :courses do
+    get 'courses' => :index
+  end
+
   scope controller: :sessions do
     get   'login' => :new
     match 'logout' => :destroy, :via => [:get, :destroy]

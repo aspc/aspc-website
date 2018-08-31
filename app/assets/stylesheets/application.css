@@ -19,6 +19,20 @@
  *= require bulma/css/bulma.css
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
+
+ *= require weekcalendar-2.0/jquery.weekcalendar.css
+ *= require courses.scss
  */
 
-
+/*
+ * 5C School Accent Colors
+ */
+.campus_UU { background-color: #9c9e9e;}
+.campus_CGU { background-color: #da3d38;}
+.campus_CMC { background-color: #71101b;}
+.campus_CU { background-color: #391858;}
+.campus_KS { background-color: #391858;}
+.campus_HM { background-color: #ca9a0a;}
+.campus_PO { background-color: #1860cc;}
+.campus_PZ { background-color: #f49700;}
+.campus_SC { background-color: #889e5a;}

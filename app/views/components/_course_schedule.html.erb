@@ -1,0 +1,49 @@
+<% courses = local_assigns.fetch(:courses, []) %>
+
+<div id="course-schedule"></div>
+
+<script>
+    (function() {
+      if($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
+
+      let courses = <%= raw courses.to_json %>;
+      $('#course-schedule').weekCalendar({
+          businessHours: {
+              start: 8,
+              end: 24,
+              limitDisplay: true
+          },
+          timeslotsPerHour: 2,
+          daysToShow: 5,
+          timeSeparator: '&ndash;',
+          readonly: true,
+          allowCalEventOverlap: true,
+          overlapEventsSeparate: true,
+          height: function (calendar) {
+              return $('table.wc-time-slots').height() + $(".wc-toolbar").outerHeight() + $(".wc-header").outerHeight();
+          },
+          eventHeader: function (calEvent, calendar) {
+              return calEvent.title;
+          },
+          eventBody: function (calEvent, calendar) {
+              var options = calendar.weekCalendar('option'),
+                  one_hour = 3600000,
+                  displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (2 * (one_hour / options.timeslotsPerHour));
+              if (displayTitleWithTime) {
+                  return '';
+              }
+              else {
+                  return calendar.weekCalendar('formatTime', calEvent.start, options.timeFormat) + options.timeSeparator + calendar.weekCalendar('formatTime', calEvent.end, options.timeFormat);
+              }
+          },
+          eventAfterRender: function (calEvent, event) {
+              event.addClass('campus_' + calEvent.campus);
+          },
+          getHeaderDate: function (date, calendar) {
+              var options = calendar.weekCalendar('option');
+              var dayName = options.useShortDayNames ? options.shortDays[date.getDay()] : options.longDays[date.getDay()];
+              return dayName;
+          }
+      });
+  })();
+</script>
