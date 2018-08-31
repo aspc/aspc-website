@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 
     get 'aspc/positions' => :aspc_positions
     get 'aspc/policies' => :aspc_policies
+    get 'aspc/policies/constitution' => :aspc_policies_constitution
+    get 'aspc/policies/bylaws' => :aspc_policies_bylaws
+    get 'aspc/policies/electionscode' => :aspc_policies_electionscode
     get 'aspc/budget' => :aspc_budget
     get 'aspc/minutes' => :aspc_meeting_minutes
 
