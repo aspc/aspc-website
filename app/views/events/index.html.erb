@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<section class="hero is-primary">
-  <div class="hero">
-    <div class="container">
-      <h1 class="title" align="center">
-       5C Events
-      </h1>
+<section class="section" style="background:#2C3E50">
+  <section class="hero is-primary" style="background: #0071a6">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Event Calendar</h1>
+        <h2 class="subtitle">
+          Check out everything happening at the 5Cs!
+        </h2>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section class="hero is-primary" style="background: white">
+    <div class="container calendarContainer">
+      <%= render 'components/event_calendar', events: _to_event_calendar_mapping(@events) %>
+      <br/>
+      <%= link_to 'New Event', new_event_path, :class => 'button is-primary' %>
+    </div>
+  </section>
+
 </section>
-
-
-<div class="container calendarContainer">
-  <%= render 'components/event_calendar', events: _to_event_calendar_mapping(@events) %>
-  <br/>
-  <%= link_to 'New Event', new_event_path, :class => 'button is-primary' %>
-</div>
-

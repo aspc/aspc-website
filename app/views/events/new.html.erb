@@ -1,13 +1,18 @@
-<section class="hero is-primary">
-  <div class="hero">
-    <div class="container">
-      <h1 class="title" align="center">
-        Create New Event
-      </h1>
+<section class="section" style="background:#2C3E50">
+  <section class="hero is-primary" style="background: #0071a6">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Create a new event</h1>
+        <h2 class="subtitle">
+          Submit a new event to the event calendar
+        </h2>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="container">
-  <%= render 'form', event: @event %>
-</div>
+  <section class="section" style="background:white">
+    <div class="container">
+      <%= render 'form', event: @event %>
+    </div>
+  </section>
+</section>
