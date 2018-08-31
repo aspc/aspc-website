@@ -1,6 +1,7 @@
 <% academic_terms = local_assigns.fetch(:academic_terms) %>
 <% departments = local_assigns.fetch(:departments) %>
 
+<%= form_with url: courses_search_url, remote: true do |f| %>
 <nav class="panel">
   <p class="panel-heading">
       Course Search
@@ -10,11 +11,9 @@
       <p class="help">I am searching for a course during</p>
       <div class="control is-expanded">
         <div class="select is-fullwidth">
-          <select name="academic-term">
-            <% academic_terms.each do |term| -%>
-              <option value="<%= term.key %>"><%= "#{term.session} #{term.year}" %></option>
-            <% end -%>
-          </select>
+          <%= f.select :academic_term, options_for_select(
+              (academic_terms.collect(&:session).zip academic_terms.collect(&:year)).map { |t| t.join " " }
+          ) %>
         </div>
       </div>
     </div>
@@ -24,11 +23,9 @@
       <p class="help">In department</p>
       <div class="control is-expanded">
         <div class="select is-fullwidth">
-          <select name="department">
-            <% departments.each do |department| -%>
-              <option value="<%= department.code %>"><%= department.name %></option>
-            <% end -%>
-          </select>
+          <%= f.select :department, options_for_select(
+              departments.collect(&:name)
+          ), :prompt => "(any)" %>
         </div>
       </div>
     </div>
@@ -39,27 +36,27 @@
       <div class="field is-grouped" style="flex: 0 0 100%">
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">Mon
+            <%= check_box_tag(:monday) %>Mon
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">Tues
+            <%= check_box_tag(:tuesday) %>Tues
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">Wed
+            <%= check_box_tag(:wednesday) %>Wed
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">Thurs
+            <%= check_box_tag(:thursday) %>Thurs
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">Fri
+            <%= check_box_tag(:friday) %>Fri
           </label>
         </div>
       </div>
@@ -71,27 +68,27 @@
       <div class="field is-grouped" style="flex: 0 0 100%">
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">PO
+            <%= check_box_tag(:pomona) %>PO
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">CM
+            <%= check_box_tag(:claremont_mckenna) %>CM
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">HM
+            <%= check_box_tag(:harvey_mudd) %>HM
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">SC
+            <%= check_box_tag(:scripps) %>SC
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <input type="checkbox">PZ
+            <%= check_box_tag(:pitzer) %>PZ
           </label>
         </div>
       </div>
@@ -102,7 +99,7 @@
       <p class="help">Taught by</p>
       <div class="control is-expanded">
         <div class="control">
-          <input class="input" type="text" placeholder="Instructor">
+          <%= f.text_field :instructor, :class => "input", :placeholder => "Instructor" %>
         </div>
       </div>
     </div>
@@ -112,7 +109,7 @@
       <p class="help">Numbered</p>
       <div class="control is-expanded">
         <div class="control">
-          <input class="input" type="text" placeholder="Course Number">
+          <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
         </div>
       </div>
     </div>
@@ -122,17 +119,23 @@
       <p class="help">Containing keyword</p>
       <div class="control is-expanded">
         <div class="control">
-          <input class="input" type="text" placeholder="Keyword">
+          <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
         </div>
       </div>
     </div>
   </div>
 
 
-
   <div class="panel-block">
-        <button class="button is-link is-outlined is-fullwidth">
-            Search
-        </button>
-    </div>
+    <%= f.submit "Search", :class => "button is-link is-outlined is-fullwidth" %>
+  </div>
 </nav>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+      $("#search-button").click(function() {
+
+      });
+  });
+</script>
