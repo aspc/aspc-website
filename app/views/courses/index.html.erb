@@ -1,0 +1,96 @@
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Course Scheduler</h1>
+      <h2 class="subtitle">
+        Browse and add courses, so registering is a breeze.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h3 class="has-text-weight-bold">Find classes to add to your schedule:</h3>
+
+        <br>
+        <br>
+        <nav class="panel">
+          <p class="panel-heading">
+            repositories
+          </p>
+          <div class="panel-block">
+            <p class="control has-icons-left">
+              <input class="input is-small" type="text" placeholder="search">
+              <span class="icon is-small is-left">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </span>
+            </p>
+          </div>
+          <p class="panel-tabs">
+            <a class="is-active">all</a>
+            <a>public</a>
+            <a>private</a>
+            <a>sources</a>
+            <a>forks</a>
+          </p>
+          <a class="panel-block is-active">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+            bulma
+          </a>
+          <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+            marksheet
+          </a>
+          <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+            minireset.css
+          </a>
+          <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-book" aria-hidden="true"></i>
+    </span>
+            jgthms.github.io
+          </a>
+          <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-code-branch" aria-hidden="true"></i>
+    </span>
+            daniellowtw/infboard
+          </a>
+          <a class="panel-block">
+    <span class="panel-icon">
+      <i class="fas fa-code-branch" aria-hidden="true"></i>
+    </span>
+            mojs
+          </a>
+          <label class="panel-block">
+            <input type="checkbox">
+            remember me
+          </label>
+          <div class="panel-block">
+            <button class="button is-link is-outlined is-fullwidth">
+              reset all filters
+            </button>
+          </div>
+        </nav>
+
+      </div>
+      <div class="column">
+        <h3 class="has-text-weight-bold">Current schedule:</h3>
+        [Courses here]
+        <br>
+        <br>
+        <%= render 'components/course_schedule' %>
+      </div>
+    </div>
+  </div>
+</section>
