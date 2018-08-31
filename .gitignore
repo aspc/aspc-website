@@ -60,6 +60,11 @@
 .idea/*.iml
 # .idea/modules
 
+# Nuclear option: Ignore all .idea/ junk, except for specific files
+.idea
+!.idea/runConfigurations
+!.idea/vcs.xml
+
 # CMake
 cmake-build-*/
 
