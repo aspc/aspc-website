@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   scope controller: :courses do
     get 'courses' => :index
+    match 'courses/search' => :search_course_sections, :via => [:get, :post]
   end
 
   scope controller: :sessions do

@@ -1,0 +1,51 @@
+<% course_sections = local_assigns.fetch(:course_sections, []) %>
+
+<% if course_sections %>
+<div>
+  <div class="columns">
+    <div class="column is-2">
+      <p>Showing <%= course_sections.length %> results</p>
+    </div>
+    <div class="column is-10" style="height: 85vh; overflow: scroll;">
+      <% course_sections.each do |section| %>
+      <article class="message is-info">
+        <div class="message-header">
+          <p><%= section.course.code %> - <%= section.course.name %></p>
+          <p class="is-pulled-right">Review</p>
+        </div>
+        <div class="message-body">
+          <div class="columns">
+            <div class="column">
+              <p>
+                <% section.instructors.each do |instructor| %> <%= instructor.name %> - <% end %> <%= section.credit%> credits
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <p>
+                <%= section.description %>
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= detail.to_s %></p>
+                <% end %>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <div class="buttons is-left">
+                <button class="button">Add to Schedule</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>

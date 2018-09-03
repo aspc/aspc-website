@@ -1,32 +1,40 @@
 <section class="section" style="background:#2C3E50">
-<section class="hero is-primary" style="background: #0071a6">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">Course Scheduler</h1>
-      <h2 class="subtitle">
-        Browse courses and plan your schedule
-      </h2>
+  <section class="hero is-primary" style="background: #0071a6">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Course Scheduler</h1>
+        <h2 class="subtitle">
+          Browse courses and plan your schedule
+        </h2>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section" style="background:white">
-  <div class="container" style="background:white">
-    <div class="columns">
-      <div class="column">
-        <div class="buttons">
-          <span class="button is-info">Save schedule</span>
-          <span class="button">Export schedule</span>
+  <section class="section course-schedule-section" style="background:white">
+    <div class="container course-schedule-container" style="background:white">
+      <div class="columns">
+        <div class="column">
+          <div class="buttons">
+            <span class="button is-info">Save schedule</span>
+            <span class="button">Export schedule</span>
+          </div>
+          <%= render 'components/course_search_form', academic_terms: @academic_terms, departments: @departments %>
         </div>
-        <%= render 'components/course_search_form', academic_terms: @academic_terms, departments: @departments %>
-      </div>
-      <div class="column">
-        <div class="buttons is-right">
-          <span class="button">Clear schedule</span>
+        <div class="column">
+          <div class="buttons is-right">
+            <span class="button">Clear schedule</span>
+          </div>
+          <%= render 'components/course_schedule' %>
         </div>
-        <%= render 'components/course_schedule' %>
       </div>
     </div>
-  </div>
-</section>
+
+    <div class="container course-list-container" style="background:white">
+      <div class="columns">
+        <div class="column" id="courseListComponentContainer">
+          <%= render 'components/course_list' %>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>

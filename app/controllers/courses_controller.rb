@@ -23,6 +23,11 @@ class CoursesController < ApplicationController
         :pitzer => params[:pitzer] || false
     }
     schools.select! {|k,v| v}
+    if schools.length > 0
+      schools = schools.keys
+    else
+      schools = CourseMeetingDetail.campus.keys
+    end
 
     days = {
         :monday => params[:monday] || false,
@@ -60,11 +65,19 @@ class CoursesController < ApplicationController
           .where(:courses => {:number => number })
     end
 
-    matches = matches_query.all
+    matches = matches_query.order("courses.number").all
+    if(schools)
+      matches = matches.select { |section| schools.any? { |campus| section.course_meeting_details.any? {  |detail| detail.campus == campus.to_s } } }
+    end
     if(keywords)
       matches = matches.select { |section| keywords.any? { |keyword| section.course.name.include? keyword } }
     end
 
-    render :json => matches.to_json, :status => :ok
+    @course_sections = matches
+    respond_to do |format|
+      format.html { render :json => matches.to_json, :status => :ok }
+      format.json { render :json => matches.to_json, :status => :ok }
+      format.js
+    end
   end
 end

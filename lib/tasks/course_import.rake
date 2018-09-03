@@ -162,34 +162,54 @@ namespace :course_import do
   def _parse_meeting_data(meeting_info)
     # Parse Weekdays
     weekdays = meeting_info['Weekdays']
-    monday = weekdays.index('M') != -1
-    tuesday = weekdays.index('T') != -1
-    wednesday = weekdays.index('W') != -1
-    thursday = weekdays.index('R') != -1
-    friday = weekdays.index('F') != -1
+    monday = weekdays.include?('M')
+    tuesday = weekdays.include?('T')
+    wednesday = weekdays.include?('W')
+    thursday = weekdays.include?('R')
+    friday = weekdays.include?('F')
 
     # Parse begin/end times
-    meeting_time_raw = meeting_info['MeetTime']
-    start_time, start_pm, end_time, end_pm = meeting_time_raw.scan(/(\d+:\d+)(AM|PM)?-(\d+:\d+)(AM|PM)./)[0]
-    end_pm = end_pm == 'PM'
-    start_pm = start_pm == 'PM'
-
     begin
-      start_hour, start_minute = start_time.split(':').map(&:to_i)
-      end_hour, end_minute = end_time.split(':').map(&:to_i)
+      meeting_time_raw = meeting_info['MeetTime']
+      start_time_raw, start_pm, end_time_raw, end_pm = meeting_time_raw.scan(/(\d+:\d+)(AM|PM)?-(\d+:\d+)(AM|PM)./)[0]
+      end_pm = end_pm == 'PM'
+      start_pm = start_pm == 'PM'
+
+      start_hour, start_minute = start_time_raw.split(':').map(&:to_i)
+      end_hour, end_minute = end_time_raw.split(':').map(&:to_i)
+
+      end_hour += 12 if end_pm && end_hour > 12
+      start_hour += 12 if start_pm && start_hour > 12
+
+      start_time = Time.new(1970, nil, nil, start_hour, start_minute)
+      end_time = Time.new(1970, nil, nil, end_hour, end_minute)
     rescue
-      Rails.logger.error "Error parsing meeting time, skipping..."
-      puts "Error parsing meeting time #{meeting_time_raw}"
-      return nil
+      Rails.logger.error "Error parsing meeting time, skipping time parsing..."
+    ensure
+      start_time ||= nil
+      end_time ||= nil
     end
 
-    end_hour += 12 if end_pm && end_hour > 12
-    start_hour += 12 if start_pm && start_hour > 12
+    # Parse campus
+    begin
+      campus_code = meeting_info['Campus'].split(' ')[0]
+      campus_lookup = {
+          "POM" => :pomona,
+          "PO" => :pomona,
+          "CMC" => :claremont_mckenna,
+          "HM" => :harvey_mudd,
+          "SC" => :scripps,
+          "PZ" => :pitzer
+      }
 
-    start_time = Time.new(1970, nil, nil, start_hour, start_minute)
-    end_time = Time.new(1970, nil, nil, end_hour, end_minute)
+      campus = campus_lookup[campus_code]
+    rescue
+      Rails.logger.error "Error parsing campus, skipping campus parsing..."
+    ensure
+      campus ||= :unknown
+    end
 
-    # TODO: Campus, Location
+    # TODO: Location
     return {
         :monday => monday,
         :tuesday => tuesday,
@@ -197,7 +217,8 @@ namespace :course_import do
         :thursday => thursday,
         :friday => friday,
         :start_time => start_time,
-        :end_time => end_time
+        :end_time => end_time,
+        :campus => campus
     }
   end
 end
