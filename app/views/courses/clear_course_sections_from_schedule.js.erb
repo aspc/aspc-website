@@ -1,0 +1,2 @@
+$("#course-schedule-container")
+    .html("<%= escape_javascript(render partial: 'components/course_schedule', locals: { course_sections: @course_schedule.course_sections }) %>");

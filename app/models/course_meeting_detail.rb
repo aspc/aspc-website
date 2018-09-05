@@ -1,6 +1,10 @@
 class CourseMeetingDetail < ApplicationRecord
   enum campus: [ :unknown, :pomona, :claremont_mckenna, :harvey_mudd, :scripps, :pitzer ]
 
+  def ==(other)
+    days == other.days && start_time == other.start_time && end_time == other.end_time
+  end
+
   def days(options = {})
     days = {
         :monday => self.monday,
@@ -32,6 +36,19 @@ class CourseMeetingDetail < ApplicationRecord
     else
       s.join(" ")
     end
+  end
+
+  def day_offsets
+    s = []
+    days = self.days :present_only => true
+
+    s << 0 if days[:monday]
+    s << 1 if days[:tuesday]
+    s << 2 if days[:wednesday]
+    s << 3 if days[:thursday]
+    s << 4 if days[:friday]
+
+    s
   end
 
   def formatted_start_time

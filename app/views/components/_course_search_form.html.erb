@@ -33,7 +33,7 @@
   <div class="panel-block">
     <div class="field">
       <p class="help">Meets on</p>
-      <div class="field is-grouped" style="flex: 0 0 100%">
+      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
         <div class="control">
           <label class="checkbox">
             <%= check_box_tag(:monday) %>Mon
@@ -49,6 +49,8 @@
             <%= check_box_tag(:wednesday) %>Wed
           </label>
         </div>
+      </div>
+      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
         <div class="control">
           <label class="checkbox">
             <%= check_box_tag(:thursday) %>Thurs
@@ -65,30 +67,32 @@
   <div class="panel-block">
     <div class="field">
       <p class="help">At school</p>
-      <div class="field is-grouped" style="flex: 0 0 100%">
+      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:pomona) %>PO
+            <%= check_box_tag(:pomona) %><span class="campus_PO" style="border-radius: 4px; padding: 3px;">PO</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:claremont_mckenna) %>CM
+            <%= check_box_tag(:claremont_mckenna) %><span class="campus_CM" style="border-radius: 4px; padding: 3px;">CM</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:harvey_mudd) %>HM
+            <%= check_box_tag(:harvey_mudd) %><span class="campus_HM" style="border-radius: 4px; padding: 3px;">HM</span>
+          </label>
+        </div>
+      </div>
+      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
+        <div class="control">
+          <label class="checkbox">
+            <%= check_box_tag(:scripps) %><span class="campus_SC" style="border-radius: 4px; padding: 3px;">SC</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:scripps) %>SC
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:pitzer) %>PZ
+            <%= check_box_tag(:pitzer) %><span class="campus_PZ" style="border-radius: 4px; padding: 3px;">PZ</span>
           </label>
         </div>
       </div>
@@ -131,11 +135,3 @@
   </div>
 </nav>
 <% end %>
-
-<script>
-  $(document).ready(function() {
-      $("#search-button").click(function() {
-
-      });
-  });
-</script>

@@ -1,0 +1,25 @@
+<section class="hero is-primary is-hidden" id="alert-banner">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Success!
+            </h1>
+            <h2 class="subtitle">
+                <%= notice %>
+            </h2>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    $("#alert-banner")
+        .hide()
+        .removeClass("is-hidden")
+        .fadeIn();
+    setTimeout(function() { $("#alert-banner").fadeOut() }, 1000);
+})()
+</script>
+
+<!-- Required so that, in the case of AJAX calls, the banner doesn't persist. -->
+<% flash[:notice] = nil %>

@@ -149,7 +149,9 @@ namespace :course_import do
             next if parsed_course_meeting_info.nil?
 
             course_meeting_detail = CourseMeetingDetail.new(parsed_course_meeting_info)
-            section.course_meeting_details << course_meeting_detail
+            if !section.has_meeting_time? course_meeting_detail
+              section.course_meeting_details << course_meeting_detail
+            end
           end
         end unless meetings.nil?
 
@@ -172,17 +174,18 @@ namespace :course_import do
     begin
       meeting_time_raw = meeting_info['MeetTime']
       start_time_raw, start_pm, end_time_raw, end_pm = meeting_time_raw.scan(/(\d+:\d+)(AM|PM)?-(\d+:\d+)(AM|PM)./)[0]
+
       end_pm = end_pm == 'PM'
-      start_pm = start_pm == 'PM'
+      start_pm = start_pm.nil? ? end_pm : start_pm == 'PM'
 
       start_hour, start_minute = start_time_raw.split(':').map(&:to_i)
       end_hour, end_minute = end_time_raw.split(':').map(&:to_i)
 
-      end_hour += 12 if end_pm && end_hour > 12
-      start_hour += 12 if start_pm && start_hour > 12
+      end_hour += 12 if end_pm && end_hour < 12
+      start_hour += 12 if start_pm && start_hour < 12
 
-      start_time = Time.new(1970, nil, nil, start_hour, start_minute)
-      end_time = Time.new(1970, nil, nil, end_hour, end_minute)
+      start_time = DateTime.new(1970, 01, 01, start_hour, start_minute).utc
+      end_time = DateTime.new(1970, 01, 01, end_hour, end_minute).utc
     rescue
       Rails.logger.error "Error parsing meeting time, skipping time parsing..."
     ensure
@@ -194,9 +197,8 @@ namespace :course_import do
     begin
       campus_code = meeting_info['Campus'].split(' ')[0]
       campus_lookup = {
-          "POM" => :pomona,
           "PO" => :pomona,
-          "CMC" => :claremont_mckenna,
+          "CM" => :claremont_mckenna,
           "HM" => :harvey_mudd,
           "SC" => :scripps,
           "PZ" => :pitzer

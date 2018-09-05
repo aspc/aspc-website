@@ -1,12 +1,26 @@
-<% courses = local_assigns.fetch(:courses, []) %>
+<% course_sections = local_assigns.fetch(:course_sections, []) %>
 
+<div id="course-schedule-list">
+      <div class="tags" style="flex-wrap: nowrap; overflow-x: scroll; margin-bottom: 0.5rem; height: 3.0rem;">
+        <% course_sections.each do |section| %>
+        <span class="tag is-small campus_<%= section.course_meeting_details.try(:first).try(:campus_abbreviation) %>">
+          <%= section.code %>
+          <%= button_to "",
+                        courses_remove_path,
+                        :class => "delete is-small",
+                        :method => :post,
+                        :remote => true,
+                        :params => { :code_slug => section.code_slug, :authenticity_token => form_authenticity_token } %>
+        </span>
+        <% end %>
+      </div>
+</div>
 <div id="course-schedule"></div>
 
 <script>
     (function() {
       if($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
 
-      let courses = <%= raw courses.to_json %>;
       $('#course-schedule').weekCalendar({
           businessHours: {
               start: 8,
@@ -45,5 +59,28 @@
               return dayName;
           }
       });
+
+      $("#course-schedule").weekCalendar('gotoDate', new Date(1970, 0, 5));
   })();
+
+  (function() {
+      <% course_sections.each do |course_section| %>
+      <% course_section.course_meeting_details.each do |detail| %>
+
+      <% start_time = detail.start_time %>
+      <% end_time = detail.end_time %>
+      <% detail.day_offsets.each do |day_offset| %>
+
+      $('#course-schedule')
+          .weekCalendar('updateEvent', {
+              start: new Date(1970, 0, 5 + <%= day_offset %>, <%= start_time.hour %>, <%= start_time.min %>),
+              end: new Date(1970, 0, 5 + <%= day_offset %>, <%= end_time.hour %>, <%= end_time.min %>),
+              title: "<%= course_section.course.code %> <%= course_section.course.name %>",
+              id: "<%= detail.id.to_s + "_" + day_offset.to_s %>",
+              campus: "<%= detail.campus_abbreviation %>"
+          });
+      <% end %>
+      <% end %>
+      <% end %>
+  })()
 </script>

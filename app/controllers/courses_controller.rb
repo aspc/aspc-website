@@ -1,7 +1,58 @@
 class CoursesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @academic_terms = AcademicTerm.all
     @departments = Department.all
+    @course_sections = current_user.course_schedule.try(:course_sections)
+  end
+
+  # TODO: Move to course schedule controller ?
+  def add_course_section_to_schedule
+    code_slug= params[:code_slug]
+    @course_section = CourseSection.find_by(:code_slug => code_slug)
+
+    @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
+    if(@course_schedule.course_sections.none? { |section| section.code_slug == @course_section.code_slug })
+      @course_schedule.course_sections << @course_section
+      @course_schedule.save
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # TODO: Move to course schedule controller ?
+  def remove_course_section_from_schedule
+    @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
+
+    code_slug= params[:code_slug]
+    @course_section = CourseSection.find_by(:code_slug => code_slug)
+    @course_schedule.course_sections.delete(@course_section)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # TODO: Move to course schedule controller ?
+  def clear_course_sections_from_schedule
+    @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
+    @course_schedule.course_sections.delete(*@course_schedule.course_sections)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # TODO: Move to course schedule controller ?
+  # This method is actually completely redundant,
+  # but mas as well provide a placebo / verification
+  def save_course_sections_to_schedule
+    respond_to do |format|
+      format.js { flash.now[:notice] = "Schedule saved successfully." }
+    end
   end
 
   def search_course_sections
