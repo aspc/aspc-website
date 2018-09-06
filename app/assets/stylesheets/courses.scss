@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*
+ Course Schedule Calendar
+ */
 .wc-container {
   font-size: 14px;
   font-family: arial, helvetica;
@@ -295,6 +298,7 @@ table.wc-time-slots {
   font-size: 80%;
 }
 
+
 /*
  Campus Colors
  */
@@ -321,3 +325,22 @@ table.wc-time-slots {
 
 .wc-cal-event.campus_SC { background-color: #889e5a;}
 .wc-cal-event.campus_SC .wc-time { background-color: #889e5a; border-color: #73874c}
+
+/*
+ Element-specific stylings
+ */
+
+#course-list-results {
+  height: 85vh;
+}
+
+.course-tags {
+  flex-wrap: nowrap;
+  margin-bottom: 0.5rem !important;
+  height: 3.0rem !important;
+}
+
+.campus-label {
+  border-radius: 4px;
+  padding: 3px;
+}

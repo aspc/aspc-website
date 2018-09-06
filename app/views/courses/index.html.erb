@@ -26,13 +26,13 @@
                           :method => :post,
                           :remote => true %>
           </div>
-          <%= render 'components/course_search_form', academic_terms: @academic_terms, departments: @departments %>
+          <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments %>
         </div>
         <div class="column is-4 is-hidden" id="course-list-container" >
-          <%= render 'components/course_list' %>
+          <%= render 'courses/partials/course_list' %>
         </div>
         <div class="column" id="course-schedule-container">
-          <%= render 'components/course_schedule', course_sections: @course_sections %>
+          <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 $("#course-list-container")
-    .html("<%= escape_javascript(render partial: 'components/course_list', locals: { course_sections: @course_sections }) %>");
+    .html("<%= escape_javascript(render partial: 'courses/partials/course_list', locals: { course_sections: @course_sections }) %>");
 
 $("#course-list-container")
     .removeClass("is-hidden");

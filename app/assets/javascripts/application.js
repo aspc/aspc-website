@@ -23,7 +23,10 @@
 
 //= require weekcalendar-2.0/jquery.weekcalendar.js
 
-//=  require bulma-calendar/dist/js/bulma-calendar.js
+//= require bulma-calendar/dist/js/bulma-calendar.js
 
-//= require events.coffee
-//= require sessions.coffee
+// Page specifc javascript here
+//= require events.js
+//= require sessions.js
+//= require static.js
+//= require courses.js

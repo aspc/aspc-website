@@ -1,7 +1,7 @@
 <% course_sections = local_assigns.fetch(:course_sections, []) %>
 
 <div id="course-schedule-list">
-      <div class="tags" style="flex-wrap: nowrap; overflow-x: scroll; margin-bottom: 0.5rem; height: 3.0rem;">
+      <div class="tags course-tags horizontal-scroll">
         <% course_sections.each do |section| %>
         <span class="tag is-small campus_<%= section.course_meeting_details.try(:first).try(:campus_abbreviation) %>">
           <%= section.code %>

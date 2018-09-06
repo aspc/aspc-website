@@ -2,11 +2,11 @@
 
 <% if course_sections %>
 <div class="buttons is-right">
-  <button class="button" style="border: none;">
+  <button class="button has-no-border" style="border: none;">
     Showing <%= course_sections.length %> results
   </button>
 </div>
-  <div style="height: 85vh; overflow: scroll;">
+  <div id="course-list-results" class="vertical-scroll">
     <% course_sections.each do |section| %>
     <article class="message is-info">
       <div class="message-header">

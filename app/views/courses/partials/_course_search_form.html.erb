@@ -2,7 +2,7 @@
 <% departments = local_assigns.fetch(:departments) %>
 
 <%= form_with url: courses_search_url, remote: true do |f| %>
-<nav class="panel">
+<nav class="panel" id="course-search-form">
   <p class="panel-heading">
       Course Search
   </p>
@@ -33,7 +33,7 @@
   <div class="panel-block">
     <div class="field">
       <p class="help">Meets on</p>
-      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
+      <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
         <div class="control">
           <label class="checkbox">
             <%= check_box_tag(:monday) %>Mon
@@ -67,32 +67,32 @@
   <div class="panel-block">
     <div class="field">
       <p class="help">At school</p>
-      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
+      <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:pomona) %><span class="campus_PO" style="border-radius: 4px; padding: 3px;">PO</span>
+            <%= check_box_tag(:pomona) %><span class="campus-label campus_PO">PO</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:claremont_mckenna) %><span class="campus_CM" style="border-radius: 4px; padding: 3px;">CM</span>
+            <%= check_box_tag(:claremont_mckenna) %><span class="campus-label campus_CM">CM</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:harvey_mudd) %><span class="campus_HM" style="border-radius: 4px; padding: 3px;">HM</span>
+            <%= check_box_tag(:harvey_mudd) %><span class="campus-label campus_HM">HM</span>
           </label>
         </div>
       </div>
       <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:scripps) %><span class="campus_SC" style="border-radius: 4px; padding: 3px;">SC</span>
+            <%= check_box_tag(:scripps) %><span class="campus-label campus_SC">SC</span>
           </label>
         </div>
         <div class="control">
           <label class="checkbox">
-            <%= check_box_tag(:pitzer) %><span class="campus_PZ" style="border-radius: 4px; padding: 3px;">PZ</span>
+            <%= check_box_tag(:pitzer) %><span class="campus-label campus_PZ">PZ</span>
           </label>
         </div>
       </div>
