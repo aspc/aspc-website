@@ -5,6 +5,15 @@ Rails.application.routes.draw do
 
   resources :events
 
+  scope controller: :courses do
+    get 'courses' => :index
+    post 'courses/add' => :add_course_section_to_schedule
+    post 'courses/remove' => :remove_course_section_from_schedule
+    post 'courses/clear' => :clear_course_sections_from_schedule
+    post 'courses/save' => :save_course_sections_to_schedule
+    match 'courses/search' => :search_course_sections, :via => [:get, :post]
+  end
+
   scope controller: :sessions do
     get   'login' => :new
     match 'logout' => :destroy, :via => [:get, :destroy]

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  key: MyString
+  session: MyString
+  year: 1
+
+two:
+  key: MyString
+  session: MyString
+  year: 1

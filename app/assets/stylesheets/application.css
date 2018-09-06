@@ -11,17 +11,44 @@
  * It is generally better to create a new file per style scope.
  *
  *= require fullcalendar-3.9.0/fullcalendar.css
- *= require_self
+ *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
  *= require scaffolds.scss
- *= require events.scss
- *= require sessions.scss
- *= require static.scss
- *=
  *= require bulma/css/bulma.css
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
-
+ *
+ * Page specific styles here
+ *= require events.scss
+ *= require sessions.scss
+ *= require courses.scss
+ *= require static.scss
+ *
+ * Global styles defined in this file
+ *= require_self
  */
 
+/*
+ * 5C School Accent Colors
+ */
+.campus_UU { background-color: #9c9e9e !important; color: white !important; }
+.campus_CGU { background-color: #71101b !important; color: white !important; }
+.campus_CM { background-color: #da3d38 !important; color: white !important; }
+.campus_CU { background-color: #391858 !important; color: white !important; }
+.campus_KS { background-color: #391858 !important; color: white !important; }
+.campus_HM { background-color: #ca9a0a !important; color: white !important; }
+.campus_PO { background-color: #1860cc !important; color: white !important; }
+.campus_PZ { background-color: #f49700 !important; color: white !important; }
+.campus_SC { background-color: #889e5a !important; color: white !important; }
 
+/*
+ * Global Helpers
+ */
+
+.horizontal-scroll {
+    overflow-x: scroll;
+}
+
+.vertical-scroll {
+    overflow-y: scroll;
+}

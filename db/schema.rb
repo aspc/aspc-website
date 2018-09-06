@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_201138) do
+ActiveRecord::Schema.define(version: 2018_09_04_063625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_terms", force: :cascade do |t|
+    t.string "key"
+    t.string "session"
+    t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -29,6 +37,86 @@ ActiveRecord::Schema.define(version: 2018_08_23_201138) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "course_meeting_details", force: :cascade do |t|
+    t.time "start_time"
+    t.time "end_time"
+    t.boolean "monday", default: false, null: false
+    t.boolean "tuesday", default: false, null: false
+    t.boolean "wednesday", default: false, null: false
+    t.boolean "thursday", default: false, null: false
+    t.boolean "friday", default: false, null: false
+    t.integer "campus", default: 0, null: false
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_section_id"
+    t.index ["course_section_id"], name: "index_course_meeting_details_on_course_section_id"
+  end
+
+  create_table "course_schedules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_course_schedules_on_user_id"
+  end
+
+  create_table "course_schedules_sections", id: false, force: :cascade do |t|
+    t.bigint "course_schedule_id", null: false
+    t.bigint "course_section_id", null: false
+    t.index ["course_schedule_id"], name: "index_course_schedules_sections_on_course_schedule_id"
+    t.index ["course_section_id"], name: "index_course_schedules_sections_on_course_section_id"
+  end
+
+  create_table "course_sections", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "code_slug", null: false
+    t.text "description"
+    t.decimal "credit", default: "1.0", null: false
+    t.integer "perms"
+    t.integer "spots"
+    t.boolean "filled"
+    t.boolean "fee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.bigint "academic_term_id"
+    t.index ["academic_term_id"], name: "index_course_sections_on_academic_term_id"
+    t.index ["course_id"], name: "index_course_sections_on_course_id"
+  end
+
+  create_table "course_sections_instructors", id: false, force: :cascade do |t|
+    t.bigint "course_section_id", null: false
+    t.bigint "instructor_id", null: false
+    t.index ["course_section_id"], name: "index_course_sections_instructors_on_course_section_id"
+    t.index ["instructor_id"], name: "index_course_sections_instructors_on_instructor_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "code_slug", null: false
+    t.integer "number", default: 0, null: false
+    t.text "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_courses_on_code", unique: true
+    t.index ["code_slug"], name: "index_courses_on_code_slug", unique: true
+  end
+
+  create_table "courses_departments", id: false, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "department_id", null: false
+    t.index ["course_id"], name: "index_courses_departments_on_course_id"
+    t.index ["department_id"], name: "index_courses_departments_on_department_id"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_departments_on_code", unique: true
+  end
+
   create_table "events", force: :cascade do |t|
     t.text "name", null: false
     t.datetime "start", null: false
@@ -42,6 +130,15 @@ ActiveRecord::Schema.define(version: 2018_08_23_201138) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status"], name: "index_events_on_status"
+  end
+
+  create_table "instructors", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "inclusivity_rating"
+    t.decimal "competency_rating"
+    t.decimal "challenge_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
