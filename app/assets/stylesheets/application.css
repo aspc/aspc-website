@@ -16,9 +16,12 @@
  *= require scaffolds.scss
  *= require events.scss
  *= require sessions.scss
+ *= require static.scss
+ *=
  *= require bulma/css/bulma.css
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
+
  */
 
 

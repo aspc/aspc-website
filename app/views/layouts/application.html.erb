@@ -85,40 +85,28 @@
                 <div class="columns">
                   <div class="column">
                     <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
-                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
-                      <div class="navbar-content">
-
-                        <p>Senators</p>
+                        <%= link_to 'Senators', aspc_senators_path, :class => 'navbar-item'%>
                       </div>
-                    </a>
-                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
                       <div class="navbar-content">
-
-                        <p>Staff Members</p>
+                        <%= link_to 'Staff', aspc_committee_path, :class => 'navbar-item'%>
                       </div>
-                    </a>
-                    <a class="navbar-item" href="/2017/08/03/list-of-tags/">
                       <div class="navbar-content">
-
-                        <p>Committee Members</p>
+                        <%= link_to 'Committee Members', aspc_committee_path, :class => 'navbar-item'%>
                       </div>
-                    </a>
+                      <div class="navbar-content">
+                        <%= link_to 'Software Development Team', aspc_software_path, :class => 'navbar-item'%>
+                      </div>
 
-                  <a class="navbar-item" href="/2017/08/03/list-of-tags/">
-                    <div class="navbar-content">
 
-                      <p>Software Development Team</p>
-                    </div>
-                  </a>
                   </div>
                   <div class="column">
                     <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
-                    <a class="navbar-item " href="/documentation/overview/start/">
-                      Positions
-                    </a>
-                    <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
-                      Policies
-                    </a>
+                    <div class="navbar-content">
+                      <%= link_to 'Positions', aspc_positions_path, :class => 'navbar-item'%>
+                    </div>
+                    <div class="navbar-content">
+                      <%= link_to 'Policies', aspc_policies_path, :class => 'navbar-item'%>
+                    </div>
                     <a class="navbar-item " href="http://bulma.io/documentation/columns/basics/">
                       Budget
                     </a>
@@ -138,31 +126,49 @@
                       Voting
                       </a>
                   </div>
-                </div>
               </div>
             </div>
-          </div>
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link  is-active" href="/documentation/overview/start/">
-              Resources
-            </a>
-            <div class="navbar-dropdown ">
-              <a class="navbar-item " href="/documentation/overview/start/">
-                PEC
-              </a>
-              <a class="navbar-item " href="http://bulma.io/documentation/modifiers/syntax/">
-                Club Resources
-              </a>
-              <a class="navbar-item " href="/documentation/overview/start/">
-                Coop Store
-              </a>
-              <a class="navbar-item " href="/documentation/overview/start/">
-                On-Campus Eateries
-              </a>
 
-              <div class="navbar-item">
+
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link  is-active" href="/documentation/overview/start/">
+                Resources
+              </a>
+              <div class="navbar-dropdown ">
+              <div class="navbar-content ">
+                <%= link_to 'PEC', resources_pec_path, :class => 'navbar-item'%>
+              </div>
+                <div class="navbar-content">
+                  <%= link_to 'Club Resources', resources_clubs_path, :class => 'navbar-item'%>
+                </div>
+              <div class="navbar-content">
+                <%= link_to 'Coop Store', resources_clubs_path, :class => 'navbar-item'%>
+              </div>
+              <div class="navbar-content">
+                <%= link_to 'On Campus Eateries', resources_clubs_path, :class => 'navbar-item'%>
+              </div>
+              <div class="navbar-content">
+                <%= link_to 'API', resources_api_path, :class => 'navbar-item'%>
+              </div>
+              <div class="navbar-content">
+                <%= link_to 'The Student Life', resources_api_path, :class => 'navbar-item'%>
+              </div>
+              <div class="navbar-content">
+                <%= link_to 'KSPC 88.7', resources_api_path, :class => 'navbar-item'%>
+              </div>
+              <div class="navbar-content">
+                <%= link_to 'Studio 47', resources_api_path, :class => 'navbar-item'%>
+              </div>
+              </div>
+
 
               </div>
+            </div>
+
+
+
+      </div>
             </div>
           </div>
         </div>
