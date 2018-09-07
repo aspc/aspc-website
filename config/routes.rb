@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     match 'courses/search' => :search_course_sections, :via => [:get, :post]
   end
 
+  scope controller: :menu do
+    get 'menus' => :index
+  end
+
   scope controller: :sessions do
     get   'login' => :new
     match 'logout' => :destroy, :via => [:get, :destroy]
