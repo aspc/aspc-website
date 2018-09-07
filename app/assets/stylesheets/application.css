@@ -29,6 +29,28 @@
  */
 
 /*
+ * Header/Footer/Page Content
+ */
+
+#alert-banner-container {
+    height: 0;
+    z-index: 100;
+}
+
+.application-body-container {
+    background:#2C3E50;
+}
+
+.application-content-section, .application-content-container {
+    background: white;
+}
+
+.application-footer {
+    background: #0071a6;
+    color: whitesmoke;
+}
+
+/*
  * 5C School Accent Colors
  */
 .campus_UU { background-color: #9c9e9e !important; color: white !important; }

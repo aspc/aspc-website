@@ -1,45 +1,27 @@
-<section class="section" style="background:#2C3E50">
-  <section class="hero is-primary" style="background: #0071a6">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">Course Scheduler</h1>
-        <h2 class="subtitle">
-          Browse courses and plan your schedule
-        </h2>
-      </div>
-    </div>
-  </section>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Course Scheduler", :subtitle => "Browse courses and plan your schedule" %>
+<% end %>
 
-  <section class="section" style="background:white">
-    <div class="container" style="background:white">
-      <div class="columns">
-        <div class="column is-3">
-          <div class="buttons">
-            <%= button_to "Save Schedule",
-                          courses_save_path,
-                          :class => "button is-info",
-                          :method => :post,
-                          :remote => true %>
-            <%= button_to "Clear Schedule",
-                          courses_clear_path,
-                          :class => "button",
-                          :method => :post,
-                          :remote => true %>
-          </div>
-          <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments %>
-        </div>
-        <div class="column is-4 is-hidden" id="course-list-container" >
-          <%= render 'courses/partials/course_list' %>
-        </div>
-        <div class="column" id="course-schedule-container">
-          <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
-        </div>
-      </div>
+<div class="columns">
+  <div class="column is-3">
+    <div class="buttons">
+      <%= button_to "Save Schedule",
+                    courses_save_path,
+                    :class => "button is-info",
+                    :method => :post,
+                    :remote => true %>
+      <%= button_to "Clear Schedule",
+                    courses_clear_path,
+                    :class => "button",
+                    :method => :post,
+                    :remote => true %>
     </div>
-
-    <!--<div class="container course-list-container" style="background:white">
-      <div class="columns">
-      </div>
-    </div>-->
-  </section>
-</section>
+    <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments %>
+  </div>
+  <div class="column is-4 is-hidden" id="course-list-container" >
+    <%= render 'courses/partials/course_list' %>
+  </div>
+  <div class="column" id="course-schedule-container">
+    <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+  </div>
+</div>

@@ -1,12 +1,6 @@
-<section class="hero is-primary">
-  <div class="hero">
-    <div class="container">
-      <h1 class="title" align="center">
-        Policies
-      </h1>
-    </div>
-  </div>
-</section>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Policies", :subtitle => "A resource list of ASPC's policies" %>
+<% end %>
 
 <br/>
 
@@ -16,6 +10,6 @@
     <br/>
     <%= link_to 'Bylaws', aspc_policies_bylaws_path, :class => 'button is-primary is-large is-fullwidth'%>
     <br/>
-    <%= link_to 'Constitution', aspc_policies_constitution_path, :class => 'button is-primary is-large is-fullwidth'%>
+    <%= link_to 'Elections Code', aspc_policies_electionscode_path, :class => 'button is-primary is-large is-fullwidth'%>
   </div>
 </div>
