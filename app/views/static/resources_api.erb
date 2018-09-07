@@ -1,35 +1,27 @@
-<section class="hero is-primary">
-  <div class="hero">
-    <div class="container">
-      <h1 class="title" align="center">
-        API (For Developers)
-      </h1>
-    </div>
-  </div>
-</section>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "API", :subtitle => "A standardized way to access ASPC features." %>
+<% end %>
 
-<br/>
-
-<div class="container">
-  <div class="content api-content">
-    <h1>ASPC API</h1>
-    <p>A standardized way to access ASPC features. Currently there are only APIs for the Menu and Courses.</p>
-    <h2>Authentication Token</h2>
-    <p>Your authentication token is: 7e6806264aa1455fba544ef4c42b48ffce108d9c</p>
-    <p>Please use this authentication token to access all the endpoints below. You are limited to 1000 requests per day. Please contact digitalmedia@aspc.pomona.edu if you wish to raise the limit.</p>
-    <h2>Example using cURL</h2>
-    <pre>
+<div class="content api-content">
+  <h1>ASPC API</h1>
+  <p>A standardized way to access ASPC features. Currently there are only APIs for the Menu and Courses.</p>
+  <h2>Authentication Token</h2>
+  <p>Your authentication token is: 7e6806264aa1455fba544ef4c42b48ffce108d9c</p>
+  <p>Please use this authentication token to access all the endpoints below. You are limited to 1000 requests per day.
+    Please contact digitalmedia@aspc.pomona.edu if you wish to raise the limit.</p>
+  <h2>Example using cURL</h2>
+  <pre>
       <code>
    curl -H "Authorization: Token 7e6806264aa1455fba544ef4c42b48ffce108d9c" https://aspc.pomona.edu/api/menu/
       </code></pre>
-    <p>OR</p>
-    <pre>
+  <p>OR</p>
+  <pre>
       <code>
   curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h2>Example using JavaScript</h2>
-    <pre>
+  <h2>Example using JavaScript</h2>
+  <pre>
       <code>
 var auth_token = '7e6806264aa1455fba544ef4c42b48ffce108d9c',
 api_endpoint = 'https://aspc.pomona.edu/api/menu/',
@@ -45,8 +37,8 @@ response = null;
 
       </code>
     </pre>
-    <h2>Example using Python</h2>
-    <pre>
+  <h2>Example using Python</h2>
+  <pre>
       <code>
 import requests
 import json
@@ -61,17 +53,17 @@ response = requests.get(
 data = json.loads(response.text)
       </code>
     </pre>
-    <h2>Menu Endpoints</h2>
-    <h3>All Menus [/api/menu/]</h3>
-    <p>Lists all menus</p>
-    <h3>Example request (GET)</h3>
-    <pre>
+  <h2>Menu Endpoints</h2>
+  <h3>All Menus [/api/menu/]</h3>
+  <p>Lists all menus</p>
+  <h3>Example request (GET)</h3>
+  <pre>
       <code>
 curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h3>Example response 200 (application/json)</h3>
-    <pre>
+  <h3>Example response 200 (application/json)</h3>
+  <pre>
       <code>
 [
     {
@@ -91,29 +83,29 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 ]
       </code>
     </pre>
-    <h3>Menus By Dining Hall [/api/menu/dining_hall/{dining_hall}/]</h3>
-    <p>Lists all menus by a specific dining hall</p>
-    <h4>Parameters</h4>
-    <p>dining_hall (enum[string])</p>
-    <p>Name of the Dining Hall</p>
-    <p>Members</p>
-    <ul>
-      <li>frary</li>
-      <li>frank</li>
-      <li>oldenborg</li>
-      <li>cmc</li>
-      <li>scripps</li>
-      <li>mudd</li>
-      <li>cmc</li>
-    </ul>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Menus By Dining Hall [/api/menu/dining_hall/{dining_hall}/]</h3>
+  <p>Lists all menus by a specific dining hall</p>
+  <h4>Parameters</h4>
+  <p>dining_hall (enum[string])</p>
+  <p>Name of the Dining Hall</p>
+  <p>Members</p>
+  <ul>
+    <li>frary</li>
+    <li>frank</li>
+    <li>oldenborg</li>
+    <li>cmc</li>
+    <li>scripps</li>
+    <li>mudd</li>
+    <li>cmc</li>
+  </ul>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/menu/dining_hall/cmc?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
         [
     {
@@ -133,29 +125,29 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 ]
       </code>
     </pre>
-    <h3>Menus By Day [/api/menu/day/{day}/]</h3>
-    <p>Lists all menus by a specific day of the week</p>
-    <h4>Parameters</h4>
-    <p>day (enum[string])</p>
-    <p>Name of the day of the week</p>
-    <p>Members</p>
-    <ul>
-      <li>mon</li>
-      <li>tue</li>
-      <li>wed</li>
-      <li>thu</li>
-      <li>fri</li>
-      <li>sat</li>
-      <li>sun</li>
-    </ul>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Menus By Day [/api/menu/day/{day}/]</h3>
+  <p>Lists all menus by a specific day of the week</p>
+  <h4>Parameters</h4>
+  <p>day (enum[string])</p>
+  <p>Name of the day of the week</p>
+  <p>Members</p>
+  <ul>
+    <li>mon</li>
+    <li>tue</li>
+    <li>wed</li>
+    <li>thu</li>
+    <li>fri</li>
+    <li>sat</li>
+    <li>sun</li>
+  </ul>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/menu/day/fri?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
 [
     {
@@ -175,41 +167,41 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 ]
       </code>
     </pre>
-    <h3>Menus By Dining Hall and Day [/api/menu/dining_hall/{dining_hall}/day/{day}/]</h3>
-    <p>Lists all menus by dining hall and a specific day of the week</p>
-    <h4>Parameters</h4>
-    <p>dining_hall (enum[string])</p>
-    <p> Name of Dining Hall</p>
-    <p>Members</p>
-    <ul>
-      <li>frary</li>
-      <li>frank</li>
-      <li>oldenborg</li>
-      <li>cmc</li>
-      <li>scripps</li>
-      <li>mudd</li>
-      <li>cmc</li>
-    </ul>
-    <p>day (enum[string])</p>
-    <p>Name of the day of the week</p>
-    <p>Members</p>
-    <ul>
-      <li>mon</li>
-      <li>tue</li>
-      <li>wed</li>
-      <li>thu</li>
-      <li>fri</li>
-      <li>sat</li>
-      <li>sun</li>
-    </ul>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Menus By Dining Hall and Day [/api/menu/dining_hall/{dining_hall}/day/{day}/]</h3>
+  <p>Lists all menus by dining hall and a specific day of the week</p>
+  <h4>Parameters</h4>
+  <p>dining_hall (enum[string])</p>
+  <p> Name of Dining Hall</p>
+  <p>Members</p>
+  <ul>
+    <li>frary</li>
+    <li>frank</li>
+    <li>oldenborg</li>
+    <li>cmc</li>
+    <li>scripps</li>
+    <li>mudd</li>
+    <li>cmc</li>
+  </ul>
+  <p>day (enum[string])</p>
+  <p>Name of the day of the week</p>
+  <p>Members</p>
+  <ul>
+    <li>mon</li>
+    <li>tue</li>
+    <li>wed</li>
+    <li>thu</li>
+    <li>fri</li>
+    <li>sat</li>
+    <li>sun</li>
+  </ul>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/menu/dining_hall/cmc/day/fri?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
 [
     {
@@ -229,49 +221,49 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 ]
       </code>
     </pre>
-    <h3>Menus By Dining Hall, Day, and Meal [/api/menu/dining_hall/{dining_hall}/day/{day}/meal/{meal}/]</h3>
-    <p>Find a menu with a specific dining hall, specific day of the week, and meal</p>
-    <h4>Parameters</h4>
-    <p>meal (enum[string])</p>
-    <p> Name of the meal</p>
-    <p>Members</p>
-    <ul>
-      <li>breakfast</li>
-      <li>lunch</li>
-      <li>dinner</li>
-    </ul>
-    <p>dining_hall (enum[string])</p>
-    <p> Name of Dining Hall</p>
-    <p>Members</p>
-    <ul>
-      <li>frary</li>
-      <li>frank</li>
-      <li>oldenborg</li>
-      <li>cmc</li>
-      <li>scripps</li>
-      <li>mudd</li>
-      <li>cmc</li>
-    </ul>
-    <p>day (enum[string])</p>
-    <p>Name of the day of the week</p>
-    <p>Members</p>
-    <ul>
-      <li>mon</li>
-      <li>tue</li>
-      <li>wed</li>
-      <li>thu</li>
-      <li>fri</li>
-      <li>sat</li>
-      <li>sun</li>
-    </ul>
-      <h4>Example request (GET)</h4>
-      <pre>
+  <h3>Menus By Dining Hall, Day, and Meal [/api/menu/dining_hall/{dining_hall}/day/{day}/meal/{meal}/]</h3>
+  <p>Find a menu with a specific dining hall, specific day of the week, and meal</p>
+  <h4>Parameters</h4>
+  <p>meal (enum[string])</p>
+  <p> Name of the meal</p>
+  <p>Members</p>
+  <ul>
+    <li>breakfast</li>
+    <li>lunch</li>
+    <li>dinner</li>
+  </ul>
+  <p>dining_hall (enum[string])</p>
+  <p> Name of Dining Hall</p>
+  <p>Members</p>
+  <ul>
+    <li>frary</li>
+    <li>frank</li>
+    <li>oldenborg</li>
+    <li>cmc</li>
+    <li>scripps</li>
+    <li>mudd</li>
+    <li>cmc</li>
+  </ul>
+  <p>day (enum[string])</p>
+  <p>Name of the day of the week</p>
+  <p>Members</p>
+  <ul>
+    <li>mon</li>
+    <li>tue</li>
+    <li>wed</li>
+    <li>thu</li>
+    <li>fri</li>
+    <li>sat</li>
+    <li>sun</li>
+  </ul>
+  <h4>Example request (GET)</h4>
+  <pre>
         <code>
           curl "https://aspc.pomona.edu/api/menu/dining_hall/cmc/day/fri/meal/breakfast?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
         </code>
       </pre>
-      <h4>Example response 200 (application/json)</h4>
-      <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
           <code>
 {
     "day": "fri",
@@ -282,16 +274,16 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 }
           </code>
       </pre>
-      <h3>All Departments [/api/departmentss/{name}/]</h3>
-    <p>List all departments</p>
-    <h4>Example Request</h4>
-    <pre>
+  <h3>All Departments [/api/departmentss/{name}/]</h3>
+  <p>List all departments</p>
+  <h4>Example Request</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/departments?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
         {
     ...
@@ -309,16 +301,16 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 }
       </code>
     </pre>
-    <h3>All Instructors [/api/instructors/{name}/]</h3>
-    <p>List all instructors.</p>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>All Instructors [/api/instructors/{name}/]</h3>
+  <p>List all instructors.</p>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/instructors?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
         {
     ...
@@ -353,19 +345,19 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 
       </code>
     </pre>
-    <h3>Instructors by Name [/api/instructors/{name}/]</h3>
-    <p>Find instructors with their full or partial names.</p>
-    <h4>Parameters</h4>
-    <p>name (enum[string])</p>
-    <p>The full or partial name of the instructor.</p>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Instructors by Name [/api/instructors/{name}/]</h3>
+  <p>Find instructors with their full or partial names.</p>
+  <h4>Parameters</h4>
+  <p>name (enum[string])</p>
+  <p>The full or partial name of the instructor.</p>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/instructors/yamashita?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
 {
         "id": 220,
@@ -382,18 +374,18 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 }
       </code>
     </pre>
-    <h3>
-      All Courses [/api/courses/{name}/]
-    </h3>
-    <p>List all courses.</p>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>
+    All Courses [/api/courses/{name}/]
+  </h3>
+  <p>List all courses.</p>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
       curl "https://aspc.pomona.edu/api/courses?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
         {
     ...
@@ -441,19 +433,19 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 }
       </code>
     </pre>
-    <h3>Courses by instructor [/api/courses/instructor/{instructor_id}/]</h3>
-    <p>Find courses taught by an instructor.</p>
-    <h4>Parameters</h4>
-    <p>instructor_id (enum[string])</p>
-    <p>The id of the instructor.</p>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Courses by instructor [/api/courses/instructor/{instructor_id}/]</h3>
+  <p>Find courses taught by an instructor.</p>
+  <h4>Parameters</h4>
+  <p>instructor_id (enum[string])</p>
+  <p>The id of the instructor.</p>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/courses/instructor/47?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
 {
     {
@@ -480,19 +472,19 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 
       </code>
     </pre>
-    <h3>Courses by department [/api/courses/department/{department-id}/]</h3>
-    <p>Find courses in a department</p>
-    <h4>Parameters</h4>
-    <p>department-id (enum[string])</p>
-    <p>The id of the department.</p>
-    <h4>Example request (GET)</h4>
-    <pre>
+  <h3>Courses by department [/api/courses/department/{department-id}/]</h3>
+  <p>Find courses in a department</p>
+  <h4>Parameters</h4>
+  <p>department-id (enum[string])</p>
+  <p>The id of the department.</p>
+  <h4>Example request (GET)</h4>
+  <pre>
       <code>
         curl "https://aspc.pomona.edu/api/courses/department/25?auth_token=7e6806264aa1455fba544ef4c42b48ffce108d9c"
       </code>
     </pre>
-    <h4>Example response 200 (application/json)</h4>
-    <pre>
+  <h4>Example response 200 (application/json)</h4>
+  <pre>
       <code>
 {
     ...
@@ -540,5 +532,4 @@ curl "https://aspc.pomona.edu/api/menu/?auth_token=7e6806264aa1455fba544ef4c42b4
 }
       </code>
     </pre>
-  </div>
 </div>

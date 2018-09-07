@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :setup_application_controller_environment
 
+  helper_method :current_user
+  helper_method :is_admin?
+  helper_method :logged_in?
+
   def current_user
     User.find_by_id(session[:current_user_id])
   end
