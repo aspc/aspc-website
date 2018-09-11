@@ -143,12 +143,14 @@ ActiveRecord::Schema.define(version: 2018_09_07_210501) do
 
   create_table "menu_items", force: :cascade do |t|
     t.text "name", null: false
+    t.string "station"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "menu_id"
     t.index ["menu_id"], name: "index_menu_items_on_menu_id"
     t.index ["name"], name: "index_menu_items_on_name"
+    t.index ["station"], name: "index_menu_items_on_station"
   end
 
   create_table "menus", force: :cascade do |t|
