@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   scope controller: :menu do
     get 'menus' => :index
+    match 'menus/:dining_hall' => :show, :via => [:get, :post]
   end
 
   scope controller: :sessions do
