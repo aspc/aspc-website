@@ -100,7 +100,7 @@ namespace :menu_import do
 
     Rails.logger.info "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
 
-    #response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
+    # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
     menu_page = Nokogiri::HTML(open(endpoint))
     menu_week = JSON.parse menu_page.css('div#nutData').text
 
@@ -125,6 +125,44 @@ namespace :menu_import do
     end
 
     Rails.logger.info "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
+  end
+
+  desc "Imports Scripps Menu"
+  task :scripps => :environment do
+    query = {
+        :menuId => '288',
+        :locationId => '10638001',
+        :startDate => _get_current_week().second # Scripps menu weeks start on Monday
+    }
+    endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
+
+    Rails.logger.info "Importing Scripps Menu for week #{_get_current_week.first}..."
+
+    # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
+    menu_page = Nokogiri::HTML(open(endpoint))
+    menu_week = JSON.parse menu_page.css('div#nutData').text
+
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :scripps).destroy_all
+
+    menu_week.each do |day|
+      day_name = DateTime.parse(day['date']).strftime('%A').downcase # "Monday" --> "monday"
+
+      menu_items = day['menuItems']
+      menu_items.each do |menu_item|
+        meal_type = menu_item['meal'].downcase.split('/')[0] # lunch/brunch ==> lunch
+
+        scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type) # No duplicate menus
+
+        food_station = menu_item['course'].titleize
+        food_name = menu_item['formalName']
+
+        MenuItem.create(:name => food_name, :station => food_station, :menu => scripps_menu)
+
+      end
+    end
+
+    Rails.logger.info "Successfully imported Scripps Menu for week #{_get_current_week.first}"
   end
 
   def _get_current_week
