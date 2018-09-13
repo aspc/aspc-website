@@ -89,12 +89,49 @@ namespace :menu_import do
     Rails.logger.info "Successfully imported Pitzer Menu for week #{_get_current_week.first}"
   end
 
+  desc "Imports Harvey Mudd Menu "
+  task :harvey_mudd => :environment do
+    query = {
+        :menuId => '344',
+        :locationId => '13147001',
+        :startDate => _get_current_week().second # Mudd menu weeks start on Monday
+    }
+    endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
+
+    Rails.logger.info "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
+
+    #response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
+    menu_page = Nokogiri::HTML(open(endpoint))
+    menu_week = JSON.parse menu_page.css('div#nutData').text
+
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :harvey_mudd).destroy_all
+
+    menu_week.each do |day|
+      day_name = DateTime.parse(day['date']).strftime('%A').downcase # "Monday" --> "monday"
+
+      menu_items = day['menuItems']
+      menu_items.each do |menu_item|
+        meal_type = menu_item['meal'].downcase
+
+        mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type) # No duplicate menus
+
+        food_station = menu_item['course'].titleize
+        food_name = menu_item['formalName']
+
+        MenuItem.create(:name => food_name, :station => food_station, :menu => mudd_menu)
+
+      end
+    end
+
+    Rails.logger.info "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
+  end
+
   def _get_current_week
     week = []
     today = Date.today.wday
     sunday = Date.today - today # Get the current sunday for the week
 
-    date = sunday
     (0..6).each do |i|
       date = sunday + i
       week << date.iso8601
