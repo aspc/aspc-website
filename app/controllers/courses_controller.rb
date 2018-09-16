@@ -4,7 +4,9 @@ class CoursesController < ApplicationController
   def index
     @academic_terms = AcademicTerm.all
     @departments = Department.all
-    @course_sections = current_user.course_schedule.try(:course_sections)
+
+    user_course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
+    @course_sections = user_course_schedule.course_sections
   end
 
   # TODO: Move to course schedule controller ?
