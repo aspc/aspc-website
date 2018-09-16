@@ -30,3 +30,4 @@
 //= require sessions.js
 //= require static.js
 //= require courses.js
+//= require menu.js

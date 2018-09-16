@@ -30,8 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# For scraping the Pomona menu
+gem 'watir', '~> 6.14.0'
 
 # For sending http requests
 gem 'httparty', '~> 0.16.2'

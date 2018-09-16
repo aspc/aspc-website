@@ -1,0 +1,25 @@
+<% dining_hall = local_assigns.fetch(:dining_hall) %>
+<% day = local_assigns.fetch(:day) %>
+
+<% menu_for_day_and_dining_hall = Menu.where(:dining_hall => dining_hall).select {|x| x.day == day}.group_by(&:meal_type) %>
+
+<% if menu_for_day_and_dining_hall.length > 0 %>
+<% menu_for_day_and_dining_hall.each do |meal_type, menu| %>
+  <h3 class="title"><%= meal_type.capitalize %></h3>
+
+  <div class="columns horizontal-scroll">
+    <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>
+      <div class="column is-3">
+        <h4 class="subtitle is-4"><%= station %></h4>
+        <ul>
+          <% menu_items.each do |menu_item| %>
+            <li><%= menu_item.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% else %>
+  <p>Closed today. Try another dining hall!</p>
+<% end %>
