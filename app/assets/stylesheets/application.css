@@ -45,6 +45,10 @@
     background: white;
 }
 
+.application-content-container {
+    min-height: 60vh;
+}
+
 .application-footer {
     background: #0071a6;
     color: whitesmoke;

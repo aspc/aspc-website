@@ -30,25 +30,25 @@
 
 <div class="tabs is-centered is-toggle is-fullwidth is-small">
   <ul id="day-menu-buttons">
-    <li class="is-active">
+    <li <% if @day == 0 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Sunday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 1 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Monday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 2 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Tuesday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 3 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Wednesday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 4 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Thursday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 5 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Friday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
-    <li>
+    <li <% if @day == 6 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Saturday', :name => 'submit', :class => 'menu-day-button') %>
     </li>
   </ul>
