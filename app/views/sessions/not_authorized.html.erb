@@ -1,0 +1,8 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Not Authorized" %>
+<% end %>
+
+<p>
+  Oops! It looks like you are trying to access a page you are not authorized to. Would you like
+  to <%= link_to "Go Home", :root %> instead?
+</p>

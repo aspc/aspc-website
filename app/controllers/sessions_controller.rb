@@ -10,6 +10,9 @@ class SessionsController < ApplicationController
     session[:current_user_id] = nil
   end
 
+  def not_authorized
+  end
+
   def create
     # https://localhost:3000/sessions/create?next=%2F&ticket=ST-1602-mEN7tpaseXyfgZXomn6e-ssocas.campus.pomona.edu
     next_page = _next_page_url

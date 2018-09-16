@@ -23,6 +23,9 @@ class ApplicationController < ActionController::Base
     redirect_to sessions_create_path unless logged_in?
   end
 
+  def not_authorized(exception)
+    redirect_to unauthorized_path
+  end
 
   private
     def setup_application_controller_environment
