@@ -1,4 +1,5 @@
 require 'httparty'
+require 'watir'
 
 namespace :menu_import do
   desc "Imports Claremont McKenna Menu "
@@ -163,6 +164,115 @@ namespace :menu_import do
     end
 
     Rails.logger.info "Successfully imported Scripps Menu for week #{_get_current_week.first}"
+  end
+
+  desc "Imports Frary Menu"
+  task :frary => :environment do
+
+    Rails.logger.info "Importing Frary Menu for week #{_get_current_week.first}..."
+
+    # Clear any existing menus to avoid duplicates
+    Menu.where(:dining_hall => :frary).destroy_all
+
+    # Pomona's system is batshit crazy (user inputted text in Google Docs),
+    # so we're just going to scrape from their website instead
+    #
+    # Menu Format
+    #
+    # | Day                                   |
+    # | Station |  Breakfast | Lunch | Dinner |
+
+    browser = Watir::Browser.new :chrome, headless: true
+    browser.goto 'www.pomona.edu/administration/dining/menus/frary'
+
+    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
+    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
+      panel.click
+    end
+
+    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
+    menu_days.each_with_index do |day_table, day_index|
+      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
+        next if row_index == 0 # skip header row
+
+        station = station_row[0].try(:text)
+
+        next if station.blank? # no need to continue if cell is empty
+
+        station_row.each_with_index do |meal_for_station, meal_type_index|
+          next if meal_type_index == 0
+
+          if not meal_for_station.text.blank?
+            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
+            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name)
+
+            meal_for_station.text.split(',').each do |meal_item|
+              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
+            end
+          end
+        end
+
+      end
+    end
+
+    Rails.logger.info "Successfully imported Frary Menu for week #{_get_current_week.first}"
+
+    browser.close
+  end
+
+  desc "Imports Frank Menu"
+  task :frank => :environment do
+
+    Rails.logger.info "Importing Frank Menu for week #{_get_current_week.first}..."
+
+    # Clear any existing menus to avoid duplicates
+    Menu.where(:dining_hall => :frank).destroy_all
+
+    # Pomona's system is batshit crazy (user inputted text in Google Docs),
+    # so we're just going to scrape from their website instead
+    #
+    # Menu Format
+    #
+    # | Day                                   |
+    # | Station |  Breakfast | Lunch | Dinner |
+
+    browser = Watir::Browser.new :chrome, headless: true
+    browser.goto 'www.pomona.edu/administration/dining/menus/frank'
+
+    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
+    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
+      panel.click
+    end
+
+    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
+    menu_days.each_with_index do |day_table, day_index|
+      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
+        next if row_index == 0 # skip header row
+
+        station = station_row[0].try(:text)
+
+        next if station.blank? # no need to continue if cell is empty
+
+        # Frank is closed on Fri/Sat, so don't load those days
+
+        station_row.each_with_index do |meal_for_station, meal_type_index|
+          next if meal_type_index == 0
+
+          if not meal_for_station.text.blank?
+            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
+            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frank, :meal_type => meal_for_station.class_name)
+
+            meal_for_station.text.split(',').each do |meal_item|
+              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
+            end
+          end
+        end
+      end
+    end
+
+    Rails.logger.info "Successfully imported Frank Menu for week #{_get_current_week.first}"
+
+    browser.close
   end
 
   def _get_current_week

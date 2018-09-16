@@ -33,11 +33,15 @@ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
+# Google chrome apt-get repositories
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+echo "deb https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google.list
+
 # Dependencies for ASPC Main Site
 apt-get update
 apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
     libsasl2-dev libssl-dev libffi-dev gnupg2 nodejs \
-    curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn
+    curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn google-chrome-stable
 
 
 # Set up PostgreSQL
@@ -60,9 +64,9 @@ sudo -u postgres psql -f /vagrant/vagrant/db/setup_postgres.sql
 # fi
 
 # Install project dependencies
-cd /vagrant
-source /home/vagrant/.rvm/scripts/rvm
-bundle install
+cd /vagrant # Switch to project directories
+source /home/vagrant/.rvm/scripts/rvm # Setup rvm environment
+bundle install # Install Gemfile dependencies
 
 # Some steps should be performed as the regular vagrant user
 sudo -u vagrant bash /vagrant/vagrant/init/init_as_user.sh
