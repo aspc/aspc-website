@@ -84,6 +84,8 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-yarn (2.0.2)
+      capistrano (~> 3.0)
     capistrano3-puma (3.1.1)
       capistrano (~> 3.7)
       capistrano-bundler
@@ -283,6 +285,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.4)
   capistrano-rake
   capistrano-rvm
+  capistrano-yarn (~> 2.0)
   capistrano3-puma (~> 3.1.1)
   capybara (>= 2.15, < 4.0)
   chromedriver-helper

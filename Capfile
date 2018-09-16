@@ -35,10 +35,10 @@ install_plugin Capistrano::SCM::Git
 require "capistrano/rvm"
 
 # Load Rails plugins
-require "capistrano/bundler"
-require "capistrano/rails/assets"
-require "capistrano/rails/migrations"
+require "capistrano/rails"
 require "capistrano/puma"
+require "capistrano/yarn"
+
 install_plugin Capistrano::Puma  # Default puma tasks
 
 # Execute rake tasks remotely

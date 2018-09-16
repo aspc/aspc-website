@@ -10,9 +10,9 @@ server "peninsula.pomona.edu", user: fetch(:user), password: fetch(:password), r
 # http://capistranorb.com/documentation/getting-started/configuration/
 
 # Ensure the rails and puma environments match up
-set :rails_env, "development"
-set :puma_env, fetch(:rails_env, "development")
-set :bundle_without, "production"
+set :rails_env, "production"
+set :puma_env, "production"
+set :bundle_without, "development"
 
 # Deploy to the staging directory on Peninsula
 set :deploy_to, "/srv/www/staging/aspc"

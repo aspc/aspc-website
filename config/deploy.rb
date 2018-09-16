@@ -19,8 +19,8 @@ ask :password, "Password for peninsula.pomona.edu", echo: false
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Set default rails environment to production (may be overridden in production/staging configss)
-set :rails_env, "production"
+# Set default rails environment to production (may be overridden in production/staging configs)
+set :rails_env, :production
 
 # Set the location to deploy to (may be overridden in production/staging configs)
 set :deploy_to, "/srv/www/staging/aspc"
@@ -56,13 +56,17 @@ append :linked_dirs, "tmp/pids"
 append :linked_dirs, "tmp/sockets"
 append :linked_dirs, "log"
 
+# Install yarn modules
+set :yarn_target_path, -> { release_path }
+
 # Set the environment variables on the host machine
 set :default_env, {
-    # the production database is protected by a password,
+    # The production database is protected by a password,
     # so make sure to specify it when deploying, otherwise
     # db creation/migration will fail on production
     #
-    # if you don't know it, ask the team lead where to find it
+    # If you don't know it, it can be found in the private aspc docs repo,
+    # to which ASPC developers should have access
     'ASPC_DATABASE_PASSWORD': ENV["ASPC_DATABASE_PASSWORD"] || "",
 }
 
