@@ -1,3 +1,39 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Associated Students of Pomona College" %>
+  <section class="hero is-primary" style="background: #0071a6">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-2 is-hidden-touch">
+          <img class="logo" src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+          </div>
+          <div class="column is-10">
+          <h1 class="title">Associated Students of Pomona College</h1>
+          <h2 class="subtitle">
+            Serving the Claremont College community since 1887
+          </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="slideshow-container" style="height: 50vh;">
+    <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
+        :autoplay => true,
+        :arrows => false,
+        :dots => false,
+    } do %>
+      <% @announcements.each do |announcement| %>
+        <div style="background: url(<%= url_for(announcement.background_image) %>) no-repeat center center; background-size: cover">
+          <div class="announcement-text">
+            <h3 class="title is-4 has-background-light has-text-grey"><%= announcement.title %></h3>
+            <% if not announcement.caption.blank? %>
+              <p class="subtitle has-background-light has-text-grey"><%= announcement.caption %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 <% end %>

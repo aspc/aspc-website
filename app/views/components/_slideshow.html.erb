@@ -1,0 +1,24 @@
+<% id = local_assigns.fetch(:id) %>
+<% options = local_assigns.fetch(:slideshow_options, {}) %>
+
+<style>
+  .slideshow,
+  .slick-list,
+  .slick-track,
+  .slick-slide,
+  .slick-slide > div,
+  .slick-slide > div > div {
+    height: 100%;
+  }
+</style>
+
+<div class="slideshow" id="<%= id %>" data-slick=<%= options.to_json.to_s %> >
+  <%= yield %>
+</div>
+
+<script>
+  (function() {
+    let slideshow_id= "#<%= id %>";
+    $(slideshow_id).slick({})
+  })();
+</script>
