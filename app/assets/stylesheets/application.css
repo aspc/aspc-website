@@ -17,6 +17,9 @@
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
  *
+ *= require slick-carousel/slick/slick.css
+ *= require slick-carousel/slick/slick-theme.css
+ *
  * Page specific styles here
  *= require events.scss
  *= require sessions.scss

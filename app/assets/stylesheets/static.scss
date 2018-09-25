@@ -54,3 +54,21 @@
   padding-bottom: 25px;
 }
 
+.announcement-text {
+  position: absolute;
+  bottom: 0;
+  margin: 25px;
+}
+
+.announcement-text .subtitle,
+.announcement-text .title {
+  clear: both;
+  float: left;
+  padding: 5px;
+}
+
+.logo {
+  position: absolute;
+  height: 90%;
+  top: 0;
+}

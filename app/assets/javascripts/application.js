@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require activestorage
 
 //= require cable.js
 
@@ -24,6 +25,8 @@
 //= require weekcalendar-2.0/jquery.weekcalendar.js
 
 //= require bulma-calendar/dist/js/bulma-calendar.js
+
+//= require slick-carousel/slick/slick.js
 
 // Page specifc javascript here
 //= require events.js
