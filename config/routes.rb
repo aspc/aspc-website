@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     get 'aspc/committee' => :aspc_committee
     get 'aspc/software' => :aspc_software
     get 'aspc/positions' => :aspc_positions
-    get 'aspc/policies' => :aspc_policies
+    get 'aspc/policies' => :'aspc_policies.html.erb'
     get 'aspc/policies/constitution' => :aspc_policies_constitution
     get 'aspc/policies/bylaws' => :aspc_policies_bylaws
     get 'aspc/policies/positions' => :aspc_positions
