@@ -142,17 +142,13 @@
         <% unless logged_in? %>
         <div class="field is-grouped">
           <p class="control">
-            <a class="button is-primary" href="https://github.com/jgthms/bulma/archive/0.5.1.zip">
-              <span>Login</span>
-            </a>
+            <%= link_to "Login", :login, :class => 'button is-info' %>
           </p>
         </div>
         <% else %>
           <div class="field is-grouped">
             <p class="control">
-              <a class="button is-primary" href="https://github.com/jgthms/bulma/archive/0.5.1.zip">
-                <span>Logout</span>
-              </a>
+              <%= link_to "Logout", :logout, :class => 'button' %>
             </p>
           </div>
         <% end %>
