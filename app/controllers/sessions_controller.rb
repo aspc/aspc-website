@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   def create
     # https://localhost:3000/sessions/create?next=%2F&ticket=ST-1602-mEN7tpaseXyfgZXomn6e-ssocas.campus.pomona.edu
     next_page = _next_page_url
-    service_url = 'https://' + 'staging.aspc.pomona.edu' + '/sessions/create' + '?next=' + CGI::escape(next_page) # request.host + request.path
+    service_url = 'https://' + 'staging.aspc.pomona.edu' + Rails.application.routes.url_helpers.login_path + '?next=' + CGI::escape(next_page) # request.host + request.path
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
