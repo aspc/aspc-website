@@ -3,46 +3,39 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   page_action :import_menus, method: :get do
-    system "rake menu_import:pitzer"
-    system "rake menu_import:claremont_mckenna"
-    system "rake menu_import:scripps"
-    system "rake menu_import:harvey_mudd"
-    system "rake menu_import:frank"
-    system "rake menu_import:frary"
+    # Imports all of the dining hall menus
+    MenuImportJob.perform_later
 
     redirect_to admin_dashboard_path
   end
 
   page_action :import_frank, method: :get do
-    system "rake menu_import:frank"
+    MenuImportJobs::FrankMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
   page_action :import_frary, method: :get do
-    system "rake menu_import:frary"
+    MenuImportJobs::FraryMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
   page_action :import_cmc, method: :get do
-    system "rake menu_import:claremont_mckenna"
+    MenuImportJobs::ClaremontMckennaMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
   page_action :import_hmc, method: :get do
-    system "rake menu_import:harvey_mudd"
+    MenuImportJobs::HarveyMuddMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
   page_action :import_scripps, method: :get do
-    system "rake menu_import:scripps"
+    MenuImportJobs::ScrippsMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
   page_action :import_pitzer, method: :get do
-    system "rake menu_import:pitzer"
+    MenuImportJobs::PitzerMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
 
   page_action :import_course_data, method: :get do
-    system "rake course_import:academic_terms"
-    system "rake course_import:departments"
-    system "rake course_import:courses"
-
+    CourseImportJob.perform_now
     redirect_to admin_dashboard_path
   end
 

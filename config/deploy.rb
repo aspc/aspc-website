@@ -47,14 +47,13 @@ set :puma_init_active_record, true
 # Default value for :pty is false
 # set :pty, true
 
-# Default value for :linked_files is []
-# Transfer master.key for encrypted credentials
-append :linked_files, "config/master.key"
-append :linked_files, "puma.rb"
-
-append :linked_dirs, "tmp/pids"
-append :linked_dirs, "tmp/sockets"
-append :linked_dirs, "log"
+# Linked files are shared between deploys
+append :linked_files, "config/master.key" # Share master.key for encrypted credentials
+append :linked_files, "puma.rb" # Server configuration
+append :linked_dirs, "tmp/pids" # Runfiles
+append :linked_dirs, "tmp/sockets" # Runfiles
+append :linked_dirs, "log" # Log files
+append :linked_dirs, "storage" # Active Storage files
 
 # Install yarn modules
 set :yarn_target_path, -> { release_path }
