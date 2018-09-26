@@ -22,10 +22,10 @@
 
       <!-- Course Schedule / Reviews -->
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link  is-active" href="/documentation/overview/start/">
+        <div class="navbar-link">
           Courses
-        </a>
-        <div class="navbar-dropdown ">
+        </div>
+        <div class="navbar-dropdown">
           <%= link_to "Courses", :courses, :class => "navbar-item" %>
           <%= link_to "Course Reviews", :courses, :class => "navbar-item" %>
           <hr class="navbar-divider">
@@ -112,9 +112,9 @@
       <!-- More Resources -->
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link  is-active" href="/documentation/overview/start/">
+          <div class="navbar-link">
             More Resources
-          </a>
+          </div>
           <div class="navbar-dropdown">
             <%= link_to "API for Developers", :resources_api, :class => "navbar-item" %>
             <%= link_to "Club Resources", :resources_clubs, :class => "navbar-item" %>
