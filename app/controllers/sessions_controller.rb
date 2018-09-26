@@ -3,9 +3,6 @@ require 'cgi'
 class SessionsController < ApplicationController
   PHP_AUTH_URL = 'https://aspc.pomona.edu/php-auth'
 
-  def new
-  end
-
   def destroy
     session[:current_user_id] = nil
   end

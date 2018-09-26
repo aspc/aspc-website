@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to sessions_create_path unless logged_in?
+    redirect_to login_path unless logged_in?
   end
 
   def not_authorized(exception)
