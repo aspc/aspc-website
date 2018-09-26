@@ -103,8 +103,7 @@
       </div>
 
       <!-- More Resources -->
-
-        <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-link">
             More Resources
           </div>
@@ -115,18 +114,6 @@
           </div>
 
         </div>
-
-              <div class="level-right">
-                <div class="level-item">
-                  <span class="icon has-text-info">
-                    <i class="fa fa-plug"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
     </div>
 
     <!-- Login/Logout -->
@@ -135,13 +122,17 @@
         <% unless logged_in? %>
         <div class="field is-grouped">
           <p class="control">
-            <%= link_to "Login", :login, :class => 'button is-info' %>
+            <a href="<%= login_path %>" class="button is-info">
+              <span>Login</span>
+            </a>
           </p>
         </div>
         <% else %>
           <div class="field is-grouped">
             <p class="control">
-              <%= link_to "Logout", :logout, :class => 'button' %>
+              <a href="<%= logout_path %>" class="button">
+                <span>Logout</span>
+              </a>
             </p>
           </div>
         <% end %>
