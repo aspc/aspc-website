@@ -8,6 +8,10 @@ ActiveAdmin.register Event do
     event.submitted_by_user_fk = current_user.id
   end
 
+  before_update do |event|
+    event.submitted_by_user_fk = current_user.id unless User.exists?(:id => event.submitted_by_user_fk)
+  end
+
   # Customize what appears on sidebar for the event list
   sidebar "Page Info", only: :index, priority: 0 do
     "Review and approve submitted events here. \n Note: To approve/reject multiple events at once, select them with the checkbox and click 'Batch Actions'"
