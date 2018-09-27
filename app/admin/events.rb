@@ -3,6 +3,11 @@ ActiveAdmin.register Event do
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   permit_params :name, :start, :end, :location, :description, :host, :details_url, :status
 
+  # Track the user admin creating an event via admin panel
+  before_create do |event|
+    event.submitted_by_user_fk = current_user.id
+  end
+
   # Customize what appears on sidebar for the event list
   sidebar "Page Info", only: :index, priority: 0 do
     "Review and approve submitted events here. \n Note: To approve/reject multiple events at once, select them with the checkbox and click 'Batch Actions'"
