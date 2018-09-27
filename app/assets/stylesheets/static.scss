@@ -2,6 +2,32 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*
+ * Slideshow Styling
+ */
+
+.primary-slideshow {
+  height: 50vh;
+  min-height: 350px;
+}
+
+.slick-next {
+  right: 25px;
+}
+
+.slick-prev {
+  left: unset;
+  right: 50px;
+}
+
+.slick-prev, .slick-next {
+  z-index: 1;
+  top: 90%;
+}
+
+/*
+ * Page Specific Tweaks
+ */
 .senator-position {
   font-weight: bold;
 }
