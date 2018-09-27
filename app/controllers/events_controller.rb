@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
@@ -16,20 +17,48 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    @user = current_user
   end
 
   # GET /events/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
+    error_parsing_time = false
+
+    start_date = event_params[:start_date]
+    start_hour = event_params[:start_hour]
+    start_minute = event_params[:start_minute]
+    start_meridiem = event_params[:start_meridiem]
+    start_time = DateTime.strptime("#{start_date} #{start_hour}:#{start_minute} #{start_meridiem}", '%Y-%m-%d %H:%M %p') rescue error_parsing_time = true
+
+    end_date = event_params[:end_date]
+    end_hour = event_params[:end_hour]
+    end_minute = event_params[:end_minute]
+    end_meridiem = event_params[:end_meridiem]
+    end_time = DateTime.strptime("#{end_date} #{end_hour}:#{end_minute} #{end_meridiem}", '%Y-%m-%d %H:%M %p') rescue error_parsing_time = true
+
+    @event = Event.new(
+        :name => event_params[:name],
+        :location => event_params[:location],
+        :description => event_params[:description],
+        :host => event_params[:host],
+        :details_url => event_params[:details_url],
+        :submitted_by_user_fk => event_params[:submitted_by_user_fk],
+    )
+
+    unless error_parsing_time
+      @event.start = start_time
+      @event.end = end_time
+    end
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to @event, notice: 'Event was successfully submitted.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -70,7 +99,10 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :start, :end, :location, :description, :host, :details_url, :status)
+      params
+          .require(:event)
+          .permit(:name, :location, :description, :host, :details_url, :status, :submitted_by_user_fk,
+                  :end_date, :end_hour, :end_minute, :end_meridiem, :start_date, :start_hour, :start_minute, :start_meridiem)
     end
 
     # Map a database collection of Events to something our
