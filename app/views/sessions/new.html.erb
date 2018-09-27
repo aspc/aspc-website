@@ -1,7 +1,5 @@
-<h1>Sessions#new</h1>
-<div class="container">
-  <p>Find me in app/views/sessions/new.html.erb</p>
-</div>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Sign In", :subtitle => "Authenticate against the 5C Single Sign In Service" %>
+<% end %>
 
-<p><%= button_to 'sessions', :action => 'create' %></p>
-<a class="button is-primary">Button</a>
+<p><%= button_to 'Sign in', :login_path, :class => 'button is-info'%></p>

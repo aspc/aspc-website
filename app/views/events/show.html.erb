@@ -1,4 +1,7 @@
-<p id="notice"><%= notice %></p>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Event Submitted", :subtitle => "Your event has been submitted with the following details" %>
+<% end %>
+
 
 <p>
   <strong>Name:</strong>
@@ -42,11 +45,4 @@
   <br/>
 </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @event.status %>
-  <br/>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Go home', root_path %>
