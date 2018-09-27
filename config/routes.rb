@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     get 'aspc/senators' => :aspc_senators
     get 'aspc/staff' => :aspc_staff
     get 'aspc/committee' => :aspc_committee
+    get 'aspc/pec' => :aspc_pec
     get 'aspc/software' => :aspc_software
     get 'aspc/positions' => :aspc_positions
     get 'aspc/policies' => :aspc_policies
@@ -39,11 +40,9 @@ Rails.application.routes.draw do
     get 'aspc/policies/positions' => :aspc_positions
     get 'aspc/policies/electionscode' => :aspc_policies_electionscode
     get 'aspc/budget' => :aspc_budget
-    get 'aspc/minutes' => :aspc_meeting_minutes
+    get 'aspc/meeting-minutes' => :aspc_meeting_minutes
+    get 'aspc/funding-request' => :aspc_funding_request
 
-    get 'resources/pec' => :resources_pec
-    get 'resources/clubs' => :resources_clubs
-    get 'resources/campus-eateries' => :resources_on_campus_eateries
     get 'resources/api' => :resources_api
   end
 end

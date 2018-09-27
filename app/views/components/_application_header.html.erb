@@ -26,7 +26,7 @@
           Courses
         </div>
         <div class="navbar-dropdown">
-          <%= link_to "Courses", :courses, :class => "navbar-item" %>
+          <%= link_to "Course Planner", :courses, :class => "navbar-item" %>
           <%= link_to "Course Reviews", :courses, :class => "navbar-item" %>
           <hr class="navbar-divider">
           <%= link_to "Instructor Reviews", :courses, :class => "navbar-item" %>
@@ -35,7 +35,7 @@
 
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
-        <div class="navbar-link">
+        <div class="navbar-link" />
           ASPC
         </div>
         <div id="blogDropdown" class="navbar-dropdown " data-style="width: 18rem;">
@@ -55,6 +55,9 @@
                   <div class="navbar-content">
                     <%= link_to "Software Development Group", :aspc_software, :class => "navbar-item" %>
                   </div>
+                  <div class="navbar-content">
+                    <%= link_to "Pomona Events Committee", :aspc_pec, :class => "navbar-item" %>
+                  </div>
               </div>
               <div class="column">
                 <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
@@ -62,23 +65,28 @@
                     <%= link_to "Positions", :aspc_positions, :class => "navbar-item" %>
                   </div>
                 <div class="navbar-content">
-                  <%= link_to "Policies", :aspc_policies, :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
                   <%= link_to "Budget", :aspc_budget, :class => "navbar-item" %>
                 </div>
                 <div class="navbar-content">
-                  <%= link_to "Pomona Events Committee", :resources_pec, :class => "navbar-item" %>
+                  <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>
                 </div>
-
+                <div class="navbar-content">
+                  <%= link_to "Bylaws", :aspc_policies_bylaws, :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Elections Code", :aspc_policies_electionscode, :class => "navbar-item" %>
+                </div>
               </div>
               <div class="column">
                 <h1 class="title is-6 is-mega-menu-title">Frequent Actions</h1>
                 <div class="navbar-content">
-                  <%= link_to "Funding Request", :resources_pec, :class => "navbar-item" %>
+                  <%= link_to "Meeting Minutes", :aspc_meeting_minutes, :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Funding Request", :aspc_funding_request, :class => "navbar-item" %>
                 </div>
                   <div class="navbar-content">
-                    <%= link_to "Agenda Item Submission", :resources_pec, :class => "navbar-item" %>
+                    <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSefma5593Qf_BDUg3W7463XB1dHMq9sLGzuciXcuMF4dDKSow/viewform#responses", :class => "navbar-item" %>
                   </div>
               </div>
             </div>
@@ -103,18 +111,34 @@
       </div>
 
       <!-- More Resources -->
-      <div class="navbar-item has-dropdown is-hoverable">
-          <div class="navbar-link">
-            More Resources
-          </div>
-          <div class="navbar-dropdown">
-            <%= link_to "API for Developers", :resources_api, :class => "navbar-item" %>
-            <%= link_to "Club Resources", :resources_clubs, :class => "navbar-item" %>
-            <%= link_to "On Campus Eateries", :resources_campus_eateries, :class => "navbar-item" %>
-          </div>
-
+    <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-link">
+        More Resources
+      </div>
+      <div class="navbar-dropdown">
+        <div class="navbar-content">
+          <a href="https://tsl.news" class="navbar-item">The Student Life</a>
         </div>
+        <div class="navbar-content">
+          <a href="https://coopstore.pomona.edu" class="navbar-item">Coop Store</a>
+        </div>
+        <div class="navbar-content">
+          <a href="http://kspc.org" class="navbar-item">KSPC 88.7</a>
+        </div>
+        <div class="navbar-content">
+          <a href="http://studio47.tv" class="navbar-item">Studio 47</a>
+        </div>
+        <hr class="navbar-divider"/>
+        <div class="navbar-content">
+          <a href="https://pomonastudents.turbovote.org" class="navbar-item">TurboVote</a>
+        </div>
+        <hr class="navbar-divider"/>
+        <div class="navbar-content">
+          <%= link_to "API (Developers)", :resources_api, :class => "navbar-item" %>
+        </div>
+      </div>
     </div>
+  </div>
 
     <!-- Login/Logout -->
     <div class="navbar-end">
@@ -130,7 +154,7 @@
         <% else %>
           <div class="field is-grouped">
             <p class="control">
-              <a href="<%= logout_path %>" class="button">
+              <a href="<%= logout_path %>" class="button is-light">
                 <span>Logout</span>
               </a>
             </p>
