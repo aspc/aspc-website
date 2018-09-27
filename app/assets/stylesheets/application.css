@@ -57,6 +57,10 @@
     color: whitesmoke;
 }
 
+.page-header {
+    background-color: #0071a6 !important;
+}
+
 /*
  * 5C School Accent Colors
  */

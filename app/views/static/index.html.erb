@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <section class="hero is-primary" style="background: #0071a6">
+  <section class="hero is-primary page-header">
     <div class="hero-body">
       <div class="container">
         <div class="columns">
@@ -25,12 +25,14 @@
     } do %>
       <% @announcements.each do |announcement| %>
         <div style="background: url(<%= url_for(announcement.background_image) %>) no-repeat center center; background-size: cover">
+          <%= link_to announcement.details_url do %>
           <div class="announcement-text">
-            <h3 class="title is-4 has-background-light has-text-grey"><%= announcement.title %></h3>
+            <h3 class="title is-4 has-background-info has-text-light"><%= announcement.title %></h3>
             <% if not announcement.caption.blank? %>
-              <p class="subtitle has-background-light has-text-grey"><%= announcement.caption %></p>
+              <p class="subtitle has-background-info has-text-light"><%= announcement.caption %></p>
             <% end %>
           </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
@@ -71,6 +73,7 @@
           </div>
       </div>
     <% end %>
+    <p>View <%= link_to "more", :events_path %></p>
   </div>
 <% else %>
   <div class="columns">
