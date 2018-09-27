@@ -1,6 +1,6 @@
 class MenuController < ApplicationController
   def index
-    @dining_hall = "frank"
+    @dining_hall = "frary"
     @day = Date.today.wday
   end
 

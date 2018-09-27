@@ -1,7 +1,7 @@
 ActiveAdmin.register Event do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  permit_params :name, :start, :end, :location, :description, :host, :details_url, :status
+  permit_params :name, :start, :end, :location, :description, :host, :details_url, :status, :college_affiliation
 
   # Track the user admin creating an event via admin panel
   before_create do |event|
@@ -55,7 +55,7 @@ ActiveAdmin.register Event do
       input :status
     end
 
-    f.inputs "Event Details", :name, :location, :description, :host, :details_url
+    f.inputs "Event Details", :name, :location, :description, :host, :details_url, :college_affiliation
 
     f.inputs "Event Start/End Time" do
       input :start, as: :datetime_picker,

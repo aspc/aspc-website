@@ -10,6 +10,7 @@ class Event < ApplicationRecord
   validates :location, presence: true
   validates :description, presence: true
   validates :submitted_by_user_fk, presence: true
+  validates :college_affiliation, presence: true
 
   def approve!
     self.update_attribute :status, :approved

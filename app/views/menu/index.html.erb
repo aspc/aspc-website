@@ -7,10 +7,10 @@
 <%= f.hidden_field :day, :value => '', :id => 'menu-day-field' %>
 <div class="tabs is-centered is-boxed is-medium">
   <ul id="dining-hall-buttons">
-    <li class="is-active">
+    <li>
       <%= content_tag(:a, 'Frank', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/frank', :dining_hall => 'frank'}) %>
     </li>
-    <li>
+    <li class="is-active">
       <%= content_tag(:a, 'Frary', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/frary', :dining_hall => 'frary'}) %>
     </li>
     <li>
@@ -102,7 +102,9 @@
         $(this).parent().toggleClass('is-active');
 
         // Submit the form
-        submitMenuForm()
+        submitMenuForm();
     });
+
+    submitMenuForm();
 })();
 </script>
