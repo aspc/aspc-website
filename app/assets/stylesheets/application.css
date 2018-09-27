@@ -62,6 +62,13 @@
 }
 
 /*
+ * Global Color helpers
+ */
+.has-background-blue {
+    background-color: #0071a6;
+}
+
+/*
  * 5C School Accent Colors
  */
 .campus_UU { background-color: #9c9e9e !important; color: white !important; }
@@ -84,4 +91,10 @@
 
 .vertical-scroll {
     overflow-y: scroll;
+}
+
+.cover-image {
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
 }

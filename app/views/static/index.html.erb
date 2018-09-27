@@ -17,15 +17,16 @@
     </div>
   </section>
 
-  <div class="slideshow-container" style="height: 50vh;">
+  <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => false,
+        :arrows => true,
         :dots => false,
     } do %>
       <% @announcements.each do |announcement| %>
-        <div style="background: url(<%= url_for(announcement.background_image) %>) no-repeat center center; background-size: cover">
+        <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
           <%= link_to announcement.details_url do %>
+          <div style="height:100%"></div>
           <div class="announcement-text">
             <h3 class="title is-4 has-background-info has-text-light"><%= announcement.title %></h3>
             <% if not announcement.caption.blank? %>
@@ -37,6 +38,7 @@
       <% end %>
     <% end %>
   </div>
+  <br />
 <% end %>
 
 <%= render 'components/page_header', :title => "Upcoming Events" %>
