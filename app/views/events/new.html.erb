@@ -1,18 +1,5 @@
-<section class="section" style="background:#2C3E50">
-  <section class="hero is-primary" style="background: #0071a6">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">Create a new event</h1>
-        <h2 class="subtitle">
-          Submit a new event to the event calendar
-        </h2>
-      </div>
-    </div>
-  </section>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Create a new event", :subtitle => "Submit an event to the event calendar" %>
+<% end %>
 
-  <section class="section" style="background:white">
-    <div class="container">
-      <%= render 'form', event: @event %>
-    </div>
-  </section>
-</section>
+<%= render 'event_form', event: @event %>

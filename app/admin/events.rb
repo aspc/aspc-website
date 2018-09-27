@@ -53,13 +53,13 @@ ActiveAdmin.register Event do
     f.inputs "Event Details", :name, :location, :description, :host, :details_url
 
     f.inputs "Event Start/End Time" do
-      input :start, as: :datepicker,
+      input :start, as: :datetime_picker,
         datepicker_options: {
             min_date: 1.years.ago.to_date,
             max_date: "+1Y"
         }
 
-      input :end, as: :datepicker,
+      input :end, as: :datetime_picker,
         datepicker_options: {
             min_date: 1.years.ago.to_date,
             max_date: "+1Y"
