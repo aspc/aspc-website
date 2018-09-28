@@ -1,6 +1,7 @@
 // Place all the styles related to the static controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "mixins";
 
 /*
  * Slideshow Styling
@@ -12,17 +13,46 @@
 }
 
 .slick-next {
-  right: 25px;
+  right: 50px;
+  z-index: 10;
 }
 
 .slick-prev {
-  left: unset;
-  right: 50px;
+  left: 25px;
+  z-index: 10;
 }
 
-.slick-prev, .slick-next {
+.slick-prev:before, .slick-next:before {
+  font-family: 'slick';
+  font-size: 50px;
+  z-index: 10;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.slick-slide {
   z-index: 1;
-  top: 90%;
+
+  .gradient {
+    width: 100%;
+    height: 100%;
+    @include linear-gradient(transparent, 50%, rgba(0, 0, 0, 0.7), 100%);
+  }
+
+  .announcement-text {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: 50px 25px 25px;
+
+    .subtitle,
+    .title {
+      clear: both;
+      float: left;
+      @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .7));
+    }
+  }
 }
 
 /*
@@ -69,8 +99,8 @@
 }
 
 .staff-content {
-   padding-bottom: 25px;
- }
+  padding-bottom: 25px;
+}
 
 .api-content {
   padding-bottom: 25px;
@@ -78,19 +108,6 @@
 
 .policies-content {
   padding-bottom: 25px;
-}
-
-.announcement-text {
-  position: absolute;
-  bottom: 0;
-  margin: 25px;
-}
-
-.announcement-text .subtitle,
-.announcement-text .title {
-  clear: both;
-  float: left;
-  padding: 5px;
 }
 
 .logo {

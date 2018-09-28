@@ -4,13 +4,13 @@
       <div class="container">
         <div class="columns">
           <div class="column is-2 is-hidden-touch">
-          <img class="logo" src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+            <img class="logo" src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
           </div>
           <div class="column is-10">
-          <h1 class="title">Associated Students of Pomona College</h1>
-          <h2 class="subtitle">
-            Serving the Claremont College community since 1887
-          </h2>
+            <h1 class="title">Associated Students of Pomona College</h1>
+            <h2 class="subtitle">
+              Serving the Claremont College community since 1887
+            </h2>
           </div>
         </div>
       </div>
@@ -25,20 +25,21 @@
     } do %>
       <% @announcements.each do |announcement| %>
         <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
-          <%= link_to announcement.details_url do %>
-          <div style="height:100%"></div>
-          <div class="announcement-text">
-            <h3 class="title is-4 has-background-grey-dark has-text-grey-lighter"><%= announcement.title %></h3>
-            <% if not announcement.caption.blank? %>
-              <p class="subtitle has-background-grey-dark has-text-grey-lighter"><%= announcement.caption %></p>
+            <%= link_to announcement.details_url do %>
+            <div class="gradient">
+              <div class="announcement-text">
+                <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
+                <% if not announcement.caption.blank? %>
+                  <p class="subtitle has-text-white"><%= announcement.caption %></p>
+                <% end %>
+              </div>
             <% end %>
           </div>
-          <% end %>
         </div>
       <% end %>
     <% end %>
   </div>
-  <br />
+  <br/>
 <% end %>
 
 <%= render 'components/page_header', :title => "Upcoming Events" %>
@@ -47,32 +48,32 @@
   <div class="columns">
     <% @events.each do |event| %>
       <div class="column is-4">
-          <div class="card vertical-scroll" style="height: 300px;">
-            <div class="card-content">
-              <p><a class="title is-4" href="<%= event_path(event) %>"><%= event.name %></a></p>
+        <div class="card vertical-scroll" style="height: 300px;">
+          <div class="card-content">
+            <p><a class="title is-4" href="<%= event_path(event) %>"><%= event.name %></a></p>
 
-              <div class="content">
-                <p>
-                  <%= event.description %>
-                  <% if not event.details_url.blank? %>
-                    <br>
-                    <%= link_to "More details", event.details_url %>
-                  <% end %>
-                </p>
-                <p>
-                  <em>
-                    <time><%= event.start.strftime("%A, %B %e") %></time>
-                  </em>
+            <div class="content">
+              <p>
+                <%= event.description %>
+                <% if not event.details_url.blank? %>
                   <br>
-                  <em>
-                    <time><%= event.start.strftime("%l:%M%P") %></time>
-                    -
-                    <time><%= event.end.strftime("%l:%M%P") %></time>
-                  </em>
-                </p>
-              </div>
+                  <%= link_to "More details", event.details_url %>
+                <% end %>
+              </p>
+              <p>
+                <em>
+                  <time><%= event.start.strftime("%A, %B %e") %></time>
+                </em>
+                <br>
+                <em>
+                  <time><%= event.start.strftime("%l:%M%P") %></time>
+                  -
+                  <time><%= event.end.strftime("%l:%M%P") %></time>
+                </em>
+              </p>
             </div>
           </div>
+        </div>
       </div>
     <% end %>
   </div>
