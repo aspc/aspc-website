@@ -20,7 +20,7 @@
   <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => true,
+        :arrows => false,
         :dots => false,
     } do %>
       <% @announcements.each do |announcement| %>
