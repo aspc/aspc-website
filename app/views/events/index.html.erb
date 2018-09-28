@@ -2,7 +2,7 @@
   <%= render 'components/page_header', :title => "Event Calendar", :subtitle => "Check out everything happening at the 5Cs!" %>
 <% end %>
 
-<%= render 'components/event_calendar', :default_view => 'basicWeek', :events => _to_event_calendar_mapping(@events) %>
+<%= render 'components/event_calendar', :default_view => 'agendaWeek', :events => _to_event_calendar_mapping(@events) %>
 
 <br/>
 <%= link_to 'Submit an event', new_event_path, :class => 'button is-info' %>
