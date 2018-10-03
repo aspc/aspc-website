@@ -37,20 +37,19 @@
     width: 100%;
     height: 100%;
     @include linear-gradient(transparent, 50%, rgba(0, 0, 0, 0.7), 100%);
-  }
+    display: flex;
 
-  .announcement-text {
-    width: 100%;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    padding: 50px 25px 25px;
+    .announcement-text {
+      width: 100%;
+      text-align: center;
+      padding: 50px 25px 25px;
+      align-self: flex-end;
 
-    .subtitle,
-    .title {
-      clear: both;
-      float: left;
-      @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .7));
+      .subtitle,
+      .title {
+        text-align: left;
+        @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .7));
+      }
     }
   }
 }
