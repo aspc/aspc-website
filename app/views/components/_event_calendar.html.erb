@@ -1,5 +1,5 @@
 <% events = local_assigns.fetch(:events) %>
-<% default_view = local_assigns.fetch(:default_view, 'month') %>
+<% default_view = local_assigns.fetch(:default_view, 'listWeek') %>
 
 <div id="event-calendar">
 </div>
@@ -12,8 +12,8 @@
       $('#event-calendar').fullCalendar({
           defaultView: '<%= default_view %>',
           header: {
-              left: 'prev,next,today',
-              right: 'listDay,agendaWeek,month'
+              left: 'prev,next',
+              right: 'listDay,listWeek,month'
           },
           buttonText: {
               today:    'today',
