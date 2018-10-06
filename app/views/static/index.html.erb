@@ -48,7 +48,7 @@
   <div class="columns">
     <% @events.each do |event| %>
       <div class="column is-4 eventColumn">
-        <div class="card">
+        <div class="card eventCard">
           <!-- a.eventLink makes entire card clickable, but messes with text selection -->
           <a class="eventLink" href="<%= event.details_url %>"></a>
           <div class="card-content">
