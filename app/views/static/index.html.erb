@@ -47,19 +47,14 @@
 <% if @events.length > 0 %>
   <div class="columns">
     <% @events.each do |event| %>
-      <div class="column is-4">
-        <div class="card vertical-scroll" style="height: 300px;">
+      <div class="column is-4 eventColumn">
+        <div class="card">
+          <!-- a.eventLink makes entire card clickable, but messes with text selection -->
+          <a class="eventLink" href="<%= event.details_url %>"></a>
           <div class="card-content">
             <p><a class="title is-4" href="<%= event_path(event) %>"><%= event.name %></a></p>
 
             <div class="content">
-              <p>
-                <%= event.description %>
-                <% if not event.details_url.blank? %>
-                  <br>
-                  <%= link_to "More details", event.details_url %>
-                <% end %>
-              </p>
               <p>
                 <em>
                   <time><%= event.start.strftime("%A, %B %e") %></time>
@@ -71,6 +66,13 @@
                   <time><%= event.end.strftime("%l:%M%P") %></time>
                 </em>
               </p>
+
+              <p>
+                <strong>Location: </strong><%= event.location %><br>
+                <strong>Host: </strong><%= event.host %>
+              </p>
+
+              <p><%= event.description %></p>
             </div>
           </div>
         </div>
