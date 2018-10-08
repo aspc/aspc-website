@@ -1,48 +1,27 @@
+<% subtitle_text = if not @event.host.blank? then "Hosted by #{@event.host} at #{@event.location}" else "At #{@event.location}" end %>
+
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Event Submitted", :subtitle => "Your event has been submitted with the following details" %>
+  <%= render 'components/page_header', :title => @event.name, :subtitle => subtitle_text %>
 <% end %>
 
+<div class="columns">
+  <div class="column">
+    <p>
+      <em><time><%= @event.start.strftime("%A, %B %e") %></time></em>
+      <em><time><%= @event.start.strftime("%l:%M%P") %></time></em>
+      -
+      <em><time><%= @event.end.strftime("%l:%M%P") %></time></em>
+    </p>
+    <hr />
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-  <br/>
-</p>
-
-<p>
-  <strong>Start:</strong>
-  <%= @event.start %>
-  <br/>
-</p>
-
-<p>
-  <strong>End:</strong>
-  <%= @event.end %>
-  <br/>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-  <br/>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-  <br/>
-</p>
-
-<p>
-  <strong>Host:</strong>
-  <%= @event.host %>
-  <br/>
-</p>
-
-<p>
-  <strong>Details Url:</strong>
-  <%= @event.details_url %>
-  <br/>
-</p>
-
-<%= link_to 'Go home', root_path %>
+<div class="columns">
+  <div class="column">
+    <p class="subtitle"><%= @event.description %></p>
+    <% if not @event.details_url.blank? %>
+      <br />
+      <p><%= link_to "More details", @event.details_url %></p>
+    <% end %>
+  </div>
+</div>
