@@ -32,16 +32,5 @@ set :puma_init_active_record, true
 # Install yarn modules
 set :yarn_target_path, -> { release_path }
 
-# Set the environment variables on the host machine
-set :default_env, {
-    # The production database is protected by a password,
-    # so make sure to specify it when deploying, otherwise
-    # db creation/migration will fail on production
-    #
-    # If you don't know it, it can be found in the private aspc docs repo,
-    # to which ASPC developers should have access
-    'ASPC_DATABASE_PASSWORD': ENV["ASPC_DATABASE_PASSWORD"] || "",
-}
-
 # Specify which branch to stage
 set :branch, "master"
