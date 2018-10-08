@@ -47,10 +47,10 @@
 <% if @events.length > 0 %>
   <div class="columns">
     <% @events.each do |event| %>
-      <div class="column is-4 eventColumn">
-        <div class="card eventCard">
+      <div class="column is-4">
+        <div class="card event-card">
           <!-- <a> nested inside .eventCard makes entire card clickable, but messes with text selection -->
-          <a href="<%= event.details_url %>"></a>
+          <a href="<%= url_for(event) %>"></a>
 
           <header class="card-header">
             <p class="card-header-title">
@@ -60,9 +60,6 @@
 
           <div class="card-content">
             <div class="content">
-              <p>
-                <em>Hosted by <%= event.host %></em>
-              </p>
               <p>
                 <em>
                   <i class="far fa-calendar"></i>
@@ -82,7 +79,9 @@
                 </em>
               </p>
 
-              <p><%= event.description %></p>
+              <div class="event-description vertical-scroll" />
+                <p><%= event.description %></p>
+              </div>
             </div>
           </div>
         </div>
