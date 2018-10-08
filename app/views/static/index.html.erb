@@ -48,10 +48,8 @@
   <div class="columns">
     <% @events.each do |event| %>
       <div class="column is-4">
+        <%= link_to url_for(event), :style => "display: block" do %>
         <div class="card event-card">
-          <!-- <a> nested inside .eventCard makes entire card clickable, but messes with text selection -->
-          <a href="<%= url_for(event) %>"></a>
-
           <header class="card-header">
             <p class="card-header-title">
               <%= event.name %>
@@ -60,7 +58,7 @@
 
           <div class="card-content">
             <div class="content">
-              <p>
+              <p class="horizontal-scroll">
                 <em>
                   <%= fa_icon "calendar" %>
                   <time><%= event.start.strftime("%A, %B %e") %></time>
@@ -73,7 +71,7 @@
                   <time><%= event.end.strftime("%l:%M%P") %></time>
                 </em>
                 <br>
-                <em>
+                <em style="white-space: nowrap">
                   <%= fa_icon "location-arrow" %>
                   <%= event.location %><br>
                 </em>
@@ -85,6 +83,7 @@
             </div>
           </div>
         </div>
+        <% end %>
       </div>
     <% end %>
   </div>
