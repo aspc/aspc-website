@@ -42,7 +42,7 @@
   <br/>
 <% end %>
 
-<%= render 'components/page_header', :title => "Upcoming Events", :subtitle => "<a href='#{events_path}' class='has-text-light'>Click to see all events</a>" %>
+<%= render 'components/page_header', :title => "Upcoming Events", :subtitle => "<span class='has-text-weight-light'>Looking for <a href='#{events_path}' class='has-text-light has-text-weight-normal'>more events</a>?</span>" %>
 <br>
 <% if @events.length > 0 %>
   <div class="columns">
