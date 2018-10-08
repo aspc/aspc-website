@@ -2,6 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.calendarContainer {
-  padding: 25px;
+.event-card {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  .card-header-title span {
+    font-weight: normal;
+  }
+
+  a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .event-description {
+    height: 100px;
+  }
 }
