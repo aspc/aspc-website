@@ -5,17 +5,21 @@
 bulma-calendar@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/bulma-calendar/-/bulma-calendar-4.0.2.tgz#a620811f5002bbb76e408788c03050ff6926cb67"
+  integrity sha512-nVcedvvUlrvJH8jNCZerSZnCKXtxISvDb3nyqIYW0swBnxjZ68GS531C0YssvXIW4C41TvjrkD8z+00FT0DOSg==
   dependencies:
     moment "^2.22.2"
 
 bulma@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.1.tgz#73c2e3b2930c90cc272029cbd19918b493fca486"
+  integrity sha512-wRSO2LXB+qI9Pyz2id+uZr4quz5aftSN7Ay1ysr1+krzVp3utD+Ci4CeKuZdrYGc800t65b7heXBL6qw2Wo/lQ==
 
 moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
+  integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
 
 slick-carousel@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
+  integrity sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA==
