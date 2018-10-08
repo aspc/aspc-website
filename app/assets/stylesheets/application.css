@@ -13,6 +13,7 @@
  *= require fullcalendar-3.9.0/fullcalendar.css
  *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
+ *= require @fortawesome/fontawesome-free/css/all.css
  *= require bulma/css/bulma.css
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss

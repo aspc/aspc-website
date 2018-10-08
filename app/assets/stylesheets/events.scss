@@ -6,16 +6,20 @@
   padding: 25px;
 }
 
-.eventLink {
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%; width: 100%;
-}
-
 .eventColumn {
   display: flex;
 }
 
 .eventCard {
   box-shadow: 5px 5px 3px 1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.eventCard a {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%; width: 100%;
+}
+
+.card-header-title span {
+  font-weight: normal;
 }

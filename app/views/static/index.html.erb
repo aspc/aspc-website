@@ -49,27 +49,37 @@
     <% @events.each do |event| %>
       <div class="column is-4 eventColumn">
         <div class="card eventCard">
-          <!-- a.eventLink makes entire card clickable, but messes with text selection -->
-          <a class="eventLink" href="<%= event.details_url %>"></a>
-          <div class="card-content">
-            <p><a class="title is-4" href="<%= event_path(event) %>"><%= event.name %></a></p>
+          <!-- <a> nested inside .eventCard makes entire card clickable, but messes with text selection -->
+          <a href="<%= event.details_url %>"></a>
 
+          <header class="card-header">
+            <p class="card-header-title">
+              <%= event.name %>
+            </p>
+          </header>
+
+          <div class="card-content">
             <div class="content">
               <p>
+                <em>Hosted by <%= event.host %></em>
+              </p>
+              <p>
                 <em>
+                  <i class="far fa-calendar"></i>
                   <time><%= event.start.strftime("%A, %B %e") %></time>
                 </em>
                 <br>
                 <em>
+                  <i class="far fa-clock"></i>
                   <time><%= event.start.strftime("%l:%M%P") %></time>
                   -
                   <time><%= event.end.strftime("%l:%M%P") %></time>
                 </em>
-              </p>
-
-              <p>
-                <strong>Location: </strong><%= event.location %><br>
-                <strong>Host: </strong><%= event.host %>
+                <br>
+                <em>
+                  <i class="fas fa-map-marker-alt"></i>
+                  <%= event.location %><br>
+                </em>
               </p>
 
               <p><%= event.description %></p>
