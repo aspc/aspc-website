@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
 
   def create
     # https://localhost:3000/sessions/create?next=%2F&ticket=ST-1602-mEN7tpaseXyfgZXomn6e-ssocas.campus.pomona.edu
-    next_page = _next_page_url
-    service_url = 'https://' + 'staging.aspc.pomona.edu' + Rails.application.routes.url_helpers.login_path + '?next=' + CGI::escape(next_page) # request.host + request.path
+    next_page = '/'
+    service_url = 'https://' + request.host + Rails.application.routes.url_helpers.login_path + '?next=' + CGI::escape(next_page) # request.host + request.path
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
@@ -43,10 +43,6 @@ class SessionsController < ApplicationController
     # return redirect_to PHP_AUTH_URL
     flash.now[:notice] = "Welcome, #{current_user.first_name}"
     redirect_to root_url
-  end
-
-  def _next_page_url
-    '/'
   end
 
   def _login_url(service_url)
