@@ -62,19 +62,19 @@
             <div class="content">
               <p>
                 <em>
-                  <i class="far fa-calendar"></i>
+                  <%= fa_icon "calendar" %>
                   <time><%= event.start.strftime("%A, %B %e") %></time>
                 </em>
                 <br>
                 <em>
-                  <i class="far fa-clock"></i>
+                  <%= fa_icon "bell" %>
                   <time><%= event.start.strftime("%l:%M%P") %></time>
                   -
                   <time><%= event.end.strftime("%l:%M%P") %></time>
                 </em>
                 <br>
                 <em>
-                  <i class="fas fa-map-marker-alt"></i>
+                  <%= fa_icon "location-arrow" %>
                   <%= event.location %><br>
                 </em>
               </p>
