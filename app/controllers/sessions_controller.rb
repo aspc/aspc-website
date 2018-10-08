@@ -11,9 +11,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # https://localhost:3000/sessions/create?next=%2F&ticket=ST-1602-mEN7tpaseXyfgZXomn6e-ssocas.campus.pomona.edu
+    # We have different post-authentication endpoints depending on staging / production environments
+    root_domain = if request.subdomains.first == 'staging'
+                  then 'staging.aspc.pomona.edu'
+                  else 'aspc.pomonastudents.org'
+                  end
+
     next_page = '/'
-    service_url = 'https://' + request.host + Rails.application.routes.url_helpers.login_path + '?next=' + CGI::escape(next_page) # request.host + request.path
+    service_url = 'https://' + root_domain + Rails.application.routes.url_helpers.login_path + '?next=' + CGI::escape(next_page) # request.host + request.path
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
