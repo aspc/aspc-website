@@ -1,0 +1,41 @@
+<%= form_with url: login_create_account_url do |f| %>
+<div class="field">
+  <div class="field">
+    <label class="label">First Name</label>
+    <div class="control">
+      <%= f.text_field :first_name, :class => "input" %>
+    </div>
+  </div>
+  <label class="label">Email Address</label>
+  <div class="control">
+    <%= f.email_field :email, :class => "input" %>
+  </div>
+</div>
+<div class="field">
+  <label class="label">Password</label>
+  <div class="control">
+    <%= f.password_field :password, :class => "input" %>
+  </div>
+</div>
+<div class="field">
+  <label class="label">College Affiliation</label>
+  <div class="control">
+    <div class="select">
+      <%= f.select :school, options_for_select(
+          [
+              ["Claremont McKenna", :claremont_mckenna],
+              ["Harvey Mudd", :harvey_mudd],
+              ["Scripps", :scripps],
+              ["Pitzer", :pitzer]
+          ]
+      ), :class => "input" %>
+    </div>
+  </div>
+</div>
+<hr />
+<div class="field">
+  <div class="control">
+    <%= f.submit "Create Account", :class => "button is-info" %>
+  </div>
+</div>
+<% end %>

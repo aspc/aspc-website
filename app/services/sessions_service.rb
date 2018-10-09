@@ -1,4 +1,5 @@
 require 'httparty'
+require 'digest/sha1'
 
 class SessionsService
   # Corresponds to https://github.com/aspc/mainsite/blob/master/aspc/auth2/backends.py
@@ -47,5 +48,16 @@ class SessionsService
     user_info[:last_name] = validation_response_body['lastName']
 
     return user_info
+  end
+
+  def self.encrypt_password(password)
+    Digest::SHA1.hexdigest password + Rails.application.credentials[:account_authentication][:salt]
+  end
+
+  def self.authenticate_account(email, password)
+    encrypted_password = self.encrypt_password(password)
+    user = User.find_by(:email => email, :password => encrypted_password)
+
+    return user
   end
 end

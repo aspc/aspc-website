@@ -1,12 +1,18 @@
-<section class="hero is-primary is-hidden" id="alert-banner">
+<section class="hero is-hidden <%= flash[:notice_class] || 'is-primary' %>" id="alert-banner">
     <div class="hero-body">
         <div class="container">
+            <% if flash[:notice_subtitle] %>
             <h1 class="title">
-                Success!
+              <%= notice %>
             </h1>
             <h2 class="subtitle">
-                <%= notice %>
+                <%= flash[:notice_subtitle] %>
             </h2>
+            <% else %>
+            <h1 class="title">
+              <%= notice %>
+            </h1>
+            <% end %>
         </div>
     </div>
 </section>
@@ -17,9 +23,11 @@
         .hide()
         .removeClass("is-hidden")
         .fadeIn();
-    setTimeout(function() { $("#alert-banner").fadeOut() }, 1000);
+    setTimeout(function() { $("#alert-banner").fadeOut() }, 3000);
 })()
 </script>
 
 <!-- Required so that, in the case of AJAX calls, the banner doesn't persist. -->
 <% flash[:notice] = nil %>
+<% flash[:notice_class] = nil %>
+<% flash[:notice_subtitle] = nil %>

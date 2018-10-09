@@ -1,5 +1,76 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Sign In", :subtitle => "Authenticate against the 5C Single Sign In Service" %>
+  <%= render 'components/page_header', :title => "Sign In", :subtitle => "Log in to access more features, services, and pages" %>
 <% end %>
 
-<p><%= button_to 'Sign in', :login_path, :class => 'button is-info'%></p>
+<div class="box">
+  <h2 class="title is-4 has-text-weight-semibold">Pomona Students</h2>
+  <p class="subtitle">Sign in with the CAS Login System you know and love!</p>
+  <p><%= button_to 'Sign in', :login_cas, :class => 'button is-info' %></p>
+</div>
+
+<div class="box">
+  <h2 class="title is-4 has-text-weight-semibold">5C Students</h2>
+  <p class="subtitle">Sign in or create an account</p>
+  <p>While we wait for your respective colleges to allow CAS to authenticate against your accounts, please
+    create or login to an account specific to this website.</p>
+  <hr/>
+  <div class="buttons">
+    <span class="button is-info" id="sign-in-to-account-button">Sign in</span>
+    <span class="button is-light" id="create-account-button">Create an account</span>
+  </div>
+</div>
+
+<div class="modal" id="sign-in-to-account-modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="columns">
+      <div class="column">
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Login to Existing Account</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <%= render 'sessions/login_to_existing_account' %>
+          </section>
+          <footer class="modal-card-foot"></footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="create-account-modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="columns">
+      <div class="column">
+        <div class="modal-card"></div>
+        <header class="modal-card-head">
+          <p class="modal-card-title">Create New Account</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <%= render 'sessions/create_new_account' %>
+        </section>
+        <footer class="modal-card-foot"></footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    (function () {
+        $(".delete").click(function () {
+            $(".modal.is-active").removeClass('is-active');
+        });
+
+        $("#sign-in-to-account-button").click(function () {
+            $("#sign-in-to-account-modal").addClass('is-active');
+        });
+
+        $("#create-account-button").click(function () {
+            $("#create-account-modal").addClass('is-active');
+        });
+    })();
+</script>

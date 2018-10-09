@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   scope controller: :sessions do
     get   'unauthorized' => :not_authorized
     match 'logout' => :destroy, :via => [:get, :destroy]
-    match 'login' => :create, :via => [:get, :post]
+    get 'login' => :new
+    match 'login/cas' => :create_via_cas, :via => [:get, :post]
+    match 'login/credentials' => :create_via_credentials, :via => [:get, :post]
+    match 'login/create_account' => :create_new_account, :via => [:get, :post]
   end
 
   scope controller: :static do
