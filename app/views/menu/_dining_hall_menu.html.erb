@@ -1,12 +1,12 @@
-<% dining_hall = local_assigns.fetch(:dining_hall) %>
+<% meal_type = local_assigns.fetch(:meal_type) %>
 <% day = local_assigns.fetch(:day) %>
 
-<% menu_for_day_and_dining_hall = Menu.where(:dining_hall => dining_hall).select {|x| x.day == day}.group_by(&:meal_type) %>
+<% menu_for_day_and_meal_type = Menu.where(:meal_type => meal_type).select {|x| x.day == day}.group_by(&:dining_hall) %>
 
-<% if menu_for_day_and_dining_hall.length > 0 %>
-<% menu_for_day_and_dining_hall.each do |meal_type, menu| %>
+<% if menu_for_day_and_meal_type.length > 0 %>
+<% menu_for_day_and_meal_type.each do |dining_hall, menu| %>
   <section class="box">
-    <h3 class="title"><%= meal_type.capitalize %></h3>
+    <h3 class="title"><%= dining_hall.capitalize %></h3>
 
     <div class="columns horizontal-scroll">
       <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>

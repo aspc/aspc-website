@@ -1,11 +1,11 @@
 class MenuController < ApplicationController
   def index
-    @dining_hall = "frary"
+    @meal_type = "lunch"
     @day = Date.today.wday
   end
 
   def show
-    @dining_hall = params[:dining_hall]
+    @meal_type = params[:meal_type]
     @day = params[:day] || "sunday"
 
     respond_to do |format|
