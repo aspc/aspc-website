@@ -6,7 +6,8 @@
 <% if menu_for_day_and_meal_type.length > 0 %>
 <% menu_for_day_and_meal_type.each do |dining_hall, menu| %>
   <section class="box">
-    <h3 class="title"><%= dining_hall.capitalize %></h3>
+    <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
+    <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
 
     <div class="columns horizontal-scroll">
       <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>
