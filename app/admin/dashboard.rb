@@ -17,6 +17,10 @@ ActiveAdmin.register_page "Dashboard" do
     MenuImportJobs::FraryMenuImportJob.perform_now
     redirect_to admin_dashboard_path
   end
+  page_action :import_oldenborg, method: :get do
+    MenuImportJobs::OldenborgMenuImportJob.perform_now
+    redirect_to admin_dashboard_path
+  end
   page_action :import_cmc, method: :get do
     MenuImportJobs::ClaremontMckennaMenuImportJob.perform_now
     redirect_to admin_dashboard_path
@@ -75,6 +79,10 @@ ActiveAdmin.register_page "Dashboard" do
           br
           form :action => admin_dashboard_import_frary_path do
             button "Import Frary Menu", :type => "submit"
+          end
+          br
+          form :action => admin_dashboard_import_oldenborg_path do
+            button "Import Oldenborg Menu", :type => "submit"
           end
           br
           form :action => admin_dashboard_import_cmc_path do
