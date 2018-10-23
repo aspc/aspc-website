@@ -18,9 +18,12 @@
   <%#= @sorted_menu[0] %>
 <!--</p>-->
 
+<% menus_are_displayed = false %>
+
 <% if sorted_menu.length > 0 %>
 <% menu_for_day_and_meal_type.each do |dining_hall, menu| %>
   <% if menu.first.menu_items[0] != nil %>
+  <% menus_are_displayed = true %>
   <section class="box">
     <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
     <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
@@ -40,6 +43,8 @@
   </section>
   <% end %>
 <% end %>
-<% else %>
-  <p>Closed today. Try another dining hall!</p>
+<% end %>
+
+<% if !menus_are_displayed %>
+  <p>No dining halls open at this time. Try another time!</p>
 <% end %>
