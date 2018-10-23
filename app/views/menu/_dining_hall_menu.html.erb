@@ -3,8 +3,24 @@
 
 <% menu_for_day_and_meal_type = Menu.where(:meal_type => meal_type).select {|x| x.day == day}.group_by(&:dining_hall) %>
 
-<% if menu_for_day_and_meal_type.length > 0 %>
+<!-- sort dining halls, placing frank and frary at the top and arranging the rest alphabetically -->
+<% sorted_menu = menu_for_day_and_meal_type.sort_by { |key, val| key } %>
+<%# frank_pos = 0 %>
+<%# frary_pos = 0 %>
+<%# sorted_menu.each_with_index {|menu, index| if menu[0] == 'frank' then frank_pos = index end} %>
+<%# sorted_menu.insert(0, sorted_menu.delete_at(frank_pos)) %>
+<%# sorted_menu.each_with_index {|menu, index| if menu[0] == 'frary' then frary_pos = index end} %>
+<%# sorted_menu.insert(0, sorted_menu.delete_at(frary_pos)) %>
+
+<!--<p>-->
+<!--  <b>Title:</b>-->
+  <%#= menu_for_day_and_meal_type['claremont_mckenna'] %>
+  <%#= @sorted_menu[0] %>
+<!--</p>-->
+
+<% if sorted_menu.length > 0 %>
 <% menu_for_day_and_meal_type.each do |dining_hall, menu| %>
+  <% if menu.first.menu_items[0] != nil %>
   <section class="box">
     <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
     <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
@@ -22,6 +38,7 @@
       <% end %>
     </div>
   </section>
+  <% end %>
 <% end %>
 <% else %>
   <p>Closed today. Try another dining hall!</p>

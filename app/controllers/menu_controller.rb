@@ -6,7 +6,7 @@ class MenuController < ApplicationController
 
   def show
     @meal_type = params[:meal_type]
-    @day = params[:day] || "sunday"
+    @day = params[:day]
 
     respond_to do |format|
       format.js
