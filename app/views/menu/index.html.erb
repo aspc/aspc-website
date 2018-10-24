@@ -3,35 +3,9 @@
 <% end %>
 
 <%= form_with url: '', remote: true, id: 'menu-form' do |f| %>
-<%= f.hidden_field :dining_hall, :value => '', :id => 'dining-hall-field' %>
+<%= f.hidden_field :meal_type, :value => '', :id => 'meal-type-field' %>
 <%= f.hidden_field :day, :value => '', :id => 'menu-day-field' %>
 <div class="tabs is-centered is-boxed is-medium">
-  <ul id="dining-hall-buttons">
-    <li>
-      <%= content_tag(:a, 'Frank', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/frank', :dining_hall => 'frank'}) %>
-    </li>
-    <li class="is-active">
-      <%= content_tag(:a, 'Frary', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/frary', :dining_hall => 'frary'}) %>
-    </li>
-    <li>
-      <%= content_tag(:a, 'Oldenborg', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/oldenborg', :dining_hall => 'oldenborg'}) %>
-    </li>
-    <li>
-      <%= content_tag(:a, 'Claremont McKenna', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/claremont_mckenna', :dining_hall => 'claremont_mckenna'}) %>
-    </li>
-    <li>
-      <%= content_tag(:a, 'Harvey Mudd', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/harvey_mudd', :dining_hall => 'harvey_mudd'}) %>
-    </li>
-    <li>
-      <%= content_tag(:a, 'Scripps', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/scripps', :dining_hall => 'scripps'}) %>
-    </li>
-    <li>
-      <%= content_tag(:a, 'Pitzer', :name => 'submit', :class => 'dining-hall-link-button', :data => {:endpoint => '/menus/pitzer', :dining_hall => 'pitzer'}) %>
-    </li>
-  </ul>
-</div>
-
-<div class="tabs is-centered is-toggle is-fullwidth is-small">
   <ul id="day-menu-buttons">
     <li <% if @day == 0 %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Sunday', :name => 'submit', :class => 'menu-day-button') %>
@@ -56,12 +30,29 @@
     </li>
   </ul>
 </div>
+
+<div class="tabs is-centered is-toggle is-fullwidth is-small">
+  <ul id="meal-type-buttons">
+    <li>
+      <%= content_tag(:a, 'Breakfast', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/breakfast', :meal_type => 'breakfast'}) %>
+    </li>
+    <li>
+      <%= content_tag(:a, 'Brunch', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/brunch', :meal_type => 'brunch'}) %>
+    </li>
+    <li class="is-active">
+      <%= content_tag(:a, 'Lunch', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/lunch', :meal_type => 'lunch'}) %>
+    </li>
+    <li>
+      <%= content_tag(:a, 'Dinner', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/dinner', :meal_type => 'dinner'}) %>
+    </li>
+  </ul>
+</div>
 <% end %>
 
 <br>
 
 <div id="dining-hall-menu-container">
-  <%= render 'menu/dining_hall_menu', :dining_hall => @dining_hall, :day => @day %>
+  <%= render 'menu/dining_hall_menu', :meal_type => @meal_type, :day => @day %>
 </div>
 
 <script>
@@ -69,26 +60,27 @@
     function submitMenuForm() {
         // Fetch the elements we will be operating on
         let selectedDayElement = $('#day-menu-buttons li.is-active a');
-        let selectedDiningHallElement = $('#dining-hall-buttons li.is-active a');
+        let selectedMealTypeElement = $('#meal-type-buttons li.is-active a');
 
         // Set the day of week to fetch menu for
         let selectedDay = selectedDayElement.text().trim().toLowerCase();
         $('#menu-day-field').val(selectedDay);
 
         // Set the dining hall to fetch menu for
-        let selectedDiningHall = selectedDiningHallElement.data('diningHall');
-        $('#dining-hall-field').val(selectedDiningHall);
+        let selectedMealType = selectedMealTypeElement.text().trim().toLowerCase();
+        $('#meal-type-field').val(selectedMealType);
 
         // Submit the form
         let form = $('#menu-form');
-        let endpointURL = selectedDiningHallElement.data('endpoint');
+        // let endpointURL = selectedDiningHallElement.data('endpoint');
+        let endpointURL = selectedMealTypeElement.data('endpoint')
         form.attr('action', endpointURL);
         Rails.fire(form[0], 'submit');
     }
 
-    $('.dining-hall-link-button').click(function () {
+    $('.menu-day-button').click(function () {
         // Set the active tab
-        $('.dining-hall-link-button').parent().each(function () {
+        $('.menu-day-button').parent().each(function () {
             $(this).removeClass('is-active');
         });
         $(this).parent().toggleClass('is-active');
@@ -97,9 +89,9 @@
         submitMenuForm();
     });
 
-    $('.menu-day-button').click(function () {
+    $('.meal-type-button').click(function() {
         // Set the active tab
-        $('.menu-day-button').parent().each(function () {
+        $('.meal-type-button').parent().each(function() {
             $(this).removeClass('is-active');
         });
         $(this).parent().toggleClass('is-active');

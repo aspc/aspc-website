@@ -1,14 +1,24 @@
-<% dining_hall = local_assigns.fetch(:dining_hall) %>
+<% meal_type = local_assigns.fetch(:meal_type) %>
 <% day = local_assigns.fetch(:day) %>
 
-<% menu_for_day_and_dining_hall = Menu.where(:dining_hall => dining_hall).select {|x| x.day == day}.group_by(&:meal_type) %>
+<% menu_for_day_and_meal_type = Menu.where(:meal_type => meal_type).select {|x| x.day == day}.group_by(&:dining_hall) %>
 
-<% if menu_for_day_and_dining_hall.length > 0 %>
-<% menu_for_day_and_dining_hall.each do |meal_type, menu| %>
+<!-- sort dining halls alphabetically -->
+<% sorted_menu = menu_for_day_and_meal_type.sort_by { |key, val| key } %>
+
+<!-- a bool to keep track of whether or not there are any menus in currently selected meal time -->
+<!-- display message at the end if not -->
+<% menus_are_displayed = false %>
+
+<% if sorted_menu.length > 0 %>
+<% sorted_menu.each do |dining_hall, menu| %>
+  <% if menu.first.menu_items[0] != nil %>
+  <% menus_are_displayed = true %>
   <section class="box">
-    <h3 class="title"><%= meal_type.capitalize %></h3>
+    <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
+    <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
 
-    <div class="columns horizontal-scroll">
+    <div class="columns is-multiline">
       <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>
         <div class="column is-3">
           <h4 class="subtitle is-4"><%= station %></h4>
@@ -21,7 +31,10 @@
       <% end %>
     </div>
   </section>
+  <% end %>
 <% end %>
-<% else %>
-  <p>Closed today. Try another dining hall!</p>
+<% end %>
+
+<% if !menus_are_displayed %>
+  <p>No dining halls open at this time. Try another time!</p>
 <% end %>
