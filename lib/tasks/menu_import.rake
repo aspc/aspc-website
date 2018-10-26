@@ -161,7 +161,7 @@ namespace :menu_import do
           meal_type = meal_type[0]
         end
         hours = menu_item['startTime'][/\d\d:\d\d/, 0] << '-' << menu_item['endTime'][/\d\d:\d\d/, 0] # Select hours and minutes from date and time
-        
+
         scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
         food_station = menu_item['course'].titleize
