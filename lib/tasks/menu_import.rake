@@ -22,10 +22,11 @@ namespace :menu_import do
       all_meals = day['cafes']['50']['dayparts'][0]
       all_meals.each do |meal|
         meal_type = meal['label'].downcase
+        hours = meal['starttime'] << '-' << meal['endtime']
 
         next unless Menu.meal_types.keys.include? meal_type # Skip "Late Night" meal type
 
-        cmc_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :claremont_mckenna, :meal_type => meal_type) # No duplicate menus
+        cmc_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :claremont_mckenna, :meal_type => meal_type, :hours => hours) # No duplicate menus
         cmc_menu.menu_items.destroy_all # No duplicate menu items
 
         stations = meal['stations']
@@ -49,7 +50,7 @@ namespace :menu_import do
 
   desc "Imports Pitzer Menu "
   task :pitzer => :environment do
-    endpoint = 'http://legacy.cafebonappetit.com/api/2/menus?format=json&cafe=219&date'
+    endpoint = 'http://legacy.cafebonappetit.com/api/2/menus'
     query = {
         :format => 'json',
         :cafe => '219',
@@ -67,8 +68,9 @@ namespace :menu_import do
       all_meals = day['cafes']['219']['dayparts'][0]
       all_meals.each do |meal|
         meal_type = meal['label'].downcase
+        hours = meal['starttime'] << '-' << meal['endtime']
 
-        pitzer_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :pitzer, :meal_type => meal_type) # No duplicate menus
+        pitzer_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :pitzer, :meal_type => meal_type, :hours => hours) # No duplicate menus
         pitzer_menu.menu_items.destroy_all # No duplicate menu items
 
         stations = meal['stations']
@@ -114,8 +116,9 @@ namespace :menu_import do
       menu_items = day['menuItems']
       menu_items.each do |menu_item|
         meal_type = menu_item['meal'].downcase
+        hours = menu_item['startTime'][/\d\d:\d\d/, 0] << '-' << menu_item['endTime'][/\d\d:\d\d/, 0] # Select hours and minutes from date and time
 
-        mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type) # No duplicate menus
+        mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
         food_station = menu_item['course'].titleize
         food_name = menu_item['formalName']
@@ -157,8 +160,9 @@ namespace :menu_import do
         else
           meal_type = meal_type[0]
         end
-
-        scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type) # No duplicate menus
+        hours = menu_item['startTime'][/\d\d:\d\d/, 0] << '-' << menu_item['endTime'][/\d\d:\d\d/, 0] # Select hours and minutes from date and time
+        
+        scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
         food_station = menu_item['course'].titleize
         food_name = menu_item['formalName']
@@ -312,7 +316,7 @@ namespace :menu_import do
         station = station_row[0].try(:text)
 
         next if station.blank? # no need to continue if cell is empty
-        
+
         station_row.each_with_index do |meal_for_station, meal_type_index|
           next if meal_type_index == 0
 
