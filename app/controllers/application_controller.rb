@@ -36,7 +36,8 @@ class ApplicationController < ActionController::Base
                                           :first_name => "dev_user",
                                           :is_cas_authenticated => false,
                                           :is_admin => true,
-                                          :school => :pomona)
+                                          :school => :pomona,
+                                          :password => "dev_password");
 
         session[:current_user_id] = dev_user.id
       end

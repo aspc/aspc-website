@@ -2,6 +2,13 @@
   <%= render 'components/page_header', :title => "Course Planner", :subtitle => "Browse courses and plan your schedule" %>
 <% end %>
 
+<aside class="message is-danger">
+  <div class="message-body">
+    Courses within the Computer Science department are not yet available to ASPC. Please use your school portal in the
+    meantime. We apologize for the inconvenience!
+  </div>
+</aside>
+
 <div class="columns">
   <div class="column is-3">
     <div class="buttons">
@@ -18,7 +25,7 @@
     </div>
     <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments %>
   </div>
-  <div class="column is-4 is-hidden" id="course-list-container" >
+  <div class="column is-4 is-hidden" id="course-list-container">
     <%= render 'courses/partials/course_list' %>
   </div>
   <div class="column" id="course-schedule-container">

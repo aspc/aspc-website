@@ -4,6 +4,9 @@ class CourseSection < ApplicationRecord
   belongs_to :academic_term
   belongs_to :course
 
+  accepts_nested_attributes_for :instructors
+  accepts_nested_attributes_for :course_meeting_details
+
   def has_meeting_time?(course_meeting_detail)
     return self.course_meeting_details.any? { | detail | course_meeting_detail == detail }
   end
