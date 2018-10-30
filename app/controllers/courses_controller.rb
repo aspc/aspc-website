@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @academic_terms = AcademicTerm.all
+    @academic_terms = AcademicTerm.current_academic_year
     @departments = Department.all
 
     user_course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
