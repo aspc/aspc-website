@@ -38,7 +38,7 @@ namespace :course_import do
     api_url = Rails.application.credentials[:course_api][:url]
     departments_url = [api_url, 'courseareas'].join('/')
 
-    Rails.logger.info "Fetching terms from #{departments_url}"
+    Rails.logger.info "Fetching departments from #{departments_url}"
     departments = HTTParty.get(departments_url, :format => :json).parsed_response
 
     departments.each do |department_info|
@@ -65,98 +65,100 @@ namespace :course_import do
   task :courses => :environment do
     api_url = Rails.application.credentials[:course_api][:url]
 
+    terms =  AcademicTerm.current_academic_year
 
-    term = AcademicTerm.first
-    Rails.logger.info "Fetching courses for Academic Term #{term.key}"
+    terms.each do |term|
+      Rails.logger.info "Fetching courses for Academic Term #{term.key}"
 
-    departments = Department.all
-    departments.each do |department|
-      Rails.logger.info "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
+      departments = Department.all
+      departments.each do |department|
+        Rails.logger.info "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
 
-      courses_url = [api_url, 'courses', term.key, department.code].join('/')
-      courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
+        courses_url = [api_url, 'courses', term.key, department.code].join('/')
+        courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
 
-      next if courses.nil?
+        next if courses.nil?
 
-      courses.each do |course_info|
-        next if course_info['CourseCode'].nil?
+        courses.each do |course_info|
+          next if course_info['CourseCode'].nil?
 
-        # Create or update a course
-        course_code = course_info['CourseCode'][0...-3] # e.g. 'ANTH088 PZ' instead of 'ANTH088 PZ-01'
-        course = Course.find_by(
-            :code => course_code,
-            :code_slug => course_code.parameterize.upcase
-        )
+          # Create or update a course
+          course_code = course_info['CourseCode'][0...-3] # e.g. 'ANTH088 PZ' instead of 'ANTH088 PZ-01'
+          course = Course.find_by(
+              :code => course_code,
+              :code_slug => course_code.parameterize.upcase
+          )
 
-        if(course.nil?)
-          Rails.logger.info "Creating new Course for code: #{course_code}"
-          course = Course.new({:code => course_code, :code_slug => course_code.parameterize.upcase})
-        else
-          Rails.logger.info "Found existing Course for code: #{course_code}"
-        end
-
-        course.name = course_info['Name'] || ''
-        course.number = course_code.chars.select { |c| Float(c) != nil rescue false }.join.to_i
-        course.departments << department unless course.departments.any? { |d| d.code == department.code }
-
-        course.save
-        Rails.logger.info "Successfully updated Course: #{course.code}"
-
-        # Create or update a course section
-        section_code = course_info['CourseCode'] # e.g. 'ANTH088 PZ-01' instead of 'ANTH088 PZ'
-        section = CourseSection.find_by(
-           :academic_term_id => term.id,
-           :course_id => course.id,
-           :code => section_code,
-           :code_slug => section_code.parameterize.upcase
-        )
-        if(section.nil?)
-          Rails.logger.info "Creating new Course Section for code: #{section_code}"
-          puts "New section #{section_code} for course #{course_code}"
-          section = CourseSection.new({:code => section_code, :code_slug => section_code.parameterize.upcase})
-        else
-          puts "Found section #{section_code} for course #{course_code}"
-          Rails.logger.info "Found existing Course Section for code: #{section_code}"
-        end
-
-        section.description = course_info['Description'] || ''
-        section.credit = Float(course_info['Credits']) rescue 1.00
-        section.fee = section.description =~ /[Ff]ee:\s+\$([\d\.]+)/ # RegEx to determine whether there's a fee
-        section.academic_term = term
-        section.course = course
-
-        # Add instructors for course section
-        instructors = course_info['Instructors']
-        instructors.each do |instructor_info|
-          instructor_name = instructor_info['Name']
-          instructor = Instructor.find_by_name(instructor_name)
-          if(instructor.nil?)
-            Rails.logger.info "Creating new Instructor #{instructor_name} for Course Section #{section.code}"
-            instructor = Instructor.new({:name => instructor_name})
+          if(course.nil?)
+            Rails.logger.info "Creating new Course for code: #{course_code}"
+            course = Course.new({:code => course_code, :code_slug => course_code.parameterize.upcase})
           else
-            Rails.logger.info "Found existing Instructor #{instructor_name} for Course Section #{section.code}"
+            Rails.logger.info "Found existing Course for code: #{course_code}"
           end
-          section.instructors << instructor unless section.instructors.any? { |i| i.name == instructor.name }
-        end unless instructors.nil?
 
-        # Add meeting times for course section
-        section.course_meeting_details.destroy_all
+          course.name = course_info['Name'] || ''
+          course.number = course_code.chars.select { |c| Float(c) != nil rescue false }.join.to_i
+          course.departments << department unless course.departments.any? { |d| d.code == department.code }
 
-        meetings = course_info['Schedules']
-        meetings.each do |meeting_info|
-          if meeting_info['Weekdays']
-            parsed_course_meeting_info = _parse_meeting_data(meeting_info)
-            next if parsed_course_meeting_info.nil?
+          course.save
+          Rails.logger.info "Successfully updated Course: #{course.code}"
 
-            course_meeting_detail = CourseMeetingDetail.new(parsed_course_meeting_info)
-            if !section.has_meeting_time? course_meeting_detail
-              section.course_meeting_details << course_meeting_detail
+          # Create or update a course section
+          section_code = course_info['CourseCode'] # e.g. 'ANTH088 PZ-01' instead of 'ANTH088 PZ'
+          section = CourseSection.find_by(
+             :academic_term_id => term.id,
+             :course_id => course.id,
+             :code => section_code,
+             :code_slug => section_code.parameterize.upcase
+          )
+          if(section.nil?)
+            Rails.logger.info "Creating new Course Section for code: #{section_code}"
+            puts "New section #{section_code} for course #{course_code}"
+            section = CourseSection.new({:code => section_code, :code_slug => section_code.parameterize.upcase})
+          else
+            puts "Found section #{section_code} for course #{course_code}"
+            Rails.logger.info "Found existing Course Section for code: #{section_code}"
+          end
+
+          section.description = course_info['Description'] || ''
+          section.credit = Float(course_info['Credits']) rescue 1.00
+          section.fee = section.description =~ /[Ff]ee:\s+\$([\d\.]+)/ # RegEx to determine whether there's a fee
+          section.academic_term = term
+          section.course = course
+
+          # Add instructors for course section
+          instructors = course_info['Instructors']
+          instructors.each do |instructor_info|
+            instructor_name = instructor_info['Name']
+            instructor = Instructor.find_by_name(instructor_name)
+            if(instructor.nil?)
+              Rails.logger.info "Creating new Instructor #{instructor_name} for Course Section #{section.code}"
+              instructor = Instructor.new({:name => instructor_name})
+            else
+              Rails.logger.info "Found existing Instructor #{instructor_name} for Course Section #{section.code}"
             end
-          end
-        end unless meetings.nil?
+            section.instructors << instructor unless section.instructors.any? { |i| i.name == instructor.name }
+          end unless instructors.nil?
 
-        section.save
-        Rails.logger.info "Successfully updated Course Section #{section.code} for Course #{course.code}"
+          # Add meeting times for course section
+          section.course_meeting_details.destroy_all
+
+          meetings = course_info['Schedules']
+          meetings.each do |meeting_info|
+            if meeting_info['Weekdays']
+              parsed_course_meeting_info = _parse_meeting_data(meeting_info)
+              next if parsed_course_meeting_info.nil?
+
+              course_meeting_detail = CourseMeetingDetail.new(parsed_course_meeting_info)
+              if !section.has_meeting_time? course_meeting_detail
+                section.course_meeting_details << course_meeting_detail
+              end
+            end
+          end unless meetings.nil?
+
+          section.save
+          Rails.logger.info "Successfully updated Course Section #{section.code} for Course #{course.code}"
+        end
       end
     end
   end
