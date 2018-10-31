@@ -58,7 +58,7 @@
 
           <div class="card-content">
             <div class="content">
-              <p class="horizontal-scroll">
+              <p class="horizontal-scroll" style="overflow: auto">
                 <em>
                   <%= fa_icon "calendar" %>
                   <time><%= event.start.strftime("%A, %B %e") %></time>
@@ -77,7 +77,7 @@
                 </em>
               </p>
 
-              <div class="event-description vertical-scroll" />
+              <div class="event-description vertical-scroll" style="overflow: auto;">
                 <p><%= event.description %></p>
               </div>
             </div>
