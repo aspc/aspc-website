@@ -8,10 +8,26 @@
 </div>
   <div id="course-list-results" class="vertical-scroll">
     <% course_sections.each do |section| %>
-    <article class="message is-info">
-      <div class="message-header">
-        <p><%= section.course.code %> - <%= section.course.name %></p>
-        <p class="is-pulled-right">Review</p>
+    <% background_color = case section.course_meeting_details.first.try(:campus).try(:to_sym)
+                          when :pomona
+                            "campus_PO"
+                          when :claremont_mckenna
+                            "campus_CM"
+                          when :harvey_mudd
+                            "campus_HM"
+                          when :scripps
+                            "campus_SC"
+                          when :pitzer
+                            "campus_PZ"
+                          else
+                            "campus_KS"
+                          end
+
+    %>
+    <article class="message is-dark">
+      <div class="message-header <%= background_color %>">
+        <p><%= section.code %> - <%= section.course.name %></p>
+        <!-- TODO: implement reviews <p class="is-pulled-right">Review</p>-->
       </div>
       <div class="message-body">
         <div class="columns">
