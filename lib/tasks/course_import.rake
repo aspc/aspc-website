@@ -149,7 +149,21 @@ namespace :course_import do
               parsed_course_meeting_info = _parse_meeting_data(meeting_info)
               next if parsed_course_meeting_info.nil?
 
+              # If parsing campus failed, try parsing via course code slug
+              if parsed_course_meeting_info[:campus] == :unknown
+                campus_lookup = {
+                    "PO" => :pomona,
+                    "CM" => :claremont_mckenna,
+                    "HM" => :harvey_mudd,
+                    "SC" => :scripps,
+                    "PZ" => :pitzer
+                }
+                campus_code = section.course.code[-2..-1]
+                parsed_course_meeting_info[:campus] = campus_lookup[campus_code] || :unknown
+              end
+
               course_meeting_detail = CourseMeetingDetail.new(parsed_course_meeting_info)
+
               if !section.has_meeting_time? course_meeting_detail
                 section.course_meeting_details << course_meeting_detail
               end
