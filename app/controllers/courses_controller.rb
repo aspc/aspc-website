@@ -96,12 +96,6 @@ class CoursesController < ApplicationController
           .joins(:course => [:departments])
           .where(:academic_terms => {:key => term_key})
 
-    if(instructor_name)
-      matches_query = matches_query
-          .joins(:instructors)
-          .where(:instructors => {:name => instructor_name})
-    end
-
     if(days.length > 0)
       matches_query = matches_query
           .joins(:course_meeting_details)
@@ -123,7 +117,10 @@ class CoursesController < ApplicationController
       matches = matches.select { |section| schools.any? { |campus| section.course_meeting_details.any? {  |detail| detail.campus == campus.to_s } } }
     end
     if(keywords)
-      matches = matches.select { |section| keywords.any? { |keyword| section.course.name.include? keyword } }
+      matches = matches.select { |section| keywords.any? { |keyword| section.course.name.downcase.include? keyword.downcase } }
+    end
+    if(instructor_name)
+      matches = matches.select { |section| section.instructors.any? { |instructor| instructor.name.downcase.include? instructor_name.downcase } }
     end
 
     @course_sections = matches
