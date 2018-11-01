@@ -123,6 +123,8 @@ class CoursesController < ApplicationController
       matches = matches.select { |section| section.instructors.any? { |instructor| instructor.name.downcase.include? instructor_name.downcase } }
     end
 
+    matches = matches.uniq
+
     @course_sections = matches
     respond_to do |format|
       format.html { render :json => matches.to_json, :status => :ok }

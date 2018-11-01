@@ -151,7 +151,12 @@ namespace :menu_import do
 
       menu_items = day['menuItems']
       menu_items.each do |menu_item|
-        meal_type = menu_item['meal'].downcase.split('/')[0] # lunch/brunch ==> lunch
+        meal_type = menu_item['meal'].downcase.split('/')
+        if meal_type.length == 2
+          meal_type = meal_type[1] # lunch/brunch ==> brunch
+        else
+          meal_type = meal_type[0]
+        end
 
         scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type) # No duplicate menus
 
