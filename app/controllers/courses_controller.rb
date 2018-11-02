@@ -11,8 +11,8 @@ class CoursesController < ApplicationController
 
   # TODO: Move to course schedule controller ?
   def add_course_section_to_schedule
-    code_slug= params[:code_slug]
-    @course_section = CourseSection.find_by(:code_slug => code_slug)
+    section_id = params[:section_id]
+    @course_section = CourseSection.find_by(:id => section_id)
 
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     if(@course_schedule.course_sections.none? { |section| section.code_slug == @course_section.code_slug })
@@ -29,8 +29,8 @@ class CoursesController < ApplicationController
   def remove_course_section_from_schedule
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
 
-    code_slug= params[:code_slug]
-    @course_section = CourseSection.find_by(:code_slug => code_slug)
+    section_id = params[:section_id]
+    @course_section = CourseSection.find_by(:id => section_id)
     @course_schedule.course_sections.delete(@course_section)
 
     respond_to do |format|

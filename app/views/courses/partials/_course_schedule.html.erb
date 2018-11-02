@@ -5,7 +5,7 @@
         <% course_sections.each do |section| %>
         <span class="tag is-small campus_<%= section.course_meeting_details.try(:first).try(:campus_abbreviation) %>">
           <%= section.code %>
-          <%= link_to "", courses_remove_path(:code_slug => section.code_slug),
+          <%= link_to "", courses_remove_path(:section_id => section.id),
                         :class => "delete is-small",
                         :method => :post,
                         :remote => true %>
