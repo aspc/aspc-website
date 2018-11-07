@@ -33,16 +33,16 @@
 
 <div class="tabs is-centered is-toggle is-fullwidth is-small">
   <ul id="meal-type-buttons">
-    <li>
+    <li <% if @meal_type == 'breakfast' %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Breakfast', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/breakfast', :meal_type => 'breakfast'}) %>
     </li>
-    <li>
+    <li <% if @meal_type == 'brunch' %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Brunch', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/brunch', :meal_type => 'brunch'}) %>
     </li>
-    <li class="is-active">
+    <li <% if @meal_type == 'lunch' %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Lunch', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/lunch', :meal_type => 'lunch'}) %>
     </li>
-    <li>
+    <li <% if @meal_type == 'dinner' %>class="is-active"<% end %>>
       <%= content_tag(:a, 'Dinner', :name => 'submit', :class => 'meal-type-button', :data => {:endpoint => '/menus/dinner', :meal_type => 'dinner'}) %>
     </li>
   </ul>
