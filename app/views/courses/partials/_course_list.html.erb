@@ -26,8 +26,16 @@
     %>
     <article class="message is-dark">
       <div class="message-header <%= background_color %>">
-        <p><%= section.code %> - <%= section.course.name %></p>
-        <!-- TODO: implement reviews <p class="is-pulled-right">Review</p>-->
+        <p>
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= section.code %> - <%= section.course.name %>
+          <% end %>
+        </p>
+        <p class="is-pulled-right">
+          <%= link_to course_path(section.course), :class => 'no-underline has-text-warning' do %>
+            <%= render 'components/star_reviews', rating: section.course.overall_rating %>
+          <% end %>
+        </p>
       </div>
       <div class="message-body">
         <div class="columns">

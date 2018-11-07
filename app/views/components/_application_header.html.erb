@@ -21,17 +21,16 @@
 
 
       <!-- Course Schedule / Reviews -->
-      <div class="navbar-item has-dropdown is-hoverable">
+      <%= link_to "Courses", :courses, :class => "navbar-item" %>
+
+      <!--<div class="navbar-item has-dropdown is-hoverable">
         <div class="navbar-link">
           Courses
         </div>
         <div class="navbar-dropdown">
           <%= link_to "Course Planner", :courses, :class => "navbar-item" %>
-          <%= link_to "Course Reviews", :courses_reviews, :class => "navbar-item" %>
-          <hr class="navbar-divider">
-          <%= link_to "Instructor Reviews", :courses_reviews, :class => "navbar-item" %>
         </div>
-      </div>
+      </div>-->
 
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
