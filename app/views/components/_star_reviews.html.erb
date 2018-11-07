@@ -1,0 +1,12 @@
+<% rating = local_assigns.fetch(:rating) %>
+<% solid_stars = rating.round %>
+<% empty_stars = 5-rating.round %>
+
+<span>
+  <% (0...solid_stars).each do %>
+    <%= fa_icon "star" %>
+  <% end %>
+  <% (0...empty_stars).each do %>
+    <%= fa_icon "star-o" %>
+  <% end %>
+</span>

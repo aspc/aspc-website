@@ -9,6 +9,10 @@ class CoursesController < ApplicationController
     @course_sections = user_course_schedule.course_sections
   end
 
+  def show
+    @course = Course.find(params[:id])
+  end
+
   # TODO: Move to course schedule controller ?
   def add_course_section_to_schedule
     section_id = params[:section_id]

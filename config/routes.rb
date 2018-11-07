@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'course_review/show'
+  get 'course_review/create'
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
@@ -7,6 +9,7 @@ Rails.application.routes.draw do
 
   scope controller: :courses do
     get 'courses' => :index
+    get 'courses/:id' => :show, as: :course
     post 'courses/add' => :add_course_section_to_schedule
     post 'courses/remove' => :remove_course_section_from_schedule
     post 'courses/clear' => :clear_course_sections_from_schedule

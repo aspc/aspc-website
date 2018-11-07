@@ -1,0 +1,30 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => @course.name, :subtitle => "Reviews for #{@course.code}" %>
+<% end %>
+
+<% if @course.course_reviews.length > 0 %>
+  <h2 class="title">Overall rating: &nbsp;
+    <span class="has-text-warning">
+      <%= render 'components/star_reviews', rating: @course.overall_rating %>
+    </span>
+  </h2>
+  <hr />
+  <% @course.course_reviews.each do |review| %>
+  <div class="columns">
+    <div class="column">
+      <p><%= render 'components/star_reviews', rating: review.overall_rating %></p>
+      <br/>
+      <p class="subtitle"><%= review.comments %></p>
+      <p><em>Taught by <%= review.instructor.name %></em></p>
+      <p><em><%= review.work_per_week %> hours work per week</em></p>
+    </div>
+  </div>
+  <hr />
+  <% end %>
+<% else %>
+  <div class="columns">
+    <div class="column">
+      <p class="subtitle">There are no reviews for this course at this time.</p>
+    </div>
+  </div>
+<% end %>
