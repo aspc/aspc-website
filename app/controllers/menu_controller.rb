@@ -4,14 +4,13 @@ class MenuController < ApplicationController
 
 	require "tzinfo"
 
+	# get current hour in local time, accounting for daylight savings
 	timezone_name = "US/Pacific"
-
 	timezone = TZInfo::Timezone.get(timezone_name)
-	offset_in_hours = timezone.current_period.utc_total_offset_rational.numerator
-	offset = "'%+.2d:00" % offset_in_hours
+	offset_in_hours = timezone.current_period.utc_total_offset / 60 / 60
+	offset = "%+.2d:00" % offset_in_hours
+	hour = Time.now.utc.getlocal(offset).hour
 
-	hour = Time.now.getlocal(offset)
-	puts ["hour", hour, Time.now.getlocal(offset)]
 	if @day == 0 or @day == 6
 		if hour < 14
 			@meal_type = "brunch"
@@ -21,7 +20,7 @@ class MenuController < ApplicationController
 	else
 		if hour < 10
 			@meal_type = "breakfast"
-		elsif hour < 16
+		elsif hour < 14
 			@meal_type = "lunch"
 		else
 			@meal_type = "dinner"
