@@ -103,3 +103,7 @@
 .no-underline {
     text-decoration: none !important;
 }
+
+.has-brightness {
+    filter: brightness(1.25);
+}

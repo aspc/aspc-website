@@ -5,22 +5,54 @@
 <% if @course.course_reviews.length > 0 %>
   <h2 class="title">Overall rating: &nbsp;
     <span class="has-text-warning">
-      <%= render 'components/star_reviews', rating: @course.overall_rating %>
+      <%= render 'components/numerical_review', rating: @course.overall_rating, tag_classes: 'is-large is-info' %>
     </span>
   </h2>
-  <h3 class="subtitle">
-    Inclusivity rating: <%= render 'components/star_reviews', rating: @course.inclusivity_rating %>
-    <br />
-    Challenge rating: <%= render 'components/star_reviews', rating: @course.challenge_rating %>
-    <br />
-    Average work per week: <%= @course.work_per_week %> hours
-  </h3>
+  <div class="columns">
+    <div class="column">
+      <h3 class="subtitle">
+        Challenge rating: <%= render 'components/numerical_review', rating: @course.challenge_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Inclusivity rating: <%= render 'components/numerical_review', rating: @course.inclusivity_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Average work per week: <span class="tag is-medium"><%= @course.work_per_week %> hours</span>
+      </h3>
+    </div>
+  </div>
   <hr />
   <% @course.course_reviews.each do |review| %>
   <div class="columns">
     <div class="column">
-      <p><%= render 'components/star_reviews', rating: review.overall_rating %></p>
-      <br/>
+      <div class="tags are-normal">
+        <span class="tag is-medium">
+          Overall rating: &nbsp;
+          <span class="has-text-warning">
+            <%= render 'components/star_review', rating: review.overall_rating %>
+          </span>
+        </span>
+        <span class="tag">
+          Challenge rating: &nbsp;
+          <span class="has-text-warning">
+            <%= render 'components/star_review', rating: review.challenge_rating %>
+          </span>
+        </span>
+        <span class="tag">
+          Inclusivity rating: &nbsp;
+          <span class="has-text-warning">
+            <%= render 'components/star_review', rating: review.inclusivity_rating %>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
       <p class="subtitle"><%= review.comments %></p>
       <p><em>Taught by <%= review.instructor.name %></em></p>
       <p><em><%= review.work_per_week %> hours work per week</em></p>
