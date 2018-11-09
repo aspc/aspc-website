@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_040015) do
     t.integer "day", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "hours"
   end
 
   create_table "users", force: :cascade do |t|
