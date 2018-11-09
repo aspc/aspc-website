@@ -1,0 +1,23 @@
+<% rating = local_assigns.fetch(:rating) || 0 %>
+<% solid_stars = (rating - 0.25).round %>
+<% half_star = (rating + 0.25 - solid_stars).round %>
+<% empty_stars = 5-half_star-solid_stars %>
+
+<span>
+  <% if solid_stars + half_star > 0 %>
+    <% (0...solid_stars).each do %>
+      <%= fa_icon "star" %>
+    <% end %>
+
+    <% if half_star == 1 %>
+    <%= fa_icon "star-half-o" %>
+    <% end %>
+
+    <% (0...empty_stars).each do %>
+      <%= fa_icon "star-o" %>
+    <% end %>
+
+  <% else %>
+    <span class="has-text-dark">No reviews</span>
+  <% end %>
+</span>

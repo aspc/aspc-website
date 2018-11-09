@@ -1,0 +1,10 @@
+<% rating = local_assigns.fetch(:rating) %>
+<% tag_classes = local_assigns.fetch(:tag_classes, '') %>
+
+<span class="tag <%= tag_classes %>">
+<% if rating > 0 %>
+  <%= number_with_precision(rating, :precision => 2) %>/5.00
+<% else %>
+    No reviews
+<% end %>
+</span>

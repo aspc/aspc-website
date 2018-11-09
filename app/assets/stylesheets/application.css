@@ -99,3 +99,11 @@
     background-size: cover;
     background-position: center center;
 }
+
+.no-underline {
+    text-decoration: none !important;
+}
+
+.has-brightness {
+    filter: brightness(1.25);
+}

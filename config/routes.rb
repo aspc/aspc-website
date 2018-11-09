@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'instructors/show'
+  get 'course_review/show'
+  get 'course_review/create'
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
@@ -7,11 +10,16 @@ Rails.application.routes.draw do
 
   scope controller: :courses do
     get 'courses' => :index
+    get 'courses/:id' => :show, as: :course
     post 'courses/add' => :add_course_section_to_schedule
     post 'courses/remove' => :remove_course_section_from_schedule
     post 'courses/clear' => :clear_course_sections_from_schedule
     post 'courses/save' => :save_course_sections_to_schedule
     match 'courses/search' => :search_course_sections, :via => [:get, :post]
+  end
+
+  scope controller: :instructors do
+    get 'instructors/:id' => :show, as: :instructor
   end
 
   scope controller: :menu do
@@ -48,6 +56,7 @@ Rails.application.routes.draw do
     get 'aspc/funding-request' => :aspc_funding_request
 
     get 'resources/api' => :resources_api
+    get 'resources/coop-fountain' => :resources_coop_fountain
 
     get 'courses/reviews' => :reviews_coming_soon
   end

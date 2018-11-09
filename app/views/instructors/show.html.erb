@@ -1,0 +1,70 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => @instructor.name, :subtitle => "Reviews for #{@instructor.name}" %>
+<% end %>
+
+<% if @instructor.course_reviews.length > 0 and not @instructor.name == "Staff" %>
+  <h2 class="title">Overall rating: &nbsp;
+    <span class="has-text-warning">
+    <%= render 'components/numerical_review', rating: @instructor.overall_rating, tag_classes: 'is-large is-info' %>
+  </span>
+  </h2>
+  <div class="columns">
+    <div class="column">
+      <h3 class="subtitle">
+        Challenge rating: <%= render 'components/numerical_review', rating: @instructor.challenge_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Inclusivity rating: <%= render 'components/numerical_review', rating: @instructor.inclusivity_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Average work per week: <span class="tag is-medium"><%= @instructor.work_per_week %> hours</span>
+      </h3>
+    </div>
+  </div>
+  <hr />
+  <% @instructor.course_reviews.each do |review| %>
+    <div class="columns">
+      <div class="column">
+        <div class="tags are-normal">
+      <span class="tag is-medium">
+        Overall rating: &nbsp;
+        <span class="has-text-warning">
+          <%= render 'components/star_review', rating: review.overall_rating %>
+        </span>
+      </span>
+          <span class="tag">
+        Challenge rating: &nbsp;
+        <span class="has-text-warning">
+          <%= render 'components/star_review', rating: review.challenge_rating %>
+        </span>
+      </span>
+          <span class="tag">
+        Inclusivity rating: &nbsp;
+        <span class="has-text-warning">
+          <%= render 'components/star_review', rating: review.inclusivity_rating %>
+        </span>
+      </span>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p><em><%= review.course.name %></em></p>
+        <br/>
+        <p class="subtitle"><%= review.comments %></p>
+        <p><em><%= review.work_per_week %> hours work per week</em></p>
+      </div>
+    </div>
+    <hr />
+  <% end %>
+<% else %>
+  <div class="columns">
+    <div class="column">
+      <p class="subtitle">There are no reviews for this instructor at this time.</p>
+    </div>
+  </div>
+<% end %>

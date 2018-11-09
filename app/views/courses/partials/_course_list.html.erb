@@ -8,7 +8,8 @@
 </div>
   <div id="course-list-results" class="vertical-scroll">
     <% course_sections.each do |section| %>
-    <% background_color = case section.course_meeting_details.first.try(:campus).try(:to_sym)
+    <% campus_background_color_class =
+           case section.course_meeting_details.first.try(:campus).try(:to_sym)
                           when :pomona
                             "campus_PO"
                           when :claremont_mckenna
@@ -22,18 +23,42 @@
                           else
                             "campus_KS"
                           end
-
     %>
+
     <article class="message is-dark">
-      <div class="message-header <%= background_color %>">
-        <p><%= section.code %> - <%= section.course.name %></p>
-        <!-- TODO: implement reviews <p class="is-pulled-right">Review</p>-->
+      <div class="message-header <%= campus_background_color_class %>">
+        <span>
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= section.code %> - <%= section.course.name %>
+          <% end %>
+        </span>
+        <span class="is-pulled-right">
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= render 'components/numerical_review',
+                       rating: section.course.overall_rating,
+                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness" %>
+          <% end %>
+        </span>
       </div>
       <div class="message-body">
         <div class="columns">
           <div class="column">
             <p>
-              <% section.instructors.each do |instructor| %> <%= instructor.name %> - <% end %> <%= section.credit%> credits
+              <% section.instructors.each do |instructor| %>
+                <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                <strong><%= instructor.name %> &nbsp;</strong>
+                <span class="tag">
+                  <span class="has-text-warning">
+                    <%= render 'components/star_review', rating: instructor.overall_rating %>
+                  </span>
+                </span>
+                <% end %>
+
+                <br />
+              <% end %>
+
+              <br />
+              <%= section.credit%> credits
             </p>
           </div>
         </div>
@@ -59,7 +84,7 @@
                             :class => "button",
                             :method => :post,
                             :remote => true,
-                            :params => { :code_slug => section.code_slug } %>
+                            :params => { :section_id => section.id } %>
             </div>
           </div>
         </div>
