@@ -41,7 +41,21 @@
         <div class="columns">
           <div class="column">
             <p>
-              <% section.instructors.each do |instructor| %> <%= instructor.name %> - <% end %> <%= section.credit%> credits
+              <% section.instructors.each do |instructor| %>
+                <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                <strong><%= instructor.name %></strong>
+                (
+                  <span class="has-text-warning">
+                    <%= render 'components/star_reviews', rating: instructor.overall_rating %>
+                  </span>
+                )
+                <% end %>
+
+                <br />
+              <% end %>
+
+              <br />
+              <%= section.credit%> credits
             </p>
           </div>
         </div>

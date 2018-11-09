@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'instructors/show'
   get 'course_review/show'
   get 'course_review/create'
   root :to => 'static#index'
@@ -15,6 +16,10 @@ Rails.application.routes.draw do
     post 'courses/clear' => :clear_course_sections_from_schedule
     post 'courses/save' => :save_course_sections_to_schedule
     match 'courses/search' => :search_course_sections, :via => [:get, :post]
+  end
+
+  scope controller: :instructors do
+    get 'instructors/:id' => :show, as: :instructor
   end
 
   scope controller: :menu do

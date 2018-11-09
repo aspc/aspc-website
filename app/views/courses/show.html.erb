@@ -8,6 +8,13 @@
       <%= render 'components/star_reviews', rating: @course.overall_rating %>
     </span>
   </h2>
+  <h3 class="subtitle">
+    Inclusivity rating: <%= render 'components/star_reviews', rating: @course.inclusivity_rating %>
+    <br />
+    Challenge rating: <%= render 'components/star_reviews', rating: @course.challenge_rating %>
+    <br />
+    Average work per week: <%= @instructor.work_per_week %> hours
+  </h3>
   <hr />
   <% @course.course_reviews.each do |review| %>
   <div class="columns">

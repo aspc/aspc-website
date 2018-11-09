@@ -1,0 +1,38 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => @instructor.name, :subtitle => "Reviews for #{@instructor.name}" %>
+<% end %>
+
+<% if @instructor.course_reviews.length > 0 and not @instructor.name == "Staff" %>
+  <h2 class="title">Overall rating: &nbsp;
+    <span class="has-text-warning">
+      <%= render 'components/star_reviews', rating: @instructor.overall_rating %>
+    </span>
+  </h2>
+  <h3 class="subtitle">
+    Inclusivity rating: <%= render 'components/star_reviews', rating: @instructor.inclusivity_rating %>
+    <br />
+    Challenge rating: <%= render 'components/star_reviews', rating: @instructor.challenge_rating %>
+    <br />
+    Average work per week: <%= @instructor.work_per_week %> hours
+  </h3>
+  <hr />
+  <% @instructor.course_reviews.each do |review| %>
+    <div class="columns">
+      <div class="column">
+        <p><em><%= review.course.name %></em></p>
+        <p><%= render 'components/star_reviews', rating: review.overall_rating %></p>
+        <br/>
+        <p class="subtitle"><%= review.comments %></p>
+        <p><em>Taught by <%= review.instructor.name %></em></p>
+        <p><em><%= review.work_per_week %> hours work per week</em></p>
+      </div>
+    </div>
+    <hr />
+  <% end %>
+<% else %>
+  <div class="columns">
+    <div class="column">
+      <p class="subtitle">There are no reviews for this instructor at this time.</p>
+    </div>
+  </div>
+<% end %>
