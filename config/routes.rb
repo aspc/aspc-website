@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get 'aspc/funding-request' => :aspc_funding_request
 
     get 'resources/api' => :resources_api
+    get 'resources/coop-fountain' => :resources_coop_fountain
 
     get 'courses/reviews' => :reviews_coming_soon
   end
