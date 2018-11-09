@@ -13,7 +13,7 @@
     <br />
     Challenge rating: <%= render 'components/star_reviews', rating: @course.challenge_rating %>
     <br />
-    Average work per week: <%= @instructor.work_per_week %> hours
+    Average work per week: <%= @course.work_per_week %> hours
   </h3>
   <hr />
   <% @course.course_reviews.each do |review| %>
