@@ -14,6 +14,9 @@ namespace :menu_import do
 
     Rails.logger.info "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
 
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :claremont_mckenna).destroy_all
+
     response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
 
     food_id_to_names = response['items'] # Mapping for food ids -> food item names
@@ -63,6 +66,9 @@ namespace :menu_import do
     }
 
     Rails.logger.info "Importing Pitzer Menu for week #{_get_current_week.first}..."
+
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :pitzer).destroy_all
 
     response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
 
@@ -388,22 +394,13 @@ namespace :menu_import do
           hours = '5:00PM-8:00PM'
           hours
         end
-      when 0
+      when 0, 6
         case meal_type
         when 'breakfast'
           hours = '8:00AM-10:30AM'
           hours
         when 'lunch'
           hours = '10:30AM-1:30PM'
-        when 'dinner'
-          hours = '5:00PM-8:00PM'
-          hours
-        end
-      when 6
-        case meal_type
-        when 'brunch'
-          hours = '10:30AM-1:30PM'
-          hours
         when 'dinner'
           hours = '5:00PM-8:00PM'
           hours
