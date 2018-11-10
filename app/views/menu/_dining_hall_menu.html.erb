@@ -17,7 +17,7 @@
   <section class="box">
     <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
     <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
-    <% if not menu.first['hours'].to_s.empty? %>
+    <% if menu.first['hours'] != nil %>
       <h4 class="subtitle"><%= menu.first['hours'] %></h4>
     <% end %>
 
