@@ -17,6 +17,9 @@
   <section class="box">
     <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
     <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
+    <% if menu.first['hours'] != nil %>
+      <h4 class="subtitle"><%= menu.first['hours'] %></h4>
+    <% end %>
 
     <div class="columns is-multiline">
       <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>

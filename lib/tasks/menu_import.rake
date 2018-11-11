@@ -1,5 +1,6 @@
 require 'httparty'
 require 'watir'
+require 'resolv-replace'
 
 namespace :menu_import do
   desc "Imports Claremont McKenna Menu "
@@ -13,6 +14,9 @@ namespace :menu_import do
 
     Rails.logger.info "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
 
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :claremont_mckenna).destroy_all
+
     response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
 
     food_id_to_names = response['items'] # Mapping for food ids -> food item names
@@ -23,9 +27,14 @@ namespace :menu_import do
       all_meals.each do |meal|
         meal_type = meal['label'].downcase
 
+        # Select hours and minutes from date and time and convert it to 12-hour clock format
+        starttime = Time.parse(meal['starttime']).strftime('%l:%M%p').strip
+        endtime = Time.parse(meal['endtime']).strftime('%l:%M%p').strip
+        hours = starttime << '-' << endtime
+
         next unless Menu.meal_types.keys.include? meal_type # Skip "Late Night" meal type
 
-        cmc_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :claremont_mckenna, :meal_type => meal_type) # No duplicate menus
+        cmc_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :claremont_mckenna, :meal_type => meal_type, :hours => hours) # No duplicate menus
         cmc_menu.menu_items.destroy_all # No duplicate menu items
 
         stations = meal['stations']
@@ -49,7 +58,7 @@ namespace :menu_import do
 
   desc "Imports Pitzer Menu "
   task :pitzer => :environment do
-    endpoint = 'http://legacy.cafebonappetit.com/api/2/menus?format=json&cafe=219&date'
+    endpoint = 'http://legacy.cafebonappetit.com/api/2/menus'
     query = {
         :format => 'json',
         :cafe => '219',
@@ -57,6 +66,9 @@ namespace :menu_import do
     }
 
     Rails.logger.info "Importing Pitzer Menu for week #{_get_current_week.first}..."
+
+    # Destroy all existing menus to avoid duplicates
+    Menu.where(:dining_hall => :pitzer).destroy_all
 
     response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
 
@@ -68,7 +80,12 @@ namespace :menu_import do
       all_meals.each do |meal|
         meal_type = meal['label'].downcase
 
-        pitzer_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :pitzer, :meal_type => meal_type) # No duplicate menus
+        # Select hours and minutes from date and time and convert it to 12-hour clock format
+        starttime = Time.parse(meal['starttime']).strftime('%l:%M%p').strip
+        endtime = Time.parse(meal['endtime']).strftime('%l:%M%p').strip
+        hours = starttime << '-' << endtime
+
+        pitzer_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :pitzer, :meal_type => meal_type, :hours => hours) # No duplicate menus
         pitzer_menu.menu_items.destroy_all # No duplicate menu items
 
         stations = meal['stations']
@@ -115,7 +132,12 @@ namespace :menu_import do
       menu_items.each do |menu_item|
         meal_type = menu_item['meal'].downcase
 
-        mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type) # No duplicate menus
+        # Select hours and minutes from date and time and convert it to 12-hour clock format
+        starttime = Time.parse(menu_item['startTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
+        endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
+        hours = starttime << '-' << endtime
+
+        mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
         food_station = menu_item['course'].titleize
         food_name = menu_item['formalName']
@@ -157,8 +179,14 @@ namespace :menu_import do
         else
           meal_type = meal_type[0]
         end
+        hours = menu_item['startTime'][/\d\d:\d\d/, 0] << '-' << menu_item['endTime'][/\d\d:\d\d/, 0] # Select hours and minutes from date and time
 
-        scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type) # No duplicate menus
+        # Select hours and minutes from date and time and convert it to 12-hour clock format
+        starttime = Time.parse(menu_item['startTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
+        endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
+        hours = starttime << '-' << endtime
+
+        scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
         food_station = menu_item['course'].titleize
         food_name = menu_item['formalName']
@@ -209,7 +237,8 @@ namespace :menu_import do
 
           if not meal_for_station.text.blank?
             day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name)
+            hours = _get_pomona_hours('Frary', day, meal_for_station.class_name)
+            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name, :hours => hours)
 
             meal_for_station.text.split(',').each do |meal_item|
               MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
@@ -265,7 +294,8 @@ namespace :menu_import do
 
           if not meal_for_station.text.blank?
             day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frank, :meal_type => meal_for_station.class_name)
+            hours = _get_pomona_hours('Frank', day, meal_for_station.class_name)
+            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frank, :meal_type => meal_for_station.class_name, :hours => hours)
 
             meal_for_station.text.split(',').each do |meal_item|
               MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
@@ -312,13 +342,14 @@ namespace :menu_import do
         station = station_row[0].try(:text)
 
         next if station.blank? # no need to continue if cell is empty
-        
+
         station_row.each_with_index do |meal_for_station, meal_type_index|
           next if meal_type_index == 0
 
           if not meal_for_station.text.blank?
             day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :oldenborg, :meal_type => meal_for_station.class_name)
+            hours = _get_pomona_hours('Oldenborg', day, meal_for_station.class_name)
+            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :oldenborg, :meal_type => meal_for_station.class_name, :hours => hours)
 
             meal_for_station.text.split(',').each do |meal_item|
               MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
@@ -344,5 +375,70 @@ namespace :menu_import do
     end
 
     week
+  end
+
+  # This is a temporary solution for Pomona dining hall hours as scarping pomona.edu is not working at the moment
+  def _get_pomona_hours(dining_hall, day, meal_type)
+    case dining_hall
+    when 'Frary'
+      case day
+      when 1..5
+        case meal_type
+        when 'breakfast'
+          hours = '7:30AM-10:00AM'
+          hours
+        when 'lunch'
+          hours = '11:00AM-2:00PM'
+          hours
+        when 'dinner'
+          hours = '5:00PM-8:00PM'
+          hours
+        end
+      when 0, 6
+        case meal_type
+        when 'breakfast'
+          hours = '8:00AM-10:30AM'
+          hours
+        when 'lunch'
+          hours = '10:30AM-1:30PM'
+        when 'dinner'
+          hours = '5:00PM-8:00PM'
+          hours
+        end
+      end
+    when 'Frank'
+      case day
+      when 1..4
+        case meal_type
+        when 'breakfast'
+          hours = '7:30AM-10:00AM'
+          hours
+        when 'lunch'
+          hours = '11:00AM-1:00PM'
+          hours
+        when 'dinner'
+          hours = '5:00PM-7:00PM'
+          hours
+        end
+      when 0
+        case meal_type
+        when 'brunch'
+          hours = '11:00AM-1:00PM'
+          hours
+        when 'dinner'
+          hours = '5:00PM-7:00PM'
+          hours
+        end
+      end
+    when 'Oldenborg'
+      case day
+      when 1..5
+        case meal_type
+        when 'lunch'
+          hours = '12:00AM-1:00PM'
+          hours
+        end
+      end
+    end
   end
 end

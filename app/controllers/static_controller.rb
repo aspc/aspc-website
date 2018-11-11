@@ -1,6 +1,7 @@
 class StaticController < ApplicationController
   def index
     @announcements = Announcement.all
-    @events = Event.where("start >= ?", DateTime.now).where(:status => :approved).order(:start).take(3)
+    time = Time.parse(Time.now.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d %H:%M:%S')).to_s(:db)
+    @events = Event.where("start >= ?", time).where(:status => :approved).order(:start).take(3)
   end
 end

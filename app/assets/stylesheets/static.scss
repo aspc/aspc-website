@@ -114,3 +114,16 @@
   height: 90%;
   top: 0;
 }
+
+.menu-rounded {
+  border-radius: 6px;
+  padding: 0;
+}
+
+.menu-rounded:first-child {
+  margin-bottom: 10px;
+}
+
+.menu-content {
+  width: 1344px;
+}
