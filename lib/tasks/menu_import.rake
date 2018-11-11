@@ -399,7 +399,7 @@ namespace :menu_import do
         when 'breakfast'
           hours = '8:00AM-10:30AM'
           hours
-        when 'lunch'
+        when 'brunch'
           hours = '10:30AM-1:30PM'
         when 'dinner'
           hours = '5:00PM-8:00PM'
