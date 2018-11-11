@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @instructor.course_reviews.length > 0 and not @instructor.name == "Staff" %>
-  <h2 class="title">Overall rating: &nbsp;
+  <h2 class="title">Overall instructor rating: &nbsp;
     <span class="has-text-warning">
       <%= render 'components/numerical_review', rating: @instructor.overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
     </span>
@@ -31,7 +31,7 @@
       <div class="column">
         <div class="tags are-normal">
         <span class="tag is-medium">
-          Overall rating: &nbsp;
+          Instructor rating: &nbsp;
           <span class="has-text-warning">
             <%= render 'components/star_review', rating: review.overall_rating %>
           </span>
@@ -42,6 +42,11 @@
     <div class="columns">
       <div class="column">
         <p class="subtitle"><%= review.comments %></p>
+        <p><%= link_to course_path(review.course), :class => 'no-underline has-text-dark' do %>
+            <%= review.course.name %>
+            <%= render 'components/numerical_review',
+                       rating: review.course.overall_rating %>
+          <% end %></p>
       </div>
     </div>
     <div class="columns">
@@ -63,6 +68,11 @@
           </span>
           <% end %>
         </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p><em>Review written <%= review.written_at %></em></p>
       </div>
     </div>
     <hr />

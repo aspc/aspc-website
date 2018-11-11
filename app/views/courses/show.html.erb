@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @course.course_reviews.length > 0 %>
-  <h2 class="title">Overall rating: &nbsp;
+  <h2 class="title">Overall course rating: &nbsp;
     <span class="has-text-warning">
       <%= render 'components/numerical_review', rating: @course.overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
     </span>
@@ -31,7 +31,7 @@
     <div class="column">
       <div class="tags are-normal">
         <span class="tag is-medium">
-          Overall rating: &nbsp;
+          Course rating: &nbsp;
           <span class="has-text-warning">
             <%= render 'components/star_review', rating: review.overall_rating %>
           </span>
@@ -68,6 +68,11 @@
           </span>
         <% end %>
       </p>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <p><em>Review written <%= review.written_at %></em></p>
     </div>
   </div>
   <hr />
