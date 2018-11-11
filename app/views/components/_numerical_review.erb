@@ -1,7 +1,9 @@
 <% rating = local_assigns.fetch(:rating) %>
 <% tag_classes = local_assigns.fetch(:tag_classes, '') %>
+<% show_icon = local_assigns.fetch(:show_icon, false) %>
 
 <span class="tag <%= tag_classes %>">
+<% if show_icon %><%= fa_icon "star", :class => "has-text-warning" %> &nbsp; <% end %>
 <% if rating > 0 %>
   <%= number_with_precision(rating, :precision => 2) %>/5.00
 <% else %>
