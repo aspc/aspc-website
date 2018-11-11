@@ -17,6 +17,7 @@ namespace :review_import do
       )
       course_review.course = Course.find_by(:code_slug => review_info['code_slug'])
       course_review.instructor = Instructor.find_by(:name => review_info['name'])
+      course_review.created_at = review_info['created_date']
 
       if course_review.course and course_review.instructor
         course_review.save

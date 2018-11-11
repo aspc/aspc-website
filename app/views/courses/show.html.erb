@@ -3,9 +3,9 @@
 <% end %>
 
 <% if @course.course_reviews.length > 0 %>
-  <h2 class="title">Overall rating: &nbsp;
+  <h2 class="title">Overall course rating: &nbsp;
     <span class="has-text-warning">
-      <%= render 'components/numerical_review', rating: @course.overall_rating, tag_classes: 'is-large is-info' %>
+      <%= render 'components/numerical_review', rating: @course.overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
     </span>
   </h2>
   <div class="columns">
@@ -31,21 +31,9 @@
     <div class="column">
       <div class="tags are-normal">
         <span class="tag is-medium">
-          Overall rating: &nbsp;
+          Course rating: &nbsp;
           <span class="has-text-warning">
             <%= render 'components/star_review', rating: review.overall_rating %>
-          </span>
-        </span>
-        <span class="tag">
-          Challenge rating: &nbsp;
-          <span class="has-text-warning">
-            <%= render 'components/star_review', rating: review.challenge_rating %>
-          </span>
-        </span>
-        <span class="tag">
-          Inclusivity rating: &nbsp;
-          <span class="has-text-warning">
-            <%= render 'components/star_review', rating: review.inclusivity_rating %>
           </span>
         </span>
       </div>
@@ -54,8 +42,37 @@
   <div class="columns">
     <div class="column">
       <p class="subtitle"><%= review.comments %></p>
-      <p><em>Taught by <%= review.instructor.name %></em></p>
-      <p><em><%= review.work_per_week %> hours work per week</em></p>
+      <p><%= link_to instructor_path(review.instructor), :class => 'no-underline has-text-dark' do %>
+          <%= review.instructor.name %>
+          <%= render 'components/numerical_review',
+                     rating: review.instructor.overall_rating %>
+        <% end %></p>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <p><span class="tag has-background-white-bis"><%= review.work_per_week %> Hours work per week</span></p>
+      <p>
+        <span class="tag has-background-white-bis">
+          <span class="has-text-grey">
+            <%= render 'components/star_review', rating: review.challenge_rating %>
+          </span> &nbsp; Challenge rating
+        </span>
+      </p>
+      <p>
+        <% if review.inclusivity_rating %>
+          <span class="tag has-background-white-bis">
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.inclusivity_rating %>
+            </span> &nbsp; Inclusivity rating
+          </span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <p><em>Review written <%= review.written_at %></em></p>
     </div>
   </div>
   <hr />

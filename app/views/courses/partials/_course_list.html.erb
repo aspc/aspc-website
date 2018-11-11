@@ -36,7 +36,8 @@
           <%= link_to course_path(section.course), :class => 'no-underline' do %>
             <%= render 'components/numerical_review',
                        rating: section.course.overall_rating,
-                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness" %>
+                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                       show_icon: true %>
           <% end %>
         </span>
       </div>
@@ -47,11 +48,8 @@
               <% section.instructors.each do |instructor| %>
                 <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
                 <strong><%= instructor.name %> &nbsp;</strong>
-                <span class="tag">
-                  <span class="has-text-warning">
-                    <%= render 'components/star_review', rating: instructor.overall_rating %>
-                  </span>
-                </span>
+                <%= render 'components/numerical_review',
+                           rating: instructor.overall_rating, show_icon: true %>
                 <% end %>
 
                 <br />
