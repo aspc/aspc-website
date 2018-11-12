@@ -1,41 +1,58 @@
 <% meal_type = local_assigns.fetch(:meal_type) %>
 <% day = local_assigns.fetch(:day) %>
 
-<% menu_for_day_and_meal_type = Menu.where(:meal_type => meal_type).select {|x| x.day == day}.group_by(&:dining_hall) %>
-
-<!-- sort dining halls alphabetically -->
-<% sorted_menu = menu_for_day_and_meal_type.sort_by { |key, val| key } %>
+<% menus_for_day_and_meal_type = Menu.for_day_and_meal_type(day, meal_type) %>
 
 <!-- a bool to keep track of whether or not there are any menus in currently selected meal time -->
 <!-- display message at the end if not -->
 <% menus_are_displayed = false %>
 
-<% if sorted_menu.length > 0 %>
-<% sorted_menu.each do |dining_hall, menu| %>
-  <% if menu.first.menu_items[0] != nil %>
-  <% menus_are_displayed = true %>
-  <section class="box">
-    <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
-    <h3 class="title"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
-    <% if menu.first['hours'] != nil %>
-      <h4 class="subtitle"><%= menu.first['hours'] %></h4>
-    <% end %>
+<% if menus_for_day_and_meal_type.length > 0 %>
+  <% menus_for_day_and_meal_type.each do |dining_hall, menu| %>
+    <% if menu.first.menu_items[0] != nil %>
+      <% menus_are_displayed = true %>
+      <% campus_background_color_class =
+             case dining_hall.try(:to_sym)
+             when :pomona
+               "campus_PO"
+             when :claremont_mckenna
+               "campus_CM"
+             when :harvey_mudd
+               "campus_HM"
+             when :scripps
+               "campus_SC"
+             when :pitzer
+               "campus_PZ"
+             else
+               "campus_PO" # catchall because Frank/Frary/Oldenborg to not symbolize to Pomona
+             end
+      %>
 
-    <div class="columns is-multiline">
-      <% menu.first.menu_items.group_by(&:station).sort_by{|k,v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>
-        <div class="column is-3">
-          <h4 class="subtitle is-4"><%= station %></h4>
-          <ul>
-            <% menu_items.each do |menu_item| %>
-              <li><%= menu_item.name %></li>
-            <% end %>
-          </ul>
+      <section class="message">
+        <div class="message-header <%= campus_background_color_class %>">
+          <!-- replace '_' with ' ', capitalise each word, capitalise 'K' in 'McKenna'-->
+          <h3 class="has-text-weight-semibold is-size-4"><%= dining_hall.split('_').map(&:capitalize).join(' ').sub('Mckenna', 'McKenna') %></h3>
+          <% if menu.first['hours'] != nil %>
+            <h4 class="has-text-weight-normal is-size-5"><%= menu.first['hours'] %></h4>
+          <% end %>
         </div>
-      <% end %>
-    </div>
-  </section>
+        <div class="message-body">
+          <div class="columns is-multiline">
+            <% menu.first.menu_items.group_by(&:station).sort_by {|k, v| v.length}.reverse.each_with_index do |(station, menu_items), index| %>
+              <div class="column is-3">
+                <h4 class="has-text-weight-semibold is-size-5"><%= station %></h4>
+                <ul>
+                  <% menu_items.each do |menu_item| %>
+                    <li><%= menu_item.name %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </section>
+    <% end %>
   <% end %>
-<% end %>
 <% end %>
 
 <% if !menus_are_displayed %>
