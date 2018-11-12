@@ -6,6 +6,8 @@ class Menu < ApplicationRecord
   enum meal_type: [ :breakfast, :lunch, :dinner, :brunch ]
 
   def self.for_day_and_meal_type(day, meal_type)
-    Menu.where(:meal_type => meal_type).select {|x| x.day == day}.group_by(&:dining_hall)
+    Menu.where(:meal_type => meal_type).select {|x| x.day == day}
+        .group_by(&:dining_hall)
+        .sort_by { |dining_hall, _| Menu.dining_halls[dining_hall] }
   end
 end
