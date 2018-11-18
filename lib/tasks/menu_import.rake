@@ -248,7 +248,7 @@ namespace :menu_import do
             end
             
             meal_for_station.text.split(',').each do |meal_item|
-              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu).inspect
+              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
             end
           end
         end
