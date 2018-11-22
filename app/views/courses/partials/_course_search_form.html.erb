@@ -36,7 +36,7 @@
       <div class="field">
         <label class="label">School</label>
         <div class="select is-multiple is-fullwidth">
-          <%= f.select :schools, options_for_select(["Pomona", "Claremont McKenna", "Harvey Mudd", "Scripps", "Pitzer"]), {}, {:multiple => true, :size => 3} %>
+          <%= f.select :schools, options_for_select([["Pomona", {"class" => "pomona"}], ["Claremont McKenna", {"class" => "cmc"}], ["Harvey Mudd", {"class" => "hmc"}], ["Scripps", {"class" => "scripps"}], ["Pitzer", {"class" => "pitzer"}]]), {}, {:multiple => true, :size => 3} %>
         </div>
       </div>
       <div class="field">
