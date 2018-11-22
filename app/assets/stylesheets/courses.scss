@@ -483,6 +483,29 @@ select {
   .time {
     margin-bottom: 10px;
   }
+
+  select {
+
+    .cmc {
+      border-left: 10px solid #da3d38;
+    }
+
+    .hmc {
+      border-left: 10px solid #ca9a0a;
+    }
+
+    .pomona {
+      border-left: 10px solid #1860cc;
+    }
+
+    .pitzer {
+      border-left: 10px solid #f49700;
+    }
+
+    .scripps {
+      border-left: 10px solid #889e5a;
+    }
+  }
 }
 
 #course-list-results {
