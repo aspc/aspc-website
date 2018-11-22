@@ -47,10 +47,10 @@
 .wc-header {
   background: whitesmoke;
   border-color: #dbdbdb;
-  border-width: 0 0 1px 0;
-  border-style: solid;
+  background: rgb(44, 62, 80);
   padding: 10px 0;
   height: 45px;
+  color: #fff;
 }
 
 .wc-header table {
@@ -70,7 +70,7 @@
 .wc-header .wc-day-column-header {
   text-align: center;
   padding: 0.4em;
-  color: #363636;
+  color: #fff;
   font-size: 1.00em;
   font-weight: 300;
 }
@@ -193,7 +193,7 @@ table.wc-time-slots {
 }
 
 .wc-time-slots .wc-day-column.ui-state-default {
-  background: transparent;
+  background: #fafafa;
 }
 
 .wc-time-slots .wc-today.ui-state-active {
@@ -227,7 +227,7 @@ table.wc-time-slots {
 }
 
 .wc-hour-header {
-  text-align: right;
+  text-align: center;
 }
 
 .wc-hour-header.ui-state-active,
@@ -248,7 +248,7 @@ table.wc-time-slots {
 }
 
 .wc-business-hours .wc-am-pm {
-  font-size: 0.6em;
+  display: none;
 }
 
 .wc-day-header-cell {
@@ -365,7 +365,6 @@ table.wc-time-slots {
 }
 
 #course-schedule .wc-container {
-  border: 1px solid #dbdbdb;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -376,7 +375,7 @@ table.wc-time-slots {
 }
 
 .wc-time-header-cell {
-  font-size: 80%;
+  font-size: 14px;
 }
 
 /*
@@ -474,6 +473,7 @@ select {
     display: block;
     background-color: #fafafa;
     border: none;
+    padding: 0.75rem;
   }
 
   .label {
@@ -509,11 +509,11 @@ select {
 }
 
 #course-list-results {
-  height: 85vh;
+  height: 885px;
 }
 
 .course-tags {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin-bottom: 0.5rem !important;
   height: 3.0rem !important;
 }
