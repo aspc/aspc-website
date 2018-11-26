@@ -237,15 +237,21 @@ namespace :menu_import do
 
           if not meal_for_station.text.blank?
             day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            hours = _get_pomona_hours('Frary', day, meal_for_station.class_name)
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name, :hours => hours)
 
+            # Frary splits Sunday brunch into breakfast and lunch; manually combine the two on Sundays
+            if day == 0 && (meal_for_station.class_name == "breakfast" || meal_for_station.class_name == "lunch")
+              hours = _get_pomona_hours("Frary", day, "brunch")
+              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => "brunch", :hours => hours)
+            else
+              hours = _get_pomona_hours("Frary", day, meal_for_station.class_name)
+              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name, :hours => hours)
+            end
+            
             meal_for_station.text.split(',').each do |meal_item|
               MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
             end
           end
         end
-
       end
     end
 
