@@ -2,136 +2,79 @@
 <% departments = local_assigns.fetch(:departments) %>
 
 <%= form_with url: courses_search_url, remote: true do |f| %>
-<nav class="panel" id="course-search-form">
-  <p class="panel-heading">
+  <nav class="panel" id="course-search-form">
+    <p class="panel-heading">
       Course Search
-  </p>
-  <div class="panel-block">
-    <div class="field" style="flex: 0 0 100%">
-      <p class="help">I am searching for a course during</p>
-      <div class="control is-expanded">
-        <div class="select is-fullwidth">
-          <%= f.select :academic_term, options_for_select(
-              (academic_terms.collect(&:session).zip academic_terms.collect(&:year)).map { |t| t.join " " }
-          ) %>
+    </p>
+    <div class="panel-block">
+      <div class="field">
+        <label class="label">Term</label>
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <%= f.select :academic_term, options_for_select(
+                (academic_terms.collect(&:session).zip academic_terms.collect(&:year)).map {|t| t.join " "}
+            ) %>
+          </div>
         </div>
+      </div>
+      <div class="field">
+        <label class="label">Department</label>
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <%= f.select :department, options_for_select(
+                departments.collect(&:name)
+            ), :prompt => "(any)" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Meets on</label>
+        <div class="select is-multiple is-fullwidth">
+          <%= f.select :days, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]), {}, {:multiple => true, :size => 3} %>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">School</label>
+        <div class="select is-multiple is-fullwidth">
+          <%= f.select :schools, options_for_select([["Pomona", {"class" => "pomona"}], ["Claremont McKenna", {"class" => "cmc"}], ["Harvey Mudd", {"class" => "hmc"}], ["Scripps", {"class" => "scripps"}], ["Pitzer", {"class" => "pitzer"}]]), {}, {:multiple => true, :size => 3} %>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Time</label>
+        <div class="control time">
+          <%= f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
+        </div>
+        <div class="control">
+          <%= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Taught by</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_field :instructor, :class => "input", :placeholder => "Instructor" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Numbered</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Containing keyword</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.submit "Search", :class => "button is-link is-fullwidth" %>
       </div>
     </div>
-  </div>
-  <div class="panel-block">
-    <div class="field" style="flex: 0 0 100%">
-      <p class="help">In department</p>
-      <div class="control is-expanded">
-        <div class="select is-fullwidth">
-          <%= f.select :department, options_for_select(
-              departments.collect(&:name)
-          ), :prompt => "(any)" %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel-block">
-    <div class="field">
-      <p class="help">Meets on</p>
-      <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:monday) %>Mon
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:tuesday) %>Tues
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:wednesday) %>Wed
-          </label>
-        </div>
-      </div>
-      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:thursday) %>Thurs
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:friday) %>Fri
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel-block">
-    <div class="field">
-      <p class="help">At school</p>
-      <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:pomona) %><span class="campus-label campus_PO">PO</span>
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:claremont_mckenna) %><span class="campus-label campus_CM">CM</span>
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:harvey_mudd) %><span class="campus-label campus_HM">HM</span>
-          </label>
-        </div>
-      </div>
-      <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:scripps) %><span class="campus-label campus_SC">SC</span>
-          </label>
-        </div>
-        <div class="control">
-          <label class="checkbox">
-            <%= check_box_tag(:pitzer) %><span class="campus-label campus_PZ">PZ</span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel-block">
-    <div class="field" style="flex: 0 0 100%">
-      <p class="help">Taught by</p>
-      <div class="control is-expanded">
-        <div class="control">
-          <%= f.text_field :instructor, :class => "input", :placeholder => "Instructor" %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel-block">
-    <div class="field" style="flex: 0 0 100%">
-      <p class="help">Numbered</p>
-      <div class="control is-expanded">
-        <div class="control">
-          <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="panel-block">
-    <div class="field" style="flex: 0 0 100%">
-      <p class="help">Containing keyword</p>
-      <div class="control is-expanded">
-        <div class="control">
-          <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="panel-block">
-    <%= f.submit "Search", :class => "button is-link is-outlined is-fullwidth" %>
-  </div>
-</nav>
+  </nav>
 <% end %>

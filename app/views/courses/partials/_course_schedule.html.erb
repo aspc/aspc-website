@@ -1,86 +1,89 @@
 <% course_sections = local_assigns.fetch(:course_sections, []) %>
 
-<div id="course-schedule-list">
-      <div class="tags course-tags horizontal-scroll">
-        <% course_sections.each do |section| %>
+<div id="course-schedule"></div>
+
+<% if course_sections.count > 0 %>
+  <div id="course-schedule-list">
+    <div class="tags course-tags">
+      <% course_sections.each do |section| %>
         <span class="tag is-small campus_<%= section.course_meeting_details.try(:first).try(:campus_abbreviation) %>">
           <%= link_to course_path(section.course), :class => "has-text-white no-underline" do %>
             <%= section.code %>
           <% end %>
           <%= link_to "", courses_remove_path(:section_id => section.id),
-                        :class => "delete is-small",
-                        :method => :post,
-                        :remote => true %>
+                      :class => "delete is-small",
+                      :method => :post,
+                      :remote => true %>
         </span>
-        <% end %>
-      </div>
-</div>
-<div id="course-schedule"></div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 <script>
-    (function() {
-      if($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
+    (function () {
+        if ($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
 
-      $('#course-schedule').weekCalendar({
-          businessHours: {
-              start: 8,
-              end: 24,
-              limitDisplay: true
-          },
-          timeslotsPerHour: 2,
-          daysToShow: 5,
-          timeSeparator: '&ndash;',
-          readonly: true,
-          allowCalEventOverlap: true,
-          overlapEventsSeparate: true,
-          height: function (calendar) {
-              return $('table.wc-time-slots').height() + $(".wc-toolbar").outerHeight() + $(".wc-header").outerHeight();
-          },
-          eventHeader: function (calEvent, calendar) {
-              return calEvent.title;
-          },
-          eventBody: function (calEvent, calendar) {
-              var options = calendar.weekCalendar('option'),
-                  one_hour = 3600000,
-                  displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (2 * (one_hour / options.timeslotsPerHour));
-              if (displayTitleWithTime) {
-                  return '';
-              }
-              else {
-                  return calendar.weekCalendar('formatTime', calEvent.start, options.timeFormat) + options.timeSeparator + calendar.weekCalendar('formatTime', calEvent.end, options.timeFormat);
-              }
-          },
-          eventAfterRender: function (calEvent, event) {
-              event.addClass('campus_' + calEvent.campus);
-          },
-          getHeaderDate: function (date, calendar) {
-              var options = calendar.weekCalendar('option');
-              var dayName = options.useShortDayNames ? options.shortDays[date.getDay()] : options.longDays[date.getDay()];
-              return dayName;
-          }
-      });
+        $('#course-schedule').weekCalendar({
+            businessHours: {
+                start: 8,
+                end: 24,
+                limitDisplay: true
+            },
+            timeslotsPerHour: 2,
+            daysToShow: 5,
+            timeSeparator: '&ndash;',
+            readonly: true,
+            allowCalEventOverlap: true,
+            overlapEventsSeparate: true,
+            height: function (calendar) {
+                return $('table.wc-time-slots').height() + $(".wc-toolbar").outerHeight() + $(".wc-header").outerHeight();
+            },
+            eventHeader: function (calEvent, calendar) {
+                return calEvent.title;
+            },
+            eventBody: function (calEvent, calendar) {
+                var options = calendar.weekCalendar('option'),
+                    one_hour = 3600000,
+                    displayTitleWithTime = calEvent.end.getTime() - calEvent.start.getTime() <= (2 * (one_hour / options.timeslotsPerHour));
+                if (displayTitleWithTime) {
+                    return '';
+                }
+                else {
+                    return calendar.weekCalendar('formatTime', calEvent.start, options.timeFormat) + options.timeSeparator + calendar.weekCalendar('formatTime', calEvent.end, options.timeFormat);
+                }
+            },
+            eventAfterRender: function (calEvent, event) {
+                event.addClass('campus_' + calEvent.campus);
+            },
+            getHeaderDate: function (date, calendar) {
+                var options = calendar.weekCalendar('option');
+                var dayName = options.useShortDayNames ? options.shortDays[date.getDay()] : options.longDays[date.getDay()];
+                return dayName;
+            }
+        });
 
-      $("#course-schedule").weekCalendar('gotoDate', new Date(1970, 0, 5));
-  })();
+        $("#course-schedule").weekCalendar('gotoDate', new Date(1970, 0, 5));
+    })();
 
-  (function() {
-      <% course_sections.each do |course_section| %>
-      <% course_section.course_meeting_details.each do |detail| %>
+    (function () {
+        <% course_sections.each do |course_section| %>
+        <% course_section.course_meeting_details.each do |detail| %>
 
-      <% start_time = detail.start_time %>
-      <% end_time = detail.end_time %>
-      <% detail.day_offsets.each do |day_offset| %>
+        <% start_time = detail.start_time %>
+        <% end_time = detail.end_time %>
+        <% detail.day_offsets.each do |day_offset| %>
 
-      $('#course-schedule')
-          .weekCalendar('updateEvent', {
-              start: new Date(1970, 0, 5 + <%= day_offset %>, <%= start_time.hour %>, <%= start_time.min %>),
-              end: new Date(1970, 0, 5 + <%= day_offset %>, <%= end_time.hour %>, <%= end_time.min %>),
-              title: "<%= course_section.course.code %> <%= course_section.course.name %>",
-              id: "<%= detail.id.to_s + "_" + day_offset.to_s %>",
-              campus: "<%= detail.campus_abbreviation %>"
-          });
-      <% end %>
-      <% end %>
-      <% end %>
-  })()
+        $('#course-schedule')
+            .weekCalendar('updateEvent', {
+                start: new Date(1970, 0, 5 + <%= day_offset %>, <%= start_time.hour %>, <%= start_time.min %>),
+                end: new Date(1970, 0, 5 + <%= day_offset %>, <%= end_time.hour %>, <%= end_time.min %>),
+                title: "<%= course_section.course.code %> <%= course_section.course.name %>",
+                id: "<%= detail.id.to_s + "_" + day_offset.to_s %>",
+                campus: "<%= detail.campus_abbreviation %>"
+            });
+        <% end %>
+        <% end %>
+        <% end %>
+    })()
 </script>

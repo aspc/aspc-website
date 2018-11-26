@@ -12,10 +12,17 @@
 
 <div class="columns">
   <div class="column is-3">
+    <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments, course_meeting_details: @course_meeting_details %>
+  </div>
+  <div class="column is-4 is-hidden" id="course-list-container">
+    <%= render 'courses/partials/course_list' %>
+  </div>
+  <div class="column" id="course-schedule-container">
+    <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
     <div class="buttons">
       <%= button_to "Save Schedule",
                     courses_save_path,
-                    :class => "button is-info",
+                    :class => "button is-outlined",
                     :method => :post,
                     :remote => true %>
       <%= button_to "Clear Schedule",
@@ -24,12 +31,5 @@
                     :method => :post,
                     :remote => true %>
     </div>
-    <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments %>
-  </div>
-  <div class="column is-4 is-hidden" id="course-list-container">
-    <%= render 'courses/partials/course_list' %>
-  </div>
-  <div class="column" id="course-schedule-container">
-    <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
   </div>
 </div>

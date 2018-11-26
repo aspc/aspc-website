@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
   def index
     @academic_terms = AcademicTerm.current_academic_year
     @departments = Department.all
+    @course_meeting_details = CourseMeetingDetail.all
 
     user_course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     @course_sections = user_course_schedule.course_sections
@@ -19,7 +20,7 @@ class CoursesController < ApplicationController
     @course_section = CourseSection.find_by(:id => section_id)
 
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
-    if(@course_schedule.course_sections.none? { |section| section.code_slug == @course_section.code_slug })
+    if (@course_schedule.course_sections.none? {|section| section.code_slug == @course_section.code_slug})
       @course_schedule.course_sections << @course_section
       @course_schedule.save
     end
@@ -57,7 +58,7 @@ class CoursesController < ApplicationController
   # but mas as well provide a placebo / verification
   def save_course_sections_to_schedule
     respond_to do |format|
-      format.js { flash.now[:notice] = "Schedule saved successfully." }
+      format.js {flash.now[:notice] = "Schedule saved successfully."}
     end
   end
 
@@ -68,18 +69,32 @@ class CoursesController < ApplicationController
 
     term_key = params[:academic_term].split.reverse.join(';')
     department_code = Department.find_by(:name => params[:department]).code unless params[:department].empty?
-    instructor_name =  params[:instructor].strip unless params[:instructor].empty?
+    instructor_name = params[:instructor].strip unless params[:instructor].empty?
     number = params[:number].to_i rescue nil unless params[:number].empty?
     keywords = params[:keywords].split rescue nil unless params[:keywords].empty?
+    start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
+    start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
+    end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
+    end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
+
+    consider_time = false
+    if not (start_hour.nil? or end_hour.nil?)
+      start_time = Time.new(1970, 1, 1, start_hour, start_minute)
+      end_time = Time.new(1970, 1, 1, end_hour, end_minute)
+      consider_time = true
+    end
+
+    Rails.logger.debug params.inspect
+    Rails.logger.debug (params[:schools].include?("Pomona") || false)
 
     schools = {
-        :pomona => params[:pomona] || false,
-        :claremont_mckenna => params[:claremont_mckenna] || false,
-        :harvey_mudd => params[:harvey_mudd] || false,
-        :scripps => params[:scripps] || false,
-        :pitzer => params[:pitzer] || false
+        :pomona => params[:schools].include?("Pomona") || false,
+        :claremont_mckenna => params[:schools].include?("Claremont McKenna") || false,
+        :harvey_mudd => params[:schools].include?("Harvey Mudd") || false,
+        :scripps => params[:schools].include?("Scripps") || false,
+        :pitzer => params[:schools].include?("Pitzer") || false
     }
-    schools.select! {|k,v| v}
+    schools.select! {|k, v| v}
     if schools.length > 0
       schools = schools.keys
     else
@@ -87,52 +102,59 @@ class CoursesController < ApplicationController
     end
 
     days = {
-        :monday => params[:monday] || false,
-        :tuesday => params[:tuesday] || false,
-        :wednesday => params[:wednesday] || false,
-        :thursday => params[:thursday] || false,
-        :friday => params[:friday] || false
+        :monday => params[:schools].include?("Monday") || false,
+        :tuesday => params[:schools].include?("Tuesday") || false,
+        :wednesday => params[:schools].include?("Wednesday") || false,
+        :thursday => params[:schools].include?("Thursday") || false,
+        :friday => params[:schools].include?("Friday")|| false
     }
-    days.select! {|k,v| v}
+    days.select! {|k, v| v}
 
     matches_query = CourseSection
-          .joins(:academic_term)
-          .joins(:course => [:departments])
-          .where(:academic_terms => {:key => term_key})
+                        .joins(:academic_term)
+                        .joins(:course => [:departments])
+                        .where(:academic_terms => {:key => term_key})
 
-    if(days.length > 0)
+    if (days.length > 0)
       matches_query = matches_query
-          .joins(:course_meeting_details)
-          .where(:course_meeting_details => days)
+                          .joins(:course_meeting_details)
+                          .where(:course_meeting_details => days)
     end
 
-    if(department_code)
+    if (consider_time)
       matches_query = matches_query
-          .where(:courses => {:departments => {:code => department_code}})
+                          .joins(:course_meeting_details)
+                          .where(:course_meeting_details => {:start_time => start_time..end_time})
+                          .where(:course_meeting_details => {:end_time => start_time..end_time})
     end
 
-    if(number)
+    if (department_code)
       matches_query = matches_query
-          .where(:courses => {:number => number })
+                          .where(:courses => {:departments => {:code => department_code}})
+    end
+
+    if (number)
+      matches_query = matches_query
+                          .where(:courses => {:number => number})
     end
 
     matches = matches_query.order("courses.number").all
-    if(schools)
-      matches = matches.select { |section| schools.any? { |campus| section.course_meeting_details.any? {  |detail| detail.campus == campus.to_s } } }
+    if (schools)
+      matches = matches.select {|section| schools.any? {|campus| section.course_meeting_details.any? {|detail| detail.campus == campus.to_s}}}
     end
-    if(keywords)
-      matches = matches.select { |section| keywords.any? { |keyword| section.course.name.downcase.include? keyword.downcase } }
+    if (keywords)
+      matches = matches.select {|section| keywords.any? {|keyword| section.course.name.downcase.include? keyword.downcase}}
     end
-    if(instructor_name)
-      matches = matches.select { |section| section.instructors.any? { |instructor| instructor.name.downcase.include? instructor_name.downcase } }
+    if (instructor_name)
+      matches = matches.select {|section| section.instructors.any? {|instructor| instructor.name.downcase.include? instructor_name.downcase}}
     end
 
     matches = matches.uniq
 
     @course_sections = matches
     respond_to do |format|
-      format.html { render :json => matches.to_json, :status => :ok }
-      format.json { render :json => matches.to_json, :status => :ok }
+      format.html {render :json => matches.to_json, :status => :ok}
+      format.json {render :json => matches.to_json, :status => :ok}
       format.js
     end
   end
