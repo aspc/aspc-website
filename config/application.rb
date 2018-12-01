@@ -17,3 +17,5 @@ module AspcV2
     # the framework and any gems in your application.
   end
 end
+
+ActiveRecord::SessionStore::Session.serializer = :json

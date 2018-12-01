@@ -1,13 +1,14 @@
 require 'cgi'
 
 class SessionsController < ApplicationController
-  PHP_AUTH_URL = "https://pomonastudents.org/php-auth/login.php"
+  PHP_AUTH_URL = "https://pomonastudents.org/php-auth/"
 
   def new
   end
 
   def destroy
     session[:current_user_id] = nil
+    redirect_to PHP_AUTH_URL + "logout.php"
   end
 
   def not_authorized
@@ -112,8 +113,7 @@ class SessionsController < ApplicationController
     session[:current_user_id] = user.id
 
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to PHP_AUTH_URL
-    #redirect_to root_url, :notice => "Login successful. Welcome, #{current_user.first_name}."
+    return redirect_to PHP_AUTH_URL + "login.php"
   end
 
   def _login_url(service_url)
