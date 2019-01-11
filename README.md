@@ -19,3 +19,7 @@ with information about setting up this project to work with an IDE, our core tec
  5. Navigate to [localhost:3000](http://localhost:3000) and see a local copy of this website up and running! 
 
 
+## I have a feature request / There's a problem with the website! 
+
+If you're familiar with GitHub, open up a GitHub Issue and we'll take a look at it, or, better yet, feel free to implement the changes 
+yourself and submit a pull request! If the issue is urgent, contact us at product@aspc.pomona.edu.
