@@ -13,7 +13,7 @@ It's simple to start contributing! We've also provided a more detailed [Getting 
 with information about setting up this project to work with an IDE, our core technologies, and more helpful tips.
 
  1. Clone this repo
- 2. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [VMWare](https://www.virtualbox.org/wiki/Downloads)
+ 2. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
  3. Run `vagrant up` from inside the cloned directory. Follow the prompts, default options are fine. This will handle dependency installation and all that jazz. 
  4. Run `vagrant ssh`, `cd /vagrant`, and then `rails server`.
  5. Navigate to [localhost:3000](http://localhost:3000) and see a local copy of this website up and running! 
