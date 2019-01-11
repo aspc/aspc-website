@@ -9,7 +9,7 @@ This repo is run and maintained by the ASPC Software Development Group, but anyo
 If you attend Pomona College or any of the other Claremont Colleges and would like to join, please feel free to reach out to us at software@aspc.pomona.edu.
 
 ### Getting Up And Running
-It's simple to start contributing! We've also provided a more detailed [Getting started guide](docs/getting-started.md) 
+It's simple to start contributing! We've also provided a more detailed [Getting Started Guide](docs/getting-started.md) 
 with information about setting up this project to work with an IDE, our core technologies, and more helpful tips.
 
  1. Clone this repo
