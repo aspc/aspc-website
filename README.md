@@ -1,5 +1,5 @@
 # ASPC 2.0
-This repo is intended to be a complete rewrite of aspc.pomona.edu (soon to be pomonastudents.org). The aim of this project is to: 
+This repo is intended to be a complete rewrite of [pomonastudents.org](https://pomonastudents.org) (formerly [aspc.pomona.edu](http://aspc.pomona.edu)). The aim of this project is to: 
  - Put the content that most people use front and center
  - Redesign the website from the ground up
  - Streamline and trim legacy features
