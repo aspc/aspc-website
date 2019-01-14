@@ -18,6 +18,12 @@ with information about setting up this project to work with an IDE, our core tec
  4. Run `vagrant ssh`, `cd /vagrant`, and then `rails server`.
  5. Navigate to [localhost:3000](http://localhost:3000) and see a local copy of this website up and running! 
 
+## Contributing
+For guidelines of how to contribute to this project, head to [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## License
+
+This project is licensed under the MIT standard license, which may be read at [LICENSE.md](LICENSE.md).
 
 ## I have a feature request / There's a problem with the website! 
 
