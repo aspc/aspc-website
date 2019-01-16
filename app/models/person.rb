@@ -1,3 +1,3 @@
 class Person < ApplicationRecord
-  enum role: [:senator => 0, :staff => 1]
+  enum role: [:senator, :staff]
 end
