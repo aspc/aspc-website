@@ -2,72 +2,103 @@
   <%= render 'components/page_header', :title => "Staff" %>
 <% end %>
 
-<div class="content staff-content">
-  <h1>ASPC Staff</h1>
-  <hr/>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Audrey Jang</h2>
-    <h5 class="senator-position">Chief of Staff</h5>
-    <h5 class="senator-email">chiefofstaff@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Daniela Bond</h2>
-    <h5 class="senator-position">Title IX</h5>
-    <h5 class="senator-email">titleix@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Ji Min Hwang</h2>
-    <h5 class="senator-position">Disability Advocacy</h5>
-    <h5 class="senator-email">disabilityadvocacy@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Juliet Garner</h2>
-    <h5 class="senator-position">Mental Health</h5>
-    <h5 class="senator-email">mentalhealth@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Julian Villasenor</h2>
-    <h5 class="senator-position">Public Relations</h5>
-    <h5 class="senator-email">publicrelations@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Alfredo Reyes-Guzman</h2>
-    <h5 class="senator-position">Secretary</h5>
-    <h5 class="senator-email">secretary@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Israel Diaz Garcia</h2>
-    <hf class="senator-position">Multimedia Engagement Manager</hf>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Sean Volke</h2>
-    <hf class="senator-position">Elections Commissioner</hf>
-    <h5 class="senator-email">elections.aspc.pomona.edu</h5>
-  </div>
+<h1>ASPC Staff</h1>
+<div class="columns">
+  <% @staff.each do |member| %>
+    <div class="column">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image senator-image">
+            <%= image_tag(member.image) %>
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <h5 class="title is-5 margin-bottom-2">
+                <%= member.name %></h5>
+              <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
+                <%= member.position %></h6>
+              <h6 class="subtitle is-6 margin-bottom-1">
+                <%= member.email %></h6>
+              <% if member.biography.empty? %>
+                <span class="button is-static">Biography</span>
+              <% else %>
+                <a class="button is-info is-outlined modal-open"
+                   data-target="<%= member.name.parameterize %>-biography">Biography</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <% if not member.biography.empty? %>
+      <div class="modal" id="<%= senator.name.parameterize %>-biography">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <div class="box">
+              <h4 class="title is-4">
+                <%= member.name %></h4>
+              <p>
+                <%= member.biography %></p>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
-  <h1>Board of Trustees Representatives</h1>
-  <hr/>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Elvis Kaharo</h2>
-    <h5 class="senator-position">Student Affairs</h5>
-    <h5 class="senator-email">botstudentaffairs@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Bradley Druzinsky</h2>
-    <h5 class="senator-position">Finance</h5>
-    <h5 class="senator-email">botfinance@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Soleil Ball Van Zee</h2>
-    <h5 class="senator-position">Academic Affairs</h5>
-    <h5 class="senator-email">botacademic@aspc.pomona.edu</h5>
-  </div>
-  <div class="content senator-position-content">
-    <h2 class="senator-name">Laura Zhang </h2>
-    <h5 class="senator-position">Advancement</h5>
-    <h5 class="senator-email">botadvancement@aspc.pomona.edu</h5>
-  </div>
+<h1>Board of Trustees Representatives</h1>
 
+<div class="columns">
+  <% bot.each do |member| %>
+    <div class="column">
+      <div class="card">
+        <div class="card-image">
+          <figure class="image senator-image">
+            <%= image_tag(member.image) %>
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <h5 class="title is-5 margin-bottom-2">
+                <%= member.name %></h5>
+              <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
+                <%= member.position %></h6>
+              <h6 class="subtitle is-6 margin-bottom-1">
+                <%= member.email %></h6>
+              <% if member.biography.empty? %>
+                <span class="button is-static">Biography</span>
+              <% else %>
+                <a class="button is-info is-outlined modal-open"
+                   data-target="<%= member.name.parameterize %>-biography">Biography</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <% if not member.biography.empty? %>
+      <div class="modal" id="<%= senator.name.parameterize %>-biography">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <div class="box">
+              <h4 class="title is-4">
+                <%= member.name %></h4>
+              <p>
+                <%= member.biography %></p>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+    <% end %>
+  <% end %>
 </div>
