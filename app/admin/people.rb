@@ -20,7 +20,9 @@ ActiveAdmin.register Person do
       row :email
       row :biography
       row :image do |person|
-        image_tag url_for(person.image)
+        if (person.image.attached?)
+          image_tag url_for(person.image)
+        end
       end
     end
   end
