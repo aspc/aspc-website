@@ -2,7 +2,7 @@
   <%= render 'components/page_header', :title => "Staff" %>
 <% end %>
 
-<h1>ASPC Staff</h1>
+<h3 class="title is-3 margin-bottom-2">ASPC Staff</h3>
 <div class="columns">
   <% @staff.each do |member| %>
     <div class="column">
@@ -34,7 +34,7 @@
     </div>
 
     <% if not member.biography.empty? %>
-      <div class="modal" id="<%= senator.name.parameterize %>-biography">
+      <div class="modal" id="<%= member.name.parameterize %>-biography">
         <div class="modal-background"></div>
         <div class="modal-content">
           <div class="modal-card">
@@ -52,10 +52,10 @@
   <% end %>
 </div>
 
-<h1>Board of Trustees Representatives</h1>
+<h3 class="title is-3 margin-bottom-2">Board of Trustees Representatives</h3>
 
 <div class="columns">
-  <% bot.each do |member| %>
+  <% @bot.each do |member| %>
     <div class="column">
       <div class="card">
         <div class="card-image">
@@ -85,7 +85,7 @@
     </div>
 
     <% if not member.biography.empty? %>
-      <div class="modal" id="<%= senator.name.parameterize %>-biography">
+      <div class="modal" id="<%= member.name.parameterize %>-biography">
         <div class="modal-background"></div>
         <div class="modal-content">
           <div class="modal-card">
