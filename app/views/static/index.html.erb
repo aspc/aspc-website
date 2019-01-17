@@ -82,7 +82,7 @@
               <span class="icon">
                 <i class="fa fa-clock-o " aria-hidden="true"></i>
               </span>
-              <span><%= event.start.strftime("%l:%M%P") %>-<%= event.end.strftime("%l:%M%P") %></span>
+              <span><%= event.start.strftime("%l:%M%P").strip %>–<%= event.end.strftime("%l:%M%P").strip %></span>
             </div>
             <div class="event-location">
               <span class="icon">
