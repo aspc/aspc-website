@@ -54,8 +54,21 @@
 }
 
 .application-footer {
-    background: #0071a6;
-    color: whitesmoke;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 3rem;
+}
+
+.application-footer .footer-logo {
+    opacity: 0.2;
+    margin-bottom: 1rem;
+}
+
+.application-footer .footer-text a {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.application-footer .footer-text a:hover {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .page-header {
