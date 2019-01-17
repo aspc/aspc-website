@@ -15,9 +15,16 @@
     align-items: center;
     text-align: center;
     width: 100%;
+    border-radius: 6px 0 0 6px;
+    box-shadow: none;
   }
 
   .event-info-box {
     width: 100%;
+    border-radius: 0 6px 6px 0;
+    box-shadow: none;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px 1px 1px 0;
   }
 }
