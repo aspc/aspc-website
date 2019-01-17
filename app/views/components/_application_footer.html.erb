@@ -1,10 +1,11 @@
-<footer class="footer application-footer">
-    <div class="content has-text-centered">
-      <p>
-        &copy; Associated Students of Pomona College
-      </p>
-      <p>
-        Website designed and maintained by <%= link_to "ASPC Software Development Group", :aspc_software, :class => 'has-text-white' %>.
-      </p>
+<footer class="application-footer">
+  <div class="content has-text-centered">
+    <div class="footer-logo">
+      <%= image_tag(asset_path "logo-footer.png", alt: "Associated Students of Pomona College") %>
     </div>
+    <div class="footer-text is-size-6">
+      &copy; Associated Students of Pomona College. Website designed and maintained
+      by <%= link_to "ASPC Software Development Group", :aspc_software %>.
+    </div>
+  </div>
 </footer>
