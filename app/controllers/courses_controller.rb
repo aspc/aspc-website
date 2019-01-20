@@ -16,15 +16,15 @@ class CoursesController < ApplicationController
 
   def export_course_sections
     academic_term = AcademicTerm.find_by(:session => params[:session], :year => params[:year])
-    puts academic_term.inspect
     user_course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     course_sections = user_course_schedule.course_sections.includes(:course_meeting_details).where.not(course_meeting_details: {course_section_id: nil})
 
     calendar = Icalendar::Calendar.new
-    calendar.version = '2.0'
+    calendar.version = "2.0"
     filename = "#{academic_term.session.parameterize}-#{academic_term.year}-courses.ics"
 
-    case academic_term
+    academic_term_session_year = "#{academic_term.session} #{academic_term.year}"
+    case academic_term_session_year
     when "FA 2018"
       term_start = DateTime.new(2018, 9, 4, 8, 10, 0)
       term_end = DateTime.new(2018, 12, 12, 22, 0, 0)
@@ -34,8 +34,7 @@ class CoursesController < ApplicationController
     end
 
     (term_start..term_end).each do |date|
-      # Do stuff with date
-      course_sections.each do |course_section|
+       course_sections.each do |course_section|
         course_section.course_meeting_details.each do |detail|
           case date.strftime("%w")
           when "1"
@@ -63,7 +62,7 @@ class CoursesController < ApplicationController
       end
     end
 
-    send_data calendar.to_ical, type: 'text/calendar', disposition: 'attachment', filename: filename
+    send_data calendar.to_ical, type: "text/calendar", disposition: "attachment", filename: filename
   end
 
 # TODO: Move to course schedule controller ?
@@ -215,7 +214,7 @@ class CoursesController < ApplicationController
 
   def new_calendar_event(calendar, date, course_section, detail)
     event = calendar.event
-    event.summary = course_section.course.code + " " + course_section.course.name
+    event.summary = "#{course_section.course.code} #{course_section.course.name}"
     start_time = DateTime.new(date.year, date.month, date.day, detail.start_time.hour, detail.start_time.min, 0)
     end_time = DateTime.new(date.year, date.month, date.day, detail.end_time.hour, detail.end_time.min, 0)
     event.dtstart = Icalendar::Values::DateTime.new(start_time)
