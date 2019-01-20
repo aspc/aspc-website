@@ -30,6 +30,22 @@
                     :class => "button",
                     :method => :post,
                     :remote => true %>
+      <a class="button modal-open" data-target="export-schedule-modal">Export Schedule</a>
     </div>
   </div>
+</div>
+
+<div class="modal" id="export-schedule-modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="modal-card">
+      <div class="box">
+        <h4 class="title is-4">Export Schedule</h4>
+        <% @academic_terms.each do |term| %>
+        <%= link_to "Export #{term.session} #{term.year}", courses_export_url(:session => term.session, :year => term.year), method: :get, class: "button is-outlined" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
