@@ -20,21 +20,23 @@
   <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => false,
+        :arrows => true,
         :dots => false,
+        :useTransform => false,
+        :easing => 'swing'
     } do %>
       <% @announcements.each do |announcement| %>
           <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
-            <%= link_to announcement.details_url do %>
               <div class="gradient">
-                <div class="announcement-text">
+                <div class="announcement-info has-shadow">
                   <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
                   <% if not announcement.caption.blank? %>
                     <p class="subtitle has-text-white"><%= announcement.caption %></p>
                   <% end %>
+                  <a class="button is-outlined is-inverted is-info" href="<%= announcement.details_url %>" tabindex="0">More
+                    Details</a>
                 </div>
             </div>
-            <% end %>
           </div>
       <% end %>
     <% end %>
