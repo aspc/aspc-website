@@ -31,7 +31,7 @@
             <div class="announcement-info has-shadow">
               <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
               <% if not announcement.caption.blank? %>
-                <p class="subtitle has-text-white"><%= announcement.caption %></p>
+                  <p class="subtitle has-text-white"><%= announcement.caption %></p>
               <% end %>
               <% if not announcement.details_url.blank? %>
                 <a class="button is-outlined is-inverted is-info" href="<%= announcement.details_url %>" tabindex="0">More
