@@ -13,21 +13,29 @@
 }
 
 .slick-next {
-  right: 50px;
+  right: 1.5rem;
   z-index: 10;
 }
 
 .slick-prev {
-  left: 25px;
+  left: 1.5rem;
   z-index: 10;
 }
 
-.slick-prev:before, .slick-next:before {
-  font-family: 'slick';
-  font-size: 50px;
-  z-index: 10;
-  font-weight: bold;
+.slick-prev::before, .slick-next::before {
+  font-family: 'FontAwesome';
+  font-size: 2rem;
+  font-weight: normal;
   opacity: 1;
+  @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .2));
+}
+
+.slick-prev::before {
+  content: "\f053";
+}
+
+.slick-next::before {
+  content: "\f054";
 }
 
 .slick-slide {
@@ -39,16 +47,19 @@
     @include linear-gradient(transparent, 50%, rgba(0, 0, 0, 0.7), 100%);
     display: flex;
 
-    .announcement-text {
+    .announcement-info {
       width: 100%;
-      text-align: center;
-      padding: 50px 25px 25px;
+      padding: 2.5rem 1.5rem 1.5rem;
       align-self: flex-end;
+      @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .2));
 
       .subtitle,
       .title {
         text-align: left;
-        @include text-shadow(1px, 1px, 1px, rgba(0, 0, 0, .7));
+      }
+
+      .subtitle {
+        margin-bottom: 1rem;
       }
     }
   }
