@@ -9,6 +9,6 @@ class StaticController < ApplicationController
   end
   def aspc_staff
     @staff = Person.staff
-    @bot = Person.bot
+    @board = Person.board
   end
 end
