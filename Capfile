@@ -30,9 +30,5 @@ install_plugin Capistrano::Puma  # Default puma tasks
 # Execute rake tasks remotely
 require "capistrano/rake"
 
-# Schedule Active Jobs with Whenever
-require "whenever/capistrano"
-set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
-
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
