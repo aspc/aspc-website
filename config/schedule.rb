@@ -9,10 +9,10 @@ set :output, "log/jobs.log"
 # Jobs specified here will run every time
 # the server restarts
 every :reboot do
-  runner 'MenuImportJob.perform_later'
+  rake 'menu_import:all'
 end
 
 # We import menus data every hour in case any changes were made
 every :hour do
-  runner 'MenuImportJob.perform_later'
+  rake 'menu_import:all'
 end
