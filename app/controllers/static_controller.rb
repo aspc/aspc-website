@@ -5,10 +5,10 @@ class StaticController < ApplicationController
     @events = Event.where("start >= ?", time).where(:status => :approved).order(:start).take(3)
   end
   def aspc_senators
-    @senators = Person.senator
+    @senators = Person.senator.order("id ASC")
   end
   def aspc_staff
-    @staff = Person.staff
-    @board = Person.board
+    @staff = Person.staff.order("id ASC")
+    @board = Person.board.order("id ASC")
   end
 end
