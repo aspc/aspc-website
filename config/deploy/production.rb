@@ -34,3 +34,7 @@ set :yarn_target_path, -> { release_path }
 
 # Specify which branch to stage
 set :branch, "master"
+
+namespace :deploy do
+  after :finishing, 'remote:update_crontab'
+end
