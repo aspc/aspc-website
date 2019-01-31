@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :setup_application_controller_environment
 
-  helper ApplicationHelper
-
   helper_method :current_user
   helper_method :is_admin?
   helper_method :logged_in?
