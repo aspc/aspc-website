@@ -19,7 +19,7 @@ namespace :remote do
   task :show_crontab do
     on roles(:app) do
       within current_path do
-        execute :bundle, :exec, "whenever #{fetch(:application)}"
+        execute :bundle, :exec, "whenever aspc"
       end
     end
   end
@@ -28,7 +28,16 @@ namespace :remote do
   task :update_crontab do
     on roles(:app) do
       within current_path do
-        execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+        execute :bundle, :exec, "whenever --update-crontab aspc"
+      end
+    end
+  end
+
+  desc "Clear the crontab for the application"
+  task :clear_crontab do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --clear-crontab aspc"
       end
     end
   end
