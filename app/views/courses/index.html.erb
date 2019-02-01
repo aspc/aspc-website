@@ -17,42 +17,25 @@
   <div class="column is-4 is-hidden" id="course-list-container">
     <%= render 'courses/partials/course_list' %>
   </div>
-  <div class="column" id="course-schedule-container">
-    <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+  <div class="column">
+    <div id="course-schedule-container">
+      <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+    </div>
     <div class="buttons">
       <%= button_to "Save Schedule",
                     courses_save_path,
-                    :class => "button is-outlined",
+                    :class => "button is-link",
                     :method => :post,
                     :remote => true %>
       <%= button_to "Clear Schedule",
                     courses_clear_path,
-                    :class => "button",
+                    :class => "button is-light",
                     :method => :post,
                     :remote => true %>
-      <a class="button modal-open" data-target="export-schedule-modal">Export Schedule</a>
+      <%= button_to "Export Schedule",
+                    courses_export_path,
+                    :class => "button is-light",
+                    :method => :get %>
     </div>
   </div>
-</div>
-
-<div class="modal" id="export-schedule-modal">
-  <div class="modal-background"></div>
-  <div class="modal-content">
-    <div class="modal-card">
-      <div class="box">
-        <h4 class="title is-4">Export Schedule</h4>
-        <p class="margin-bottom-1">
-          Choose a semester to export. Classes in exported calendar wil start and end on dates noted in
-          <a href="http://catalog.pomona.edu/content.php?catoid=28&navoid=5708">Academic Calendar</a>. You can import
-          iCalendar file into Google Calendar, Microsoft Outlook, iOS Calendar, macOS Calendar and more.
-        </p>
-        <div class="export-buttons">
-          <% @academic_terms.each do |term| %>
-            <%= link_to "#{term.session} #{term.year}", courses_export_url(:session => term.session, :year => term.year), method: :get, class: "button is-outlined" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="modal-close is-large" aria-label="close"></button>
 </div>

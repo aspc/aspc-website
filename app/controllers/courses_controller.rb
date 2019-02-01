@@ -15,22 +15,31 @@ class CoursesController < ApplicationController
   end
 
   def export_course_sections
-    academic_term = AcademicTerm.find_by(:session => params[:session], :year => params[:year])
-    user_course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
+    user_course_schedule = CourseSchedule.find_by(:user => current_user)
     course_sections = user_course_schedule.course_sections.includes(:course_meeting_details).where.not(course_meeting_details: {course_section_id: nil})
+    academic_term = course_sections.first&.academic_term
+
+    if !academic_term # Academic Term is decided by the courses on the schedule
+      return redirect_to courses_path, :flash => {
+          :notice => "Cannot export schedule",
+          :notice_subtitle => "You haven't saved any courses to your schedule!",
+          :notice_class => "is-danger",
+      }
+    end
 
     calendar = Icalendar::Calendar.new
     calendar.version = "2.0"
     filename = "#{academic_term.session.parameterize}-#{academic_term.year}-courses.ics"
 
-    academic_term_session_year = "#{academic_term.session} #{academic_term.year}"
-    case academic_term_session_year
-    when "FA 2018"
+    case academic_term.key
+    when "2018;FA"
       term_start = DateTime.new(2018, 9, 4, 8, 10, 0)
       term_end = DateTime.new(2018, 12, 12, 22, 0, 0)
-    else
+    when "2019;SP"
       term_start = DateTime.new(2019, 1, 22, 8, 10, 0)
       term_end = DateTime.new(2019, 5, 8, 22, 0, 0)
+    else
+      return redirect_to courses_path # This is temporary and MUST be made into something more permanent than hardcoding
     end
 
     (term_start..term_end).each do |date|
