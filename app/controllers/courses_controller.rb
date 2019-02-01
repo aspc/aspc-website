@@ -14,7 +14,67 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
-  # TODO: Move to course schedule controller ?
+  def export_course_sections
+    user_course_schedule = CourseSchedule.find_by(:user => current_user)
+    course_sections = user_course_schedule.course_sections.includes(:course_meeting_details).where.not(course_meeting_details: {course_section_id: nil})
+    academic_term = course_sections.first&.academic_term
+
+    if !academic_term # Academic Term is decided by the courses on the schedule
+      return redirect_to courses_path, :flash => {
+          :notice => "Cannot export schedule",
+          :notice_subtitle => "You haven't saved any courses to your schedule!",
+          :notice_class => "is-danger",
+      }
+    end
+
+    calendar = Icalendar::Calendar.new
+    calendar.version = "2.0"
+    filename = "#{academic_term.session.parameterize}-#{academic_term.year}-courses.ics"
+
+    case academic_term.key
+    when "2018;FA"
+      term_start = DateTime.new(2018, 9, 4, 8, 10, 0)
+      term_end = DateTime.new(2018, 12, 12, 22, 0, 0)
+    when "2019;SP"
+      term_start = DateTime.new(2019, 1, 22, 8, 10, 0)
+      term_end = DateTime.new(2019, 5, 8, 22, 0, 0)
+    else
+      return redirect_to courses_path # This is temporary and MUST be made into something more permanent than hardcoding
+    end
+
+    (term_start..term_end).each do |date|
+       course_sections.each do |course_section|
+        course_section.course_meeting_details.each do |detail|
+          case date.strftime("%w")
+          when "1"
+            if detail.monday
+              new_calendar_event(calendar, date, course_section, detail)
+            end
+          when "2"
+            if detail.tuesday
+              new_calendar_event(calendar, date, course_section, detail)
+            end
+          when "3"
+            if detail.wednesday
+              new_calendar_event(calendar, date, course_section, detail)
+            end
+          when "4"
+            if detail.thursday
+              new_calendar_event(calendar, date, course_section, detail)
+            end
+          when "5"
+            if detail.friday
+              new_calendar_event(calendar, date, course_section, detail)
+            end
+          end
+        end
+      end
+    end
+
+    send_data calendar.to_ical, type: "text/calendar", disposition: "attachment", filename: filename
+  end
+
+# TODO: Move to course schedule controller ?
   def add_course_section_to_schedule
     section_id = params[:section_id]
     @course_section = CourseSection.find_by(:id => section_id)
@@ -30,7 +90,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  # TODO: Move to course schedule controller ?
+# TODO: Move to course schedule controller ?
   def remove_course_section_from_schedule
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
 
@@ -43,7 +103,7 @@ class CoursesController < ApplicationController
     end
   end
 
-  # TODO: Move to course schedule controller ?
+# TODO: Move to course schedule controller ?
   def clear_course_sections_from_schedule
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     @course_schedule.course_sections.delete(*@course_schedule.course_sections)
@@ -53,9 +113,9 @@ class CoursesController < ApplicationController
     end
   end
 
-  # TODO: Move to course schedule controller ?
-  # This method is actually completely redundant,
-  # but mas as well provide a placebo / verification
+# TODO: Move to course schedule controller ?
+# This method is actually completely redundant,
+# but mas as well provide a placebo / verification
   def save_course_sections_to_schedule
     respond_to do |format|
       format.js {flash.now[:notice] = "Schedule saved successfully."}
@@ -106,7 +166,7 @@ class CoursesController < ApplicationController
         :tuesday => params[:schools].include?("Tuesday") || false,
         :wednesday => params[:schools].include?("Wednesday") || false,
         :thursday => params[:schools].include?("Thursday") || false,
-        :friday => params[:schools].include?("Friday")|| false
+        :friday => params[:schools].include?("Friday") || false
     }
     days.select! {|k, v| v}
 
@@ -158,4 +218,18 @@ class CoursesController < ApplicationController
       format.js
     end
   end
+
+  private
+
+  def new_calendar_event(calendar, date, course_section, detail)
+    event = calendar.event
+    event.summary = "#{course_section.course.code} #{course_section.course.name}"
+    start_time = DateTime.new(date.year, date.month, date.day, detail.start_time.hour, detail.start_time.min, 0)
+    end_time = DateTime.new(date.year, date.month, date.day, detail.end_time.hour, detail.end_time.min, 0)
+    event.dtstart = Icalendar::Values::DateTime.new(start_time)
+    event.dtend = Icalendar::Values::DateTime.new(end_time)
+    event.description = course_section.description
+    event.location = detail.location
+  end
+
 end
