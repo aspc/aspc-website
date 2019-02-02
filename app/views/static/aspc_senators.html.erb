@@ -2,89 +2,58 @@
   <%= render 'components/page_header', :title => "Senators" %>
 <% end %>
 
-<div class="content senator-position-content">
-  <h2 class="senator-name">Alejandro Guerrero</h2>
-  <h5 class="senator-position">President</h5>
-  <h5 class="senator-email">president@aspc.pomona.edu</h5>
-</div>
+<% @senators.in_groups_of(3, false).each do |group| %>
+  <div class="columns">
+    <% group.each do |senator| %>
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image senator-image">
+              <%= avatar_photo senator %>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <h5 class="title is-5 margin-bottom-2">
+                  <%= senator.name %></h5>
+                <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
+                  <%= senator.position %></h6>
+                <h6 class="subtitle is-6 margin-bottom-1">
+                  <%= senator.email %></h6>
+                <% if senator.biography.empty? %>
+                  <span class="button is-static">Biography</span>
+                <% else %>
+                  <a class="button is-info is-outlined modal-open"
+                     data-target="<%= senator.name.parameterize %>-biography">Biography</a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div class="content senator-position-content">
-  <h2 class="senator-name">Johny Ek Aban</h2>
-  <h5 class="senator-position">Executive VP</h5>
-  <h5 class="senator-email">executivevp@aspc.pomona.edu</h5>
-</div>
+      <% if not senator.biography.empty? %>
+        <div class="modal" id="<%= senator.name.parameterize %>-biography">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="modal-card">
+              <div class="box">
+                <h4 class="title is-4">
+                  <%= senator.name %></h4>
+                <p>
+                  <%= senator.biography %></p>
+              </div>
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 
-<div class="content senator-position-content">
-  <h2 class="senator-name">Meredith Simpson</h2>
-  <h5 class="senator-position">VP of Academic Affairs</h5>
-  <h5 class="senator-email">vpacademic@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Jorden Favors</h2>
-  <h5 class="senator-position">VP of Campus Events</h5>
-  <h5 class="senator-email">vpcampusevents@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Daniel Silverman</h2>
-  <h5 class="senator-position">North Campus Rep</h5>
-  <h5 class="senator-email">northcamps@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Payal Kachru</h2>
-  <h5 class="senator-position">South Campus Rep</h5>
-  <h5 class="senator-email">southcampus@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Hans Zhou</h2>
-  <h5 class="senator-position">Clubs and Organizations</h5>
-  <h5 class="senator-email">clubs@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Samantha Borje</h2>
-  <h5 class="senator-position">Community Relations</h5>
-  <h5 class="senator-email">community@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Juste Simanuaskaite</h2>
-  <h5 class="senator-position">Environmental Affairs</h5>
-  <h5 class="senator-email">environment@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Alezandro Ruvalcaba</h2>
-  <h5 class="senator-position">External Affairs</h5>
-  <h5 class="senator-email">externalaffairs@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Winston Nelson</h2>
-  <h5 class="senator-position">Sports</h5>
-  <h5 class="senator-email">sports@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Laura Zhang</h2>
-  <h5 class="senator-position">Senior Class President</h5>
-  <h5 class="senator-email">seniorpresident@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Perla Grimaldo-Ramirez</h2>
-  <h5 class="senator-position">Junior Class President</h5>
-  <h5 class="senator-email">juniorpresident@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Malak Afaneh</h2>
-  <h5 class="senator-position">Sophomore Class President</h5>
-  <h5 class="senator-email">sophomorepresident@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Andriw Read</h2>
-  <h5 class="senator-position">First Year Class President</h5>
-  <h5 class="senator-email">firstyearpresident@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Ellie Ash-Bala</h2>
-  <h5 class="senator-position">Advisor</h5>
-  <h5 class="senator-email">administrator@aspc.pomona.edu</h5>
-</div>
-<div class="content senator-position-content">
-  <h2 class="senator-name">Christopher Waugh</h2>
-  <h5 class="senator-position">Advisor</h5>
-</div>
+
+
+
+

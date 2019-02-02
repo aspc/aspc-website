@@ -17,19 +17,25 @@
   <div class="column is-4 is-hidden" id="course-list-container">
     <%= render 'courses/partials/course_list' %>
   </div>
-  <div class="column" id="course-schedule-container">
-    <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+  <div class="column">
+    <div id="course-schedule-container">
+      <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+    </div>
     <div class="buttons">
       <%= button_to "Save Schedule",
                     courses_save_path,
-                    :class => "button is-outlined",
+                    :class => "button is-link",
                     :method => :post,
                     :remote => true %>
       <%= button_to "Clear Schedule",
                     courses_clear_path,
-                    :class => "button",
+                    :class => "button is-light",
                     :method => :post,
                     :remote => true %>
+      <%= button_to "Export Schedule",
+                    courses_export_path,
+                    :class => "button is-light",
+                    :method => :get %>
     </div>
   </div>
 </div>

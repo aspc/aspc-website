@@ -1,6 +1,6 @@
 namespace :remote do
-  desc "Reloads Nginx on Server"
-  task :nginx do
+  desc "Reloads Nginx on server"
+  task :reload_nginx do
     on roles(:all) do
       execute :service, "nginx reload"
     end
@@ -11,6 +11,33 @@ namespace :remote do
     on roles(:all) do
       within current_path do
         execute "pwd"
+      end
+    end
+  end
+
+  desc "Show crontab for the application"
+  task :show_crontab do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever aspc"
+      end
+    end
+  end
+
+  desc "Update the crontab for the application"
+  task :update_crontab do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --update-crontab aspc"
+      end
+    end
+  end
+
+  desc "Clear the crontab for the application"
+  task :clear_crontab do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, "whenever --clear-crontab aspc"
       end
     end
   end

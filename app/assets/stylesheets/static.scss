@@ -57,6 +57,13 @@
 /*
  * Page Specific Tweaks
  */
+
+.senator-image img {
+  object-fit: cover;
+  width: 700px;
+  height: 700px;
+}
+
 .senator-position {
   font-weight: bold;
 }

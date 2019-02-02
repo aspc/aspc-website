@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   scope controller: :courses do
     get 'courses' => :index
+    get 'courses/export' => :export_course_sections
     get 'courses/:id' => :show, as: :course
     post 'courses/add' => :add_course_section_to_schedule
     post 'courses/remove' => :remove_course_section_from_schedule
