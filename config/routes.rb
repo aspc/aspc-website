@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  resources :events
+  resources :events do
+    member do
+      get :export
+    end
+  end
 
   scope controller: :courses do
     get 'courses' => :index
@@ -29,7 +33,7 @@ Rails.application.routes.draw do
   end
 
   scope controller: :sessions do
-    get   'unauthorized' => :not_authorized
+    get 'unauthorized' => :not_authorized
     match 'logout' => :destroy, :via => [:get, :destroy]
     get 'login' => :new
     match 'login/cas' => :create_via_cas, :via => [:get, :post]
