@@ -91,6 +91,31 @@ class EventsController < ApplicationController
     end
   end
 
+  def export
+    event = Event.find_by_id(params[:id])
+
+    if !event
+      return redirect_to events_path, :flash => {
+          :notice => "Cannot export event",
+          :notice_subtitle => "Invalid event selected!",
+          :notice_class => "is-danger",
+      }
+    end
+
+    calendar = Icalendar::Calendar.new
+    calendar.version = "2.0"
+    filename = "#{event.name.parameterize}.ics"
+
+    calendar_event = calendar.event
+    calendar_event.summary = event.name
+    calendar_event.dtstart = Icalendar::Values::DateTime.new(event.start)
+    calendar_event.dtend = Icalendar::Values::DateTime.new(event.end)
+    calendar_event.description = event.description
+    calendar_event.location = event.location
+
+    send_data calendar.to_ical, type: "text/calendar", disposition: "attachment", filename: filename
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -103,6 +128,17 @@ class EventsController < ApplicationController
           .require(:event)
           .permit(:name, :location, :description, :host, :details_url, :status, :submitted_by_user_fk,
                   :end_date, :end_hour, :end_minute, :end_meridiem, :start_date, :start_hour, :start_minute, :start_meridiem)
+    end
+
+    def new_calendar_event(calendar, date, course_section, detail)
+      event = calendar.event
+      event.summary = "#{course_section.course.code} #{course_section.course.name}"
+      start_time = DateTime.new(date.year, date.month, date.day, detail.start_time.hour, detail.start_time.min, 0)
+      end_time = DateTime.new(date.year, date.month, date.day, detail.end_time.hour, detail.end_time.min, 0)
+      event.dtstart = Icalendar::Values::DateTime.new(start_time)
+      event.dtend = Icalendar::Values::DateTime.new(end_time)
+      event.description = course_section.description
+      event.location = detail.location
     end
 
     # Map a database collection of Events to something our
