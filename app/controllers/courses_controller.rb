@@ -137,36 +137,53 @@ class CoursesController < ApplicationController
     end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
     end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
+    # logger.info start_hour, start_minute, end_hour, end_minute
+
     consider_time = false
-    if not (start_hour.nil? or end_hour.nil?)
+    if not start_hour.nil?  # if user specifies start time
       start_time = Time.new(1970, 1, 1, start_hour, start_minute)
+
+      if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
+      logger.info "end hour #{end_hour}"
+
       end_time = Time.new(1970, 1, 1, end_hour, end_minute)
+      consider_time = true
+    elsif not end_hour.nil?   # if user only specifies end time but not start time
+      end_time = Time.new(1970, 1, 1, end_hour, end_minute)
+
+      if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
+      logger.info "start hour #{start_hour}"
+
+      start_time = Time.new(1970, 1, 1, start_hour, start_minute)
       consider_time = true
     end
 
     Rails.logger.debug params.inspect
-    Rails.logger.debug (params[:schools].include?("Pomona") || false)
+    # Rails.logger.debug (params[:schools].include?("Pomona") || false)
+    # Test disabled since params for schools and days have been reverted to separate checkboxes
 
+    # Gets results from individual checkboxes with corresponding symbols
     schools = {
-        :pomona => params[:schools].include?("Pomona") || false,
-        :claremont_mckenna => params[:schools].include?("Claremont McKenna") || false,
-        :harvey_mudd => params[:schools].include?("Harvey Mudd") || false,
-        :scripps => params[:schools].include?("Scripps") || false,
-        :pitzer => params[:schools].include?("Pitzer") || false
+        :pomona => params[:pomona] || false,
+        :claremont_mckenna => params[:claremont_mckenna] || false,
+        :harvey_mudd => params[:harvey_mudd] || false,
+        :scripps => params[:scripps] || false,
+        :pitzer => params[:pitzer] || false
     }
-    schools.select! {|k, v| v}
+    schools.select! {|k,v| v}
     if schools.length > 0
       schools = schools.keys
     else
       schools = CourseMeetingDetail.campus.keys
     end
 
+    # Gets results from individual checkboxes with corresponding symbols
     days = {
-        :monday => params[:schools].include?("Monday") || false,
-        :tuesday => params[:schools].include?("Tuesday") || false,
-        :wednesday => params[:schools].include?("Wednesday") || false,
-        :thursday => params[:schools].include?("Thursday") || false,
-        :friday => params[:schools].include?("Friday") || false
+        :monday => params[:monday] || false,
+        :tuesday => params[:tuesday] || false,
+        :wednesday => params[:wednesday] || false,
+        :thursday => params[:thursday] || false,
+        :friday => params[:friday] || false
     }
     days.select! {|k, v| v}
 
