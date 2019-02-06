@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <!-- iOS meta tags -->
-    <meta name="viewport" content="width=device-width">
-    <meta name="viewport" content="initial-scale=0.8">
+  <!-- iOS meta tags -->
+  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="initial-scale=0.8">
 
-    <%= csrf_meta_tags %>
+  <%= csrf_meta_tags %>
 
-    <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type =>  'image/x-icon' %>
-    <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
-    <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
-    <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
-    <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
-    <link rel="mask-icon" href="<%= asset_path('safari-pinned-tab.svg') %>" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    <title>ASPC - Associated Students of Pomona College</title>
-  </head>
+  <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type => 'image/x-icon' %>
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
+  <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
+  <link rel="mask-icon" href="<%= asset_path('safari-pinned-tab.svg') %>" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>ASPC - Associated Students of Pomona College</title>
+</head>
 
-  <body>
+<body>
 
-    <%= render partial: 'components/application_header' %>
+<%= render partial: 'components/application_header' %>
 
-    <div id="alert-banner-container" class="is-overlay">
-      <% if notice.present? %>
-        <%= render partial: 'components/alert_banner' %>
-      <% end %>
+<div id="alert-banner-container" class="is-overlay">
+  <% if notice.present? %>
+    <%= render partial: 'components/alert_banner' %>
+  <% end %>
+</div>
+
+<section class="section application-body-container">
+  <%= yield :header %>
+  <section class="section application-content-section">
+    <div class="container application-content-container">
+      <%= yield %>
     </div>
+  </section>
 
-    <section class="section application-body-container">
-      <%= yield :header %>
-      <section class="section application-content-section">
-        <div class="container application-content-container">
-          <%= yield %>
-        </div>
-      </section>
-    </section>
+  <%= render partial: 'components/application_footer' %>
+</section>
 
-    <%= render partial: 'components/application_footer' %>
-
-  </body>
+</body>
 </html>
