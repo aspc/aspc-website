@@ -28,17 +28,13 @@
       <br/>
       <p><%= link_to "More details", @event.details_url %></p>
     <% end %>
-  </div>
-  <div class="column is-narrow">
-      <p class="is-size-5 is-bold margin-bottom-1">Export this event:</p>
-      <div>
-        <a class="button is-link margin-bottom-1" href="<%= google_calendar_add_url @event %>" target="_blank">
-          Google Calendar
-        </a>
-      </div>
-      <div>
-        <%= link_to "iCalendar", export_event_path, class: "button is-link", method: :get %>
-      </div>
+    <hr>
+    <p class="is-size-5 is-bold margin-bottom-1">Export this event:</p>
+      <a class="button is-link" href="<%= google_calendar_add_url @event %>" target="_blank">
+        Google Calendar
+      </a>
+      <%= link_to "iCalendar", export_event_path, class: "button is-link", method: :get %>
+    </div>
   </div>
 </div>
 </div>
