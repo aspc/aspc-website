@@ -137,14 +137,13 @@ class CoursesController < ApplicationController
     end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
     end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
-    # logger.info start_hour, start_minute, end_hour, end_minute
+    
 
     consider_time = false
     if not start_hour.nil?  # if user specifies start time
       start_time = Time.new(1970, 1, 1, start_hour, start_minute)
 
       if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
-      logger.info "end hour #{end_hour}"
 
       end_time = Time.new(1970, 1, 1, end_hour, end_minute)
       consider_time = true
@@ -152,11 +151,15 @@ class CoursesController < ApplicationController
       end_time = Time.new(1970, 1, 1, end_hour, end_minute)
 
       if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
-      logger.info "start hour #{start_hour}"
 
       start_time = Time.new(1970, 1, 1, start_hour, start_minute)
       consider_time = true
     end
+
+    # times are given in PST/PDT, but database auto-converts times to UTC before performing query
+    # times need to be shifted back 7/8 hours by converting from UTC to PST/PDT
+    start_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(start_time) if start_time
+    end_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(end_time) if end_time
 
     Rails.logger.debug params.inspect
     # Rails.logger.debug (params[:schools].include?("Pomona") || false)
