@@ -31,7 +31,7 @@
             <div class="announcement-info has-shadow">
               <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
               <% if not announcement.caption.blank? %>
-                  <p class="subtitle has-text-white"><%= announcement.caption %></p>
+                <p class="subtitle has-text-white"><%= announcement.caption %></p>
               <% end %>
               <% if not announcement.details_url.blank? %>
                 <a class="button is-outlined is-inverted is-info" href="<%= announcement.details_url %>" tabindex="0">More
@@ -95,6 +95,26 @@
   <div class="columns">
     <div class="column">
       <p>No upcoming events. Would you like to <%= link_to "submit one?", new_event_path %></p>
+    </div>
+  </div>
+<% end %>
+
+<div class="margin-bottom-3">
+  <h3 class="title is-3 margin-bottom-1">The Student Life</h3>
+  <a class="button is-medium is-outlined is-info" href="https://tsl.news">Go to TSL</a>
+</div>
+
+<% @news.each do |article| %>
+  <div class="columns">
+    <div class="column margin-bottom-1">
+      <h5 class="title is-5 margin-bottom-2"><a href=”<%= article[:link] %>”><%= article[:title] %></a></h5>
+      <p class="subtitle is-6 margin-bottom-1">
+        <%= article[:date].strftime("Published on %B %e, %Y") %>
+      </p>
+      <p class="margin-bottom-1">
+        <%= ActionView::Base.full_sanitizer.sanitize(article[:description]) %>
+      </p>
+      <a class="button is-outlined" href="<%= article[:link] %>" tabindex="0">Read More</a>
     </div>
   </div>
 <% end %>
