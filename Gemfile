@@ -60,6 +60,9 @@ gem 'activerecord-session_store', '~> 1.1.1'
 # Calendar export
 gem 'icalendar'
 
+# Koala
+gem 'koala'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
