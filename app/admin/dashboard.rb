@@ -43,6 +43,11 @@ ActiveAdmin.register_page "Dashboard" do
     redirect_to admin_dashboard_path
   end
 
+  page_action :import_events, method: :get do
+    EventImportJob.perform_now
+    redirect_to admin_dashboard_path
+  end
+
   content title: proc{ I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container", id: "dashboard_default_message" do
       span class: "blank_slate" do
@@ -99,6 +104,16 @@ ActiveAdmin.register_page "Dashboard" do
           br
           form :action => admin_dashboard_import_pitzer_path do
             button "Import Pitzer Menu", :type => "submit"
+          end
+        end
+      end
+
+      column do
+        panel "Events Import" do
+          para "Last imported at #{Event.where(:source => :facebook).order(:created_at).last.try :created_at}"
+
+          form :action => admin_dashboard_import_events_path do
+            button "Import Events", :type => "submit"
           end
         end
       end
