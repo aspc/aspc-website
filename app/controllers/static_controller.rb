@@ -1,4 +1,8 @@
 class StaticController < ApplicationController
+  require 'rss'
+  require 'open-uri'
+  require 'nokogiri'
+  
   def index
     @announcements = Announcement.all
     time = Time.parse(Time.now.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d %H:%M:%S')).to_s(:db)
