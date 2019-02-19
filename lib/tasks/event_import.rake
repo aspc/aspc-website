@@ -10,7 +10,7 @@ namespace :event_import do
     # url_for_oauth_code method generates while logged in onto Facebook.
 
     # Create new Koala OAuth instance and get login URL
-    oauth = Koala::Facebook::OAuth.new(304242016900984, "e1a63d3689a29d89a2be03b6598de8bc", "https://pomonastudents.org/")
+    oauth = Koala::Facebook::OAuth.new
     url_for_oauth_code = oauth.url_for_oauth_code(:permissions => "manage_pages")
 
     # Log in to Facebook
