@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   enum status: [ :pending, :approved, :rejected]
   enum college_affiliation: [:all_colleges, :pomona, :claremont_mckenna, :harvey_mudd, :scripps, :pitzer]
+  enum source: [:manual, :facebook]
 
   belongs_to :submitted_by, class_name: "User", foreign_key: "submitted_by_user_fk"
 
