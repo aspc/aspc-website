@@ -60,6 +60,10 @@ gem 'activerecord-session_store', '~> 1.1.1'
 # Calendar export
 gem 'icalendar'
 
+# WYSIWYG editor for static page editing
+gem 'wysiwyg-rails'
+gem 'froala-editor-sdk'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

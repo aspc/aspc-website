@@ -61,4 +61,12 @@ Rails.application.routes.draw do
 
     get 'courses/reviews' => :reviews_coming_soon
   end
+
+  scope controller: :static_pages do
+    post 'admin/static_pages/:id/edit/save' => :save
+    post 'admin/static_pages/:id/edit/upload_image' => :upload_image
+    delete 'admin/static_pages/:id/edit/delete_image' => :delete_image
+
+    get 'static/:id' => :show
+  end
 end
