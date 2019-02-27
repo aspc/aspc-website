@@ -7,6 +7,7 @@
     <span class="has-text-warning">
       <%= render 'components/numerical_review', rating: @course.overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
     </span>
+    <%= link_to "Submit course review", new_course_review_path(@course.id), :class => 'button is-light' %>
   </h2>
   <div class="columns">
     <div class="column">
@@ -81,6 +82,7 @@
   <div class="columns">
     <div class="column">
       <p class="subtitle">There are no reviews for this course at this time.</p>
+      <p><%= link_to "Submit course review", new_course_review_path(@course.id), :class => 'button is-info' %></p>
     </div>
   </div>
 <% end %>

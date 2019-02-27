@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  get 'instructors/show'
-  get 'course_review/show'
-  get 'course_review/create'
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
 
   resources :events
+
+  scope controller: :course_reviews do
+    get 'courses/:course_id/review/new' => :new, as: :new_course_review
+    post 'reviews' => :create, as: :course_reviews
+  end
 
   scope controller: :courses do
     get 'courses' => :index

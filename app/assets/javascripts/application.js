@@ -33,3 +33,4 @@
 //= require static.js
 //= require courses.js
 //= require menu.js
+//= require course_reviews.js

@@ -4,6 +4,12 @@ class CourseReview < ApplicationRecord
   belongs_to :course
   belongs_to :instructor
 
+  validates :course, :presence => true
+  validates :overall_rating, :presence => true
+  validates :inclusivity_rating, :presence => true
+  validates :challenge_rating, :presence => true
+  validates :work_per_week, :presence => true
+
   accepts_nested_attributes_for :course
   accepts_nested_attributes_for :instructor
 

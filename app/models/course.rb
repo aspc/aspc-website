@@ -20,4 +20,12 @@ class Course < ApplicationRecord
   def work_per_week
     self.course_reviews&.average(:work_per_week)&.round(2, :truncate) || 0
   end
+
+  # collect all instructors that have ever taught a section of this course
+  def instructors
+    self.course_sections
+        .collect{ |section| section.instructors }
+        .reduce(:+)
+        .uniq
+  end
 end
