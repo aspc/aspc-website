@@ -6,7 +6,7 @@ namespace :course_import do
     api_url = Rails.application.credentials[:course_api][:url]
     terms_url = [api_url, 'terms'].join('/')
 
-    Rails.logger.info "Fetching terms from #{terms_url}"
+    puts "Fetching terms from #{terms_url}"
     terms = HTTParty.get(terms_url, :format => :json).parsed_response
 
     terms.each do |term_info|
@@ -15,10 +15,10 @@ namespace :course_import do
 
           term = AcademicTerm.find_by_key(key)
           if(term.nil?)
-            Rails.logger.info "Creating new Academic Term for key: #{key}"
+            puts "Creating new Academic Term for key: #{key}"
             term = AcademicTerm.new({key: key})
           else
-            Rails.logger.info "Found existing Academic Term for key: #{key}"
+            puts "Found existing Academic Term for key: #{key}"
           end
 
 
@@ -26,9 +26,9 @@ namespace :course_import do
         term.session = term_info['Session']
 
         term.save
-        Rails.logger.info "Successfully updated Academic Term: #{term}"
+        puts "Successfully updated Academic Term: #{term}"
       else
-        Rails.logger.info "Skipping Academic Term for key: #{key}"
+        puts "Skipping Academic Term for key: #{key}"
       end
     end
   end
@@ -38,7 +38,7 @@ namespace :course_import do
     api_url = Rails.application.credentials[:course_api][:url]
     departments_url = [api_url, 'courseareas'].join('/')
 
-    Rails.logger.info "Fetching departments from #{departments_url}"
+    puts "Fetching departments from #{departments_url}"
     departments = HTTParty.get(departments_url, :format => :json).parsed_response
 
     departments.each do |department_info|
@@ -48,16 +48,16 @@ namespace :course_import do
 
       department = Department.find_by_code(code)
       if(department.nil?)
-        Rails.logger.info "Creating new Department for code: #{code}"
+        puts "Creating new Department for code: #{code}"
         department = Department.new({code: code})
       else
-        Rails.logger.info "Found existing Department for code: #{code}"
+        puts "Found existing Department for code: #{code}"
       end
 
       department.name = department_info['Description']
 
       department.save
-      Rails.logger.info "Successfully updated Department: #{department}"
+      puts "Successfully updated Department: #{department}"
     end
   end
 
@@ -68,11 +68,11 @@ namespace :course_import do
     terms =  AcademicTerm.current_academic_year
 
     terms.each do |term|
-      Rails.logger.info "Fetching courses for Academic Term #{term.key}"
+      puts "Fetching courses for Academic Term #{term.key}"
 
       departments = Department.all
       departments.each do |department|
-        Rails.logger.info "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
+        puts "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
 
         courses_url = [api_url, 'courses', term.key, department.code].join('/')
         courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
@@ -90,10 +90,10 @@ namespace :course_import do
           )
 
           if(course.nil?)
-            Rails.logger.info "Creating new Course for code: #{course_code}"
+            puts "Creating new Course for code: #{course_code}"
             course = Course.new({:code => course_code, :code_slug => course_code.parameterize.upcase})
           else
-            Rails.logger.info "Found existing Course for code: #{course_code}"
+            puts "Found existing Course for code: #{course_code}"
           end
 
           course.name = course_info['Name'] || ''
@@ -101,7 +101,7 @@ namespace :course_import do
           course.departments << department unless course.departments.any? { |d| d.code == department.code }
 
           course.save
-          Rails.logger.info "Successfully updated Course: #{course.code}"
+          puts "Successfully updated Course: #{course.code}"
 
           # Create or update a course section
           section_code = course_info['CourseCode'] # e.g. 'ANTH088 PZ-01' instead of 'ANTH088 PZ'
@@ -112,12 +112,12 @@ namespace :course_import do
              :code_slug => section_code.parameterize.upcase
           )
           if(section.nil?)
-            Rails.logger.info "Creating new Course Section for code: #{section_code}"
+            puts "Creating new Course Section for code: #{section_code}"
             puts "New section #{section_code} for course #{course_code}"
             section = CourseSection.new({:code => section_code, :code_slug => section_code.parameterize.upcase})
           else
             puts "Found section #{section_code} for course #{course_code}"
-            Rails.logger.info "Found existing Course Section for code: #{section_code}"
+            puts "Found existing Course Section for code: #{section_code}"
           end
 
           section.description = course_info['Description'] || ''
@@ -132,10 +132,10 @@ namespace :course_import do
             instructor_name = instructor_info['Name']
             instructor = Instructor.find_by_name(instructor_name)
             if(instructor.nil?)
-              Rails.logger.info "Creating new Instructor #{instructor_name} for Course Section #{section.code}"
+              puts "Creating new Instructor #{instructor_name} for Course Section #{section.code}"
               instructor = Instructor.new({:name => instructor_name})
             else
-              Rails.logger.info "Found existing Instructor #{instructor_name} for Course Section #{section.code}"
+              puts "Found existing Instructor #{instructor_name} for Course Section #{section.code}"
             end
             section.instructors << instructor unless section.instructors.any? { |i| i.name == instructor.name }
           end unless instructors.nil?
@@ -171,7 +171,7 @@ namespace :course_import do
           end unless meetings.nil?
 
           section.save
-          Rails.logger.info "Successfully updated Course Section #{section.code} for Course #{course.code}"
+          puts "Successfully updated Course Section #{section.code} for Course #{course.code}"
         end
       end
     end

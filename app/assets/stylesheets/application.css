@@ -21,6 +21,9 @@
  *= require slick-carousel/slick/slick.css
  *= require slick-carousel/slick/slick-theme.css
  *
+ * Sass helpers file
+ *= require helpers.scss
+ *
  * Page specific styles here
  *= require events.scss
  *= require sessions.scss

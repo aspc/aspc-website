@@ -3,6 +3,24 @@ require 'watir'
 require 'resolv-replace'
 
 namespace :menu_import do
+  desc "Imports All Menus"
+  task :all => :environment do
+    puts "Importing all menus..."
+
+    tasks = [
+        Rake::Task['menu_import:claremont_mckenna'],
+        Rake::Task['menu_import:harvey_mudd'],
+        Rake::Task['menu_import:pitzer'],
+        Rake::Task['menu_import:scripps'],
+        Rake::Task['menu_import:frary'],
+        Rake::Task['menu_import:frank'],
+        Rake::Task['menu_import:oldenborg']
+    ]
+
+    tasks.each { |t| t.invoke }
+    puts "------"
+  end
+
   desc "Imports Claremont McKenna Menu "
   task :claremont_mckenna => :environment do
     endpoint = 'http://legacy.cafebonappetit.com/api/2/menus'
@@ -12,7 +30,7 @@ namespace :menu_import do
         :date => _get_current_week().join(',')
     }
 
-    Rails.logger.info "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
+    puts "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :claremont_mckenna).destroy_all
@@ -53,7 +71,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Claremont McKenna Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Claremont McKenna Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Pitzer Menu "
@@ -65,7 +83,7 @@ namespace :menu_import do
         :date => _get_current_week().join(',')
     }
 
-    Rails.logger.info "Importing Pitzer Menu for week #{_get_current_week.first}..."
+    puts "Importing Pitzer Menu for week #{_get_current_week.first}..."
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :pitzer).destroy_all
@@ -104,7 +122,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Pitzer Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Pitzer Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Harvey Mudd Menu "
@@ -116,7 +134,7 @@ namespace :menu_import do
     }
     endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
-    Rails.logger.info "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
+    puts "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
 
     # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
     menu_page = Nokogiri::HTML(open(endpoint))
@@ -147,7 +165,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Scripps Menu"
@@ -159,7 +177,7 @@ namespace :menu_import do
     }
     endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
-    Rails.logger.info "Importing Scripps Menu for week #{_get_current_week.first}..."
+    puts "Importing Scripps Menu for week #{_get_current_week.first}..."
 
     # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
     menu_page = Nokogiri::HTML(open(endpoint))
@@ -196,13 +214,13 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Scripps Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Scripps Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Frary Menu"
   task :frary => :environment do
 
-    Rails.logger.info "Importing Frary Menu for week #{_get_current_week.first}..."
+    puts "Importing Frary Menu for week #{_get_current_week.first}..."
 
     # Clear any existing menus to avoid duplicates
     Menu.where(:dining_hall => :frary).destroy_all
@@ -255,7 +273,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Frary Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Frary Menu for week #{_get_current_week.first}"
 
     browser.close
   end
@@ -263,7 +281,7 @@ namespace :menu_import do
   desc "Imports Frank Menu"
   task :frank => :environment do
 
-    Rails.logger.info "Importing Frank Menu for week #{_get_current_week.first}..."
+    puts "Importing Frank Menu for week #{_get_current_week.first}..."
 
     # Clear any existing menus to avoid duplicates
     Menu.where(:dining_hall => :frank).destroy_all
@@ -311,7 +329,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Frank Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Frank Menu for week #{_get_current_week.first}"
 
     browser.close
   end
@@ -319,7 +337,7 @@ namespace :menu_import do
   desc "Imports Oldenborg Menu"
   task :oldenborg => :environment do
 
-    Rails.logger.info "Importing Oldenborg Menu for week #{_get_current_week.first}..."
+    puts "Importing Oldenborg Menu for week #{_get_current_week.first}..."
 
     # Clear any existing menus to avoid duplicates
     Menu.where(:dining_hall => :oldenborg).destroy_all
@@ -365,7 +383,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Oldenborg Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Oldenborg Menu for week #{_get_current_week.first}"
 
     browser.close
   end
