@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 2019_02_18_203239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "college_affiliation", default: 0, null: false
-    t.integer "source"
+    t.integer "source", default: 0
     t.index ["college_affiliation"], name: "index_events_on_college_affiliation"
     t.index ["status"], name: "index_events_on_status"
   end
