@@ -16,8 +16,8 @@ namespace :event_import do
     # Log in to Facebook
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto("https://www.facebook.com")
-    browser.text_field(:id => "email").set(ENV["FACEBOOK_DEV_EMAIL"])
-    browser.text_field(:id => "pass").set(ENV["FACEBOOK_DEV_PASSWORD"])
+    browser.text_field(:id => "email").set(Rails.application.credentials.facebook[:email])
+    browser.text_field(:id => "pass").set(Rails.application.credentials.facebook[:password])
     browser.button(:type => "submit").click
 
     # Check whether login was sucessful (assuming that Facebook ASPC dev account has 'ASPC' in its name)
