@@ -12,6 +12,7 @@ namespace :event_import do
     # Create new Koala OAuth instance and get login URL
     oauth = Koala::Facebook::OAuth.new
     url_for_oauth_code = oauth.url_for_oauth_code(:permissions => "manage_pages")
+    puts url_for_oauth_code
 
     # Log in to Facebook
     browser = Watir::Browser.new :chrome, headless: true
@@ -21,7 +22,7 @@ namespace :event_import do
     browser.button(:type => "submit").click
 
     # Check whether login was sucessful (assuming that Facebook ASPC dev account has 'ASPC' in its name)
-    if browser.text.include? "ASPC"
+    if browser.text.include? "Aspc"
       puts "Login successful"
 
       # Open Facebook OAuth URL, which should then redirect browser to pomonastudents.org with "code" as a query parameter
