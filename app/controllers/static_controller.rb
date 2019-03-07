@@ -24,10 +24,20 @@ class StaticController < ApplicationController
   # Save content to database
   def save
     @page = Static.find_by_id(params[:id])
-    @page[:content] = params[:content]
+    @page[:pending_content] = params[:content]
+    @page[:last_modified_by] = current_user[:id]
+    @page[:published] = false
 
     @page.save
   end
+
+  # Approve changes: copy pending_copy to approved_copy
+  # def approve
+  #   @page = Static.find_by_id(params[:id])
+  #   @page[:approved_content] = @page[:pending_content]
+
+  #   @page.save
+  # end
   
   # Upload file.
   def upload_file

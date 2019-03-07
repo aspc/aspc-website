@@ -1,5 +1,58 @@
-<%= csrf_meta_tags %>
+<!-- TODO: refactor javascript in this file into active_admin.js
+     However, the JS needs to access a Ruby local variable, which is currently only possible in this file -->
 
-<textarea id="myEditor"></textarea>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(document).ajaxStart(function() {
+            console.log("ajax start");
+        });
+
+        $(document).ajaxStop(function() {
+            console.log("ajax end");
+        });
+    });
+    
+    $(function() {
+        $("#editor").froalaEditor({
+            // Set the save param.
+            saveParam: 'content',
+
+            // Set the save URL.
+            saveURL: 'edit/save',
+
+            // HTTP request type.
+            saveMethod: 'POST',
+
+            // Additional save params.
+            saveParams: {id: 'my_editor'},
+
+            // Route for uploading images
+            imageUploadURL: 'edit/upload_image',
+
+            // Hide character counter
+            charCounterCount: false
+        });
+        
+        $("#editor").on("froalaEditor.save.before", function(e, editor) {
+            console.log("save before", e, editor);
+        });
+        
+        $("#editor").on("froalaEditor.save.after", function(e, editor, response) {
+            console.log("save after", e, editor, response);
+        });
+
+        var content = "test"
+
+        decodedContent = $("<textarea></textarea>").html(content).text();
+
+        $('#editor').froalaEditor('html.set', decodedContent);
+    });
+
+    $('#saveButton').click (function() {
+        $('#editor').froalaEditor('save.save')
+    });
+</script>
+
+<textarea id="editor"></textarea>
 
 <button id="saveButton">Save</button>
