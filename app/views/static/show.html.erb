@@ -2,11 +2,15 @@
     <%= render 'components/page_header', :title => @page.title, :subtitle => @page.subtitle %>
 <% end %>
 
-<% if not @page.published and current_user.is_admin %>
-    <div class="alert">This page is currently pending approval. Below is the pending copy.</div>
+<% if not @page.published and is_admin? %>
+    <aside class="message is-info">
+        <div class="message-body">
+            This page is currently pending approval. Below is the pending copy that only admins can see.
+        </div>
+    </aside>
 <% end %>
 
-<% if current_user.is_admin %>
+<% if is_admin? %>
     <%= raw @page.pending_content %>
 <% else %>
     <%= raw @page.approved_content %>

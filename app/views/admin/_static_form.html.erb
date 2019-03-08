@@ -2,57 +2,80 @@
      However, the JS needs to access a Ruby local variable, which is currently only possible in this file -->
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(document).ajaxStart(function() {
-            console.log("ajax start");
-        });
+    // $(document).ready(function() {
+    //     $(document).ajaxStart(function() {
+    //         console.log("ajax start");
+    //     });
 
-        $(document).ajaxStop(function() {
-            console.log("ajax end");
-        });
-    });
+    //     $(document).ajaxStop(function() {
+    //         console.log("ajax end");
+    //     });
+    // });
     
     $(function() {
+        $("#saveSpinner").hide();
+        $("#saveComplete").hide();
+
         $("#editor").froalaEditor({
+            // Change save interval (time in milliseconds).
+            saveInterval: 1000,
+
             // Set the save param.
-            saveParam: 'content',
+            saveParam: "content",
 
             // Set the save URL.
-            saveURL: 'edit/save',
+            saveURL: "edit/save",
 
             // HTTP request type.
-            saveMethod: 'POST',
+            saveMethod: "POST",
 
             // Additional save params.
-            saveParams: {id: 'my_editor'},
+            saveParams: {id: "my_editor"},
 
             // Route for uploading images
-            imageUploadURL: 'edit/upload_image',
+            imageUploadURL: "edit/upload_image",
 
             // Hide character counter
             charCounterCount: false
         });
-        
+
+        $("#editor").on("froalaEditor.contentChanged", function(e, editor) {
+            $("#saveComplete").hide();
+            console.log("contentChanged");
+        });
+
         $("#editor").on("froalaEditor.save.before", function(e, editor) {
-            console.log("save before", e, editor);
+            $("#saveSpinner").show();
+            $("#saveComplete").hide();
+            console.log("save.before");
         });
         
         $("#editor").on("froalaEditor.save.after", function(e, editor, response) {
-            console.log("save after", e, editor, response);
+            $("#saveSpinner").hide();
+            $("#saveComplete").show();
+            console.log("save.after");
         });
 
-        var content = "test"
+        var content = "<%= page.pending_content %>"
+        decodedContent = $("<textarea></textarea>").html(content).text();   // ampersand-decoding
 
-        decodedContent = $("<textarea></textarea>").html(content).text();
-
-        $('#editor').froalaEditor('html.set', decodedContent);
+        $("#editor").froalaEditor("html.set", decodedContent);
     });
 
-    $('#saveButton').click (function() {
-        $('#editor').froalaEditor('save.save')
+    $("#saveButton").click(function() {
+        $("#editor").froalaEditor("save.save");
     });
 </script>
 
 <textarea id="editor"></textarea>
 
-<button id="saveButton">Save</button>
+<!-- autosave set to every second, save button removed -->
+<!-- <button id="saveButton">Save</button> -->
+
+<div id="saveSpinner" class="fa-2x">
+    <i class="fa fa-spinner fa-spin"></i>
+</div>
+
+<div id="saveComplete">
+    Page saved!
+</div>

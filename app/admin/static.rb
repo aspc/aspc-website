@@ -1,5 +1,22 @@
 ActiveAdmin.register Static do
   permit_params :title, :subtitle
+  # actions :index, :show, :create, :edit, :update, :destroy, :approve
+
+  # index do
+  #   column :all
+  #   actions defaults: true do |page|
+  #     link_to "custom action", "http://example.org"
+  #   end
+  # end
+
+  form do |f|
+    inputs 'Static' do
+      f.input :title
+      f.input :subtitle
+    end
+    f.semantic_errors
+    f.actions
+  end
 
   # Render HTML content in view
   show do
@@ -13,6 +30,15 @@ ActiveAdmin.register Static do
       render "admin/_static_form", layout: "active_admin", locals: { page: Static.find_by_id(params[:id]) }
     end
   end
+
+  # action_item :view, only: :show do
+  #   link_to 'View on site', :controller => :static, :action => :show
+  # end
+
+  # action_item :edit_content, only: :show do
+  #   # link_to("Edit page content", render("admin/static_form", { layout: "active_admin", page: Static.find_by_id(params[:id]) }))
+  #   link_to("Edit page content", edit_admin_static_path(params[:id]))
+  # end
   
   # Allow admins to approve content and publish live
   batch_action :approve do |ids|
@@ -21,13 +47,6 @@ ActiveAdmin.register Static do
     end
     redirect_to collection_path, alert: "The pages have been approved."
   end
-
-  # Allow admins to approve content and publish live
-  # member_action :approve, method: :get do
-  #   static = Static.find_by_id(params[:id])
-  #   static.approve!
-  #   # redirect_to static_admin_path, notice: "Updates approved!"
-  # end
 
   # action_item do
   #   link_to "Approve changes", approve_admin_static_path
