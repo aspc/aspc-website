@@ -1,17 +1,22 @@
-<!-- TODO: refactor javascript in this file into active_admin.js
-     However, the JS needs to access a Ruby local variable, which is currently only possible in this file -->
+<% page = local_assigns.fetch(:page) %>
+
+<div id="static-page-editor">
+  <div id="saveComplete">
+    <strong>Page Saved!</strong>
+  </div>
+  <br/>
+
+  <textarea id="editor"></textarea>
+
+  <br />
+  <%= link_to "Save Content", {}, :remote => true, :id => "saveButton", :class => "button" %>
+  <%= link_to "Preview Page", static_page_path, :method => :get, :class=>"button" %>
+  <span id="saveSpinner" class="fa-2x">
+      <i class="fa fa-spinner fa-spin"></i>
+  </span>
+</div>
 
 <script type="text/javascript">
-    // $(document).ready(function() {
-    //     $(document).ajaxStart(function() {
-    //         console.log("ajax start");
-    //     });
-
-    //     $(document).ajaxStop(function() {
-    //         console.log("ajax end");
-    //     });
-    // });
-    
     $(function() {
         $("#saveSpinner").hide();
         $("#saveComplete").hide();
@@ -24,16 +29,19 @@
             saveParam: "content",
 
             // Set the save URL.
-            saveURL: "edit/save",
+            saveURL: "<%= admin_static_page_update_path %>",
 
             // HTTP request type.
             saveMethod: "POST",
+
+            // Disable autosave
+            saveInterval: 0,
 
             // Additional save params.
             saveParams: {id: "my_editor"},
 
             // Route for uploading images
-            imageUploadURL: "edit/upload_image",
+            imageUploadURL: "<%= admin_static_page_upload_image_path %>",
 
             // Hide character counter
             charCounterCount: false
@@ -41,19 +49,23 @@
 
         $("#editor").on("froalaEditor.contentChanged", function(e, editor) {
             $("#saveComplete").hide();
-            console.log("contentChanged");
         });
 
         $("#editor").on("froalaEditor.save.before", function(e, editor) {
             $("#saveSpinner").show();
             $("#saveComplete").hide();
-            console.log("save.before");
         });
-        
+
         $("#editor").on("froalaEditor.save.after", function(e, editor, response) {
             $("#saveSpinner").hide();
             $("#saveComplete").show();
             console.log("save.after");
+        });
+
+        $("#editor").on("froalaEditor.image.error", function(e, editor, error) {
+            var popup = editor.popups.get('image.insert');
+            var layer = popup.find('.fr-image-progress-bar-layer');
+            layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
         });
 
         var content = "<%= page.pending_content %>"
@@ -66,16 +78,3 @@
         $("#editor").froalaEditor("save.save");
     });
 </script>
-
-<textarea id="editor"></textarea>
-
-<!-- autosave set to every second, save button removed -->
-<!-- <button id="saveButton">Save</button> -->
-
-<div id="saveSpinner" class="fa-2x">
-    <i class="fa fa-spinner fa-spin"></i>
-</div>
-
-<div id="saveComplete">
-    Page saved!
-</div>

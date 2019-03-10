@@ -6,14 +6,19 @@
     <div class="columns">
       <div class="column is-12">
         <aside class="message is-warning">
-            <div class="message-body">
-                <h3 class="title is-5">This page is currently pending approval.</h3>
-                Below is the pending preview that only admins can see.
-                If there is a previous page currently published, users will see that one when they navigate to it.
-                <br />
-                <br />
-                <%= link_to "Edit this page", edit_admin_static_path, :class => "button is-light" %>
-            </div>
+          <div class="message-header">
+            This page is currently pending approval.
+          </div>
+          <div class="message-body">
+              Below is the pending preview that only admins can see. If there is a previous page currently published,
+              users will see that one when they navigate to it.
+              <br />
+              <br />
+              Please feel free to notify the ASPC Software Group of your changes if you would like this page to be published as soon as possible.
+              <br />
+              <br />
+              <%= link_to "Edit this page", edit_admin_static_path, :class => "button is-light" %>
+          </div>
         </aside>
       </div>
     </div>

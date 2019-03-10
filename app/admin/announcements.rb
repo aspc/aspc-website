@@ -1,5 +1,5 @@
 ActiveAdmin.register Announcement do
-
+  menu :priority => 2
   permit_params :title, :caption, :background_image, :details_url
 
   form do |f|

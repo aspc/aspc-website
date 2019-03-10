@@ -61,11 +61,11 @@ Rails.application.routes.draw do
 
     get 'courses/reviews' => :reviews_coming_soon
 
-    # Froala pages
-    post 'admin/statics/:id/edit/save' => :save
-    post 'admin/statics/:id/edit/upload_image' => :upload_image
-    delete 'admin/statics/:id/edit/delete_image' => :delete_image
-
-    get 'statics/:id' => :show
+    get 'pages/:id' => :show, as: :static_page
   end
+
+  # ActiveAdmin custom static page routes
+  post 'admin/pages/:id/edit/save' => 'static#save', as: :admin_static_page_update
+  post 'admin/pages/:id/edit/upload_image' => 'static#upload_image', as: :admin_static_page_upload_image
+  delete 'admin/pages/:id/edit/delete_image' => 'static#delete_image', as: :admin_static_page_delete_image
 end
