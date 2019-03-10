@@ -1,10 +1,8 @@
 ActiveAdmin.register Person do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  menu :priority => 4, :label => "ASPC Senators and Staff"
 
+  # TODO: allow associating with a user model
   permit_params :name, :position, :role, :email, :biography, :image
-
-  menu label: "ASPC People"
 
   form do |f|
     f.inputs

@@ -1,0 +1,17 @@
+<!-- Remote form to update title and subtitle -->
+<% page = Static.find_by_id(params[:id]) %>
+
+<%= semantic_form_for [:admin, resource], :remote => (page.present?), builder: ActiveAdmin::FormBuilder do |f| %>
+  <%=  f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :subtitle %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Update Heading" %>
+  <% end %>
+<% end %>
+
+<!-- Form to update website content if page exists -->
+<% if page.present? %>
+  <%= render 'static_page_content_editor', page: page %>
+<% end %>

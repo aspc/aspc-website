@@ -1,0 +1,31 @@
+<% content_for :header do %>
+    <%= render 'components/page_header', :title => @page.title, :subtitle => @page.subtitle %>
+<% end %>
+
+<% if not @page.published and is_admin? %>
+    <div class="columns">
+      <div class="column is-12">
+        <aside class="message is-warning">
+          <div class="message-header">
+            This page is currently pending approval.
+          </div>
+          <div class="message-body">
+              Below is the pending preview that only admins can see. If there is a previous page currently published,
+              users will see that one when they navigate to it.
+              <br />
+              <br />
+              Please feel free to notify the ASPC Software Group of your changes if you would like this page to be published as soon as possible.
+              <br />
+              <br />
+              <%= link_to "Edit this page", edit_admin_static_path, :class => "button is-light" %>
+          </div>
+        </aside>
+      </div>
+    </div>
+<% end %>
+
+<% if is_admin? %>
+    <%= raw @page.pending_content %>
+<% else %>
+    <%= raw @page.approved_content %>
+<% end %>

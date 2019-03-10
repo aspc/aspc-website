@@ -1,0 +1,81 @@
+<% page = local_assigns.fetch(:page) %>
+
+<div id="static-page-editor">
+  <div id="saveComplete">
+    <strong>Page Saved!</strong>
+  </div>
+  <br/>
+
+  <textarea id="editor"></textarea>
+
+  <br />
+  <%= link_to "Save Content", {}, :remote => true, :id => "saveButton", :class => "button" %>
+  <%= link_to "Preview Page", static_page_path, :method => :get, :class=>"button" %>
+  <span id="saveSpinner" class="fa-2x">
+      <i class="fa fa-spinner fa-spin"></i>
+  </span>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $("#saveSpinner").hide();
+        $("#saveComplete").hide();
+
+        $("#editor").froalaEditor({
+            // Change save interval (time in milliseconds).
+            saveInterval: 1000,
+
+            // Set the save param.
+            saveParam: "content",
+
+            // Set the save URL.
+            saveURL: "<%= admin_static_page_update_path %>",
+
+            // HTTP request type.
+            saveMethod: "POST",
+
+            // Disable autosave
+            saveInterval: 0,
+
+            // Additional save params.
+            saveParams: {id: "my_editor"},
+
+            // Route for uploading images
+            imageUploadURL: "<%= admin_static_page_upload_image_path %>",
+
+            // Hide character counter
+            charCounterCount: false
+        });
+
+        $("#editor").on("froalaEditor.contentChanged", function(e, editor) {
+            $("#saveComplete").hide();
+        });
+
+        $("#editor").on("froalaEditor.save.before", function(e, editor) {
+            $("#saveSpinner").show();
+            $("#saveComplete").hide();
+        });
+
+        $("#editor").on("froalaEditor.save.after", function(e, editor, response) {
+            $("#saveSpinner").hide();
+            $("#saveComplete").show();
+            console.log("save.after");
+        });
+
+        $("#editor").on("froalaEditor.image.error", function(e, editor, error) {
+            var popup = editor.popups.get('image.insert');
+            var layer = popup.find('.fr-image-progress-bar-layer');
+            layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
+        });
+
+        // Load the existing preview
+        let content = "<%= page.pending_content %>"
+        decodedContent = $("<textarea></textarea>").html(content).text();   // ampersand-decoding
+
+        $("#editor").froalaEditor("html.set", decodedContent);
+    });
+
+    $("#saveButton").click(function() {
+        $("#editor").froalaEditor("save.save");
+    });
+</script>

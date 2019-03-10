@@ -2,6 +2,69 @@ class StaticController < ApplicationController
   require 'rss'
   require 'open-uri'
   require 'nokogiri'
+
+  # NEW - froala
+
+  # Custom form in activeadmin breaks CSRF
+  # This is a workaround while we figure out a better solution
+  # skip_before_action :verify_authenticity_token, :only => [:upload_image]
+  skip_before_action :verify_authenticity_token
+  
+  # Reference: https://github.com/froala/editor-ruby-sdk-example
+  # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload
+  
+  # Index.
+  def index
+  end
+
+  def show
+    @page = Static.find_by_id(params[:id])
+  end
+
+  # Save content to database
+  def save
+    @page = Static.find_by_id(params[:id])
+    @page[:pending_content] = params[:content]
+    @page[:last_modified_by] = current_user[:id]
+    @page[:published] = false
+
+    @page.save
+  end
+
+  # Approve changes: copy pending_copy to approved_copy
+  # def approve
+  #   @page = Static.find_by_id(params[:id])
+  #   @page[:approved_content] = @page[:pending_content]
+
+  #   @page.save
+  # end
+  
+  # Upload file.
+  def upload_file
+    render :json => FroalaEditorSDK::File.upload(params, "public/uploads/")
+  end
+  
+  # Delete file.
+  def delete_file
+    render :json => FroalaEditorSDK::File.delete(params[:src], "public/uploads/")
+  end
+  
+  # Upload image.
+  def upload_image
+    render :json => FroalaEditorSDK::Image.upload(params, "public/uploads/")
+  end
+  
+  # Load images.
+  def load_images
+    render :json => FroalaEditorSDK::Image.load_images("public/uploads/")
+  end
+  
+  # Delete image.
+  def delete_image
+    render :json => FroalaEditorSDK::Image.delete(params[:src], "public/uploads/")
+  end
+
+  # OLD - hand-coded static pages
   
   def index
     @announcements = Announcement.all
