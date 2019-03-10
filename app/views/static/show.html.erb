@@ -3,11 +3,20 @@
 <% end %>
 
 <% if not @page.published and is_admin? %>
-    <aside class="message is-info">
-        <div class="message-body">
-            This page is currently pending approval. Below is the pending copy that only admins can see.
-        </div>
-    </aside>
+    <div class="columns">
+      <div class="column is-12">
+        <aside class="message is-warning">
+            <div class="message-body">
+                <h3 class="title is-5">This page is currently pending approval.</h3>
+                Below is the pending preview that only admins can see.
+                If there is a previous page currently published, users will see that one when they navigate to it.
+                <br />
+                <br />
+                <%= link_to "Edit this page", edit_admin_static_path, :class => "button is-light" %>
+            </div>
+        </aside>
+      </div>
+    </div>
 <% end %>
 
 <% if is_admin? %>
