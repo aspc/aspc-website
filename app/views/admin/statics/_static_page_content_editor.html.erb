@@ -68,7 +68,8 @@
             layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
         });
 
-        var content = "<%= page.pending_content %>"
+        // Load the existing preview
+        let content = "<%= page.pending_content %>"
         decodedContent = $("<textarea></textarea>").html(content).text();   // ampersand-decoding
 
         $("#editor").froalaEditor("html.set", decodedContent);
