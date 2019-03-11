@@ -2,7 +2,9 @@
     <%= render 'components/page_header', :title => @page.title, :subtitle => @page.subtitle %>
 <% end %>
 
+<!-- Show the pending preview if the user is admin and page is not public -->
 <% if not @page.published and is_admin? %>
+
     <div class="columns">
       <div class="column is-12">
         <aside class="message is-warning">
@@ -22,10 +24,11 @@
         </aside>
       </div>
     </div>
-<% end %>
 
-<% if is_admin? %>
     <%= raw @page.pending_content %>
+
+<!-- Otherwise show the approved content -->
+
 <% else %>
     <%= raw @page.approved_content %>
 <% end %>
