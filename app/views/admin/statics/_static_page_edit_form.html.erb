@@ -5,6 +5,9 @@
   <%=  f.inputs do %>
     <%= f.input :title %>
     <%= f.input :subtitle %>
+    <% if is_admin? %> <!-- Allow admins (not moderators) to change the page url name -->
+      <%= f.input :page_name %>
+    <% end %>
   <% end %>
   <%= f.actions do %>
     <%= f.action :submit, :label => "Update Heading" %>

@@ -61,7 +61,8 @@ Rails.application.routes.draw do
 
     get 'courses/reviews' => :reviews_coming_soon
 
-    get 'pages/:id' => :show, as: :static_page
+    get 'pages/id/:id' => :show, as: :static_page
+    get 'pages/:page_name' => :show
   end
 
   # ActiveAdmin custom static page routes

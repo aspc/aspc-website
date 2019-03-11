@@ -18,7 +18,15 @@ class StaticController < ApplicationController
   end
 
   def show
-    @page = Static.find_by_id(params[:id])
+    if params[:id]
+      @page = Static.find_by(:id => params[:id])
+    elsif params[:page_name]
+      @page = Static.find_by(:page_name => params[:page_name])
+    end
+
+    if @page.nil?
+      raise ActionController::RoutingError, 'Not Found'
+    end
   end
 
   # Save content to database

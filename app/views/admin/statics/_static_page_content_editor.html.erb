@@ -22,6 +22,9 @@
         $("#saveComplete").hide();
 
         $("#editor").froalaEditor({
+            // License Key
+            key: "<%= Rails.application.credentials[:froala_license_keys][:production] %>",
+
             // Change save interval (time in milliseconds).
             saveInterval: 1000,
 
