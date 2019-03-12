@@ -66,6 +66,15 @@ class StaticController < ApplicationController
   def load_images
     render :json => FroalaEditorSDK::Image.load_images("public/uploads/")
   end
+
+  # Load an image.s
+  def load_image
+    if File.exists?(Rails.root.join("public", "uploads", params[:image_name]))
+      send_data File.read(Rails.root.join("public", "uploads", "images", params[:name])), :filename => ::File.basename(params[:name]), :disposition => 'inline'
+    else
+      head :not_found
+    end
+  end
   
   # Delete image.
   def delete_image

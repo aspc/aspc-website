@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
     get 'pages/id/:id' => :show, as: :static_page
     get 'pages/:page_name' => :show
+    get '/uploads/:image_name' => :load_image
   end
 
   # ActiveAdmin custom static page routes
