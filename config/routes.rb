@@ -52,7 +52,6 @@ Rails.application.routes.draw do
     get 'aspc/policies/bylaws' => :aspc_policies_bylaws
     get 'aspc/policies/positions' => :aspc_positions
     get 'aspc/policies/electionscode' => :aspc_policies_electionscode
-    get 'aspc/budget' => :aspc_budget
     get 'aspc/meeting-minutes' => :aspc_meeting_minutes
     get 'aspc/funding-request' => :aspc_funding_request
 
