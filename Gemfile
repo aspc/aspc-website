@@ -44,9 +44,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # For Admin panel
 gem 'activeadmin', '~> 1.3.1'
 
-# For Rollbar Logging
-gem 'rollbar'
-
 # Task scheduling
 gem 'whenever', '~> 0.10.0', require: false
 
