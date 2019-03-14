@@ -22,9 +22,12 @@ gem 'coffee-rails', '~> 4.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# Prettier logging
+gem 'logster'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -43,9 +46,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # For Admin panel
 gem 'activeadmin', '~> 1.3.1'
-
-# For Rollbar Logging
-gem 'rollbar'
 
 # Task scheduling
 gem 'whenever', '~> 0.10.0', require: false

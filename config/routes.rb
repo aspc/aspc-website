@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'instructors/show'
   get 'course_review/show'
   get 'course_review/create'
+
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
@@ -69,4 +70,9 @@ Rails.application.routes.draw do
   post 'admin/pages/:id/edit/save' => 'static#save', as: :admin_static_page_update
   post 'admin/pages/:id/edit/upload_image' => 'static#upload_image', as: :admin_static_page_upload_image
   delete 'admin/pages/:id/edit/delete_image' => 'static#delete_image', as: :admin_static_page_delete_image
+
+  # Logging solution
+  constraints lambda { |req| User.find_by_id(req.session[:current_user_id])&.is_admin? } do
+    mount Logster::Web => '/logs'
+  end
 end
