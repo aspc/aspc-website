@@ -1,0 +1,94 @@
+<% course_sections = @course_sections %>
+
+<!-- Search Results -->
+<div id="reviews-course-list-container">
+  <% if course_sections %>
+    <div class="buttons is-right">
+      <button class="button has-no-border" style="border: none;">
+        Showing <%= course_sections.length %> results
+      </button>
+    </div>
+    <div id="reviews-list-results">
+      <% course_sections.each do |section| %>
+        <% campus_background_color_class =
+               case section.course_meeting_details.first.try(:campus).try(:to_sym)
+               when :pomona
+                 "campus_PO"
+               when :claremont_mckenna
+                 "campus_CM"
+               when :harvey_mudd
+                 "campus_HM"
+               when :scripps
+                 "campus_SC"
+               when :pitzer
+                 "campus_PZ"
+               else
+                 "campus_KS"
+               end
+        %>
+
+        <article class="message is-dark">
+          <div class="message-header <%= campus_background_color_class %>">
+        <span>
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= section.code %> - <%= section.course.name %>
+          <% end %>
+        </span>
+            <span class="is-pulled-right">
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= render 'components/numerical_review',
+                       rating: section.course.overall_rating,
+                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                       show_icon: true %>
+          <% end %>
+        </span>
+          </div>
+          <div class="message-body">
+            <div class="columns">
+              <div class="column">
+                <p>
+                  <% section.instructors.each do |instructor| %>
+                    <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                      <strong><%= instructor.name %> &nbsp;</strong>
+                      <%= render 'components/numerical_review',
+                                 rating: instructor.overall_rating, show_icon: true %>
+                    <% end %>
+
+                    <br/>
+                  <% end %>
+
+                  <br/>
+                  <%= section.credit %> credits
+                </p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <p>
+                  <%= raw section.description %>
+                </p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= detail.to_s %></p>
+                <% end %>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <%= button_to "Leave Review",
+                              :courses_add,
+                              :class => "button",
+                              :method => :post,
+                              :remote => true,
+                              :params => {:section_id => section.id} %>
+              </div>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% end %>
+</div>
