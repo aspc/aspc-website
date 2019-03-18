@@ -21,7 +21,22 @@
 
 
       <!-- Course Schedule / Reviews -->
-      <%= link_to "Courses", :courses, :class => "navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <%= link_to "Courses", :courses, :class => "navbar-item" %>
+        </div>
+        <div class="navbar-dropdown">
+          <div class="navbar-content">
+            <%= link_to "Scheduler", :courses, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "Course Reviews", :courses, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "Professor Reviews", :courses, :class => "navbar-item" %>
+          </div>
+        </div>
+      </div>
 
       <!--<div class="navbar-item has-dropdown is-hoverable">
         <div class="navbar-link">
