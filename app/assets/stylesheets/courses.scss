@@ -516,14 +516,49 @@ select {
   height: 885px;
 }
 
+#reviews-list-results {
+  height:auto;
+  overflow:auto;
+}
+
+#reviews-list-results .button_to {
+  display: inline-block;
+}
+
 .course-tags {
   flex-wrap: wrap;
   margin-bottom: 0.5rem !important;
   height: 3.0rem !important;
 }
 
-.campus-label {
-  border-radius: 4px;
-  padding: 3px;
+.expandable {
+  display: none;
+
+  .search-button {
+    margin-right: 0.5rem;
+  }
+}
+
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+
+  .checkbox {
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+
+  .day-checkbox {
+    background: #b5b5b5;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+  }
+
+  input[type="checkbox"] {
+    margin-top: -3px;
+    vertical-align: middle;
+  }
 }
 
