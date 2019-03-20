@@ -127,3 +127,7 @@
 .has-brightness {
     filter: brightness(1.25);
 }
+
+.results-heading {
+    margin: 20px auto 10px 0;
+}
