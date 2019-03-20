@@ -3,10 +3,8 @@
 <!-- Search Results -->
 <div id="reviews-course-list-container">
   <% if course_sections %>
-    <div class="buttons is-right">
-      <button class="button has-no-border" style="border: none;">
-        Showing <%= course_sections.length %> results
-      </button>
+    <div class="results-heading">
+      Showing <%= course_sections.length %> results
     </div>
     <div id="reviews-list-results">
       <% course_sections.each do |section| %>
