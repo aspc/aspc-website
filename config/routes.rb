@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   end
 
   scope controller: :instructors do
+    get 'instructors' => :index
     get 'instructors/:id' => :show, as: :instructor
+    match 'instructors/search' => :search, :via => [:get, :post]
   end
 
   scope controller: :menu do
