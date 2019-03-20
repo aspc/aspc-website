@@ -1,0 +1,10 @@
+<%= form_with url: instructors_search_url, remote: true do |f| %>
+  <div class="field is-grouped">
+    <div class="control is-expanded">
+      <%= f.text_field :instructor, :class => "input", :placeholder => "Instructor name" %>
+    </div>
+    <div class="control">
+      <%= f.submit "Search", :class => "button is-link search-button margin-bottom-0" %>
+    </div>
+  </div>
+<% end %>
