@@ -7,5 +7,7 @@ if ($("#course-list-container").length) {
         .addClass("is-5");
 } else {
     $("#reviews-course-list-container")
-        .html("<%= escape_javascript(render partial: 'courses/partials/reviews_course_list', locals: { course_sections: @course_sections }) %>");
+        .hide()
+        .html("<%= escape_javascript(render partial: 'courses/partials/reviews_course_list', locals: { course_sections: @course_sections }) %>")
+        .fadeIn('slow');
 }
