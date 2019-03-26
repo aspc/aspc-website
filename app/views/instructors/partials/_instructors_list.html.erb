@@ -14,7 +14,10 @@
             <%= render 'components/numerical_review', rating: instructor.overall_rating, tag_classes: 'is-info', show_icon: true %>
           </div>
           <div class="message-body">
-
+            <p>Courses taught:</p>
+            <p>Challenge rating:<%= render 'components/star_review', rating: instructor.challenge_rating, tag_classes: 'is-medium' %></p>
+            <p>Inclusivity rating:<%= render 'components/star_review', rating: instructor.inclusivity_rating, tag_classes: 'is-medium' %></p>
+            <p>Average work per week:<span class="tag is-medium"><%= instructor.work_per_week %> hours</span></p>
           </div>
         </article>
       <% end %>
