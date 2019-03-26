@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   resources :events
 
   scope controller: :courses do
-    get 'courses' => :index
+    get 'courses' => :reviews
     get 'courses/export' => :export_course_sections
-    get 'courses/reviews' => :reviews
+    get 'scheduler' => :index
+    get 'courses/:id/rate' => :add_review_course_section, as: :course_rate
     get 'courses/:id' => :show, as: :course
     post 'courses/add' => :add_course_section_to_schedule
     post 'courses/remove' => :remove_course_section_from_schedule
