@@ -4,7 +4,7 @@
 <div id="reviews-course-list-container">
   <% if course_sections %>
     <div class="results-heading">
-      Showing <%= course_sections.length %> results
+      <b>Showing <%= course_sections.length %> results</b>
     </div>
     <div id="reviews-list-results">
       <% course_sections.each do |section| %>
@@ -76,12 +76,7 @@
             </div>
             <div class="columns">
               <div class="column">
-                <%= button_to "Leave Review",
-                              :courses_add,
-                              :class => "button",
-                              :method => :post,
-                              :remote => true,
-                              :params => {:section_id => section.id} %>
+                <%= link_to "Leave Review", course_rate_path(section.course), :class => "button" %>
               </div>
             </div>
           </div>
