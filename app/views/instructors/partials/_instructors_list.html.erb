@@ -8,18 +8,19 @@
     </div>
     <div id="instructors-list-results">
       <% instructors.each do |instructor| %>
-        <article class="message">
+        <div class="message">
           <div class="message-header">
             <%= instructor.name %>
             <%= render 'components/numerical_review', rating: instructor.overall_rating, tag_classes: 'is-info', show_icon: true %>
           </div>
           <div class="message-body">
-            <p>Courses taught:</p>
+            <p class="margin-bottom-1">Courses:</p>
             <p>Challenge rating:<%= render 'components/star_review', rating: instructor.challenge_rating, tag_classes: 'is-medium' %></p>
             <p>Inclusivity rating:<%= render 'components/star_review', rating: instructor.inclusivity_rating, tag_classes: 'is-medium' %></p>
-            <p>Average work per week:<span class="tag is-medium"><%= instructor.work_per_week %> hours</span></p>
+            <p class="margin-bottom-1">Average work per week:<span class="tag is-medium"><%= instructor.work_per_week %> hours</span></p>
+            <%= link_to "Leave a review", review_instructor_path(instructor), :class => "button" %>
           </div>
-        </article>
+        </div>
       <% end %>
     </div>
   <% end %>
