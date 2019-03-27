@@ -54,7 +54,6 @@
 
                     <br/>
                   <% end %>
-
                   <br/>
                   <%= section.credit %> credits
                 </p>
@@ -76,7 +75,7 @@
             </div>
             <div class="columns">
               <div class="column">
-                <%= link_to "Leave Review", course_rate_path(section.course), :class => "button" %>
+                <%= link_to "Leave a review", review_course_section_path(section.course), :class => "button" %>
               </div>
             </div>
           </div>
