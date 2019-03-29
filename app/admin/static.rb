@@ -34,8 +34,12 @@ custom_pages_page = Proc.new do
 
     def create
       create! do |format|
-        redirect_url = edit_polymorphic_path([current_user.role.to_sym, resource])
-        format.html do redirect_to redirect_url end
+        if resource.id # if we successfully saved
+          redirect_url = edit_polymorphic_path([current_user.role.to_sym, resource])
+          format.html do redirect_to redirect_url end
+        else
+          format.html do redirect_to new_polymorphic_path([current_user.role.to_sym, Static]), alert: resource.errors.map {|attr, msg| "#{attr} #{msg}" } end
+        end
       end
     end
 

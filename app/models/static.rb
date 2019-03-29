@@ -1,8 +1,8 @@
 class Static < ApplicationRecord
+  belongs_to :last_modified_by, class_name: "User", foreign_key: "last_modified_by", :optional => true
+
   validates_uniqueness_of :page_name, :allow_nil => true, :allow_blank => true # allows nil fields
   validate :can_publish?
-
-  belongs_to :last_modified_by, class_name: "User", foreign_key: "last_modified_by"
 
   def approve!
     self.approved_content = self.pending_content

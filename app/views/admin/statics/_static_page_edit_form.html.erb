@@ -6,7 +6,7 @@
   <%=  f.inputs do %>
     <%= f.input :title %>
     <%= f.input :subtitle %>
-    <% if current_user.role == :admin %> <!-- Allow admins (not moderators) to change the page url name -->
+    <% if current_user.role.to_sym == :admin %> <!-- Allow admins (not moderators) to change the page url name -->
       <%= f.input :page_name %>
     <% end %>
   <% end %>
