@@ -61,8 +61,16 @@ ActiveAdmin.setup do |config|
   # Active Admin will automatically call an authorization
   # method in a before filter of all controller actions to
   # ensure that there is a user with proper rights. You can use
-  # CanCanAdapter or make your own. Please refer to documentation.
-  config.authorization_adapter = "ActiveAdminAuthorizationAdapter"
+  config.namespace :admin do |ns|
+    ns.authorization_adapter = "AdminAuthorizationAdapter"
+    ns.build_menu do |menu|
+      menu.add label: "Models", priority: 100
+    end
+  end
+
+  config.namespace :contributor do |ns|
+    ns.authorization_adapter = "ContributorAuthorizationAdapter"
+  end
 
   # You can specify a method to be called on unauthorized access.
   # This is necessary in order to prevent a redirect loop which happens
@@ -111,7 +119,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'
