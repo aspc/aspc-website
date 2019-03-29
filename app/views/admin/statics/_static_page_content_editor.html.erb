@@ -25,14 +25,11 @@
             // License Key
             key: "<%= Rails.application.credentials[:froala_license_keys][:production] %>",
 
-            // Change save interval (time in milliseconds).
-            saveInterval: 1000,
-
             // Set the save param.
             saveParam: "content",
 
             // Set the save URL.
-            saveURL: "<%= admin_static_page_update_path %>",
+            saveURL: "<%= static_page_update_path %>",
 
             // HTTP request type.
             saveMethod: "POST",
@@ -44,7 +41,7 @@
             saveParams: {id: "my_editor"},
 
             // Route for uploading images
-            imageUploadURL: "<%= admin_static_page_upload_image_path %>",
+            imageUploadURL: "<%= static_page_upload_image_path %>",
 
             // Hide character counter
             charCounterCount: false
@@ -69,6 +66,21 @@
             var popup = editor.popups.get('image.insert');
             var layer = popup.find('.fr-image-progress-bar-layer');
             layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
+        });
+
+        $("#editor").on('froalaEditor.image.removed', function (e, editor, img) {
+            $.ajax({
+                // Request method.
+                method: "POST",
+
+                // Request URL.
+                url: "<%= static_page_delete_image_path %>",
+
+                // Request params.
+                data: {
+                    src: img.attr('src')
+                }
+            });
         });
 
         // Load the existing preview

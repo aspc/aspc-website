@@ -63,13 +63,13 @@ Rails.application.routes.draw do
 
     get 'pages/id/:id' => :show, as: :static_page
     get 'pages/:page_name' => :show
+
+    post 'pages/:id/update' => 'static#save', as: :static_page_update
+    post 'pages/:id/upload_image' => 'static#upload_image', as: :static_page_upload_image
+    post 'pages/:id/delete_image' => 'static#delete_image', as: :static_page_delete_image
+
     get '/uploads/:image_name' => :load_image
   end
-
-  # ActiveAdmin custom static page routes
-  post 'admin/pages/:id/edit/save' => 'static#save', as: :admin_static_page_update
-  post 'admin/pages/:id/edit/upload_image' => 'static#upload_image', as: :admin_static_page_upload_image
-  delete 'admin/pages/:id/edit/delete_image' => 'static#delete_image', as: :admin_static_page_delete_image
 
   # Logging solution
   constraints lambda { |req| User.find_by_id(req.session[:current_user_id])&.is_admin? } do
