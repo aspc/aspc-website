@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_063139) do
+ActiveRecord::Schema.define(version: 2019_04_03_222622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,15 @@ ActiveRecord::Schema.define(version: 2019_04_03_063139) do
     t.index ["status"], name: "index_events_on_status"
   end
 
+  create_table "housing_buildings", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug"
+    t.integer "floors", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_housing_buildings_on_name", unique: true
+  end
+
   create_table "housing_reviews", force: :cascade do |t|
     t.decimal "overall_rating", default: "0.0", null: false
     t.decimal "quiet_rating", default: "0.0", null: false
@@ -199,6 +208,9 @@ ActiveRecord::Schema.define(version: 2019_04_03_063139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "housing_suite_id"
+    t.bigint "housing_building_id"
+    t.string "room_number", null: false
+    t.index ["housing_building_id"], name: "index_housing_rooms_on_housing_building_id"
     t.index ["housing_suite_id"], name: "index_housing_rooms_on_housing_suite_id"
   end
 
@@ -206,6 +218,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_063139) do
     t.integer "suite_type", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "housing_building_id"
+    t.index ["housing_building_id"], name: "index_housing_suites_on_housing_building_id"
   end
 
   create_table "instructors", force: :cascade do |t|

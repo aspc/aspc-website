@@ -1,0 +1,5 @@
+<h2>Rooms for Building <%= @housing_building.name %> </h2>
+
+<% @housing_rooms.each do |room| %>
+  <p><%= room.room_name %></p>
+<% end %>

@@ -1,6 +1,10 @@
 class HousingReviewsController < InheritedResources::Base
   before_action :set_housing_room
 
+  def index
+    @housing_reviews = @housing_room.housing_reviews
+  end
+
   private
 
     def set_housing_room

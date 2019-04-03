@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   #resources :housing_reviews
 
   scope controller: :housing_rooms do
-    get 'housing' => :index, :as => :housing_rooms
+    get 'housing' => :show_buildings, :as => :housing_rooms
+    get 'housing/dorms/:dorm_id' => :show_building_rooms, :as => :show_housing_rooms_for_dorm
     get 'housing/rooms/:room_id' => :show, :as => :show_housing_room
   end
 
