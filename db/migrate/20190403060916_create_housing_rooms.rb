@@ -12,11 +12,6 @@ class CreateHousingRooms < ActiveRecord::Migration[5.2]
       t.integer :closet_type, :null => false, :default => 0
       t.integer :bathroom_type, :null => false, :default => 0
 
-      t.decimal :overall_rating, :null => false, :default => 0
-      t.decimal :quiet_rating, :null => false, :default => 0
-      t.decimal :layout_rating, :null => false, :default => 0
-      t.decimal :temperature_rating, :null => false, :default => 0
-
       t.timestamps
     end
 

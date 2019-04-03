@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :housing_reviews
   get 'instructors/show'
   get 'course_review/show'
   get 'course_review/create'

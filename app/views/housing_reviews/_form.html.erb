@@ -1,0 +1,57 @@
+<%= form_with(model: housing_review, local: true) do |form| %>
+  <% if housing_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(housing_review.errors.count, "error") %> prohibited this housing_review from being saved:</h2>
+
+      <ul>
+      <% housing_review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :new %>
+    <%= form.text_field :new %>
+  </div>
+
+  <div class="field">
+    <%= form.label :create %>
+    <%= form.text_field :create %>
+  </div>
+
+  <div class="field">
+    <%= form.label :show %>
+    <%= form.text_field :show %>
+  </div>
+
+  <div class="field">
+    <%= form.label :index %>
+    <%= form.text_field :index %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quiet_rating %>
+    <%= form.text_field :quiet_rating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :layout_rating %>
+    <%= form.text_field :layout_rating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :temperature_rating %>
+    <%= form.text_field :temperature_rating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comments %>
+    <%= form.text_area :comments %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

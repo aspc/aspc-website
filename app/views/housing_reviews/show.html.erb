@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>New:</strong>
+  <%= @housing_review.new %>
+</p>
+
+<p>
+  <strong>Create:</strong>
+  <%= @housing_review.create %>
+</p>
+
+<p>
+  <strong>Show:</strong>
+  <%= @housing_review.show %>
+</p>
+
+<p>
+  <strong>Index:</strong>
+  <%= @housing_review.index %>
+</p>
+
+<p>
+  <strong>Quiet rating:</strong>
+  <%= @housing_review.quiet_rating %>
+</p>
+
+<p>
+  <strong>Layout rating:</strong>
+  <%= @housing_review.layout_rating %>
+</p>
+
+<p>
+  <strong>Temperature rating:</strong>
+  <%= @housing_review.temperature_rating %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @housing_review.comments %>
+</p>
+
+<%= link_to 'Edit', edit_housing_review_path(@housing_review) %> |
+<%= link_to 'Back', housing_reviews_path %>

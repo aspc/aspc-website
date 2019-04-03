@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_060916) do
+ActiveRecord::Schema.define(version: 2019_04_03_063139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,15 +177,24 @@ ActiveRecord::Schema.define(version: 2019_04_03_060916) do
     t.index ["status"], name: "index_events_on_status"
   end
 
+  create_table "housing_reviews", force: :cascade do |t|
+    t.decimal "quiet_rating", default: "0.0", null: false
+    t.decimal "layout_rating", default: "0.0", null: false
+    t.decimal "temperature_rating", default: "0.0", null: false
+    t.text "comments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "housing_room_id"
+    t.bigint "user_id"
+    t.index ["housing_room_id"], name: "index_housing_reviews_on_housing_room_id"
+    t.index ["user_id"], name: "index_housing_reviews_on_user_id"
+  end
+
   create_table "housing_rooms", force: :cascade do |t|
     t.decimal "size", default: "0.0", null: false
     t.integer "occupancy_type", default: 0, null: false
     t.integer "closet_type", default: 0, null: false
     t.integer "bathroom_type", default: 0, null: false
-    t.decimal "overall_rating", default: "0.0", null: false
-    t.decimal "quiet_rating", default: "0.0", null: false
-    t.decimal "layout_rating", default: "0.0", null: false
-    t.decimal "temperature_rating", default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "housing_suite_id"
