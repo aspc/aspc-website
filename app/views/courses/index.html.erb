@@ -2,14 +2,6 @@
   <%= render 'components/page_header', :title => "Course Planner", :subtitle => "Browse courses and plan your schedule" %>
 <% end %>
 
-<aside class="message is-info">
-  <div class="message-body">
-    We are actively improving and adding functionality to course and instructor review search every day!
-    If you have an idea or notice something missing, please let us know by submitting your feedback <a href="
-    https://docs.google.com/forms/d/e/1FAIpQLSePd28bwR3TqXsk0Tj-b8m6CuOFWcmopacO1EvAeTkq3SKEvQ/viewform">here</a>.
-  </div>
-</aside>
-
 <div class="columns">
   <div class="column is-3">
     <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments, course_meeting_details: @course_meeting_details %>
