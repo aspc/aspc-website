@@ -1,3 +1,5 @@
+<% room = local_assigns.fetch(:housing_room)  %>
+
 <%= form_with(model: housing_review, local: true) do |form| %>
   <% if housing_review.errors.any? %>
     <div id="error_explanation">
@@ -11,24 +13,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :new %>
-    <%= form.text_field :new %>
-  </div>
+  <h2>Creating Review for Room: <%= room.id %></h2>
+  <%= form.hidden_field :housing_room, :value => housing_room.id %>
 
   <div class="field">
-    <%= form.label :create %>
-    <%= form.text_field :create %>
-  </div>
-
-  <div class="field">
-    <%= form.label :show %>
-    <%= form.text_field :show %>
-  </div>
-
-  <div class="field">
-    <%= form.label :index %>
-    <%= form.text_field :index %>
+    <%= form.label :overall_rating %>
+    <%= form.text_field :overall_rating %>
   </div>
 
   <div class="field">

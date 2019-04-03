@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_063139) do
   end
 
   create_table "housing_reviews", force: :cascade do |t|
+    t.decimal "overall_rating", default: "0.0", null: false
     t.decimal "quiet_rating", default: "0.0", null: false
     t.decimal "layout_rating", default: "0.0", null: false
     t.decimal "temperature_rating", default: "0.0", null: false

@@ -1,14 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Housing Reviews</h1>
-
 <table>
   <thead>
     <tr>
-      <th>New</th>
-      <th>Create</th>
-      <th>Show</th>
-      <th>Index</th>
+      <th>Overall rating</th>
       <th>Quiet rating</th>
       <th>Layout rating</th>
       <th>Temperature rating</th>
@@ -20,17 +13,12 @@
   <tbody>
     <% @housing_reviews.each do |housing_review| %>
       <tr>
-        <td><%= housing_review.new %></td>
-        <td><%= housing_review.create %></td>
-        <td><%= housing_review.show %></td>
-        <td><%= housing_review.index %></td>
+        <td><%= housing_review.overall_rating %></td>
         <td><%= housing_review.quiet_rating %></td>
         <td><%= housing_review.layout_rating %></td>
         <td><%= housing_review.temperature_rating %></td>
         <td><%= housing_review.comments %></td>
-        <td><%= link_to 'Show', housing_review %></td>
-        <td><%= link_to 'Edit', edit_housing_review_path(housing_review) %></td>
-        <td><%= link_to 'Destroy', housing_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', housing_review_path(id: housing_review.id) %></td>
       </tr>
     <% end %>
   </tbody>
