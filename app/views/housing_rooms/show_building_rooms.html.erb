@@ -1,5 +1,29 @@
-<h2>Rooms for Building <%= @housing_building.name %> </h2>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "#{@housing_building.name} Rooms" %>
+<% end %>
 
-<% @housing_rooms.each do |room| %>
-  <p><%= room.room_name %></p>
+<% @housing_rooms.sort_by{|r| r.occupancy_type}.in_groups_of(3, false).each do |group| %>
+  <div class="columns">
+    <% group.each do |room| %>
+      <div class="column is-4">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <%= room.room_name %>
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <div>Average rating: <%= render 'components/star_review', rating: get_average_rating(@housing_reviews.where(housing_room_id: room.id)) %></div><br>
+              <div><%= room.occupancy_type.gsub("_", " ").capitalize %></div>
+              <div><%= room.closet_type.gsub("_", " ").capitalize %> closet</div>
+              <div><%= room.bathroom_type.gsub("_", " ").capitalize %> bathroom</div>
+            </div>
+            
+            <%= link_to "Reviews", housing_reviews_path(:room_id => room.id), class: "button is-info is-outlined" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

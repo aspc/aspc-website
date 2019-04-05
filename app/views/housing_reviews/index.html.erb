@@ -1,4 +1,6 @@
-<p> Reviews for <%= @housing_room.room_name %></p>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Reviews for #{@housing_room.room_name}" %>
+<% end %>
 
 <table>
   <thead>
@@ -29,3 +31,88 @@
 <br>
 
 <%= link_to 'New Housing Review', new_housing_review_path %>
+
+<% if @housing_reviews.length > 0 %>
+  <h2 class="title">Overall room rating: &nbsp;
+    <span class="has-text-warning">
+      <%= render 'components/numerical_review', rating: @overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
+    </span>
+  </h2>
+  <div class="columns">
+    <div class="column">
+      <h3 class="subtitle">
+        Quiet rating: <%= render 'components/numerical_review', rating: @quiet_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Layout rating: <%= render 'components/numerical_review', rating: @layout_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Temperature rating: <%= render 'components/numerical_review', rating: @temperature_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+  </div>
+
+  <hr />
+
+  <% @housing_reviews.each do |review| %>
+    <div class="columns">
+      <div class="column">
+        <div class="tags are-normal">
+          <span class="tag is-medium">
+            Overall rating: &nbsp;
+            <span class="has-text-warning">
+              <%= render 'components/star_review', rating: review.overall_rating %>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p class="subtitle"><%= review.comments %></p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p>
+          <span class="tag has-background-white-bis">
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.quiet_rating %>
+            </span> &nbsp; Quiet rating
+          </span>
+        </p>
+        <p>
+          <span class="tag has-background-white-bis">
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.layout_rating %>
+            </span> &nbsp; Layout rating
+          </span>
+        </p>
+        <p>
+          <span class="tag has-background-white-bis">
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.temperature_rating %>
+            </span> &nbsp; Temperature rating
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p><em>Review written <%= review.created_at.strftime("%b %Y") %></em></p>
+      </div>
+    </div>
+    <hr />
+  <% end %>
+  
+<% else %>
+  <div class="columns">
+    <div class="column">
+      <p class="subtitle">There are no reviews for this room at this time.</p>
+    </div>
+  </div>
+<% end %>

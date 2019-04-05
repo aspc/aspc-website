@@ -293,10 +293,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_222622) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password"
-    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_admin"], name: "index_users_on_is_admin"
-    t.index ["role"], name: "index_users_on_role"
   end
 
 end

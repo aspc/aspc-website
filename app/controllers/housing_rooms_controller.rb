@@ -10,6 +10,8 @@ class HousingRoomsController < InheritedResources::Base
 
     @housing_suites = @housing_building.housing_suites
     @housing_rooms = @housing_building.housing_rooms
+
+    @housing_reviews = HousingReview.all
   end
 
   def show
@@ -17,5 +19,10 @@ class HousingRoomsController < InheritedResources::Base
     @housing_room = HousingRoom.find(room_id)
   end
 
-end
+  def get_average_rating(reviews)
+    ratings = reviews.map {|r| r.overall_rating}
+    return (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
+  end
+  helper_method :get_average_rating
 
+end
