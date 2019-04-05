@@ -516,14 +516,102 @@ select {
   height: 885px;
 }
 
+#reviews-list-results {
+  height: auto;
+  overflow: auto;
+}
+
+#reviews-list-results .button_to {
+  display: inline-block;
+}
+
 .course-tags {
   flex-wrap: wrap;
   margin-bottom: 0.5rem !important;
   height: 3.0rem !important;
 }
 
-.campus-label {
-  border-radius: 4px;
-  padding: 3px;
+.expandable {
+  display: none;
+
+  .search-button {
+    margin-right: 0.5rem;
+  }
 }
 
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+
+  .checkbox {
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-bottom: 5px;
+  }
+
+  .day-checkbox {
+    background: #b5b5b5;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  input[type="checkbox"] {
+    margin-top: -3px;
+    vertical-align: middle;
+  }
+}
+
+/* Form for course review */
+
+fieldset, label {
+  margin: 0;
+  padding: 0;
+}
+
+.rating-control {
+  width: 100%;
+
+  .rating {
+    float: left;
+    border: none;
+
+    > input {
+      display: none;
+    }
+
+    > label:before {
+      margin: 0 0.5rem 0 0;
+      font-size: 1.5em;
+      font-family: FontAwesome;
+      display: inline-block;
+      content: "\f005";
+    }
+
+    > label {
+      color: #ddd;
+      float: right;
+    }
+
+    > .half:before {
+      content: "\f089";
+      position: absolute;
+    }
+
+    > input:checked ~ label {
+      color: #ffdd57;
+    }
+
+    &:not(:checked) > label:hover,
+    &:not(:checked) > label:hover ~ label {
+      color: #3273dc;
+    }
+
+    > input:checked + label:hover,
+    > input:checked ~ label:hover,
+    > label:hover ~ input:checked ~ label,
+    > input:checked ~ label:hover ~ label {
+      color: #3273dc;
+    }
+  }
+}
