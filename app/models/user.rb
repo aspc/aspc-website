@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validate :is_role_valid
 
   enum school: [ :unknown, :pomona, :claremont_mckenna, :harvey_mudd, :scripps, :pitzer ]
-  enum role: { :admin => 0, :contributor => 1 }
+  enum role: { :user => 0, :admin => 1, :contributor => 2 }
 
   def is_password_necessary
     return if is_cas_authenticated
