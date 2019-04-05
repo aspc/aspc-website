@@ -17,30 +17,40 @@
 
   <div class="field">
     <%= form.label :overall_rating %>
-    <%= form.text_field :overall_rating %>
+    <div class="control">
+      <%= render "components/star_review_input", :id => "housing_review_overall_rating", tag_clases: "is-medium" %>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :quiet_rating %>
-    <%= form.text_field :quiet_rating %>
+    <div class="control">
+      <%= render "components/star_review_input", :id => "housing_review_quiet_rating", tag_clases: "is-medium" %>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :layout_rating %>
-    <%= form.text_field :layout_rating %>
+    <div class="control">
+      <%= render "components/star_review_input", :id => "housing_review_layout_rating", tag_clases: "is-medium" %>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :temperature_rating %>
-    <%= form.text_field :temperature_rating %>
+    <div class="control">
+      <%= render "components/star_review_input", :id => "housing_review_temperature_rating", tag_clases: "is-medium" %>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :comments %>
-    <%= form.text_area :comments %>
+    <div class="control">
+      <%= form.text_area :comments, :class => "textarea", :placeholder => "Your thoughts about the room", :rows => 6 %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "button is-link margin-bottom-0" %>
   </div>
 <% end %>
