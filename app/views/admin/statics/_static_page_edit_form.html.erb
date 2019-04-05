@@ -1,11 +1,12 @@
 <!-- Remote form to update title and subtitle -->
 <% page = Static.find_by_id(params[:id]) %>
+<% role = current_user.role.to_sym %>
 
-<%= semantic_form_for [:admin, resource], :remote => (page.present?), builder: ActiveAdmin::FormBuilder do |f| %>
+<%= semantic_form_for [role, resource], :remote => (page.present?), builder: ActiveAdmin::FormBuilder do |f| %>
   <%=  f.inputs do %>
     <%= f.input :title %>
     <%= f.input :subtitle %>
-    <% if is_admin? %> <!-- Allow admins (not moderators) to change the page url name -->
+    <% if current_user.role.to_sym == :admin %> <!-- Allow admins (not moderators) to change the page url name -->
       <%= f.input :page_name %>
     <% end %>
   <% end %>

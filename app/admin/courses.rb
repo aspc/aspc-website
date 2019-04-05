@@ -1,4 +1,6 @@
-ActiveAdmin.register Course do
+course_page = Proc.new do
+  menu parent: "Models"
+
   permit_params :code, :code_slug, :number, :name, department_ids: []
 
   sidebar "Nested Attributes", only: [:show, :edit] do
@@ -19,7 +21,7 @@ ActiveAdmin.register Course do
   end
 end
 
-ActiveAdmin.register CourseSection do
+course_section_page = Proc.new do
   belongs_to :course
   menu false
 
@@ -59,8 +61,12 @@ ActiveAdmin.register CourseSection do
   end
 end
 
-ActiveAdmin.register CourseMeetingDetail do
+course_meeting_details_page = Proc.new do
   belongs_to :course_section
 
   permit_params :start_time, :end_time, :monday, :tuesday, :wednesday, :thursday, :friday, :campus, :location
 end
+
+ActiveAdmin.register Course, :namespace => :admin, &course_page
+ActiveAdmin.register CourseSection, :namespace => :admin, &course_section_page
+ActiveAdmin.register CourseMeetingDetail, :namespace => :admin, &course_meeting_details_page

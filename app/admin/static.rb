@@ -1,10 +1,11 @@
-ActiveAdmin.register Static do
+custom_pages_page = Proc.new do
   menu :priority => 3, :label => "Custom Pages"
 
   # Change "new" button name
   config.clear_action_items!
   action_item :only => :index do
-    link_to "New Page" , new_admin_static_path
+    redirect_url = new_polymorphic_path([current_user.role.to_sym, Static])
+    link_to "New Page" , redirect_url
   end
 
   permit_params :title, :subtitle, :page_name
@@ -23,7 +24,7 @@ ActiveAdmin.register Static do
     actions
   end
 
-  form partial: 'static_page_edit_form'
+  form partial: 'admin/statics/static_page_edit_form'
 
   # Render custom form page with WYSIWYG editor
   controller do
@@ -33,31 +34,48 @@ ActiveAdmin.register Static do
 
     def create
       create! do |format|
-        format.html { redirect_to edit_admin_static_path(:id => resource.id) }
+        if resource.id # if we successfully saved
+          redirect_url = edit_polymorphic_path([current_user.role.to_sym, resource])
+          format.html do redirect_to redirect_url end
+        else
+          format.html do redirect_to new_polymorphic_path([current_user.role.to_sym, Static]), alert: resource.errors.map {|attr, msg| "#{attr} #{msg}" } end
+        end
+      end
+    end
+
+    def destroy
+      redirect_url = polymorphic_path([current_user.role.to_sym, Static])
+      if current_user.role.to_sym == :admin
+        destroy! { redirect_url }
+      else
+        redirect_to redirect_url, alert: "Only admins may delete pages. If you've accidentally created a page you no longer need, let the software team know."
       end
     end
   end
 
   # Allow admins to approve content and publish live
+  config.clear_batch_actions!
   batch_action :approve do |ids|
-    validation_error_messages = []
-    batch_action_collection.find(ids).each do |page|
-      did_approve = page.approve!
+    unless current_user.role.to_sym == :admin
+      redirect_to collection_path, alert: "Only admins may approve pages. Please notify the software team if you would like your page published as soon as possible."
+    else
+      validation_error_messages = []
+      batch_action_collection.find(ids).each do |page|
+        did_approve = page.approve!
 
-      if not did_approve
-        validation_error_messages.concat page.errors.full_messages.map { |msg| "Page #{page.id}: #{msg}" }
+        if not did_approve
+          validation_error_messages.concat page.errors.full_messages.map { |msg| "Page #{page.id}: #{msg}" }
+        end
+      end
+
+      if validation_error_messages.blank?
+        redirect_to collection_path, alert: "The pages have been approved."
+      else
+        redirect_to collection_path, alert: validation_error_messages.join(',')
       end
     end
-
-    if validation_error_messages.blank?
-      redirect_to collection_path, alert: "The pages have been approved."
-    else
-      redirect_to collection_path, alert: validation_error_messages.join(',')
-    end
   end
-
-  # action_item do
-  #   link_to "Approve changes", approve_admin_static_path
-  # end
-  
 end
+
+ActiveAdmin.register Static, :namespace => :admin, &custom_pages_page
+ActiveAdmin.register Static, :namespace => :contributor, &custom_pages_page

@@ -1,4 +1,6 @@
-ActiveAdmin.register Event do
+events_page = Proc.new do
+  menu priority: 4, :label => "Event moderation"
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   permit_params :name, :start, :end, :location, :description, :host, :details_url, :status, :college_affiliation
@@ -63,16 +65,19 @@ ActiveAdmin.register Event do
 
     f.inputs "Event Start/End Time" do
       input :start, as: :datetime_picker,
-        datepicker_options: {
-            min_date: 1.years.ago.to_date,
-            max_date: "+1Y"
-        }
+            datepicker_options: {
+                min_date: 1.years.ago.to_date,
+                max_date: "+1Y"
+            }
 
       input :end, as: :datetime_picker,
-        datepicker_options: {
-            min_date: 1.years.ago.to_date,
-            max_date: "+1Y"
-        }
+            datepicker_options: {
+                min_date: 1.years.ago.to_date,
+                max_date: "+1Y"
+            }
     end
   end
 end
+
+ActiveAdmin.register Event, :namespace => :admin, &events_page
+ActiveAdmin.register Event, :namespace => :contributor, &events_page
