@@ -4,17 +4,10 @@ class HousingReviewsController < InheritedResources::Base
   def index
     @housing_reviews = @housing_room.housing_reviews
 
-    ratings = @housing_reviews.map {|r| r.overall_rating}
-    @overall_rating = (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
-
-    ratings = @housing_reviews.map {|r| r.quiet_rating}
-    @quiet_rating = (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
-
-    ratings = @housing_reviews.map {|r| r.temperature_rating}
-    @temperature_rating = (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
-
-    ratings = @housing_reviews.map {|r| r.layout_rating}
-    @layout_rating = (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
+    ratings = @average_overall_rating = get_average_rating(@housing_reviews.map {|r| r.overall_rating})
+    ratings = @average_quiet_rating = get_average_rating(@housing_reviews.map {|r| r.quiet_rating})
+    ratings = @average_temperature_rating = get_average_rating(@housing_reviews.map {|r| r.temperature_rating})
+    ratings = @average_layout_rating = get_average_rating(@housing_reviews.map {|r| r.layout_rating})
   end
 
   private
@@ -32,5 +25,10 @@ class HousingReviewsController < InheritedResources::Base
       end
 
       whitelisted
+    end
+
+    def get_average_rating(ratings)
+      ratings = ratings.reject{|r| r == 0 || r == nil}
+      return (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
     end
 end

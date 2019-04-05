@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Housing" %>
+  <%= render 'components/page_header', :title => "Housing Information" %>
 <% end %>
 
 <% @housing_buildings.sort_by{|b| b.name.downcase}.in_groups_of(3, false).each do |group| %>

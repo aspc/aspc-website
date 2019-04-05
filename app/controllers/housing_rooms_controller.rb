@@ -21,7 +21,7 @@ class HousingRoomsController < InheritedResources::Base
 
   def get_average_rating(reviews)
     ratings = reviews.map {|r| r.overall_rating}
-    return (ratings.length == 0 ? 0 : ratings.inject(0, :+) / ratings.length)
+    return (ratings.length == 0 ? 0 : ratings.reject{ |r| r == 0 }.inject(0, :+) / ratings.length)
   end
   helper_method :get_average_rating
 

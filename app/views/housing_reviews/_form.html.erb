@@ -1,4 +1,4 @@
-<% room = local_assigns.fetch(:housing_room)  %>
+<% room = local_assigns.fetch(:housing_room) %>
 
 <%= form_with(model: housing_review, local: true) do |form| %>
   <% if housing_review.errors.any? %>
@@ -13,7 +13,6 @@
     </div>
   <% end %>
 
-  <h2>Creating Review for Room: <%= room.room_name %></h2>
   <%= form.hidden_field :housing_room, :value => housing_room.id %>
 
   <div class="field">

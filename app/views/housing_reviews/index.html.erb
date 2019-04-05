@@ -2,59 +2,31 @@
   <%= render 'components/page_header', :title => "Reviews for #{@housing_room.room_name}" %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Overall rating</th>
-      <th>Quiet rating</th>
-      <th>Layout rating</th>
-      <th>Temperature rating</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @housing_reviews.each do |housing_review| %>
-      <tr>
-        <td><%= housing_review.overall_rating %></td>
-        <td><%= housing_review.quiet_rating %></td>
-        <td><%= housing_review.layout_rating %></td>
-        <td><%= housing_review.temperature_rating %></td>
-        <td><%= housing_review.comments %></td>
-        <td><%= link_to 'Show', housing_review_path(id: housing_review.id) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Housing Review', new_housing_review_path %>
-
 <% if @housing_reviews.length > 0 %>
   <h2 class="title">Overall room rating: &nbsp;
     <span class="has-text-warning">
-      <%= render 'components/numerical_review', rating: @overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
+      <%= render 'components/numerical_review', rating: @average_overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
     </span>
   </h2>
   <div class="columns">
     <div class="column">
       <h3 class="subtitle">
-        Quiet rating: <%= render 'components/numerical_review', rating: @quiet_rating, tag_classes: 'is-medium' %>
+        Quiet rating: <%= render 'components/numerical_review', rating: @average_quiet_rating, tag_classes: 'is-medium' %>
       </h3>
     </div>
     <div class="column">
       <h3 class="subtitle">
-        Layout rating: <%= render 'components/numerical_review', rating: @layout_rating, tag_classes: 'is-medium' %>
+        Layout rating: <%= render 'components/numerical_review', rating: @average_layout_rating, tag_classes: 'is-medium' %>
       </h3>
     </div>
     <div class="column">
       <h3 class="subtitle">
-        Temperature rating: <%= render 'components/numerical_review', rating: @temperature_rating, tag_classes: 'is-medium' %>
+        Temperature rating: <%= render 'components/numerical_review', rating: @average_temperature_rating, tag_classes: 'is-medium' %>
       </h3>
     </div>
   </div>
+
+  <%= link_to 'Write a new review', new_housing_review_path, class: "button is-info is-outlined" %>
 
   <hr />
 

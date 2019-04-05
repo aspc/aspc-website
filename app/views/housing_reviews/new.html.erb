@@ -1,5 +1,7 @@
-<h1>New Housing Review</h1>
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "New review for #{@housing_room.room_name}" %>
+<% end %><h1>
 
 <%= render 'form', housing_review: @housing_review, housing_room: @housing_room %>
 
-<%= link_to 'Back', housing_reviews_path %>
+<%= link_to 'Back', housing_reviews_path, class: "button is-info is-outlined" %>
