@@ -23,6 +23,9 @@
 
   <div class="navbar-menu">
     <div class="navbar-end">
+      <!-- Home -->
+      <a href="/" class="navbar-item">Home</a>
+
       <!-- Events -->
       <%= link_to "Events", :events, :class => "navbar-item" %>
 
@@ -44,10 +47,10 @@
 
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
-        <div class="navbar-link"/>
-        ASPC
+        <div class="navbar-link" />
+        <span class="item-has-arrow">ASPC</span>
       </div>
-      <div id="blogDropdown" class="navbar-dropdown " data-style="width: 18rem;">
+      <div id="blogDropdown" class="navbar-dropdown ">
         <div class="container is-fluid">
           <div class="columns">
             <div class="column">
@@ -121,7 +124,7 @@
     <!-- More Resources -->
     <div class="navbar-item has-dropdown is-hoverable">
       <div class="navbar-link">
-        More Resources
+        <span class="item-has-arrow">More Resources</span>
       </div>
       <div class="navbar-dropdown">
         <div class="navbar-content">
@@ -152,26 +155,26 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="navbar-item">
-    <% unless logged_in? %>
-      <div class="field is-grouped">
-        <p class="control">
-          <a href="<%= login_path %>" class="button is-info">
-            <span>Login</span>
-          </a>
-        </p>
-      </div>
-    <% else %>
-      <div class="field is-grouped">
-        <p class="control">
-          <a href="<%= logout_path %>" class="button is-light">
-            <span>Logout</span>
-          </a>
-        </p>
-      </div>
-    <% end %>
+    <div class="navbar-item">
+      <% unless logged_in? %>
+        <div class="field is-grouped">
+          <p class="control">
+            <a href="<%= login_path %>" class="button is-info">
+              <span>Login</span>
+            </a>
+          </p>
+        </div>
+      <% else %>
+        <div class="field is-grouped">
+          <p class="control">
+            <a href="<%= logout_path %>" class="button is-light">
+              <span>Logout</span>
+            </a>
+          </p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 </nav>
