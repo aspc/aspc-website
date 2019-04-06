@@ -54,8 +54,12 @@ body {
     line-height: 1.5;
 }
 
-.title {
+.title, .title a {
     color: #2c3e50;
+}
+
+.title a:hover {
+    color: #209cee;
 }
 
 #application-header {
@@ -101,8 +105,53 @@ body {
     font-family: 'Karla', sans-serif;
 }
 
+#application-header .navbar-link {
+    padding-right: 2rem;
+}
+
+#application-header .navbar-item,
+#application-header .navbar-link {
+    background-color: transparent;
+}
+
+#application-header .navbar-item:hover,
+#application-header .navbar-link:hover {
+    color: #209cee;
+}
+
+#application-header .navbar-item.has-dropdown:hover .item-has-arrow:after {
+    position: absolute;
+    content: "";
+    width: 0.75rem;
+    height: 0px;
+    border-top: 0.75rem solid transparent;
+    border-right: 0.75rem solid transparent;
+    border-bottom: 0.75rem solid white;
+    border-left: 0.75rem solid transparent;
+    border-radius: 2px;
+    bottom: -0.25rem;
+    left: 50%;
+    margin-left: -1.125em;
+}
+
 #application-header .navbar-dropdown {
     border-top: 0;
+    border-radius: 6px;
+}
+
+#application-header .navbar-link::after {
+    font-family: FontAwesome;
+    content: "\f078";
+    display: inline-block;
+    transform: none;
+    border: 0;
+    display: inline-block;
+    padding-top: 3px;
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+    top: auto;
+    font-size: 0.75rem;
 }
 
 .hero-body {
@@ -122,24 +171,6 @@ body {
     z-index: 100;
 }
 
-.application-footer {
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 3rem;
-}
-
-.application-footer .footer-logo {
-    opacity: 0.2;
-    margin-bottom: 1rem;
-}
-
-.application-footer .footer-text a {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.application-footer .footer-text a:hover {
-    color: rgba(255, 255, 255, 0.6);
-}
-
 .page-header {
     background-color: #0071a6 !important;
 }
@@ -150,10 +181,36 @@ body {
     padding-bottom: 1rem;
 }
 
+.event .event-info .event-date-time {
+    margin-bottom: 0.25rem;
+}
+
 .event .title {
     margin-top: 1rem;
     font-weight: 300;
 }
+
+.tsl-article .tsl-article-info p {
+    padding-bottom: 1rem;
+}
+
+.tsl-article .title {
+    font-weight: 300;
+}
+
+.footer {
+    padding: 3rem;
+    font-size: 1rem;
+}
+
+.footer a {
+    color: #209cee;
+}
+
+.footer a:hover {
+    color: #2c3e50;
+}
+
 /*
  * Global Color helpers
  */
