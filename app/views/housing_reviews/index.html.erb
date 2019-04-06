@@ -75,9 +75,20 @@
     </div>
     <div class="columns">
       <div class="column">
-        <p><em>Review written <%= review.created_at.strftime("%b %Y") %></em></p>
+        <p><em>Review written <%= review.created_at.strftime("%b %Y") %>
+          <% unless review.user_id.nil? %>
+            by <%= @users.find_by(:id => review.user_id).first_name %>
+          <% end %>
+        </em></p>
       </div>
     </div>
+    <% if review.user_id == current_user.id %>
+      <div class="columns">
+        <div class="column">
+          <%= link_to "Delete", delete_housing_review_path(:id => review.id), :method => 'delete', class: "button is-info is-outlined" %>
+        </div>
+      </div>
+    <% end %>
     <hr />
   <% end %>
   

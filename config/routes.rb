@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post 'housing/rooms/:room_id/reviews/' => :create, :as => :create_housing_review
     get 'housing/rooms/:room_id/reviews/new' => :new, :as => :new_housing_review
     get 'housing/rooms/:room_id/reviews/:id' => :show, :as => :housing_review
+    delete 'housing/rooms/:room_id/reviews/:id' => :destroy, :as => :delete_housing_review
   end
 
   scope controller: :courses do

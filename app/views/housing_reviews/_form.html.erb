@@ -14,6 +14,7 @@
   <% end %>
 
   <%= form.hidden_field :housing_room, :value => housing_room.id %>
+  <%= form.hidden_field :user_id, :value => current_user.id %>
 
   <div class="field">
     <%= form.label :overall_rating %>
@@ -51,6 +52,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit class: "button is-link margin-bottom-0" %>
+    <%= form.submit "Submit housing review", class: "button is-link margin-bottom-0" %>
   </div>
 <% end %>
