@@ -3,10 +3,11 @@
   <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => true,
-        :dots => false,
+        :arrows => false,
+        :dots => true,
         :useTransform => false,
-        :easing => 'swing'
+        :easing => 'swing',
+        :fade => true
     } do %>
       <% @announcements.each do |announcement| %>
         <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
