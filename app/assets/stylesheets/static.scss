@@ -9,6 +9,7 @@
 
 .primary-slideshow {
   height: 600px;
+  background: #2c3e50;
 }
 
 .slick-next {
@@ -34,6 +35,10 @@
 
 .slick-next::before {
   content: "\f054";
+}
+
+.slick-dots {
+  bottom: 0;
 }
 
 .primary-slideshow {
