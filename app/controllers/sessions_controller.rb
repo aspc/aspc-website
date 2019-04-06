@@ -35,6 +35,7 @@ class SessionsController < ApplicationController
                            :password => password,
                            :first_name => first_name,
                            :school => school,
+                           :role => :user,
                            :is_cas_authenticated => false
                        })
 

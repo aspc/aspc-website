@@ -1,5 +1,5 @@
-ActiveAdmin.register Person do
-  menu :priority => 4, :label => "ASPC Senators and Staff"
+senators_page = Proc.new do
+  menu :priority => 5, :label => "ASPC Senators and Staff"
 
   # TODO: allow associating with a user model
   permit_params :name, :position, :role, :email, :biography, :image
@@ -26,3 +26,7 @@ ActiveAdmin.register Person do
   end
 
 end
+
+
+ActiveAdmin.register Person, :namespace => :admin, &senators_page
+ActiveAdmin.register Person, :namespace => :contributor, &senators_page

@@ -1,4 +1,4 @@
-ActiveAdmin.register Announcement do
+announcements_page = Proc.new do
   menu :priority => 2
   permit_params :title, :caption, :background_image, :details_url
 
@@ -20,3 +20,6 @@ ActiveAdmin.register Announcement do
   end
 
 end
+
+ActiveAdmin.register Announcement, :namespace => :admin, &announcements_page
+ActiveAdmin.register Announcement, :namespace => :contributor, &announcements_page
