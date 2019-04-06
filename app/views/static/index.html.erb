@@ -28,13 +28,13 @@
   </div>
 <% end %>
 
-<div class="margin-bottom-2 home-heading">
+<div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Upcoming Events</h3>
   <a class="button is-outlined is-info" href="https://tsl.news">Event Calendar</a>
 </div>
 
 <% if @events.length > 0 %>
-  <div class="columns margin-bottom-3">
+  <div class="columns events margin-bottom-4">
     <% @events.each do |event| %>
       <% campus_background_color_class =
              case event.college_affiliation.try(:to_sym)
@@ -54,44 +54,50 @@
       %>
       <div class="column is-4 event">
         <div class="event-info <%= campus_background_color_class %>">
-          <p><%= event.start.strftime("%B %e") %>, <%= event.start.strftime("%l:%M%P") %>
+          <p class="event-date-time"><%= event.start.strftime("%B %e") %>, <%= event.start.strftime("%l:%M%P") %>
             -<%= event.end.strftime("%l:%M%P") %></p>
-          <p><%= event.location %><br></p>
+          <p class="event-location"><%= event.location %><br></p>
         </div>
         <% if event.details_url.empty? %>
           <h4 class="title is-4"><%= event.name %></h4>
         <% else %>
-          <a href="<%= event.details_url %>" target="_blank">
-            <h4 class="title is-4"><%= event.name %></h4>
-          </a>
+          <h4 class="title is-4">
+            <a href="<%= event.details_url %>" target="_blank"><%= event.name %></a>
+          </h4>
         <% end %>
       </div>
     <% end %>
   </div>
 <% else %>
-  <div class="columns margin-bottom-3">
+  <div class="columns margin-bottom-4">
     <div class="column">
       <p>No upcoming events. Would you like to <%= link_to "submit one?", new_event_path %></p>
     </div>
   </div>
 <% end %>
 
-<div class="margin-bottom-2 home-heading">
+<div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Latest Updates From The Student Life</h3>
   <a class="button is-outlined is-info" href="https://tsl.news">Go to TSL</a>
 </div>
 
-<% @news.each do |article| %>
-  <div class="columns">
-    <div class="column margin-bottom-1">
-      <h5 class="title is-5 margin-bottom-2"><a href="<%= article[:link] %>"><%= article[:title] %></a></h5>
-      <p class="subtitle is-6 margin-bottom-1">
-        <%= article[:date].strftime("Published on %B %e, %Y") %>
-      </p>
-      <p class="margin-bottom-1">
-        <%= ActionView::Base.full_sanitizer.sanitize(article[:description]) %>
-      </p>
-      <a class="button is-outlined" href="<%= article[:link] %>" tabindex="0">Read More</a>
+<% if @news.length > 0 %>
+  <div class="columns tsl-articles">
+    <% @news.each do |article| %>
+      <div class="column is-4 tsl-article">
+        <div class="tsl-article-info">
+          <p><%= article[:date].strftime("%B %e, %Y") %></p>
+        </div>
+        <h4 class="title is-4">
+          <a href="<%= article[:link] %>" target="_blank"><%= article[:title] %></a></h4>
+        </h4>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="columns margin-bottom-3">
+    <div class="column">
+      <p>No TSL articles found.</p>
     </div>
   </div>
 <% end %>
