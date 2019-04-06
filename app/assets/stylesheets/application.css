@@ -49,6 +49,10 @@ body {
     color: #717171;
 }
 
+a {
+    outline: 0;
+}
+
 .title, .subtitle {
     font-family: 'Karla', sans-serif;
     line-height: 1.5;
@@ -81,6 +85,10 @@ body {
     right: 0;
     left: 0;
     top: 0;
+}
+
+#application-header .navbar-brand .navbar-item:hover div {
+    color: #209cee;
 }
 
 #application-header .navbar-brand .logo {
