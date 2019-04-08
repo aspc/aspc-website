@@ -190,10 +190,6 @@ a {
     background: #2c3e50;
 }
 
-.application-content-container {
-    padding: 4rem 0;
-}
-
 .home-heading .title {
     margin-bottom: 1rem;
 }
@@ -233,6 +229,7 @@ a {
 .footer {
     padding: 3rem;
     font-size: 1rem;
+    box-shadow: 0 50vh 0 50vh #fafafa;
 }
 
 .footer a {
