@@ -87,7 +87,8 @@ class SessionsController < ApplicationController
     # otherwise attempt login
     begin
       user_info = SessionsService.authenticate_ticket(ticket, service_url)
-    rescue
+    rescue => exception
+      Rails.logger.debug exception.inspect
       return redirect_to login_url,
                          :flash => {
                              :notice => "Authentication Failed",
