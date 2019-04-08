@@ -165,6 +165,13 @@
                 </a>
               </p>
             <% end %>
+            <% if current_user.is_cas_authenticated %>
+              <p class="control">
+                <a href="/vote" class="button is-link">
+                  <span>Vote!</span>
+                </a>
+              </p>
+            <% end %>
             <p class="control">
               <a href="<%= logout_path %>" class="button is-light">
                 <span>Logout</span>
