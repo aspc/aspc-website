@@ -14,7 +14,7 @@
  *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
  *= require font-awesome
- *= require bulma/css/bulma.css
+ *= require bulma/css/bulma.sass
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
  *
@@ -71,9 +71,17 @@ a {
     padding: 1.5rem 0;
 }
 
+
 #application-header.navbar-home {
     background-color: transparent;
     margin-bottom: -103px;
+}
+
+@media (max-width: 1024px) {
+    #application-header .navbar-menu.is-active {
+        position: absolute;
+        width: 100%;
+    }
 }
 
 #application-header:before {
@@ -162,6 +170,22 @@ a {
     font-size: 0.75rem;
 }
 
+@media (max-width: 1024px) {
+    #application-header .navbar-link::after {
+        display: none;
+    }
+}
+
+#application-header .navbar-burger {
+    border-radius: 6px;
+    background: transparent;
+}
+
+#application-header .navbar-burger:hover {
+    color: #209cee;
+    border-radius: 6px;
+}
+
 .hero-body {
     background: #2c3e50;
 }
@@ -212,11 +236,15 @@ a {
 }
 
 .footer a {
-    color: #209cee;
+    color: #2c3e50;
 }
 
 .footer a:hover {
-    color: #2c3e50;
+    color: #209cee;
+}
+
+.footer .text {
+    line-height: 2;
 }
 
 /*
