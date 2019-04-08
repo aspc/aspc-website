@@ -106,7 +106,8 @@ class SessionsController < ApplicationController
       user = User.create({
         :email => user_info[:email],
         :first_name => user_info[:first_name],
-        :is_cas_authenticated => true
+        :is_cas_authenticated => true,
+        :role => :user
       })
     end
 
