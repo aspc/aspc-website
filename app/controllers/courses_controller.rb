@@ -32,12 +32,12 @@ class CoursesController < ApplicationController
     filename = "#{academic_term.session.parameterize}-#{academic_term.year}-courses.ics"
 
     case academic_term.key
-    when "2018;FA"
-      term_start = DateTime.new(2018, 9, 4, 8, 10, 0)
-      term_end = DateTime.new(2018, 12, 12, 22, 0, 0)
     when "2019;SP"
       term_start = DateTime.new(2019, 1, 22, 8, 10, 0)
       term_end = DateTime.new(2019, 5, 8, 22, 0, 0)
+    when "2019;FA"
+      term_start = DateTime.new(2019, 9, 3, 8, 10, 0)
+      term_end = DateTime.new(2019, 12, 11, 22, 0, 0)
     else
       return redirect_to courses_path # This is temporary and MUST be made into something more permanent than hardcoding
     end
