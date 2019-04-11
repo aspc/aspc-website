@@ -31,4 +31,22 @@ class HousingRoom < ApplicationRecord
     self.housing_reviews&.average(:temperature_rating)&.round(2, :truncate) || 0
   end
 
+  def closet_type_to_s
+    return "Unknown type of closet" if self.closet_type.to_sym == :unknown_closet
+
+    "#{self.closet_type.gsub("_", " ").capitalize} closet"
+  end
+
+  def occupancy_type_to_s
+    return "Unknown room capacity" if self.occupancy_type.to_sym == :unknown_occupancy
+
+    "#{self.occupancy_type.gsub("_", " ").capitalize}"
+  end
+
+  def bathroom_type_to_s
+    return "Unknown type of bathroom" if self.bathroom_type.to_sym == :unknown_bathroom
+
+    "#{self.bathroom_type.gsub("_", " ").capitalize} bathroom"
+  end
+
 end

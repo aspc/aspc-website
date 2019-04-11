@@ -52,23 +52,26 @@
       <div class="column">
         <p>
           <span class="tag has-background-white-bis">
+            Quiet rating: &nbsp;
             <span class="has-text-grey">
               <%= render 'components/star_review', rating: review.quiet_rating %>
-            </span> &nbsp; Quiet rating
+            </span>
           </span>
         </p>
         <p>
           <span class="tag has-background-white-bis">
+            Layout rating: &nbsp;
             <span class="has-text-grey">
               <%= render 'components/star_review', rating: review.layout_rating %>
-            </span> &nbsp; Layout rating
+            </span>
           </span>
         </p>
         <p>
           <span class="tag has-background-white-bis">
+            Temperature rating: &nbsp;
             <span class="has-text-grey">
               <%= render 'components/star_review', rating: review.temperature_rating %>
-            </span> &nbsp; Temperature rating
+            </span>
           </span>
         </p>
       </div>
@@ -77,7 +80,7 @@
       <div class="column">
         <p><em>Review written <%= review.created_at.strftime("%b %Y") %>
           <% unless review.user_id.nil? %>
-            by <%= @users.find_by(:id => review.user_id).first_name %>
+            by <%= review.user.first_name %>
           <% end %>
         </em></p>
       </div>
