@@ -1,7 +1,7 @@
-ActiveAdmin.register HousingBuilding do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+housing_building_page = Proc.new do
+  menu parent: "Models"
 
-permit_params :name, :slug, :floor
-
+  permit_params :name, :slug, :floor
 end
+
+ActiveAdmin.register HousingBuilding, :namespace => :admin, &housing_building_page
