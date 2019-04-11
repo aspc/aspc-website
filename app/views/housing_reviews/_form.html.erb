@@ -1,0 +1,57 @@
+<% room = local_assigns.fetch(:housing_room) %>
+
+<%= form_with(model: housing_review, local: true) do |form| %>
+  <% if housing_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(housing_review.errors.count, "error") %> prohibited this housing_review from being saved:</h2>
+
+      <ul>
+      <% housing_review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :housing_room, :value => housing_room.id %>
+  <%= form.hidden_field :user_id, :value => current_user.id %>
+
+  <div class="field">
+    <%= form.label :overall_rating %>
+    <div class="control">
+      <%= render "components/star_review_input_housing", :id => "overall_rating", tag_classes: "is-medium" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :quiet_rating %>
+    <div class="control">
+      <%= render "components/star_review_input_housing", :id => "quiet_rating", tag_classes: "is-medium" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :layout_rating %>
+    <div class="control">
+      <%= render "components/star_review_input_housing", :id => "layout_rating", tag_classes: "is-medium" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :temperature_rating %>
+    <div class="control">
+      <%= render "components/star_review_input_housing", :id => "temperature_rating", tag_classes: "is-medium" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :comments %>
+    <div class="control">
+      <%= form.text_area :comments, :class => "textarea", :placeholder => "Your thoughts about the room", :rows => 6 %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit housing review", class: "button is-link margin-bottom-0" %>
+  </div>
+<% end %>

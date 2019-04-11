@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :course_schedule
+  has_many :housing_reviews
 
   validates :email, :presence => true, :uniqueness => true
   validates :first_name, :presence => true

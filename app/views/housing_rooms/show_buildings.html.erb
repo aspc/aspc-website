@@ -1,0 +1,28 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Housing Information" %>
+<% end %>
+
+<% @housing_buildings.sort_by{|b| b.name.downcase}.in_groups_of(3, false).each do |group| %>
+  <div class="columns">
+    <% group.each do |building| %>
+      <div class="column is-4">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image senator-image">
+              <%= image_tag "/buildings/#{building.slug}.jpg" %>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <h5 class="title is-5 margin-bottom-2">
+                  <%= building.name %></h5>
+                <%= link_to "Rooms", show_housing_rooms_for_dorm_path(:dorm_id => building.id), class: "button is-info is-outlined" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

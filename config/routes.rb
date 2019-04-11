@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'instructors/show'
   get 'course_review/show'
   get 'course_review/create'
@@ -8,6 +9,21 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :events
+  #resources :housing_reviews
+
+  scope controller: :housing_rooms do
+    get 'housing' => :show_buildings, :as => :housing_rooms
+    get 'housing/dorms/:dorm_id' => :show_building_rooms, :as => :show_housing_rooms_for_dorm
+    get 'housing/rooms/:room_id' => :show, :as => :show_housing_room
+  end
+
+  scope controller: :housing_reviews do
+    get 'housing/rooms/:room_id/reviews/' => :index, :as => :housing_reviews
+    post 'housing/rooms/:room_id/reviews/' => :create, :as => :create_housing_review
+    get 'housing/rooms/:room_id/reviews/new' => :new, :as => :new_housing_review
+    get 'housing/rooms/:room_id/reviews/:id' => :show, :as => :housing_review
+    delete 'housing/rooms/:room_id/reviews/:id' => :destroy, :as => :delete_housing_review
+  end
 
   scope controller: :courses do
     get 'courses' => :index

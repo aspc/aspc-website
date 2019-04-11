@@ -1,0 +1,104 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Reviews for #{@housing_room.room_name}" %>
+<% end %>
+
+<% if @housing_room.housing_reviews.length > 0 %>
+  <h2 class="title">Overall room rating: &nbsp;
+    <span class="has-text-warning">
+      <%= render 'components/numerical_review', rating: @housing_room.overall_rating, tag_classes: 'is-large is-info', show_icon: true %>
+    </span>
+  </h2>
+  <div class="columns">
+    <div class="column">
+      <h3 class="subtitle">
+        Quiet rating: <%= render 'components/numerical_review', rating: @housing_room.quiet_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Layout rating: <%= render 'components/numerical_review', rating: @housing_room.layout_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Temperature rating: <%= render 'components/numerical_review', rating: @housing_room.temperature_rating, tag_classes: 'is-medium' %>
+      </h3>
+    </div>
+  </div>
+
+  <%= link_to 'Write a new review', new_housing_review_path, class: "button is-info is-outlined" %>
+
+  <hr />
+
+  <% @housing_room.housing_reviews.each do |review| %>
+    <div class="columns">
+      <div class="column">
+        <div class="tags are-normal">
+          <span class="tag is-medium">
+            Overall rating: &nbsp;
+            <span class="has-text-warning">
+              <%= render 'components/star_review', rating: review.overall_rating %>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p class="subtitle"><%= review.comments %></p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p>
+          <span class="tag has-background-white-bis">
+            Quiet rating: &nbsp;
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.quiet_rating %>
+            </span>
+          </span>
+        </p>
+        <p>
+          <span class="tag has-background-white-bis">
+            Layout rating: &nbsp;
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.layout_rating %>
+            </span>
+          </span>
+        </p>
+        <p>
+          <span class="tag has-background-white-bis">
+            Temperature rating: &nbsp;
+            <span class="has-text-grey">
+              <%= render 'components/star_review', rating: review.temperature_rating %>
+            </span>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <p><em>Review written <%= review.created_at.strftime("%b %Y") %>
+          <% unless review.user_id.nil? %>
+            by <%= review.user.first_name %>
+          <% end %>
+        </em></p>
+      </div>
+    </div>
+    <% if !current_user.nil? && review.user_id == current_user.id %>
+      <div class="columns">
+        <div class="column">
+          <%= link_to "Delete", delete_housing_review_path(:id => review.id), :method => 'delete', class: "button is-info is-outlined" %>
+        </div>
+      </div>
+    <% end %>
+    <hr />
+  <% end %>
+
+<% else %>
+  <div class="columns">
+    <div class="column">
+      <p class="subtitle">There are no reviews for this room at this time.</p>
+    </div>
+  </div>
+<% end %>
