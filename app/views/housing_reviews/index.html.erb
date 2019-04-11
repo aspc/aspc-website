@@ -88,7 +88,7 @@
     <% if !current_user.nil? && review.user_id == current_user.id %>
       <div class="columns">
         <div class="column">
-          <%= link_to "Delete", delete_housing_review_path(:id => review.id), :method => 'delete', class: "button is-info is-outlined" %>
+          <%= link_to "Delete", delete_housing_review_path(:id => review.id), :method => 'delete', class: "button is-danger is-outlined" %>
         </div>
       </div>
     <% end %>
