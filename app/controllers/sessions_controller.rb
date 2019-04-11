@@ -87,7 +87,8 @@ class SessionsController < ApplicationController
     # otherwise attempt login
     begin
       user_info = SessionsService.authenticate_ticket(ticket, service_url)
-    rescue
+    rescue => exception
+      Rails.logger.debug exception.inspect
       return redirect_to login_url,
                          :flash => {
                              :notice => "Authentication Failed",
@@ -106,7 +107,8 @@ class SessionsController < ApplicationController
       user = User.create({
         :email => user_info[:email],
         :first_name => user_info[:first_name],
-        :is_cas_authenticated => true
+        :is_cas_authenticated => true,
+        :role => :user
       })
     end
 

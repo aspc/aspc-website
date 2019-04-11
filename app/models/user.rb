@@ -22,9 +22,5 @@ class User < ApplicationRecord
     if is_admin && role.blank?
       errors.add(:is_admin, 'must have a role if designated as admin')
     end
-
-    if role.present? and not is_admin
-      errors.add(:role, 'may be set only on user designated as admin')
-    end
   end
 end
