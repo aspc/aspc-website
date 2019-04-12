@@ -20,22 +20,26 @@
   <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => false,
+        :arrows => true,
         :dots => false,
+        :useTransform => false,
+        :easing => 'swing'
     } do %>
       <% @announcements.each do |announcement| %>
-          <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
-            <%= link_to announcement.details_url do %>
-              <div class="gradient">
-                <div class="announcement-text">
-                  <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
-                  <% if not announcement.caption.blank? %>
-                    <p class="subtitle has-text-white"><%= announcement.caption %></p>
-                  <% end %>
-                </div>
+        <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
+          <div class="gradient">
+            <div class="announcement-info has-shadow">
+              <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
+              <% if not announcement.caption.blank? %>
+                <p class="subtitle has-text-white"><%= announcement.caption %></p>
+              <% end %>
+              <% if not announcement.details_url.blank? %>
+                <a class="button is-outlined is-inverted is-info" href="<%= announcement.details_url %>" tabindex="0">More
+                  Details</a>
+              <% end %>
             </div>
-            <% end %>
           </div>
+        </div>
       <% end %>
     <% end %>
   </div>
@@ -49,48 +53,68 @@
     <% @events.each do |event| %>
       <div class="column is-4">
         <%= link_to url_for(event), :style => "display: block" do %>
-        <div class="card event-card">
-          <header class="card-header">
-            <p class="card-header-title">
-              <%= event.name %>
-            </p>
-          </header>
-
-          <div class="card-content">
-            <div class="content">
-              <p class="horizontal-scroll">
-                <em>
-                  <%= fa_icon "calendar" %>
-                  <time><%= event.start.strftime("%A, %B %e") %></time>
-                </em>
-                <br>
-                <em>
-                  <%= fa_icon "bell" %>
-                  <time><%= event.start.strftime("%l:%M%P") %></time>
-                  -
-                  <time><%= event.end.strftime("%l:%M%P") %></time>
-                </em>
-                <br>
-                <em style="white-space: nowrap">
-                  <%= fa_icon "location-arrow" %>
-                  <%= event.location %><br>
-                </em>
+          <div class="card event-card">
+            <header class="card-header">
+              <p class="card-header-title">
+                <%= event.name %>
               </p>
+            </header>
 
-              <div class="event-description vertical-scroll" />
+            <div class="card-content">
+              <div class="content">
+                <p class="horizontal-scroll">
+                  <em>
+                    <%= fa_icon "calendar" %>
+                    <time><%= event.start.strftime("%A, %B %e") %></time>
+                  </em>
+                  <br>
+                  <em>
+                    <%= fa_icon "bell" %>
+                    <time><%= event.start.strftime("%l:%M%P") %></time>
+                    -
+                    <time><%= event.end.strftime("%l:%M%P") %></time>
+                  </em>
+                  <br>
+                  <em style="white-space: nowrap">
+                    <%= fa_icon "location-arrow" %>
+                    <%= event.location %><br>
+                  </em>
+                </p>
+
+                <div class="event-description vertical-scroll"/>
                 <p><%= event.description %></p>
               </div>
             </div>
           </div>
-        </div>
+          </div>
         <% end %>
-      </div>
+        </div>
     <% end %>
-  </div>
+    </div>
 <% else %>
   <div class="columns">
     <div class="column">
       <p>No upcoming events. Would you like to <%= link_to "submit one?", new_event_path %></p>
+    </div>
+  </div>
+<% end %>
+
+<div class="margin-bottom-3">
+  <h3 class="title is-3 margin-bottom-1">Latest Updates From The Student Life</h3>
+  <a class="button is-medium is-outlined is-info" href="https://tsl.news">Go to TSL</a>
+</div>
+
+<% @news.each do |article| %>
+  <div class="columns">
+    <div class="column margin-bottom-1">
+      <h5 class="title is-5 margin-bottom-2"><a href="<%= article[:link] %>"><%= article[:title] %></a></h5>
+      <p class="subtitle is-6 margin-bottom-1">
+        <%= article[:date].strftime("Published on %B %e, %Y") %>
+      </p>
+      <p class="margin-bottom-1">
+        <%= ActionView::Base.full_sanitizer.sanitize(article[:description]) %>
+      </p>
+      <a class="button is-outlined" href="<%= article[:link] %>" tabindex="0">Read More</a>
     </div>
   </div>
 <% end %>

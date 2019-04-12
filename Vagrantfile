@@ -6,6 +6,9 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
+  # Make sure VirtualBox is provider
+  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "ubuntu/trusty64"
 

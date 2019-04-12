@@ -29,25 +29,79 @@
       </div>
       <div class="field">
         <label class="label">Meets on</label>
-        <div class="select is-multiple is-fullwidth">
-          <%= f.select :days, options_for_select(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]), {}, {:multiple => true, :size => 3} %>
+        <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:monday) %>Mon
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:tuesday) %>Tues
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:wednesday) %>Wed
+            </label>
+          </div>
+        </div>
+        <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:thursday) %>Thurs
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:friday) %>Fri
+            </label>
+          </div>
         </div>
       </div>
       <div class="field">
         <label class="label">School</label>
-        <div class="select is-multiple is-fullwidth">
-          <%= f.select :schools, options_for_select([["Pomona", {"class" => "pomona"}], ["Claremont McKenna", {"class" => "cmc"}], ["Harvey Mudd", {"class" => "hmc"}], ["Scripps", {"class" => "scripps"}], ["Pitzer", {"class" => "pitzer"}]]), {}, {:multiple => true, :size => 3} %>
+        <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:pomona) %><span class="campus-label campus_PO">PO</span>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:claremont_mckenna) %><span class="campus-label campus_CM">CM</span>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:harvey_mudd) %><span class="campus-label campus_HM">HM</span>
+            </label>
+          </div>
+        </div>
+        <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:scripps) %><span class="campus-label campus_SC">SC</span>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <%= check_box_tag(:pitzer) %><span class="campus-label campus_PZ">PZ</span>
+            </label>
+          </div>
         </div>
       </div>
+      <!-- Temporary disable time filter
       <div class="field">
         <label class="label">Time</label>
         <div class="control time">
-          <%= f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
+          <%#=  f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
         </div>
         <div class="control">
-          <%= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
+          <%#= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
         </div>
       </div>
+      -->
       <div class="field">
         <label class="label">Taught by</label>
         <div class="control is-expanded">

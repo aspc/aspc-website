@@ -18,14 +18,16 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# Prettier logging
+gem 'logster'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -45,9 +47,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # For Admin panel
 gem 'activeadmin', '~> 1.3.1'
 
-# For Rollbar Logging
-gem 'rollbar'
-
 # Task scheduling
 gem 'whenever', '~> 0.10.0', require: false
 
@@ -59,6 +58,10 @@ gem 'activerecord-session_store', '~> 1.1.1'
 
 # Calendar export
 gem 'icalendar'
+
+# WYSIWYG editor for static page editing
+gem 'wysiwyg-rails'
+gem 'froala-editor-sdk'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

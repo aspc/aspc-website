@@ -1,7 +1,5 @@
 <% course_sections = local_assigns.fetch(:course_sections, []) %>
 
-<div id="course-schedule"></div>
-
 <% if course_sections.count > 0 %>
   <div id="course-schedule-list">
     <div class="tags course-tags">
@@ -19,6 +17,8 @@
     </div>
   </div>
 <% end %>
+
+<div id="course-schedule"></div>
 
 <script>
     (function () {

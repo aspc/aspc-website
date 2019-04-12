@@ -32,12 +32,12 @@ class CoursesController < ApplicationController
     filename = "#{academic_term.session.parameterize}-#{academic_term.year}-courses.ics"
 
     case academic_term.key
-    when "2018;FA"
-      term_start = DateTime.new(2018, 9, 4, 8, 10, 0)
-      term_end = DateTime.new(2018, 12, 12, 22, 0, 0)
     when "2019;SP"
       term_start = DateTime.new(2019, 1, 22, 8, 10, 0)
       term_end = DateTime.new(2019, 5, 8, 22, 0, 0)
+    when "2019;FA"
+      term_start = DateTime.new(2019, 9, 3, 8, 10, 0)
+      term_end = DateTime.new(2019, 12, 11, 22, 0, 0)
     else
       return redirect_to courses_path # This is temporary and MUST be made into something more permanent than hardcoding
     end
@@ -132,41 +132,61 @@ class CoursesController < ApplicationController
     instructor_name = params[:instructor].strip unless params[:instructor].empty?
     number = params[:number].to_i rescue nil unless params[:number].empty?
     keywords = params[:keywords].split rescue nil unless params[:keywords].empty?
-    start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
-    start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
-    end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
-    end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
+    # Remove time filter
+    # start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
+    # start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
+    # end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
+    # end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
-    consider_time = false
-    if not (start_hour.nil? or end_hour.nil?)
-      start_time = Time.new(1970, 1, 1, start_hour, start_minute)
-      end_time = Time.new(1970, 1, 1, end_hour, end_minute)
-      consider_time = true
-    end
+    # Remove time filter
+    # consider_time = false
+    # if not start_hour.nil?  # if user specifies start time
+    #   start_time = Time.new(1970, 1, 1, start_hour, start_minute)
+    #
+    #   if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
+    #
+    #   end_time = Time.new(1970, 1, 1, end_hour, end_minute)
+    #   consider_time = true
+    # elsif not end_hour.nil?   # if user only specifies end time but not start time
+    #   end_time = Time.new(1970, 1, 1, end_hour, end_minute)
+    #
+    #   if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
+    #
+    #   start_time = Time.new(1970, 1, 1, start_hour, start_minute)
+    #   consider_time = true
+    # end
+
+    # times are given in PST/PDT, but database auto-converts times to UTC before performing query
+    # times need to be shifted back 7/8 hours by converting from UTC to PST/PDT
+    # start_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(start_time) if start_time
+    # end_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(end_time) if end_time
 
     Rails.logger.debug params.inspect
-    Rails.logger.debug (params[:schools].include?("Pomona") || false)
+    # Rails.logger.debug (params[:schools].include?("Pomona") || false)
+    # Test disabled since params for schools and days have been reverted to separate checkboxes
 
+    # Gets results from individual checkboxes with corresponding symbols
     schools = {
-        :pomona => params[:schools].include?("Pomona") || false,
-        :claremont_mckenna => params[:schools].include?("Claremont McKenna") || false,
-        :harvey_mudd => params[:schools].include?("Harvey Mudd") || false,
-        :scripps => params[:schools].include?("Scripps") || false,
-        :pitzer => params[:schools].include?("Pitzer") || false
+        :pomona => params[:pomona] || false,
+        :claremont_mckenna => params[:claremont_mckenna] || false,
+        :harvey_mudd => params[:harvey_mudd] || false,
+        :scripps => params[:scripps] || false,
+        :pitzer => params[:pitzer] || false
     }
-    schools.select! {|k, v| v}
+    schools.select! {|k,v| v}
     if schools.length > 0
       schools = schools.keys
     else
       schools = CourseMeetingDetail.campus.keys
     end
 
+    # Gets results from individual checkboxes with corresponding symbols
     days = {
-        :monday => params[:schools].include?("Monday") || false,
-        :tuesday => params[:schools].include?("Tuesday") || false,
-        :wednesday => params[:schools].include?("Wednesday") || false,
-        :thursday => params[:schools].include?("Thursday") || false,
-        :friday => params[:schools].include?("Friday") || false
+        :monday => params[:monday] || false,
+        :tuesday => params[:tuesday] || false,
+        :wednesday => params[:wednesday] || false,
+        :thursday => params[:thursday] || false,
+        :friday => params[:friday] || false
     }
     days.select! {|k, v| v}
 
@@ -181,12 +201,13 @@ class CoursesController < ApplicationController
                           .where(:course_meeting_details => days)
     end
 
-    if (consider_time)
-      matches_query = matches_query
-                          .joins(:course_meeting_details)
-                          .where(:course_meeting_details => {:start_time => start_time..end_time})
-                          .where(:course_meeting_details => {:end_time => start_time..end_time})
-    end
+    # Remove time filter
+    # if (consider_time)
+    #   matches_query = matches_query
+    #                       .joins(:course_meeting_details)
+    #                       .where(:course_meeting_details => {:start_time => start_time..end_time})
+    #                       .where(:course_meeting_details => {:end_time => start_time..end_time})
+    # end
 
     if (department_code)
       matches_query = matches_query
@@ -199,14 +220,16 @@ class CoursesController < ApplicationController
     end
 
     matches = matches_query.order("courses.number").all
+
     if (schools)
       matches = matches.select {|section| schools.any? {|campus| section.course_meeting_details.any? {|detail| detail.campus == campus.to_s}}}
     end
-    if (keywords)
-      matches = matches.select {|section| keywords.any? {|keyword| section.course.name.downcase.include? keyword.downcase}}
-    end
     if (instructor_name)
       matches = matches.select {|section| section.instructors.any? {|instructor| instructor.name.downcase.include? instructor_name.downcase}}
+    end
+    if (keywords)
+      matches = matches.select {|section| keywords.any? {|keyword| section.course.name.downcase.include? keyword.downcase}}
+      matches = matches.sort_by {|section| get_keyword_relevance(section, keywords)}
     end
 
     matches = matches.uniq
@@ -230,6 +253,18 @@ class CoursesController < ApplicationController
     event.dtend = Icalendar::Values::DateTime.new(end_time)
     event.description = course_section.description
     event.location = detail.location
+  end
+
+  # counts the number of total occurences of each keyword in the course name
+  # lower number = higher rank, so the counted numbers need to be reversed
+  # 1.0/occurences flips the order
+  def get_keyword_relevance(section, keywords)
+    occurences = 0
+    keywords.each do |keyword|
+      occurences += section.course.name.downcase.scan(/(?=#{keyword})/).count
+    end
+    logger.info "#{section.course.name.downcase}, #{keywords}, #{occurences}"
+    return 1.0/occurences
   end
 
 end

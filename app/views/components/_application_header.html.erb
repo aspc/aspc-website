@@ -32,6 +32,9 @@
         </div>
       </div>-->
 
+      <!-- Housing Search / Reviews -->
+      <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
         <div class="navbar-link" />
@@ -64,7 +67,7 @@
                     <%= link_to "Positions", :aspc_positions, :class => "navbar-item" %>
                   </div>
                 <div class="navbar-content">
-                  <%= link_to "Budget", :aspc_budget, :class => "navbar-item" %>
+                  <%= link_to "Budget", "/pages/budget", :class => "navbar-item" %>
                 </div>
                 <div class="navbar-content">
                   <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>
@@ -77,16 +80,19 @@
                 </div>
               </div>
               <div class="column">
-                <h1 class="title is-6 is-mega-menu-title">Frequent Actions</h1>
+                <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
                 <div class="navbar-content">
-                  <%= link_to "Meetings & Minutes", :aspc_meeting_minutes, :class => "navbar-item" %>
+                  <%= link_to "Senior Class Page", "/pages/senior-class-page", :class => "navbar-item" %>
                 </div>
                 <div class="navbar-content">
                   <%= link_to "Funding Request", :aspc_funding_request, :class => "navbar-item" %>
                 </div>
-                  <div class="navbar-content">
-                    <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
-                  </div>
+                <div class="navbar-content">
+                  <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Housing Reviews", housing_rooms_path, :class => "navbar-item" %>
+                </div>
               </div>
             </div>
           </div>
@@ -130,6 +136,9 @@
         <div class="navbar-content">
           <a href="http://studio47.tv" class="navbar-item">Studio 47</a>
         </div>
+        <div class="navbar-content">
+          <a href="https://pomonastudents.org/5crideshare/" class="navbar-item">5C Rideshare</a>
+        </div>
         <hr class="navbar-divider"/>
         <div class="navbar-content">
           <a href="https://pomonastudents.turbovote.org" class="navbar-item">TurboVote</a>
@@ -155,6 +164,13 @@
         </div>
         <% else %>
           <div class="field is-grouped">
+            <% if is_admin? %>
+              <p class="control">
+                <a href="<%= polymorphic_path([current_user.role.to_sym, 'root'])%>" class="button is-danger">
+                  <span>Admin</span>
+                </a>
+              </p>
+            <% end %>
             <p class="control">
               <a href="<%= logout_path %>" class="button is-light">
                 <span>Logout</span>

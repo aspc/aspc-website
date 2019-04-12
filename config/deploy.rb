@@ -29,6 +29,7 @@ append :linked_dirs, "tmp/pids" # Runfiles
 append :linked_dirs, "tmp/sockets" # Runfiles
 append :linked_dirs, "log" # Log files
 append :linked_dirs, "storage" # Active Storage files
+append :linked_dirs, "public/uploads" # Froala public image uploads
 
 # Keep the latest 3 deployments on the server at all times
 set :keep_releases, 3
