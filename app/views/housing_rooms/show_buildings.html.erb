@@ -9,7 +9,7 @@
         <div class="card">
           <div class="card-image">
             <figure class="image senator-image">
-              <%= image_tag "/buildings/#{building.slug}.jpg" %>
+              <img src="<%= url_for(building.image) rescue nil %>"/>
             </figure>
           </div>
           <div class="card-content">
