@@ -59,13 +59,9 @@
             -<%= event.end.strftime("%l:%M%P") %></p>
           <p class="event-location"><%= event.location %><br></p>
         </div>
-        <% if event.details_url.empty? %>
-          <h4 class="title is-4"><%= event.name %></h4>
-        <% else %>
-          <h4 class="title is-4">
-            <a href="<%= event.details_url %>" target="_blank"><%= event.name %></a>
-          </h4>
-        <% end %>
+        <h4 class="title is-4">
+          <a href="<%= url_for(event) %>"><%= event.name %></a>
+        </h4>
       </div>
     <% end %>
   </div>
