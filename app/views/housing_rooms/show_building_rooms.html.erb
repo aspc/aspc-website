@@ -11,19 +11,17 @@
             <p class="card-header-title">
               <%= room.room_name %>
             </p>
-            <p class="card-header-icon">
-            <% if room.size > 0 %>
-                <span class="tag"><%= room.size.to_i %> square feet</span>
-            <% end %>
-            </p>
           </header>
           <div class="card-content">
             <div class="content">
               <div>Average rating: <%= render 'components/star_review', rating: get_average_rating(@housing_reviews.where(housing_room_id: room.id)) %></div><br>
 
               <div><%= room.occupancy_type_to_s %></div>
-              <div><%= room.closet_type_to_s %></div>
-              <div><%= room.bathroom_type_to_s %></div>
+              <% if room.size > 0 %>
+                <div><%= room.size.to_i %> square feet</div>
+              <% else %>
+                <br />
+              <% end %>
             </div>
             
             <%= link_to "Reviews", housing_reviews_path(:room_id => room.id), class: "button is-info is-outlined" %>
