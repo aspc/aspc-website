@@ -45,6 +45,9 @@
         </div>
       </div>-->
 
+      <!-- Housing Search / Reviews -->
+      <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
         <div class="navbar-link" />
@@ -165,15 +168,23 @@
             </a>
           </p>
         </div>
-      <% else %>
-        <div class="field is-grouped">
-          <p class="control">
-            <a href="<%= logout_path %>" class="button is-light">
-              <span>Logout</span>
-            </a>
-          </p>
-        </div>
-      <% end %>
+        <% else %>
+          <div class="field is-grouped">
+            <% if is_admin? %>
+              <p class="control">
+                <a href="<%= polymorphic_path([current_user.role.to_sym, 'root'])%>" class="button is-danger">
+                  <span>Admin</span>
+                </a>
+              </p>
+            <% end %>
+            <p class="control">
+              <a href="<%= logout_path %>" class="button is-light">
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

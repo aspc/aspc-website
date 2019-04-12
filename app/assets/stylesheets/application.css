@@ -35,6 +35,9 @@
  *= require static.scss
  *= require menu.scss
  *
+ * Helpers
+ *= require helpers.scss
+ *
  * Global styles defined in this file
  *= require_self
  */

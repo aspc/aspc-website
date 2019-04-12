@@ -1,4 +1,8 @@
-<% subtitle_text = if not @event.host.blank? then "Hosted by #{@event.host} at #{@event.location}" else "At #{@event.location}" end %>
+<% subtitle_text = if not @event.host.blank? then
+                     "Hosted by #{@event.host} at #{@event.location}"
+                   else
+                     "At #{@event.location}"
+                   end %>
 
 <% content_for :header do %>
   <%= render 'components/page_header', :title => @event.name, :subtitle => subtitle_text %>
@@ -6,22 +10,31 @@
 
 <div class="columns">
   <div class="column">
-    <p>
-      <em><time><%= @event.start.strftime("%A, %B %e") %></time></em>
-      <em><time><%= @event.start.strftime("%l:%M%P") %></time></em>
+    <div>
+      <em>
+        <time><%= @event.start.strftime("%A, %B %e") %></time>
+      </em>
+      <em>
+        <time><%= @event.start.strftime("%l:%M%P") %></time>
+      </em>
       -
-      <em><time><%= @event.end.strftime("%l:%M%P") %></time></em>
-    </p>
-    <hr />
-  </div>
-</div>
-
-<div class="columns">
-  <div class="column">
-    <p class="subtitle"><%= @event.description %></p>
+      <em>
+        <time><%= @event.end.strftime("%l:%M%P") %></time>
+      </em>
+    </div>
+    <hr>
+    <p><%= @event.description %></p>
     <% if not @event.details_url.blank? %>
-      <br />
+      <br/>
       <p><%= link_to "More details", @event.details_url %></p>
     <% end %>
+    <hr>
+    <p class="is-size-5 is-bold margin-bottom-1">Export this event:</p>
+      <a class="button is-link" href="<%= google_calendar_add_url @event %>" target="_blank">
+        Google Calendar
+      </a>
+      <%= link_to "iCalendar", export_event_path, class: "button is-link", method: :get %>
+    </div>
   </div>
+</div>
 </div>

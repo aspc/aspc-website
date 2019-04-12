@@ -1,13 +1,28 @@
 Rails.application.routes.draw do
-  get 'instructors/show'
-  get 'course_review/show'
-  get 'course_review/create'
-
+  
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
 
-  resources :events
+  resources :events do
+    member do
+      get :export
+    end
+  end
+
+  scope controller: :housing_rooms do
+    get 'housing' => :show_buildings, :as => :housing_rooms
+    get 'housing/dorms/:dorm_id' => :show_building_rooms, :as => :show_housing_rooms_for_dorm
+    get 'housing/rooms/:room_id' => :show, :as => :show_housing_room
+  end
+
+  scope controller: :housing_reviews do
+    get 'housing/rooms/:room_id/reviews/' => :index, :as => :housing_reviews
+    post 'housing/rooms/:room_id/reviews/' => :create, :as => :create_housing_review
+    get 'housing/rooms/:room_id/reviews/new' => :new, :as => :new_housing_review
+    get 'housing/rooms/:room_id/reviews/:id' => :show, :as => :housing_review
+    delete 'housing/rooms/:room_id/reviews/:id' => :destroy, :as => :delete_housing_review
+  end
 
   scope controller: :courses do
     get 'courses' => :index
@@ -31,7 +46,7 @@ Rails.application.routes.draw do
   end
 
   scope controller: :sessions do
-    get   'unauthorized' => :not_authorized
+    get 'unauthorized' => :not_authorized
     match 'logout' => :destroy, :via => [:get, :destroy]
     get 'login' => :new
     match 'login/cas' => :create_via_cas, :via => [:get, :post]
@@ -63,13 +78,13 @@ Rails.application.routes.draw do
 
     get 'pages/id/:id' => :show, as: :static_page
     get 'pages/:page_name' => :show
+
+    post 'pages/:id/update' => 'static#save', as: :static_page_update
+    post 'pages/:id/upload_image' => 'static#upload_image', as: :static_page_upload_image
+    post 'pages/:id/delete_image' => 'static#delete_image', as: :static_page_delete_image
+
     get '/uploads/:image_name' => :load_image
   end
-
-  # ActiveAdmin custom static page routes
-  post 'admin/pages/:id/edit/save' => 'static#save', as: :admin_static_page_update
-  post 'admin/pages/:id/edit/upload_image' => 'static#upload_image', as: :admin_static_page_upload_image
-  delete 'admin/pages/:id/edit/delete_image' => 'static#delete_image', as: :admin_static_page_delete_image
 
   # Logging solution
   constraints lambda { |req| User.find_by_id(req.session[:current_user_id])&.is_admin? } do
