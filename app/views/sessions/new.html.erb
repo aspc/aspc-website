@@ -15,18 +15,19 @@
       <div class="column is-one-third">
         <div class="box">
           <h2 class="title is-4 has-text-weight-semibold">Pomona Students</h2>
-          <p class="subtitle">Sign in with the CAS Login System you know and love!</p>
-          <hr/>
-          <p><%= button_to 'Sign in', :login_cas, :class => 'button is-info' %></p>
+          <p class="subtitle margin-bottom-2">Sign in with the CAS Login System you know and love!</p>
+          <div class="buttons">
+            <p><%= button_to 'Sign In', :login_cas, :class => 'button is-info is-medium' %></p>
+          </div>
         </div>
       </div>
       <div class="column is-one-third">
         <div class="box">
           <h2 class="title is-4 has-text-weight-semibold">5C Students</h2>
           <p class="subtitle">Sign in or create an account</p>
-          <p>While we wait for your respective colleges to allow CAS to authenticate against your accounts, please
+          <p class="margin-bottom-2">While we wait for your respective colleges to allow CAS to authenticate against
+            your accounts, please
             create or login to an account specific to this website.</p>
-          <hr/>
           <div class="buttons">
             <span class="button is-info" id="sign-in-to-account-button">Sign in</span>
             <span class="button is-light" id="create-account-button">Create an account</span>
@@ -41,19 +42,15 @@
 <div class="modal" id="sign-in-to-account-modal">
   <div class="modal-background"></div>
   <div class="modal-content">
-    <div class="columns">
-      <div class="column">
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Login to Existing Account</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <%= render 'sessions/login_to_existing_account' %>
-          </section>
-          <footer class="modal-card-foot"></footer>
-        </div>
-      </div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Login to Existing Account</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <%= render 'sessions/login_to_existing_account' %>
+      </section>
+      <footer class="modal-card-foot"></footer>
     </div>
   </div>
 </div>
@@ -61,19 +58,15 @@
 <div class="modal" id="create-account-modal">
   <div class="modal-background"></div>
   <div class="modal-content">
-    <div class="columns">
-      <div class="column">
-        <div class="modal-card"></div>
-        <header class="modal-card-head">
-          <p class="modal-card-title">Create New Account</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
-        <section class="modal-card-body">
-          <%= render 'sessions/create_new_account' %>
-        </section>
-        <footer class="modal-card-foot"></footer>
-      </div>
-    </div>
+    <div class="modal-card"></div>
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New Account</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <%= render 'sessions/create_new_account' %>
+    </section>
+    <footer class="modal-card-foot"></footer>
   </div>
 </div>
 
