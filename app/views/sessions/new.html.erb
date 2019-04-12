@@ -1,23 +1,41 @@
-<% content_for :header do %>
-  <%= render 'components/page_header', :title => "Sign In", :subtitle => "Log in to access more features, services, and pages" %>
-<% end %>
-
-<div class="box">
-  <h2 class="title is-4 has-text-weight-semibold">Pomona Students</h2>
-  <p class="subtitle">Sign in with the CAS Login System you know and love!</p>
-  <p><%= button_to 'Sign in', :login_cas, :class => 'button is-info' %></p>
-</div>
-
-<div class="box">
-  <h2 class="title is-4 has-text-weight-semibold">5C Students</h2>
-  <p class="subtitle">Sign in or create an account</p>
-  <p>While we wait for your respective colleges to allow CAS to authenticate against your accounts, please
-    create or login to an account specific to this website.</p>
-  <hr/>
-  <div class="buttons">
-    <span class="button is-info" id="sign-in-to-account-button">Sign in</span>
-    <span class="button is-light" id="create-account-button">Create an account</span>
+<div class="columns sign-in">
+  <div class="column">
+    <div class="branding">
+      <div class="logo">
+        <img src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+      </div>
+      <div class="title is-3">
+        Sign In
+      </div>
+      <div class="subtitle is-5">
+        Log in to access more features, services, and pages
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <div class="box">
+          <h2 class="title is-4 has-text-weight-semibold">Pomona Students</h2>
+          <p class="subtitle">Sign in with the CAS Login System you know and love!</p>
+          <hr/>
+          <p><%= button_to 'Sign in', :login_cas, :class => 'button is-info' %></p>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="box">
+          <h2 class="title is-4 has-text-weight-semibold">5C Students</h2>
+          <p class="subtitle">Sign in or create an account</p>
+          <p>While we wait for your respective colleges to allow CAS to authenticate against your accounts, please
+            create or login to an account specific to this website.</p>
+          <hr/>
+          <div class="buttons">
+            <span class="button is-info" id="sign-in-to-account-button">Sign in</span>
+            <span class="button is-light" id="create-account-button">Create an account</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 </div>
 
 <div class="modal" id="sign-in-to-account-modal">
