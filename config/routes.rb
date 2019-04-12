@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-
-  get 'instructors/show'
-  get 'course_review/show'
-  get 'course_review/create'
-
+  
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
@@ -13,8 +9,6 @@ Rails.application.routes.draw do
       get :export
     end
   end
-  
-  #resources :housing_reviews
 
   scope controller: :housing_rooms do
     get 'housing' => :show_buildings, :as => :housing_rooms
