@@ -27,7 +27,10 @@
 
 //= require slick-carousel/slick/slick.js
 
-// Page specifc javascript here
+//= require froala_editor.pkgd.min.js
+//= require plugins/image.min.js
+
+// Page specific javascript here
 //= require events.js
 //= require sessions.js
 //= require static.js

@@ -1,0 +1,21 @@
+<!-- Remote form to update title and subtitle -->
+<% page = Static.find_by_id(params[:id]) %>
+<% role = current_user.role.to_sym %>
+
+<%= semantic_form_for [role, resource], :remote => (page.present?), builder: ActiveAdmin::FormBuilder do |f| %>
+  <%=  f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :subtitle %>
+    <% if current_user.role.to_sym == :admin %> <!-- Allow admins (not moderators) to change the page url name -->
+      <%= f.input :page_name %>
+    <% end %>
+  <% end %>
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Update Heading" %>
+  <% end %>
+<% end %>
+
+<!-- Form to update website content if page exists -->
+<% if page.present? %>
+  <%= render 'static_page_content_editor', page: page %>
+<% end %>

@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     return false unless logged_in?
-
     current_user.is_admin?
   end
 
@@ -36,6 +35,7 @@ class ApplicationController < ActionController::Base
                                           :first_name => "dev_user",
                                           :is_cas_authenticated => false,
                                           :is_admin => true,
+                                          :role => :admin,
                                           :school => :pomona,
                                           :password => "dev_password");
 

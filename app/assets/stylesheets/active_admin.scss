@@ -11,6 +11,14 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
+// Froala WYSIWYG styles
+@import "froala_editor.min";
+@import "froala_style.min";
+@import "plugins/image.min.css";
+
+// Font Awesome
+@import "font-awesome";
+
 // Indicates when something is read-only
 input[disabled="disabled"],
 input[disabled] {

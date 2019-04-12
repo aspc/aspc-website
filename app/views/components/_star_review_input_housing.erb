@@ -1,0 +1,16 @@
+<% id = local_assigns.fetch(:id) || 0 %>
+
+<div class="rating-control is-clearfix">
+  <fieldset class="rating" id="<%= id %>">
+    <input type="radio" id="star5-<%= id %>" name="housing_review[<%= id %>]" value="5"/>
+    <label class="full" for="star5-<%= id %>" title="5 stars"></label>
+    <input type="radio" id="star4-<%= id %>" name="housing_review[<%= id %>]" value="4"/>
+    <label class="full" for="star4-<%= id %>" title="4 stars"></label>
+    <input type="radio" id="star3-<%= id %>" name="housing_review[<%= id %>]" value="3"/>
+    <label class="full" for="star3-<%= id %>" title="3 stars"></label>
+    <input type="radio" id="star2-<%= id %>" name="housing_review[<%= id %>]" value="2"/>
+    <label class="full" for="star2-<%= id %>" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star1-<%= id %>" name="housing_review[<%= id %>]" value="1"/>
+    <label class="full" for="star1-<%= id %>" title="1 star"></label>
+  </fieldset>
+</div>
