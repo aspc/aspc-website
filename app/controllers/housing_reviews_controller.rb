@@ -1,6 +1,6 @@
 class HousingReviewsController < InheritedResources::Base
   before_action :set_housing_room
-  before_action :authenticate_user!, only: [:create, :new, :destroy]
+  before_action :authenticate_user!
 
   def index
     @housing_reviews = @housing_room.housing_reviews

@@ -1,4 +1,5 @@
 class HousingRoomsController < InheritedResources::Base
+  before_action :authenticate_user!
 
   def show_buildings
     @housing_buildings = HousingBuilding.all
