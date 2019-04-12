@@ -31,16 +31,14 @@
   <% end %>
 </div>
 
-<section class="section application-body-container">
-  <%= yield :header %>
-  <section class="section application-content-section">
-    <div class="container application-content-container">
-      <%= yield %>
-    </div>
-  </section>
-
-  <%= render partial: 'components/application_footer' %>
+<%= yield :header %>
+<section class="section">
+  <div class="container application-content-container">
+    <%= yield %>
+  </div>
 </section>
+
+<%= render partial: 'components/application_footer' %>
 
 </body>
 </html>

@@ -14,7 +14,7 @@
  *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
  *= require font-awesome
- *= require bulma/css/bulma.css
+ *= require bulma/css/bulma.sass
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require megamenu.scss
  *
@@ -41,48 +41,210 @@
  * Global styles defined in this file
  *= require_self
  */
-
 /*
  * Header/Footer/Page Content
  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #717171;
+}
+
+a {
+    outline: 0;
+}
+
+.title, .subtitle {
+    font-family: 'Karla', sans-serif;
+    line-height: 1.5;
+}
+
+.title, .title a {
+    color: #2c3e50;
+}
+
+.title a:hover {
+    color: #209cee;
+}
+
+#application-header {
+    background: #2c3e50;
+    padding: 1.5rem 0;
+}
+
+
+#application-header.navbar-home {
+    background-color: transparent;
+    margin-bottom: -103px;
+}
+
+@media (max-width: 1024px) {
+    #application-header .navbar-menu.is-active {
+        position: absolute;
+        width: 100%;
+    }
+}
+
+#application-header:before {
+    background: linear-gradient(to right, #0093d8 14%, #00a775 14%, #00a775 28%, #76b143 28%, #76b143 41%, #fed403 41%,
+    #fed403 58%, #f7941e 58%, #f7941e 72%, #ed1c24 72%, #ed1c24 86%, #b3275a 86%, #b3275a 100%);
+    position: absolute;
+    content: '';
+    height: 4px;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+#application-header .navbar-brand .navbar-item:hover div {
+    color: #209cee;
+}
+
+#application-header .navbar-brand .logo {
+    height: 100%;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#application-header .navbar-brand .logo img {
+    max-height: 2.4rem;
+}
+
+#application-header .navbar-brand .title {
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: -3px;
+}
+
+#application-header .navbar-menu {
+    font-family: 'Karla', sans-serif;
+}
+
+#application-header .navbar-link {
+    padding-right: 2rem;
+}
+
+#application-header .navbar-item,
+#application-header .navbar-link {
+    background-color: transparent;
+}
+
+#application-header .navbar-item:hover,
+#application-header .navbar-link:hover {
+    color: #209cee;
+}
+
+#application-header .navbar-item.has-dropdown:hover .item-has-arrow:after {
+    position: absolute;
+    content: "";
+    width: 0.75rem;
+    height: 0px;
+    border-top: 0.75rem solid transparent;
+    border-right: 0.75rem solid transparent;
+    border-bottom: 0.75rem solid white;
+    border-left: 0.75rem solid transparent;
+    border-radius: 2px;
+    bottom: -0.25rem;
+    left: 50%;
+    margin-left: -1.125em;
+}
+
+#application-header .navbar-dropdown {
+    border-top: 0;
+    border-radius: 6px;
+}
+
+#application-header .navbar-link::after {
+    font-family: FontAwesome;
+    content: "\f078";
+    display: inline-block;
+    transform: none;
+    border: 0;
+    display: inline-block;
+    padding-top: 3px;
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+    top: auto;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+    #application-header .navbar-link::after {
+        display: none;
+    }
+}
+
+#application-header .navbar-burger {
+    border-radius: 6px;
+    background: transparent;
+}
+
+#application-header .navbar-burger:hover {
+    color: #209cee;
+    border-radius: 6px;
+}
+
+.hero-body {
+    background: #2c3e50;
+}
+
+.home-heading .title {
+    margin-bottom: 1rem;
+}
 
 #alert-banner-container {
     height: 0;
     z-index: 100;
 }
 
-.application-body-container {
-    background: #2C3E50;
-}
-
-.application-content-section, .application-content-container {
-    background: white;
-}
-
-.application-content-container {
-    min-height: 60vh;
-}
-
-.application-footer {
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 3rem;
-}
-
-.application-footer .footer-logo {
-    opacity: 0.2;
-    margin-bottom: 1rem;
-}
-
-.application-footer .footer-text a {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.application-footer .footer-text a:hover {
-    color: rgba(255, 255, 255, 0.6);
-}
-
 .page-header {
     background-color: #0071a6 !important;
+}
+
+.event .event-info {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 1rem;
+}
+
+.event .event-info .event-date-time {
+    margin-bottom: 0.25rem;
+}
+
+.event .title {
+    margin-top: 1rem;
+    font-weight: 300;
+}
+
+.tsl-article .tsl-article-info p {
+    padding-bottom: 1rem;
+}
+
+.tsl-article .title {
+    font-weight: 300;
+}
+
+.footer {
+    padding: 3rem;
+    font-size: 1rem;
+    box-shadow: 0 50vh 0 50vh #fafafa;
+}
+
+.footer a {
+    color: #2c3e50;
+}
+
+.footer a:hover {
+    color: #209cee;
+}
+
+.footer .text {
+    line-height: 2;
 }
 
 /*
@@ -138,6 +300,43 @@
 .campus_SC {
     background-color: #889e5a !important;
     color: white !important;
+}
+
+/* Event border bottom color */
+.event-UU {
+    border-bottom-color: #9c9e9e;
+}
+
+.event-CGU {
+    border-bottom-color: #71101b;
+}
+
+.event-CM {
+    border-bottom-color: #da3d38;
+}
+
+.event-CU {
+    border-bottom-color: #391858;
+}
+
+.event-KS {
+    border-bottom-color: #391858;
+}
+
+.event-HM {
+    border-bottom-color: #ca9a0a;
+}
+
+.event-PO {
+    border-bottom-color: #1860cc !important;
+}
+
+.event-PZ {
+    border-bottom-color: #f49700 !important;
+}
+
+.event-SC {
+    border-bottom-color: #889e5a !important;
 }
 
 /*

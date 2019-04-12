@@ -1,11 +1,31 @@
-<footer class="application-footer">
-  <div class="content has-text-centered">
-    <div class="footer-logo">
-      <%= image_tag(asset_path "logo-footer.png", alt: "Associated Students of Pomona College") %>
-    </div>
-    <div class="footer-text is-size-6">
-      &copy; Associated Students of Pomona College. Website designed and maintained
-      by <%= link_to "ASPC Software Development Group", :aspc_software %>.
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column text">
+        <p>&copy; 2019 Associated Students of Pomona College.</p>
+      </div>
+      <div class="column is-narrow">
+        <div class="level is-mobile">
+          <div class="level-item">
+            <a href="http://facebook.com/">
+              <span class="icon is-medium">
+                <i class="fa fa-lg fa-facebook"></i>
+              </span>
+            </a>
+          </div>
+          <div class="level-item">
+            <a href="http://twitter.com/">
+              <span class="icon is-medium">
+                <i class="fa fa-lg fa-twitter"></i>
+              </span>
+            </a>
+          </div>
+          </ul>
+        </div>
+      </div>
+      <div class="column text has-text-right-desktop">
+        <p>Created by <%= link_to "ASPC Software Development Group", :aspc_software %>.</p>
+      </div>
     </div>
   </div>
 </footer>
