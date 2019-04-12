@@ -56,7 +56,7 @@ a {
     outline: 0;
 }
 
-.title, .subtitle {
+.title, .subtitle, h1, h2, h3, h4, h5, h6 {
     font-family: 'Karla', sans-serif;
     line-height: 1.5;
 }
@@ -235,6 +235,12 @@ a {
     box-shadow: 0 50vh 0 50vh #fafafa;
 }
 
+@media (max-width: 768px) {
+    .footer {
+        text-align: center;
+    }
+}
+
 .footer a {
     color: #2c3e50;
 }
@@ -245,6 +251,14 @@ a {
 
 .footer .text {
     line-height: 2;
+}
+
+.footer .facebook {
+    margin-right: 0.5rem;
+}
+
+.footer .twitter {
+    margin-left: 0.5rem;
 }
 
 /*
