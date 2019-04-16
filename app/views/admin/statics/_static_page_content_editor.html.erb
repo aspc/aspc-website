@@ -43,6 +43,8 @@
             // Route for uploading images
             imageUploadURL: "<%= static_page_upload_image_path %>",
 
+            fileUploadURL: "<%= static_page_upload_file_path %>",
+
             // Hide character counter
             charCounterCount: false
         });
@@ -79,6 +81,21 @@
                 // Request params.
                 data: {
                     src: img.attr('src')
+                }
+            });
+        });
+
+        $("#editor").on('froalaEditor.file.unlink', function (e, editor, link) {
+            $.ajax({
+                // Request method.
+                method: "POST",
+
+                // Request URL.
+                url: "<%= static_page_delete_file_path %>",
+
+                // Request params.
+                data: {
+                    src: link.href
                 }
             });
         });

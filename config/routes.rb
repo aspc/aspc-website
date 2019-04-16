@@ -82,6 +82,8 @@ Rails.application.routes.draw do
     post 'pages/:id/update' => 'static#save', as: :static_page_update
     post 'pages/:id/upload_image' => 'static#upload_image', as: :static_page_upload_image
     post 'pages/:id/delete_image' => 'static#delete_image', as: :static_page_delete_image
+    post 'pages/:id/upload_file' => 'static#upload_file', as: :static_page_upload_file
+    post 'pages/:id/delete_file' => 'static#delete_file', as: :static_page_delete_file
 
     get '/uploads/:image_name' => :load_image
   end
