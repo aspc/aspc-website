@@ -2,7 +2,7 @@
   <%= render 'components/page_header', :title => "#{@housing_building.name} Rooms" %>
 <% end %>
 
-<% @housing_rooms.sort_by{|r| r.occupancy_type}.in_groups_of(3, false).each do |group| %>
+<% @housing_rooms.sort_by{|r| r.room_number}.in_groups_of(3, false).each do |group| %>
   <div class="columns">
     <% group.each do |room| %>
       <div class="column is-4">
