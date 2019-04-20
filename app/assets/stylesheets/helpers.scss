@@ -1,6 +1,13 @@
-// Spacing helpers
-@each $size in (0,1,2,3,4,5,10) {
-  @each $pos in ('top','right','bottom','left') {
+// Place all the helpers and mixins here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*
+ * Spacing helper
+ * Generates classes margin-top-x, margin-right-x, margin-bottom-x and margin-left-x for all x = {0, 1, 2, 3, 4, 5, 10}
+ */
+@each $size in (0, 1, 2, 3, 4, 5, 10) {
+  @each $pos in ('top', 'right', 'bottom', 'left') {
     .margin-#{$pos}-#{$size} {
       margin-#{$pos}: $size + rem !important;
     }
@@ -8,4 +15,54 @@
       padding-#{$pos}: $size + rem !important;
     }
   }
+}
+
+/*
+ * Linear gradient background mixin
+ */
+@mixin linear-gradient($from, $end, $to, $start) {
+  background: $to;
+  background: -moz-linear-gradient(top, $from $end, $to $start);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop($end, $from), color-stop($start, $to));
+  background: -webkit-linear-gradient(top, $from $end, $to $start);
+  background: -o-linear-gradient(top, $from $end, $to $start);
+  background: linear-gradient(to bottom, $from $end, $to $start);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to})
+}
+
+/*
+ * Text shadow mixin
+ */
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+  text-shadow: $x $y $blur $color;
+}
+
+/*
+ * Miscellaneous helpers
+ */
+
+.horizontal-scroll {
+  overflow-x: scroll;
+}
+
+.vertical-scroll {
+  overflow-y: scroll;
+}
+
+.cover-image {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.has-brightness {
+  filter: brightness(1.25);
+}
+
+.has-background-blue {
+  background-color: #0071a6;
 }
