@@ -32,20 +32,25 @@
  *= require events.scss
  *= require sessions.scss
  *= require courses.scss
+ *= require home.scss
  *= require static.scss
  *= require menu.scss
- *
- * Helpers
- *= require helpers.scss
  *
  * Global styles defined in this file
  *= require_self
  */
+
 /*
- * Header/Footer/Page Content
+ * Fonts
  */
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700');
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700');
+
+/*
+ * General
+ * Body, links, titles, headings
+ */
 
 body {
     font-family: 'Montserrat', sans-serif;
@@ -68,6 +73,10 @@ a {
 .title a:hover {
     color: #209cee;
 }
+
+/*
+ * Header
+ */
 
 #application-header {
     background: #2c3e50;
@@ -189,45 +198,9 @@ a {
     border-radius: 6px;
 }
 
-.hero-body {
-    background: #2c3e50;
-}
-
-.home-heading .title {
-    margin-bottom: 1rem;
-}
-
-#alert-banner-container {
-    height: 0;
-    z-index: 100;
-}
-
-.page-header {
-    background-color: #0071a6 !important;
-}
-
-.event .event-info {
-    border-bottom-width: 2px;
-    border-bottom-style: solid;
-    padding-bottom: 1rem;
-}
-
-.event .event-info .event-date-time {
-    margin-bottom: 0.25rem;
-}
-
-.event .title {
-    margin-top: 1rem;
-    font-weight: 300;
-}
-
-.tsl-article .tsl-article-info p {
-    padding-bottom: 1rem;
-}
-
-.tsl-article .title {
-    font-weight: 300;
-}
+/*
+ * Footer
+ */
 
 .footer {
     padding: 3rem;
@@ -262,15 +235,9 @@ a {
 }
 
 /*
- * Global Color helpers
+ * 5C accent colors
  */
-.has-background-blue {
-    background-color: #0071a6;
-}
 
-/*
- * 5C School Accent Colors
- */
 .campus_UU {
     background-color: #9c9e9e !important;
     color: white !important;
@@ -316,65 +283,15 @@ a {
     color: white !important;
 }
 
-/* Event border bottom color */
-.event-UU {
-    border-bottom-color: #9c9e9e;
-}
-
-.event-CGU {
-    border-bottom-color: #71101b;
-}
-
-.event-CM {
-    border-bottom-color: #da3d38;
-}
-
-.event-CU {
-    border-bottom-color: #391858;
-}
-
-.event-KS {
-    border-bottom-color: #391858;
-}
-
-.event-HM {
-    border-bottom-color: #ca9a0a;
-}
-
-.event-PO {
-    border-bottom-color: #1860cc !important;
-}
-
-.event-PZ {
-    border-bottom-color: #f49700 !important;
-}
-
-.event-SC {
-    border-bottom-color: #889e5a !important;
-}
-
 /*
- * Global Helpers
+ * Miscellaneous
  */
 
-.horizontal-scroll {
-    overflow-x: scroll;
+.hero-body {
+    background: #2c3e50;
 }
 
-.vertical-scroll {
-    overflow-y: scroll;
-}
-
-.cover-image {
-    overflow: hidden;
-    background-size: cover;
-    background-position: center center;
-}
-
-.no-underline {
-    text-decoration: none !important;
-}
-
-.has-brightness {
-    filter: brightness(1.25);
+#alert-banner-container {
+    height: 0;
+    z-index: 100;
 }
