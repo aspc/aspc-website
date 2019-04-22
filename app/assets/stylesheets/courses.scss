@@ -6,6 +6,10 @@
  * Course Schedule Calendar
  */
 
+.wc-container {
+  border-radius: 6px;
+}
+
 .wc-toolbar {
   padding: 1em;
   font-size: 0.8em;
@@ -23,6 +27,7 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+
 fafafa
 .wc-toolbar .wc-title {
   text-align: center;
@@ -55,7 +60,10 @@ fafafa
   table-layout: fixed;
 }
 
-.wc-grid-timeslot-header,
+.wc-grid-timeslot-header {
+  width: 45px;
+  background: whitesmoke !important;
+}
 .wc-header .wc-time-column-header {
   width: 45px;
 }
@@ -76,10 +84,6 @@ fafafa
   text-align: center;
   padding: 0.4em 0;
   overflow: hidden;
-}
-
-.wc-grid-timeslot-header {
-  background: #eee;
 }
 
 .wc-scrollable-grid {
@@ -237,6 +241,10 @@ table.wc-time-slots {
 .wc-hour-end, .wc-hour-header {
   border-bottom: 1px dotted #ccc;
   color: #555;
+}
+
+.wc-hour-end:last-child, .wc-hour-header:last-child {
+  border-bottom: none;
 }
 
 .wc-business-hours {
@@ -484,6 +492,37 @@ select {
 
       label {
         margin: .25rem;
+      }
+    }
+
+    .meets-on {
+      .is-checkradio[type="checkbox"].is-block + label,
+      .is-checkradio[type="radio"].is-block + label {
+        background: #209cee;
+        color: #fff;
+        opacity: 0.5;
+      }
+
+      .is-checkradio[type="checkbox"]:checked + label,
+      .is-checkradio[type="radio"]:checked + label {
+        background: #209cee;
+        color: #fff;
+        opacity: 1;
+      }
+    }
+
+    .colleges {
+      .is-checkradio[type="checkbox"].is-block + label,
+      .is-checkradio[type="radio"].is-block + label {
+        opacity: 0.5;
+        background: #dbdbdb;
+        color: #363636;
+      }
+
+      .is-checkradio[type="checkbox"]:checked + label,
+      .is-checkradio[type="radio"]:checked + label {
+        color: #fff;
+        opacity: 1;
       }
     }
   }
