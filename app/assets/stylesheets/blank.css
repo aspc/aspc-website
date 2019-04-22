@@ -30,3 +30,14 @@ html {
 .sessions .sign-in .logo img {
     max-height: 2.4rem;
 }
+
+.sessions .sign-in .column .box {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.sessions .sign-in .column .box .buttons {
+    margin-top: auto;
+}
