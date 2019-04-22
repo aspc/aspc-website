@@ -498,8 +498,8 @@ select {
     .meets-on {
       .is-checkradio[type="checkbox"].is-block + label,
       .is-checkradio[type="radio"].is-block + label {
-        background: #209cee;
-        color: #fff;
+        background: #dbdbdb;
+        color: #363636;
         opacity: 0.5;
       }
 
@@ -515,7 +515,6 @@ select {
       .is-checkradio[type="checkbox"].is-block + label,
       .is-checkradio[type="radio"].is-block + label {
         opacity: 0.5;
-        background: #dbdbdb;
         color: #363636;
       }
 
