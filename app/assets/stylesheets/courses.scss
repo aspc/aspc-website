@@ -64,6 +64,7 @@ fafafa
   width: 45px;
   background: whitesmoke !important;
 }
+
 .wc-header .wc-time-column-header {
   width: 45px;
 }
@@ -527,12 +528,27 @@ select {
   }
 }
 
-#course-schedule-list {
-  padding-bottom: 0.5rem;
-}
+#course-list-results-container {
 
-#course-list-results {
-  height: 885px;
+  .message-header {
+    background: #2c3e50;
+    font-weight: 300;
+  }
+
+  #course-list-results {
+    padding: 0;
+    height: 729px;
+
+    .message {
+      .message-header {
+        border-radius: 0;
+      }
+
+      .message-body {
+        background-color: whitesmoke;
+      }
+    }
+  }
 }
 
 #reviews-list-results {
