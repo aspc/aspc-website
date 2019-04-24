@@ -9,9 +9,10 @@ bulma-calendar@^4.0.2:
   dependencies:
     moment "^2.22.2"
 
-"bulma-checkradio@https://github.com/Wikiki/bulma-checkradio":
+bulma-checkradio@^2.1.0:
   version "2.1.0"
-  resolved "https://github.com/Wikiki/bulma-checkradio#2829114af322bf44d9ec3a416f66278522b3bf4e"
+  resolved "https://registry.yarnpkg.com/bulma-checkradio/-/bulma-checkradio-2.1.0.tgz#494ab05b0245a41a0083bbd08436fafbde4b3814"
+  integrity sha512-u/EBioHqmeMaUyVc+P9ellOldIVER4SSzkCYo7+KOBAIZuRm6zRWKste8DAFfsk8sq2xrX16gKXr7vCy7NC0zw==
 
 bulma@^0.7.1:
   version "0.7.1"
