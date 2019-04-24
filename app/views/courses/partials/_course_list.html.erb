@@ -3,7 +3,11 @@
 <% if course_sections %>
   <section class="message" id="course-list-results-container">
     <div class="message-header">
-      Showing <%= course_sections.length %> results
+      <% if course_sections.length > 0 %>
+        Showing <%= course_sections.length %> results
+      <% else %>
+        No results
+      <% end %>
     </div>
     <section class="message-body vertical-scroll" id="course-list-results">
       <% course_sections.each do |section| %>
