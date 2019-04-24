@@ -28,7 +28,6 @@
   margin-bottom: 0;
 }
 
-fafafa
 .wc-toolbar .wc-title {
   text-align: center;
   padding: 0;
@@ -540,6 +539,9 @@ select {
     height: 729px;
 
     .message {
+
+      margin-bottom: 0;
+
       .message-header {
         border-radius: 0;
       }
@@ -563,7 +565,6 @@ select {
 .course-tags {
   flex-wrap: wrap;
   margin-bottom: 0.5rem !important;
-  height: 3.0rem !important;
 }
 
 .expandable {
