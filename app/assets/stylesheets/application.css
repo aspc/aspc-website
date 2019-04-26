@@ -16,6 +16,7 @@
  *= require font-awesome
  *= require bulma/css/bulma.sass
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
+ *= require bulma-checkradio/dist/css/bulma-checkradio.min.css
  *= require megamenu.scss
  *
  *= require slick-carousel/slick/slick.css

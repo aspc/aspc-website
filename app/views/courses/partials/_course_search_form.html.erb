@@ -2,11 +2,11 @@
 <% departments = local_assigns.fetch(:departments) %>
 
 <%= form_with url: courses_search_url, remote: true do |f| %>
-  <nav class="panel" id="course-search-form">
-    <p class="panel-heading">
+  <section class="message" id="course-search-form">
+    <div class="message-header">
       Course Search
-    </p>
-    <div class="panel-block">
+    </div>
+    <div class="message-body">
       <div class="field">
         <label class="label">Term</label>
         <div class="control is-expanded">
@@ -29,65 +29,51 @@
       </div>
       <div class="field">
         <label class="label">Meets on</label>
-        <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
+        <div class="field is-grouped checkboxes meets-on">
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:monday) %>Mon
-            </label>
+            <input class="is-checkradio is-block is-info" id="monday" type="checkbox" name="monday">
+            <label for="monday">Monday</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:tuesday) %>Tues
-            </label>
+            <input class="is-checkradio is-block is-info" id="tuesday" type="checkbox" name="tuesday">
+            <label for="tuesday">Tuesday</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:wednesday) %>Wed
-            </label>
-          </div>
-        </div>
-        <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
-          <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:thursday) %>Thurs
-            </label>
+            <input class="is-checkradio is-block is-info" id="wednesday" type="checkbox" name="wednesday">
+            <label for="wednesday">Wednesday</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:friday) %>Fri
-            </label>
+            <input class="is-checkradio is-block is-info" id="thursday" type="checkbox" name="thursday">
+            <label for="thursday">Thursday</label>
+          </div>
+          <div class="control">
+            <input class="is-checkradio is-block is-info" id="friday" type="checkbox" name="friday">
+            <label for="friday">Friday</label>
           </div>
         </div>
       </div>
       <div class="field">
         <label class="label">School</label>
-        <div class="field is-grouped horizontal-scroll" style="flex: 0 0 100%;">
+        <div class="field is-grouped checkboxes colleges">
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:pomona) %><span class="campus-label campus_PO">PO</span>
-            </label>
+            <input class="is-checkradio is-block is-info" id="pomona" type="checkbox" name="pomona" checked="checked">
+            <label for="pomona" class="campus_PO">Pomona</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:claremont_mckenna) %><span class="campus-label campus_CM">CM</span>
-            </label>
+            <input class="is-checkradio is-block is-info" id="claremont_mckenna" type="checkbox" name="claremont_mckenna" checked="checked">
+            <label for="claremont_mckenna" class="campus_CM">CMC</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:harvey_mudd) %><span class="campus-label campus_HM">HM</span>
-            </label>
-          </div>
-        </div>
-        <div class="field is-grouped" style="flex: 0 0 100%; overflow-x: scroll;">
-          <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:scripps) %><span class="campus-label campus_SC">SC</span>
-            </label>
+            <input class="is-checkradio is-block is-info" id="harvey_mudd" type="checkbox" name="harvey_mudd" checked="checked">
+            <label for="harvey_mudd" class="campus_HM">HM</label>
           </div>
           <div class="control">
-            <label class="checkbox">
-              <%= check_box_tag(:pitzer) %><span class="campus-label campus_PZ">PZ</span>
-            </label>
+            <input class="is-checkradio is-block is-info" id="scripps" type="checkbox" name="scripps" checked="checked">
+            <label for="scripps" class="campus_SC">SC</label>
+          </div>
+          <div class="control">
+            <input class="is-checkradio is-block is-info" id="pitzer" type="checkbox" name="pitzer" checked="checked">
+            <label for="pitzer" class="campus_PZ">PZ</label>
           </div>
         </div>
       </div>
@@ -127,8 +113,8 @@
         </div>
       </div>
       <div class="field">
-        <%= f.submit "Search", :class => "button is-link is-fullwidth" %>
+        <%= f.submit "Search", :class => "button is-link is-fullwidth is-info" %>
       </div>
     </div>
-  </nav>
+  </section>
 <% end %>
