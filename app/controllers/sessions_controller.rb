@@ -2,6 +2,7 @@ require 'cgi'
 
 class SessionsController < ApplicationController
   PHP_AUTH_URL = "https://pomonastudents.org/php-auth/"
+  layout "blank"
 
   def new
   end
