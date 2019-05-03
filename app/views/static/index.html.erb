@@ -31,7 +31,7 @@
 
 <div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Upcoming Events</h3>
-  <a class="button is-outlined is-info" href="https://tsl.news">Event Calendar</a>
+  <%= link_to "Event Calendar", events_path, {:class => "button is-outlined is-info"} %>
 </div>
 
 <% if @events.length > 0 %>

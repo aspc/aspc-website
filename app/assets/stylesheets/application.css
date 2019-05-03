@@ -28,6 +28,7 @@
  *
  * Sass helpers file
  *= require helpers.scss
+ *= require overrides.scss
  *
  * Page specific styles here
  *= require events.scss
@@ -197,6 +198,7 @@ a {
 #application-header .navbar-burger:hover {
     color: #209cee;
     border-radius: 6px;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /*
