@@ -1,0 +1,43 @@
+/*
+ * Sign In Page
+ */
+
+html {
+    overflow-y: auto;
+}
+
+.sessions {
+    background: #2c3e50;
+    overflow: auto;
+    margin:0;
+    padding:0;
+    min-height: 100vh;
+}
+
+.sessions .sign-in .branding {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sessions .sign-in .branding .title {
+    color: #fff;
+}
+
+.sessions .sign-in .branding .subtitle {
+    color: rgba(255,255,255,0.9)
+}
+
+.sessions .sign-in .logo img {
+    max-height: 2.4rem;
+}
+
+.sessions .sign-in .column .box {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.sessions .sign-in .column .box .buttons {
+    margin-top: auto;
+}

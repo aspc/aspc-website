@@ -1,40 +1,24 @@
 <% content_for :header do %>
-  <section class="hero is-primary page-header">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns">
-          <div class="column is-2 is-hidden-touch">
-            <img class="logo" src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
-          </div>
-          <div class="column is-10">
-            <h1 class="title">Associated Students of Pomona College</h1>
-            <h2 class="subtitle">
-              Serving the Claremont College community since 1887
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <div class="slideshow-container primary-slideshow">
     <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
         :autoplay => true,
-        :arrows => true,
-        :dots => false,
+        :arrows => false,
+        :dots => true,
         :useTransform => false,
-        :easing => 'swing'
+        :easing => 'swing',
+        :fade => true
     } do %>
       <% @announcements.each do |announcement| %>
         <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
           <div class="gradient">
             <div class="announcement-info has-shadow">
-              <h3 class="title is-4 has-text-white"><%= announcement.title %></h3>
+              <h3 class="title is-1 has-text-white"><%= announcement.title %></h3>
               <% if not announcement.caption.blank? %>
                 <p class="subtitle has-text-white"><%= announcement.caption %></p>
               <% end %>
               <% if not announcement.details_url.blank? %>
-                <a class="button is-outlined is-inverted is-info" href="<%= announcement.details_url %>" tabindex="0">More
+                <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">More
                   Details</a>
               <% end %>
             </div>
@@ -43,78 +27,74 @@
       <% end %>
     <% end %>
   </div>
-  <br/>
 <% end %>
 
-<%= render 'components/page_header', :title => "Upcoming Events", :subtitle => "<span class='has-text-weight-light'>Looking for <a href='#{events_path}' class='has-text-light has-text-weight-normal'>more events</a>?</span>" %>
-<br>
+<div class="margin-bottom-3 home-heading">
+  <h3 class="title is-3">Upcoming Events</h3>
+  <%= link_to "Event Calendar", events_path, {:class => "button is-outlined is-info"} %>
+</div>
+
 <% if @events.length > 0 %>
-  <div class="columns">
+  <div class="columns events margin-bottom-4">
     <% @events.each do |event| %>
-      <div class="column is-4">
-        <%= link_to url_for(event), :style => "display: block" do %>
-          <div class="card event-card">
-            <header class="card-header">
-              <p class="card-header-title">
-                <%= event.name %>
-              </p>
-            </header>
-
-            <div class="card-content">
-              <div class="content">
-                <p class="horizontal-scroll">
-                  <em>
-                    <%= fa_icon "calendar" %>
-                    <time><%= event.start.strftime("%A, %B %e") %></time>
-                  </em>
-                  <br>
-                  <em>
-                    <%= fa_icon "bell" %>
-                    <time><%= event.start.strftime("%l:%M%P") %></time>
-                    -
-                    <time><%= event.end.strftime("%l:%M%P") %></time>
-                  </em>
-                  <br>
-                  <em style="white-space: nowrap">
-                    <%= fa_icon "location-arrow" %>
-                    <%= event.location %><br>
-                  </em>
-                </p>
-
-                <div class="event-description vertical-scroll"/>
-                <p><%= event.description %></p>
-              </div>
-            </div>
-          </div>
-          </div>
-        <% end %>
+      <% campus_background_color_class =
+             case event.college_affiliation.try(:to_sym)
+             when :pomona
+               "event-PO"
+             when :claremont_mckenna
+               "event-CM"
+             when :harvey_mudd
+               "event-HM"
+             when :scripps
+               "event-SC"
+             when :pitzer
+               "event-PZ"
+             else
+               "event-PO" # catchall because Frank/Frary/Oldenborg to not symbolize to Pomona
+             end
+      %>
+      <div class="column is-4 event">
+        <div class="event-info <%= campus_background_color_class %>">
+          <p class="event-date-time"><%= event.start.strftime("%B %e") %>, <%= event.start.strftime("%l:%M%P") %>
+            -<%= event.end.strftime("%l:%M%P") %></p>
+          <p class="event-location"><%= event.location %><br></p>
         </div>
+        <h4 class="title is-4">
+          <a href="<%= url_for(event) %>"><%= event.name %></a>
+        </h4>
+      </div>
     <% end %>
-    </div>
+  </div>
 <% else %>
-  <div class="columns">
+  <div class="columns margin-bottom-3">
     <div class="column">
       <p>No upcoming events. Would you like to <%= link_to "submit one?", new_event_path %></p>
     </div>
   </div>
 <% end %>
 
-<div class="margin-bottom-3">
-  <h3 class="title is-3 margin-bottom-1">Latest Updates From The Student Life</h3>
-  <a class="button is-medium is-outlined is-info" href="https://tsl.news">Go to TSL</a>
+<div class="margin-bottom-3 home-heading">
+  <h3 class="title is-3">The Student Life</h3>
+  <a class="button is-outlined is-info" href="https://tsl.news" target="_blank">Go to TSL</a>
 </div>
 
-<% @news.each do |article| %>
-  <div class="columns">
-    <div class="column margin-bottom-1">
-      <h5 class="title is-5 margin-bottom-2"><a href="<%= article[:link] %>"><%= article[:title] %></a></h5>
-      <p class="subtitle is-6 margin-bottom-1">
-        <%= article[:date].strftime("Published on %B %e, %Y") %>
-      </p>
-      <p class="margin-bottom-1">
-        <%= ActionView::Base.full_sanitizer.sanitize(article[:description]) %>
-      </p>
-      <a class="button is-outlined" href="<%= article[:link] %>" tabindex="0">Read More</a>
+<% if @news.length > 0 %>
+  <div class="columns tsl-articles">
+    <% @news.each do |article| %>
+      <div class="column is-4 tsl-article">
+        <div class="tsl-article-info">
+          <p><%= article[:date].strftime("%B %e, %Y") %></p>
+        </div>
+        <h4 class="title is-4">
+          <a href="<%= article[:link] %>" target="_blank"><%= article[:title] %></a></h4>
+        </h4>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="columns margin-bottom-3">
+    <div class="column">
+      <p>No TSL articles found.</p>
     </div>
   </div>
 <% end %>

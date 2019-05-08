@@ -14,8 +14,9 @@
  *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
  *= require font-awesome
- *= require bulma/css/bulma.css
+ *= require bulma/css/bulma.sass
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
+ *= require bulma-checkradio/dist/css/bulma-checkradio.min.css
  *= require megamenu.scss
  *
  *= require slick-carousel/slick/slick.css
@@ -27,11 +28,13 @@
  *
  * Sass helpers file
  *= require helpers.scss
+ *= require overrides.scss
  *
  * Page specific styles here
  *= require events.scss
  *= require sessions.scss
  *= require courses.scss
+ *= require home.scss
  *= require static.scss
  *= require menu.scss
  *= require course_reviews.scss
@@ -41,88 +44,222 @@
  */
 
 /*
- * Header/Footer/Page Content
+ * Fonts
  */
 
-#alert-banner-container {
-    height: 0;
-    z-index: 100;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700');
+
+/*
+ * General
+ * Body, links, titles, headings
+ */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #717171;
 }
 
-.application-body-container {
-    background:#2C3E50;
+a {
+    outline: 0;
 }
 
-.application-content-section, .application-content-container {
-    background: white;
+.title, .subtitle, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Karla', sans-serif;
+    line-height: 1.5;
 }
 
-.application-content-container {
-    min-height: 60vh;
+.title, .title a {
+    color: #2c3e50;
 }
 
-.application-footer {
-    color: rgba(255, 255, 255, 0.3);
-    margin-top: 3rem;
-}
-
-.application-footer .footer-logo {
-    opacity: 0.2;
-    margin-bottom: 1rem;
-}
-
-.application-footer .footer-text a {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.application-footer .footer-text a:hover {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.page-header {
-    background-color: #0071a6 !important;
+.title a:hover {
+    color: #209cee;
 }
 
 /*
- * Global Color helpers
+ * Header
  */
-.has-background-blue {
-    background-color: #0071a6;
+
+#application-header {
+    background: #2c3e50;
+    padding: 1.5rem 0;
+}
+
+
+#application-header.navbar-home {
+    background-color: transparent;
+    margin-bottom: -103px;
+}
+
+@media (max-width: 1024px) {
+    #application-header .navbar-menu.is-active {
+        position: absolute;
+        width: 100%;
+    }
+}
+
+#application-header:before {
+    background: linear-gradient(to right, #0093d8 14%, #00a775 14%, #00a775 28%, #76b143 28%, #76b143 41%, #fed403 41%,
+    #fed403 58%, #f7941e 58%, #f7941e 72%, #ed1c24 72%, #ed1c24 86%, #b3275a 86%, #b3275a 100%);
+    position: absolute;
+    content: '';
+    height: 4px;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+#application-header .navbar-brand .navbar-item:hover div {
+    color: #209cee;
+}
+
+#application-header .navbar-brand .logo {
+    height: 100%;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#application-header .navbar-brand .logo img {
+    max-height: 2.4rem;
+}
+
+#application-header .navbar-brand .title {
+    line-height: 1.25;
+    color: #fff;
+    margin-bottom: -3px;
+}
+
+#application-header .navbar-menu {
+    font-family: 'Karla', sans-serif;
+}
+
+#application-header .navbar-link {
+    padding-right: 2rem;
+}
+
+#application-header .navbar-item,
+#application-header .navbar-link {
+    background-color: transparent;
+}
+
+#application-header .navbar-item:hover,
+#application-header .navbar-link:hover {
+    color: #209cee;
+}
+
+#application-header .navbar-item.has-dropdown:hover .item-has-arrow:after {
+    position: absolute;
+    content: "";
+    width: 0.75rem;
+    height: 0px;
+    border-top: 0.75rem solid transparent;
+    border-right: 0.75rem solid transparent;
+    border-bottom: 0.75rem solid white;
+    border-left: 0.75rem solid transparent;
+    border-radius: 2px;
+    bottom: -0.25rem;
+    left: 50%;
+    margin-left: -1.125em;
+}
+
+#application-header .navbar-dropdown {
+    border-top: 0;
+    border-radius: 6px;
+}
+
+#application-header .navbar-link::after {
+    font-family: FontAwesome;
+    content: "\f078";
+    display: inline-block;
+    transform: none;
+    border: 0;
+    display: inline-block;
+    padding-top: 3px;
+    vertical-align: middle;
+    width: auto;
+    height: auto;
+    top: auto;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+    #application-header .navbar-link::after {
+        display: none;
+    }
+}
+
+#application-header .navbar-burger {
+    border-radius: 6px;
+    background: transparent;
+}
+
+#application-header .navbar-burger:hover {
+    color: #209cee;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /*
- * 5C School Accent Colors
+ * Footer
  */
-.campus_UU { background-color: #9c9e9e !important; color: white !important; }
-.campus_CGU { background-color: #71101b !important; color: white !important; }
-.campus_CM { background-color: #da3d38 !important; color: white !important; }
-.campus_CU { background-color: #391858 !important; color: white !important; }
-.campus_KS { background-color: #391858 !important; color: white !important; }
-.campus_HM { background-color: #ca9a0a !important; color: white !important; }
-.campus_PO { background-color: #1860cc !important; color: white !important; }
-.campus_PZ { background-color: #f49700 !important; color: white !important; }
-.campus_SC { background-color: #889e5a !important; color: white !important; }
+
+.footer {
+    padding: 3rem;
+    font-size: 1rem;
+    box-shadow: 0 50vh 0 50vh #fafafa;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        text-align: center;
+    }
+}
+
+.footer a {
+    color: #2c3e50;
+}
+
+.footer a:hover {
+    color: #209cee;
+}
+
+.footer .text {
+    line-height: 2;
+}
+
+.footer .facebook {
+    margin-right: 0.5rem;
+}
+
+.footer .twitter {
+    margin-left: 0.5rem;
+}
 
 /*
- * Global Helpers
+ * 5C accent colors
  */
 
-.horizontal-scroll {
-    overflow-x: scroll;
+.campus_UU {
+    background-color: #9c9e9e !important;
+    color: white !important;
 }
 
-.vertical-scroll {
-    overflow-y: scroll;
+.campus_CGU {
+    background-color: #71101b !important;
+    color: white !important;
 }
 
-.cover-image {
-    overflow: hidden;
-    background-size: cover;
-    background-position: center center;
+.campus_CM {
+    background-color: #da3d38 !important;
+    color: white !important;
 }
 
-.no-underline {
-    text-decoration: none !important;
+.campus_CU {
+    background-color: #391858 !important;
+    color: white !important;
 }
 
 .has-brightness {
@@ -131,4 +268,42 @@
 
 .results-heading {
     margin: 20px auto 10px 0;
+}
+
+.campus_KS {
+    background-color: #391858 !important;
+    color: white !important;
+}
+
+.campus_HM {
+    background-color: #ca9a0a !important;
+    color: white !important;
+}
+
+.campus_PO {
+    background-color: #1860cc !important;
+    color: white !important;
+}
+
+.campus_PZ {
+    background-color: #f49700 !important;
+    color: white !important;
+}
+
+.campus_SC {
+    background-color: #889e5a !important;
+    color: white !important;
+}
+
+/*
+ * Miscellaneous
+ */
+
+.hero-body {
+    background: #2c3e50;
+}
+
+#alert-banner-container {
+    height: 0;
+    z-index: 100;
 }

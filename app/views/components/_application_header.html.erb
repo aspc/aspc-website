@@ -1,7 +1,17 @@
-<nav id="application-header" class="navbar">
+<% if current_page?(root_path) %>
+  <nav id="application-header" class="navbar navbar-home is-dark">
+<% else %>
+  <nav id="application-header" class="navbar is-dark">
+<% end %>
+<div class="container">
   <div class="navbar-brand">
     <a class="navbar-item" href="<%= root_path %>">
-      <img src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+      <div class="logo">
+        <img src="<%= asset_path 'logo4.png' %>" alt="Associated Students of Pomona College">
+      </div>
+      <div class="title is-6">
+        Associated Students of<br>Pomona College
+      </div>
     </a>
 
     <div class="navbar-burger burger">
@@ -12,7 +22,39 @@
   </div>
 
   <div class="navbar-menu">
-    <div class="navbar-start">
+    <div class="navbar-end">
+
+      <!-- Show login and admin access buttons on top on mobile -->
+      <div class="navbar-item is-hidden-tablet">
+        <% unless logged_in? %>
+          <div class="field is-grouped">
+            <p class="control">
+              <a href="<%= login_path %>" class="button is-info">
+                <span>Login</span>
+              </a>
+            </p>
+          </div>
+        <% else %>
+          <div class="field is-grouped">
+            <% if is_admin? %>
+              <p class="control">
+                <a href="<%= polymorphic_path([current_user.role.to_sym, 'root'])%>" class="button is-danger">
+                  <span>Admin</span>
+                </a>
+              </p>
+            <% end %>
+            <p class="control">
+              <a href="<%= logout_path %>" class="button is-light">
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Home -->
+      <a href="/" class="navbar-item">Home</a>
+
       <!-- Events -->
       <%= link_to "Events", :events, :class => "navbar-item" %>
 
@@ -20,14 +62,17 @@
       <%= link_to "Menus", :menus, :class => "navbar-item" %>
 
 
+      <!-- Housing Search / Reviews -->
+      <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+
       <!-- Course Schedule / Reviews -->
       <div class="navbar-item has-dropdown is-hoverable">
         <div class="navbar-link">
-          <%= link_to "Courses", :scheduler, :class => "navbar-item" %>
+          <span class="item-has-arrow">Courses</span>
         </div>
         <div class="navbar-dropdown">
           <div class="navbar-content">
-            <%= link_to "Scheduler", :scheduler, :class => "navbar-item" %>
+            <%= link_to "Course Planner", :scheduler, :class => "navbar-item" %>
           </div>
           <div class="navbar-content">
             <%= link_to "Course Reviews", :courses, :class => "navbar-item" %>
@@ -38,102 +83,89 @@
         </div>
       </div>
 
-      <!--<div class="navbar-item has-dropdown is-hoverable">
-        <div class="navbar-link">
-          Courses
-        </div>
-        <div class="navbar-dropdown">
-          <%= link_to "Course Planner", :courses, :class => "navbar-item" %>
-        </div>
-      </div>-->
-
-      <!-- Housing Search / Reviews -->
-      <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
-
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">
         <div class="navbar-link" />
-          ASPC
-        </div>
-        <div id="blogDropdown" class="navbar-dropdown " data-style="width: 18rem;">
-          <div class="container is-fluid">
-            <div class="columns">
-              <div class="column">
-                <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
-                  <div class="navbar-content">
-                    <%= link_to "Senators", :aspc_senators, :class => "navbar-item" %>
-                  </div>
-                  <div class="navbar-content">
-                    <%= link_to "Staff Members", :aspc_staff, :class => "navbar-item" %>
-                  </div>
-                  <div class="navbar-content">
-                    <%= link_to "Committee Members", :aspc_committee, :class => "navbar-item" %>
-                  </div>
-                  <div class="navbar-content">
-                    <%= link_to "Pomona Events Committee", :aspc_pec, :class => "navbar-item" %>
-                  </div>
-                  <div class="navbar-content">
-                    <%= link_to "Software Development Group", :aspc_software, :class => "navbar-item" %>
-                  </div>
+        <span class="item-has-arrow">ASPC</span>
+      </div>
+      <div id="blogDropdown" class="navbar-dropdown ">
+        <div class="container is-fluid">
+          <div class="columns">
+            <div class="column">
+              <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
+              <div class="navbar-content">
+                <%= link_to "Senators", :aspc_senators, :class => "navbar-item" %>
               </div>
-              <div class="column">
-                <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
-                  <div class="navbar-content">
-                    <%= link_to "Positions", :aspc_positions, :class => "navbar-item" %>
-                  </div>
-                <div class="navbar-content">
-                  <%= link_to "Budget", "/pages/budget", :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Bylaws", :aspc_policies_bylaws, :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Elections Code", :aspc_policies_electionscode, :class => "navbar-item" %>
-                </div>
+              <div class="navbar-content">
+                <%= link_to "Staff Members", :aspc_staff, :class => "navbar-item" %>
               </div>
-              <div class="column">
-                <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
-                <div class="navbar-content">
-                  <%= link_to "Senior Class Page", "/pages/senior-class-page", :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Funding Request", :aspc_funding_request, :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
-                </div>
-                <div class="navbar-content">
-                  <%= link_to "Housing Reviews", housing_rooms_path, :class => "navbar-item" %>
-                </div>
+              <div class="navbar-content">
+                <%= link_to "Committee Members", :aspc_committee, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Pomona Events Committee", :aspc_pec, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Software Development Group", :aspc_software, :class => "navbar-item" %>
+              </div>
+            </div>
+            <div class="column">
+              <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
+              <div class="navbar-content">
+                <%= link_to "Positions", :aspc_positions, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Meetings and Minutes", "/pages/minutes", :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Budget", "/pages/budget", :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Bylaws", :aspc_policies_bylaws, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Elections Code", :aspc_policies_electionscode, :class => "navbar-item" %>
+              </div>
+            </div>
+            <div class="column">
+              <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
+              <div class="navbar-content">
+                <%= link_to "Senior Class Page", "/pages/senior-class-page", :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Funding Request", :aspc_funding_request, :class => "navbar-item" %>
+              </div>
+              <div class="navbar-content">
+                <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
               </div>
             </div>
           </div>
+        </div>
 
-          <hr class="navbar-divider">
-          <div class="navbar-item">
-            <div class="navbar-content">
-              <div class="level is-mobile">
-                <div class="level-left">
-                  <div class="level-item">
-                  </div>
+        <div class="navbar-item">
+          <div class="navbar-content">
+            <div class="level is-mobile">
+              <div class="level-left">
+                <div class="level-item">
                 </div>
-                <div class="level-right">
-                  <div class="level-item">
-                  </div>
+              </div>
+              <div class="level-right">
+                <div class="level-item">
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- More Resources -->
+    <!-- More Resources -->
     <div class="navbar-item has-dropdown is-hoverable">
       <div class="navbar-link">
-        More Resources
+        <span class="item-has-arrow">More Resources</span>
       </div>
       <div class="navbar-dropdown">
         <div class="navbar-content">
@@ -164,12 +196,10 @@
         </div>
       </div>
     </div>
-  </div>
 
-    <!-- Login/Logout -->
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <% unless logged_in? %>
+    <!-- Show login and admin access buttons as last items in the nav bar for screens larger than mobile -->
+    <div class="navbar-item is-hidden-mobile">
+      <% unless logged_in? %>
         <div class="field is-grouped">
           <p class="control">
             <a href="<%= login_path %>" class="button is-info">
@@ -196,16 +226,17 @@
       </div>
     </div>
   </div>
+</div>
 </nav>
 
 <script>
-  $(document).ready(function () {
-      $("#application-header .burger").click(function () {
+    $(document).ready(function () {
+        $("#application-header .burger").click(function () {
 
-          // Toggle the class on both the burger and the menu
-          $(this).toggleClass('is-active');
-          $("#application-header .navbar-menu").toggleClass('is-active');
+            // Toggle the class on both the burger and the menu
+            $(this).toggleClass('is-active');
+            $("#application-header .navbar-menu").toggleClass('is-active');
 
-      })
-  });
+        })
+    });
 </script>

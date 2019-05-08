@@ -2,6 +2,7 @@
 <html>
 <head>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'blank', media: 'all' %>
   <%= javascript_include_tag 'application' %>
 
   <!-- iOS meta tags -->
@@ -21,24 +22,13 @@
   <title>ASPC - Associated Students of Pomona College</title>
 </head>
 
-<body>
+<body class="<%= controller_name %> <%= action_name %>">
 
-<%= render partial: 'components/application_header' %>
-
-<div id="alert-banner-container" class="is-overlay">
-  <% if notice.present? %>
-    <%= render partial: 'components/alert_banner' %>
-  <% end %>
-</div>
-
-<%= yield :header %>
 <section class="section">
-  <div class="container application-content-container">
+  <div class="container">
     <%= yield %>
   </div>
 </section>
-
-<%= render partial: 'components/application_footer' %>
 
 </body>
 </html>

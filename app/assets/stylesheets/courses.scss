@@ -1,13 +1,13 @@
-// Place all the styles related to the course controller here.
+// Place all the styles related to the courses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /*
- Course Schedule Calendar
+ * Course Schedule Calendar
  */
+
 .wc-container {
-  font-size: 14px;
-  font-family: arial, helvetica;
+  border-radius: 6px;
 }
 
 .wc-toolbar {
@@ -45,10 +45,11 @@
 }
 
 .wc-header {
-  background: whitesmoke;
-  border-color: #dbdbdb;
-  background: rgb(44, 62, 80);
-  padding: 10px 0;
+  font-family: 'Karla', sans-serif;
+  background: #2c3e50;
+  border-color: #2c3e50;
+  border-radius: 4px 4px 0 0;
+  padding: 5px 0;
   height: 45px;
   color: #fff;
 }
@@ -58,7 +59,11 @@
   table-layout: fixed;
 }
 
-.wc-grid-timeslot-header,
+.wc-grid-timeslot-header {
+  width: 45px;
+  background: whitesmoke !important;
+}
+
 .wc-header .wc-time-column-header {
   width: 45px;
 }
@@ -72,17 +77,13 @@
   padding: 0.4em;
   color: #fff;
   font-size: 1.00em;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 .wc-header .wc-user-header {
   text-align: center;
   padding: 0.4em 0;
   overflow: hidden;
-}
-
-.wc-grid-timeslot-header {
-  background: #eee;
 }
 
 .wc-scrollable-grid {
@@ -109,7 +110,7 @@ table.wc-time-slots {
 
 .wc-day-column-header {
   border-width: 0 0 1px 3px;
-  border-style: solid;
+  border-style: dotted;
   border-color: transparent;
 }
 
@@ -122,7 +123,7 @@ table.wc-time-slots {
 
 .wc-scrollable-grid .wc-day-column-first {
   border-width: 0 0 0 1px;
-  border-style: solid;
+  border-style: dotted;
 }
 
 .wc-day-column-inner {
@@ -137,11 +138,11 @@ table.wc-time-slots {
 }
 
 .wc-time-slot-wrapper {
-  /*	top: 3px;*/
+  /* top: 3px;*/
 }
 
 .wc-oddeven-wrapper .wc-full-height-column {
-  /*	top: 2px; */
+  /* top: 2px; */
   /* Modern Browsers */
   opacity: 0.4;
   /* IE 8 */
@@ -155,7 +156,7 @@ table.wc-time-slots {
 }
 
 .wc-freebusy-wrapper .wc-freebusy {
-  /*	top: 1px;*/
+  /* top: 1px; */
   /* Modern Browsers */
   opacity: 0.4;
   /* IE 8 */
@@ -193,7 +194,7 @@ table.wc-time-slots {
 }
 
 .wc-time-slots .wc-day-column.ui-state-default {
-  background: #fafafa;
+  background: whitesmoke;
 }
 
 .wc-time-slots .wc-today.ui-state-active {
@@ -214,7 +215,7 @@ table.wc-time-slots {
 
 .wc-full-height-column {
   display: block;
-  /*  width:100%;*/
+  /* width: 100%; */
 }
 
 .wc-time-header-cell {
@@ -232,17 +233,23 @@ table.wc-time-slots {
 
 .wc-hour-header.ui-state-active,
 .wc-hour-header.ui-state-default {
+  font-family: 'Karla', sans-serif;
   border-width: 0 0 1px 0;
+  background: whitesmoke;
 }
 
 .wc-hour-end, .wc-hour-header {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dotted #ccc;
   color: #555;
+}
+
+.wc-hour-end:last-child, .wc-hour-header:last-child {
+  border-bottom: none;
 }
 
 .wc-business-hours {
   background-color: #E6EEF1;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dotted #ccc;
   color: #333;
   font-size: 1.4em;
 }
@@ -289,7 +296,7 @@ table.wc-time-slots {
 
 .wc-cal-event .wc-time {
   background-color: #2b72d0;
-  border: 1px solid #1b62c0;
+  border: 1px dotted #1b62c0;
   color: #fff;
   padding: 0;
   font-weight: bold;
@@ -322,6 +329,7 @@ table.wc-time-slots {
 }
 
 /* IE6 hacks */
+
 * html .wc-no-height-wrapper {
   position: absolute;
 }
@@ -339,6 +347,7 @@ table.wc-time-slots {
 }
 
 /* IE7 hacks */
+
 *:first-child + html .wc-no-height-wrapper {
   position: relative;
 }
@@ -355,8 +364,8 @@ table.wc-time-slots {
   top: 1px;
 }
 
-*:first-child + html .wc-time-slots .wc-today { /* due to rendering issues, no background */
-  background: none;
+*:first-child + html .wc-time-slots .wc-today {
+  background: none; /* Due to rendering issues, no background */
 }
 
 #course-schedule {
@@ -379,8 +388,9 @@ table.wc-time-slots {
 }
 
 /*
- Campus Colors
+ * Campus colors
  */
+
 .wc-cal-event.campus_CGU {
   background-color: #71101b;
 }
@@ -454,7 +464,7 @@ table.wc-time-slots {
 }
 
 /*
- Element-specific stylings
+ * Element-specific stylings
  */
 
 select {
@@ -463,57 +473,84 @@ select {
 
 #course-search-form {
 
-  .panel-heading {
-    color: #fff;
-    border: none;
-    background: #0071a6;
+  .message-header {
+    background: #2c3e50;
   }
 
-  .panel-block {
-    display: block;
-    background-color: #fafafa;
-    border: none;
-    padding: 0.75rem;
-  }
-
-  .label {
-    font-weight: normal;
-  }
-
-  .time {
-    margin-bottom: 10px;
-  }
-
-  select {
-
-    .cmc {
-      border-left: 10px solid #da3d38;
+  .message-body {
+    .label {
+      font-weight: normal;
     }
 
-    .hmc {
-      border-left: 10px solid #ca9a0a;
+    .time {
+      margin-bottom: 10px;
     }
 
-    .pomona {
-      border-left: 10px solid #1860cc;
+    .checkboxes .control {
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+
+      label {
+        margin: .25rem;
+      }
     }
 
-    .pitzer {
-      border-left: 10px solid #f49700;
+    .meets-on {
+      .is-checkradio[type="checkbox"].is-block + label,
+      .is-checkradio[type="radio"].is-block + label {
+        background: #dbdbdb;
+        color: #363636;
+        opacity: 0.5;
+      }
+
+      .is-checkradio[type="checkbox"]:checked + label,
+      .is-checkradio[type="radio"]:checked + label {
+        background: #209cee;
+        color: #fff;
+        opacity: 1;
+      }
     }
 
-    .scripps {
-      border-left: 10px solid #889e5a;
+    .colleges {
+      .is-checkradio[type="checkbox"].is-block + label,
+      .is-checkradio[type="radio"].is-block + label {
+        opacity: 0.5;
+        color: #363636;
+      }
+
+      .is-checkradio[type="checkbox"]:checked + label,
+      .is-checkradio[type="radio"]:checked + label {
+        color: #fff;
+        opacity: 1;
+      }
     }
   }
 }
 
-#course-schedule-list {
-  padding-bottom: 0.5rem;
-}
+#course-list-results-container {
 
-#course-list-results {
-  height: 885px;
+  .message-header {
+    background: #2c3e50;
+    font-weight: 300;
+  }
+
+  #course-list-results {
+    padding: 0;
+    height: 729px;
+
+    .message {
+
+      margin-bottom: 0;
+
+      .message-header {
+        border-radius: 0;
+      }
+
+      .message-body {
+        background-color: whitesmoke;
+      }
+    }
+  }
 }
 
 #reviews-list-results {
@@ -528,7 +565,6 @@ select {
 .course-tags {
   flex-wrap: wrap;
   margin-bottom: 0.5rem !important;
-  height: 3.0rem !important;
 }
 
 .expandable {
@@ -562,7 +598,9 @@ select {
   }
 }
 
-/* Form for course review */
+/*
+ * Form for course review
+ */
 
 fieldset, label {
   margin: 0;
