@@ -1,0 +1,135 @@
+<% academic_terms = @academic_terms %>
+<% departments = @departments %>
+
+<div class="message">
+  <div class="message-header">
+    <div>Search Courses</div>
+  </div>
+  <div class="message-body">
+    <%= form_with url: courses_search_url, remote: true do |f| %>
+      <div class="field">
+        <label class="label">Course name</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">School</label>
+        <div class="field is-grouped checkboxes">
+          <div class="control">
+            <label class="checkbox campus_PO">
+              <span class="campus">PO</span> <%= check_box_tag(:pomona) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_CM">
+              <span class="campus">CM</span> <%= check_box_tag(:claremont_mckenna) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_HM">
+              <span class="campus">HM</span> <%= check_box_tag(:harvey_mudd) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_SC">
+              <span class="campus">SC</span> <%= check_box_tag(:scripps) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_PZ">
+              <span class="campus">PZ</span> <%= check_box_tag(:pitzer) %>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Department</label>
+        <div class="control">
+          <div class="select">
+            <%= f.select :department, options_for_select(
+                departments.collect(&:name)
+            ), :prompt => "(any)" %>
+          </div>
+        </div>
+      </div>
+      <div class="expandable">
+        <div class="field">
+          <label class="label">Term</label>
+          <div class="control">
+            <div class="select">
+              <%= f.select :academic_term, options_for_select(
+                  (academic_terms.collect(&:session).zip academic_terms.collect(&:year)).map {|t| t.join " "}
+              ) %>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Meets on</label>
+          <div class="field is-grouped checkboxes">
+            <div class="control">
+              <label class="checkbox day-checkbox">
+                <span class="day">Monday</span> <%= check_box_tag(:monday) %>
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox day-checkbox">
+                <span class="day">Tuesday</span> <%= check_box_tag(:tuesday) %>
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox day-checkbox">
+                <span class="day">Wednesday</span> <%= check_box_tag(:wednesday) %>
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox day-checkbox">
+                <span class="day">Thursday</span> <%= check_box_tag(:thursday) %>
+              </label>
+            </div>
+            <div class="control">
+              <label class="checkbox day-checkbox">
+                <span class="day">Friday</span> <%= check_box_tag(:friday) %>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Start time</label>
+          <div class="control time">
+            <%= f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">End time</label>
+          <div class="control">
+            <%= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Taught by</label>
+          <div class="control">
+            <div class="control">
+              <%= f.text_field :instructor, :class => "input", :placeholder => "Instructor" %>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Numbered</label>
+          <div class="control">
+            <div class="control">
+              <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal buttons margin-top-1">
+        <%= f.submit "Search", :class => "button is-link search-button margin-bottom-1" %>
+        <a href="#" class="button is-outlined text-center expand-search-options margin-bottom-1">Show advanced
+          search</a>
+      </div>
+    <% end %>
+  </div>
+</div>

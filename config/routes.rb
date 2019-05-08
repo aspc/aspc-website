@@ -26,8 +26,10 @@ Rails.application.routes.draw do
   end
 
   scope controller: :courses do
-    get 'courses' => :index
+    get 'courses' => :reviews
     get 'courses/export' => :export_course_sections
+    get 'scheduler' => :index
+    get 'courses/:id/review' => :add_review_course_section, as: :review_course_section
     get 'courses/:id' => :show, as: :course
     post 'courses/add' => :add_course_section_to_schedule
     post 'courses/remove' => :remove_course_section_from_schedule
@@ -37,7 +39,10 @@ Rails.application.routes.draw do
   end
 
   scope controller: :instructors do
+    get 'instructors' => :index
+    get 'instructors/:id/review' => :add_instructor_review, as: :review_instructor
     get 'instructors/:id' => :show, as: :instructor
+    match 'instructors/search' => :search, :via => [:get, :post]
   end
 
   scope controller: :menu do

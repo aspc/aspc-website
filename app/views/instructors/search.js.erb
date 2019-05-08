@@ -1,0 +1,4 @@
+$("#instructors-list-container")
+    .hide()
+    .html("<%= escape_javascript(render partial: 'instructors/partials/instructors_list', locals: { instructors: @instructors }) %>")
+    .fadeIn('slow');
