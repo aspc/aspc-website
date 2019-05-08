@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     post 'reviews/courses/search' => :search_course_reviews, as: :course_reviews_search
     post 'reviews/instructors/search' => :search_instructor_reviews, as: :instructor_reviews_search
     post 'reviews/courses' => :create, as: :create_course_review
+    delete 'reviews/:id' => :destroy, :as => :delete_course_review
   end
 
   scope controller: :courses do

@@ -75,6 +75,13 @@
         <p><em>Review written <%= review.written_at %></em></p>
       </div>
     </div>
+    <% if !current_user.nil? && review.user_id == current_user.id %>
+      <div class="columns">
+        <div class="column">
+          <%= link_to "Delete", delete_course_review_path(review), :method => 'delete', class: "button is-danger is-outlined" %>
+        </div>
+      </div>
+    <% end %>
     <hr />
   <% end %>
 <% else %>

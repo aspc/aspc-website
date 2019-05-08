@@ -14,6 +14,16 @@ class CourseReviewsController < ApplicationController
     @course_review = CourseReview.new
   end
 
+  # DELETE /reviews/course/:course_id/:
+  def destroy
+    course_review = CourseReview.find_by(:id => params[:id])
+    if current_user.id == course_review.user_id
+      course_review.destroy
+    end
+
+    redirect_to course_path(course_review.course), notice: "Course review was successfully deleted."
+  end
+
   def show_course_reviews
     @academic_terms = AcademicTerm.current_academic_year
     @departments = Department.all
@@ -31,10 +41,10 @@ class CourseReviewsController < ApplicationController
        :work_per_week => review_params[:work_per_week],
        :comments => review_params[:comments],
        :course_id => review_params[:course_id],
-       :instructor_id => review_params[:instructor_id]
+       :instructor_id => review_params[:instructor_id],
+       :user_id => current_user.id,
     )
 
-    course_id = review_params[:course_id]
     @course = @course_review.course #Course.find_by(:id => course_id)
 
     respond_to do |format|

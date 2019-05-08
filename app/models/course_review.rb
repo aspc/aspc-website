@@ -3,6 +3,7 @@ class CourseReview < ApplicationRecord
 
   belongs_to :course
   belongs_to :instructor
+  belongs_to :user, :optional => true
 
   validates :course, :presence => true
   validates :overall_rating, :presence => true
