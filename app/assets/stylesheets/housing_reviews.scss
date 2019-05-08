@@ -1,3 +1,9 @@
 // Place all the styles related to the housing reviews controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.residence-hall-image img {
+  object-fit: cover;
+  width: 700px;
+  height: 700px;
+}
