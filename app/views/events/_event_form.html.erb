@@ -18,28 +18,28 @@
   <div class="field">
     <%= form.label :event_name, :class => "label"%>
     <div class="control">
-      <%= form.text_field :name, :class => "input"  , :class => "input is-rounded" %>
+      <%= form.text_field :name, :class => "input"  , :class => "input" %>
     </div>
   </div>
 
   <%= form.label :event_start, :class => "label"%>
   <div class="field is-grouped is-grouped-multiline">
     <div class="control">
-      <%= form.date_field :start_date, :class => "input" , :class => "input is-rounded", :id => "datepickerDemo2" %>
+      <%= form.date_field :start_date, :class => "input" , :class => "input", :id => "datepickerDemo2" %>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :start_hour, 1..12, :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :start_hour, 1..12, :class => "input" %>
       </div>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :start_minute, (0..59).map {|t| '%02d' % t}, :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :start_minute, (0..59).map {|t| '%02d' % t}, :class => "input" %>
       </div>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :start_meridiem, ['AM', 'PM'], :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :start_meridiem, ['AM', 'PM'], :class => "input" %>
       </div>
     </div>
   </div>
@@ -47,42 +47,42 @@
   <%= form.label :event_end, :class => "label"%>
   <div class="field is-grouped is-grouped-multiline">
     <div class="control">
-      <%= form.date_field :end_date, :class => "input" , :class => "input is-rounded", :id => "datepickerDemo2" %>
+      <%= form.date_field :end_date, :class => "input" , :class => "input", :id => "datepickerDemo2" %>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :end_hour, 1..12, :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :end_hour, 1..12, :class => "input" %>
       </div>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :end_minute, (0..59).map {|t| '%02d' % t}, :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :end_minute, (0..59).map {|t| '%02d' % t}, :class => "input" %>
       </div>
     </div>
     <div class="control">
-      <div class="select is-rounded">
-        <%= form.select :end_meridiem, ['AM', 'PM'], :class => "input is-rounded" %>
+      <div class="select">
+        <%= form.select :end_meridiem, ['AM', 'PM'], :class => "input" %>
       </div>
     </div>
   </div>
 
   <div class="field">
     <%= form.label :location, :class => "label" %>
-    <%= form.text_field :location, :class => "input is-rounded" %>
+    <%= form.text_field :location, :class => "input" %>
   </div>
 
   <div class="field">
     <%= form.label :host, :class => "label" %>
-    <%= form.text_field :host, :class => "input is-rounded" %>
+    <%= form.text_field :host, :class => "input" %>
   </div>
 
   <div class="field">
     <%= form.label :college_affiliation, :class => "label" %>
     <div class="control is-expanded">
-      <div class="select is-fullwidth is-rounded">
+      <div class="select is-fullwidth">
         <%= form.select :college_affiliation, options_for_select(
             Event.college_affiliations.keys.map { |e| e.sub('_', ' ').titleize }
-        ), :class => "input is-rounded" %>
+        ), :class => "input" %>
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@
 
   <div class="field">
     <%= form.label :description, :class => "label" %>
-    <%= form.text_area :description, :class => "textarea is-rounded" %>
+    <%= form.text_area :description, :class => "textarea" %>
   </div>
 
   <div class="field">

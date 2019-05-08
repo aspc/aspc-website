@@ -30,10 +30,10 @@
     <% end %>
     <hr>
     <p class="is-size-5 is-bold margin-bottom-1">Export this event:</p>
-      <a class="button is-link" href="<%= google_calendar_add_url @event %>" target="_blank">
+      <a class="button is-info" href="<%= google_calendar_add_url @event %>" target="_blank">
         Google Calendar
       </a>
-      <%= link_to "iCalendar", export_event_path, class: "button is-link", method: :get %>
+      <%= link_to "iCalendar", export_event_path, class: "button is-info", method: :get %>
     </div>
   </div>
 </div>
