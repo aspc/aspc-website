@@ -1,5 +1,5 @@
 class CourseReviewsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!
 
   # GET /reviews/:id
   def show
