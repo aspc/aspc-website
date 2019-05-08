@@ -1,0 +1,75 @@
+<% academic_terms = @academic_terms %>
+<% departments = @departments %>
+
+<div class="message">
+  <div class="message-header">
+    <div>Search Courses</div>
+  </div>
+  <div class="message-body">
+    <%= form_with url: course_reviews_search_url, remote: true do |f| %>
+      <div class="field">
+        <label class="label">Course Name</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">School</label>
+        <div class="field is-grouped checkboxes">
+          <div class="control">
+            <label class="checkbox campus_PO">
+              <span class="campus">PO</span> <%= check_box_tag(:pomona) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_CM">
+              <span class="campus">CM</span> <%= check_box_tag(:claremont_mckenna) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_HM">
+              <span class="campus">HM</span> <%= check_box_tag(:harvey_mudd) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_SC">
+              <span class="campus">SC</span> <%= check_box_tag(:scripps) %>
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox campus_PZ">
+              <span class="campus">PZ</span> <%= check_box_tag(:pitzer) %>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Department</label>
+        <div class="control">
+          <div class="select">
+            <%= f.select :department, options_for_select(
+                departments.collect(&:name)
+            ), :prompt => "(any)" %>
+          </div>
+        </div>
+      </div>
+      <div class="expandable">
+        <div class="field">
+          <label class="label">Numbered</label>
+          <div class="control">
+            <div class="control">
+              <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal buttons margin-top-1">
+        <%= f.submit "Search", :class => "button is-link search-button margin-bottom-1" %>
+        <a href="#" class="button is-outlined text-center expand-search-options margin-bottom-1">Show advanced
+          search</a>
+      </div>
+    <% end %>
+  </div>
+</div>

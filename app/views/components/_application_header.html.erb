@@ -62,20 +62,26 @@
       <%= link_to "Menus", :menus, :class => "navbar-item" %>
 
 
-      <!-- Course Schedule / Reviews -->
-      <%= link_to "Courses", :courses, :class => "navbar-item" %>
-
-      <!--<div class="navbar-item has-dropdown is-hoverable">
-        <div class="navbar-link">
-          Courses
-        </div>
-        <div class="navbar-dropdown">
-          <%= link_to "Course Planner", :courses, :class => "navbar-item" %>
-        </div>
-      </div>-->
-
       <!-- Housing Search / Reviews -->
       <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+
+      <!-- Course Schedule / Reviews -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <span class="item-has-arrow">Courses</span>
+        </div>
+        <div class="navbar-dropdown">
+          <div class="navbar-content">
+            <%= link_to "Course Planner", :course_planner, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "Course Reviews", :course_reviews, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "Instructor Reviews", :instructor_reviews, :class => "navbar-item" %>
+          </div>
+        </div>
+      </div>
 
       <!-- ASPC -->
       <div class="navbar-item has-dropdown is-hoverable is-mega">

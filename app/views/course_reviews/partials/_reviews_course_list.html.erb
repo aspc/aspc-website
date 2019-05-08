@@ -1,0 +1,79 @@
+<% courses = local_assigns.fetch(:courses, []) %>
+
+<!-- Search Results -->
+<div id="reviews-course-list-container">
+  <% if courses %>
+    <div class="results-heading">
+      <b>Showing <%= courses.length %> results</b>
+    </div>
+    <div id="reviews-list-results">
+      <% courses.each do |course| %>
+        <% campus_background_color_class =
+               case course.schools.first
+               when :pomona
+                 "campus_PO"
+               when :claremont_mckenna
+                 "campus_CM"
+               when :harvey_mudd
+                 "campus_HM"
+               when :scripps
+                 "campus_SC"
+               when :pitzer
+                 "campus_PZ"
+               else
+                 "campus_KS"
+               end
+        %>
+
+        <article class="message is-dark">
+          <div class="message-header <%= campus_background_color_class %>">
+        <span>
+          <%= link_to course_path(course), :class => 'no-underline' do %>
+            <%= course.code %> - <%= course.name %>
+          <% end %>
+        </span>
+            <span class="is-pulled-right">
+          <%= link_to course_path(course), :class => 'no-underline' do %>
+            <%= render 'components/numerical_review',
+                       rating: course.overall_rating,
+                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                       show_icon: true %>
+          <% end %>
+        </span>
+          </div>
+          <div class="message-body">
+            <div class="columns">
+              <div class="column">
+                <p><span class="has-text-weight-semibold">Challenge rating:</span><%= render 'components/star_review', rating: course.challenge_rating, tag_classes: 'is-medium' %></p>
+                <p><span class="has-text-weight-semibold">Inclusivity rating:</span><%= render 'components/star_review', rating: course.inclusivity_rating, tag_classes: 'is-medium' %></p>
+                <p><span class="has-text-weight-semibold">Average work per week:</span>&nbsp;<span class="tag is-medium"><%= course.work_per_week %> hours</span></p>
+                <br/>
+                <p class="subtitle">Instructors who have taught this course</p>
+                <div id="course-schedule-list">
+                <div class="tags">
+                  <% course.instructors.each do |instructor| %>
+                      <span class="tag is-medium">
+                        <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                          <%= instructor.name %> &nbsp
+                        <% end %>
+                      </span>
+                      <%= render 'components/numerical_review',
+                                 rating: instructor.overall_rating, show_icon: true %>
+                      &nbsp;&nbsp;&nbsp;
+                  <% end %>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <%= link_to "Leave a review", new_course_review_path(course), :class => "button #{campus_background_color_class}" %>
+                <%= link_to "View detailed reviews", course_path(course), :class => "button is-light" %>
+              </div>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% end %>
+</div>

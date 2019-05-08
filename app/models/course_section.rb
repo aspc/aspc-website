@@ -10,4 +10,10 @@ class CourseSection < ApplicationRecord
   def has_meeting_time?(course_meeting_detail)
     return self.course_meeting_details.any? { | detail | course_meeting_detail == detail }
   end
+
+  def schools
+    self.course_meeting_details
+        &.collect{ |detail| detail.campus.to_sym }
+        .uniq
+  end
 end

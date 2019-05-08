@@ -37,6 +37,7 @@
  *= require home.scss
  *= require static.scss
  *= require menu.scss
+ *= require course_reviews.scss
  *
  * Global styles defined in this file
  *= require_self
@@ -259,6 +260,14 @@ a {
 .campus_CU {
     background-color: #391858 !important;
     color: white !important;
+}
+
+.has-brightness {
+    filter: brightness(1.25);
+}
+
+.results-heading {
+    margin: 20px auto 10px 0;
 }
 
 .campus_KS {

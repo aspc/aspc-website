@@ -1,0 +1,4 @@
+$("#instructors-list-container")
+    .hide()
+    .html("<%= escape_javascript(render partial: 'course_reviews/partials/reviews_instructors_list', locals: { instructors: @instructors }) %>")
+    .fadeIn('slow');
