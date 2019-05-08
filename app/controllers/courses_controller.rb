@@ -14,10 +14,6 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
-  def reviews
-    @academic_terms = AcademicTerm.current_academic_year
-    @departments = Department.all
-  end
 
   def add_review_course_section
     @course = Course.find(params[:id])
@@ -131,6 +127,8 @@ class CoursesController < ApplicationController
     end
   end
 
+# TODO: Refactor this - break it up into manageable components
+# Possibly separate search into a separate module entirely (as it is used similarly in course reviews)
   def search_course_sections
     if params[:academic_term].nil? || params[:academic_term].empty?
       return render :json => {error: "No academic term specified"}, :status => :bad_request
@@ -141,13 +139,15 @@ class CoursesController < ApplicationController
     instructor_name = params[:instructor].strip unless params[:instructor].empty?
     number = params[:number].to_i rescue nil unless params[:number].empty?
     keywords = params[:keywords].split rescue nil unless params[:keywords].empty?
-    # Remove time filter
+
+
+    # Remove time filter TODO: re-enable
     # start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
     # start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
     # end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
     # end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
-    # Remove time filter
+    # Remove time filter TODO: re-enable
     # consider_time = false
     # if not start_hour.nil?  # if user specifies start time
     #   start_time = Time.new(1970, 1, 1, start_hour, start_minute)
@@ -169,10 +169,6 @@ class CoursesController < ApplicationController
     # times need to be shifted back 7/8 hours by converting from UTC to PST/PDT
     # start_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(start_time) if start_time
     # end_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(end_time) if end_time
-
-    Rails.logger.debug params.inspect
-    # Rails.logger.debug (params[:schools].include?("Pomona") || false)
-    # Test disabled since params for schools and days have been reverted to separate checkboxes
 
     # Gets results from individual checkboxes with corresponding symbols
     schools = {
@@ -210,7 +206,7 @@ class CoursesController < ApplicationController
                           .where(:course_meeting_details => days)
     end
 
-    # Remove time filter
+    # Remove time filter TODO: re-enable
     # if (consider_time)
     #   matches_query = matches_query
     #                       .joins(:course_meeting_details)

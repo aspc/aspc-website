@@ -25,21 +25,26 @@ Rails.application.routes.draw do
   end
 
   scope controller: :course_reviews do
-    get 'courses/:course_id/review/new' => :new, as: :new_course_review
-    post 'reviews' => :create, as: :course_reviews
+    get 'reviews/courses' => :show_course_reviews, as: :course_reviews
+    get 'reviews/instructors' => :show_instructor_reviews, as: :instructor_reviews
+    get 'reviews/courses/:course_id/new' => :new, as: :new_course_review
+    post 'reviews/courses/search' => :search_course_reviews, as: :course_reviews_search
+    post 'reviews/instructors/search' => :search_instructor_reviews, as: :instructor_reviews_search
+    post 'reviews/courses' => :create, as: :create_course_review
   end
 
   scope controller: :courses do
-    get 'courses' => :reviews
-    get 'courses/export' => :export_course_sections
-    get 'scheduler' => :index
+    get 'courses/planner' => :index, as: :course_planner
+    get 'courses/planner/export' => :export_course_sections, as: :courses_export
+    post 'courses/planner/add' => :add_course_section_to_schedule, as: :courses_add
+    post 'courses/planner/remove' => :remove_course_section_from_schedule, as: :courses_remove
+    post 'courses/planner/clear' => :clear_course_sections_from_schedule, as: :courses_clear
+    post 'courses/planner/save' => :save_course_sections_to_schedule, as: :courses_save
+
+    match 'courses/search' => :search_course_sections, :via => [:get, :post]
+
     get 'courses/:id/review' => :add_review_course_section, as: :review_course_section
     get 'courses/:id' => :show, as: :course
-    post 'courses/add' => :add_course_section_to_schedule
-    post 'courses/remove' => :remove_course_section_from_schedule
-    post 'courses/clear' => :clear_course_sections_from_schedule
-    post 'courses/save' => :save_course_sections_to_schedule
-    match 'courses/search' => :search_course_sections, :via => [:get, :post]
   end
 
   scope controller: :instructors do

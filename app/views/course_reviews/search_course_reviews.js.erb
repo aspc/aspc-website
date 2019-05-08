@@ -1,0 +1,5 @@
+$("#reviews-course-list-container")
+    .hide()
+    .html("<%= escape_javascript(render partial: 'course_reviews/partials/reviews_course_list', locals: { courses: @courses }) %>")
+    .fadeIn('slow');
+

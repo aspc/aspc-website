@@ -28,4 +28,13 @@ class Course < ApplicationRecord
         .reduce(:+)
         .uniq
   end
+
+  # collect all the schools that this course is taught at
+  def schools
+    #       matches = matches.select {|section| schools.any? {|campus| section.course_meeting_details.any? {|detail| detail.campus == campus.to_s}}}
+    self.course_sections
+        .collect{ |section| section.schools }
+        .reduce(:+)
+        .uniq
+  end
 end
