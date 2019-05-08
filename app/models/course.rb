@@ -24,7 +24,7 @@ class Course < ApplicationRecord
   # collect all instructors that have ever taught a section of this course
   def instructors
     self.course_sections
-        .collect{ |section| section.instructors }
+        &.collect{ |section| section.instructors }
         .reduce(:+)
         .uniq
   end
@@ -33,7 +33,7 @@ class Course < ApplicationRecord
   def schools
     #       matches = matches.select {|section| schools.any? {|campus| section.course_meeting_details.any? {|detail| detail.campus == campus.to_s}}}
     self.course_sections
-        .collect{ |section| section.schools }
+        &.collect{ |section| section.schools }
         .reduce(:+)
         .uniq
   end

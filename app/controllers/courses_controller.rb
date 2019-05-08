@@ -14,11 +14,6 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
-
-  def add_review_course_section
-    @course = Course.find(params[:id])
-  end
-
   def export_course_sections
     user_course_schedule = CourseSchedule.find_by(:user => current_user)
     course_sections = user_course_schedule.course_sections.includes(:course_meeting_details).where.not(course_meeting_details: {course_section_id: nil})

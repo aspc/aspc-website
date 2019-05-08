@@ -13,7 +13,7 @@ class CourseSection < ApplicationRecord
 
   def schools
     self.course_meeting_details
-        .collect{ |detail| detail.campus.to_sym }
+        &.collect{ |detail| detail.campus.to_sym }
         .uniq
   end
 end

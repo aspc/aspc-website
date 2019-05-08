@@ -44,23 +44,30 @@
           <div class="message-body">
             <div class="columns">
               <div class="column">
-                <p>
+                <p><span class="has-text-weight-semibold">Challenge rating:</span><%= render 'components/star_review', rating: course.challenge_rating, tag_classes: 'is-medium' %></p>
+                <p><span class="has-text-weight-semibold">Inclusivity rating:</span><%= render 'components/star_review', rating: course.inclusivity_rating, tag_classes: 'is-medium' %></p>
+                <p><span class="has-text-weight-semibold">Average work per week:</span>&nbsp;<span class="tag is-medium"><%= course.work_per_week %> hours</span></p>
+                <br/>
+                <p class="subtitle">Instructors who have taught this course</p>
+                <div id="course-schedule-list">
+                <div class="tags">
                   <% course.instructors.each do |instructor| %>
-                    <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
-                      <strong><%= instructor.name %> &nbsp;</strong>
+                      <span class="tag is-medium">
+                        <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                          <%= instructor.name %> &nbsp
+                        <% end %>
+                      </span>
                       <%= render 'components/numerical_review',
                                  rating: instructor.overall_rating, show_icon: true %>
-                    <% end %>
-
-                    <br/>
+                      &nbsp;&nbsp;&nbsp;
                   <% end %>
-                  <br/>
-                </p>
+                </div>
+                </div>
               </div>
             </div>
             <div class="columns">
               <div class="column">
-                <%= link_to "Leave a review", review_course_section_path(course), :class => "button" %>
+                <%= link_to "Leave a review", new_course_review_path(course), :class => "button #{campus_background_color_class}" %>
               </div>
             </div>
           </div>

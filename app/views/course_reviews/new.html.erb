@@ -1,8 +1,8 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Submit Course Review", :subtitle => "Leave feedback for #{@course.name}" %>
+  <%= render 'components/page_header', :title => "Submit Course Review", :subtitle => "Leave feedback for #{@course.code}:  #{@course.name}" %>
 <% end %>
 
-<%= form_with(model: @course_review, local: true) do |form| %>
+<!--<%= form_with(model: @course_review, local: true) do |form| %>
   <% if @course_review.errors.any? %>
     <div id="error_explanation" class="box">
       <h5 class="subtitle is-5 has-text-grey">The following errors prohibited this review from being submitted: </h5>
@@ -75,5 +75,69 @@
 
   <div class="actions">
     <%= form.submit'Submit course', :class => "button is-info" %>
+  </div>
+<% end %>-->
+
+<%= form_with(model: @course_review, local: true) do |form| %>
+  <% if @course_review.errors.any? %>
+    <div id="error_explanation" class="box">
+      <h5 class="subtitle is-5 has-text-grey">The following errors prohibited this review from being submitted: </h5>
+
+      <% @course_review.errors.full_messages.each do |message| %>
+        <div class="message is-danger">
+          <p class="message-body">
+            <%= message %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :instructor_id %>
+    <div class="control">
+      <div class="select">
+        <%= form.select :instructor_id,
+                        options_for_select(@course.instructors.collect(&:name).zip @course.instructors.collect(&:id)),
+                        :class => "input is-rounded" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :overall_rating %>
+    <div class="control">
+      <%= render 'components/star_review_input', :id => "course_review[overall_rating]", tag_classes: 'is-medium' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :challenge_rating %>
+    <div class="control">
+      <%= render 'components/star_review_input', :id => "course_review[challenge_rating]", tag_classes: 'is-medium' %>
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :inclusivity_rating %>
+    <div class="control">
+      <%= render 'components/star_review_input', :id => "course_review[inclusivity_rating]", tag_classes: 'is-medium' %>
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :work_per_week %>
+    <div class="control">
+      <div class="select">
+        <%= form.select :work_per_week, options_for_select((0..20)) %>
+      </div> hours
+    </div>
+  </div>
+  <div class="field">
+    <%= form.label :comments %>
+    <div class="control">
+      <%= form.text_area :comments, :class => "textarea", :placeholder => "Your thoughts about the course", :rows => 6 %>
+    </div>
+  </div>
+  <%= form.hidden_field :course_id, :value => @course.id %>
+  <%= form.submit "Submit", :class => "button is-link margin-bottom-0" %>
   </div>
 <% end %>
