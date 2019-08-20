@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
 
   # Install rvm and ruby
   config.vm.provision :shell, path: "vagrant/lib/install-rvm.sh", args: "stable", privileged: false
-  config.vm.provision :shell, path: "vagrant/lib/install-ruby.sh", args: "2.3.3 bundler", privileged: false
+  config.vm.provision :shell, path: "vagrant/lib/install-ruby.sh", args: "2.6.3 bundler", privileged: false
 
   # Custom initialization - the meat and potatos
   config.vm.provision :shell, :path => "vagrant/init/init.sh"
