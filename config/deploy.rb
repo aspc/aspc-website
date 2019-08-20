@@ -17,6 +17,13 @@ ask :user, "Username for peninsula.pomona.edu"
 ask :password, "Password for peninsula.pomona.edu", echo: false
 
 # Default branch is :master
+set :git_wrapper_path, lambda {
+    # Try to avoid permissions issues when multiple users deploy the same app
+    # by using different file names in the same dir for each deployer and stage.
+    suffix = %i(application stage user).map { |key| fetch(key).to_s }.join("-")
+
+    "#{fetch(:tmp_dir)}/git-ssh-#{suffix}.sh"
+}
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Set default rails environment to production (may be overridden in production/staging configs)
