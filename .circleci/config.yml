@@ -1,7 +1,7 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
-    parallelism: 3 # run three instances of this job in parallel
+    parallelism: 1 # run three instances of this job in parallel
     docker: # run the steps with Docker
       - image: circleci/ruby:2.6.3-buster-node # this is where all `steps` will run
         environment: # environment variables for primary container
@@ -25,7 +25,6 @@ jobs: # a collection of steps
           command: |
             gem update --system
             gem install bundler
-            bundle update --bundler
 
       # Which version of bundler?
       - run:
