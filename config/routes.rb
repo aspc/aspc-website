@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   root :to => 'static#index'
 
   ActiveAdmin.routes(self)
@@ -102,10 +101,5 @@ Rails.application.routes.draw do
     post 'pages/:id/delete_file' => 'static#delete_file', as: :static_page_delete_file
 
     get '/uploads/:image_name' => :load_image
-  end
-
-  # Logging solution
-  constraints lambda { |req| User.find_by_id(req.session[:current_user_id])&.is_admin? } do
-    mount Logster::Web => '/logs'
   end
 end
