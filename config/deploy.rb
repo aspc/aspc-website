@@ -13,10 +13,16 @@ set :application, "aspc"
 set :repo_url, "https://github.com/aspc/aspc-website.git"
 
 # SSH Authentication
-ask :user, "Username for peninsula.pomona.edu"
-ask :password, "Password for peninsula.pomona.edu", echo: false
+ssh_credentials = YAML.load(`rails credentials:show`).dig("capistrano", "ssh")
+if ssh_credentials["user"] && ssh_credentials["password"]
+    set :user, ssh_credentials["user"]
+    set :password, ssh_credentials["password"]
+else
+    ask :user, "Username for peninsula.pomona.edu"
+    ask :password, "Password for peninsula.pomona.edu", echo: false
+end
 
-# Default branch is :master
+# Git permissions
 set :git_wrapper_path, lambda {
     # Try to avoid permissions issues when multiple users deploy the same app
     # by using different file names in the same dir for each deployer and stage.
@@ -24,7 +30,6 @@ set :git_wrapper_path, lambda {
 
     "#{fetch(:tmp_dir)}/git-ssh-#{suffix}.sh"
 }
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Set default rails environment to production (may be overridden in production/staging configs)
 set :rails_env, :production
