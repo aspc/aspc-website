@@ -86,4 +86,27 @@ jobs: # a collection of steps
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test_results
 
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
+  # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
+  deploy-production:
+    docker:
+      - image: circleci/ruby:2.6.3-buster-node
+    steps:
+      - checkout
+      - run:
+          name: Bundle install
+          command: bundle check || bundle install
+      - run:
+          name: Deploy to Peninsula
+          command: bundle exec cap production deploy
+
+workflows:
+  version: 2
+  build-deploy-production:
+    jobs:
+      - build
+      - deploy-production:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
