@@ -24,11 +24,13 @@ require "capistrano/rvm"
 require "capistrano/rails"
 require "capistrano/puma"
 require "capistrano/yarn"
+require "byebug"
 
 install_plugin Capistrano::Puma  # Default puma tasks
 
 # Execute rake tasks remotely
 require "capistrano/rake"
+require "capistrano/yarn"
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
