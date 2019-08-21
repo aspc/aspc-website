@@ -94,49 +94,49 @@
             <div class="column">
               <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
               <div class="navbar-content">
-                <%= link_to "Senators", :aspc_senators, :class => "navbar-item" %>
+                <%= link_to "Senators", static_path(page_name: "senators"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Staff Members", :aspc_staff, :class => "navbar-item" %>
+                <%= link_to "Staff Members", static_path(page_name: "staff"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
                 <%= link_to "Committee Members", static_path(page_name: "committee"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Pomona Events Committee", :aspc_pec, :class => "navbar-item" %>
+                <%= link_to "Pomona Events Committee", static_path(page_name: "pec"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Software Development Group", :aspc_software, :class => "navbar-item" %>
+                <%= link_to "Software Development Group", static_path(page_name: "software"), :class => "navbar-item" %>
               </div>
             </div>
             <div class="column">
               <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
               <div class="navbar-content">
-                <%= link_to "Positions", :aspc_positions, :class => "navbar-item" %>
+                <%= link_to "Positions", static_path(page_name: "positions"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Meetings and Minutes", "/pages/minutes", :class => "navbar-item" %>
+                <%= link_to "Meetings and Minutes", static_path(page_name: "minutes"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
                 <%= link_to "Budget", static_path(page_name: "budget"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>
+                <%= link_to "Constitution", static_path(page_name: "constitution"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Bylaws", :aspc_policies_bylaws, :class => "navbar-item" %>
+                <%= link_to "Bylaws", static_path(page_name: "bylaws"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Elections Code", :aspc_policies_electionscode, :class => "navbar-item" %>
+                <%= link_to "Elections Code", static_path(page_name: "elections"), :class => "navbar-item" %>
               </div>
             </div>
             <div class="column">
               <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
               <div class="navbar-content">
-                <%= link_to "Senior Class Page", "/pages/senior-class-page", :class => "navbar-item" %>
+                <%= link_to "Senior Class Page", static_path(page_name: "senior-class-page"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Funding Request", :aspc_funding_request, :class => "navbar-item" %>
+                <%= link_to "Funding Request", static_path(page_name: "funding-request"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
                 <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
