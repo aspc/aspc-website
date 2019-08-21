@@ -25,10 +25,14 @@
       </div>
     </div>
 
-    <%= raw @page.pending_content %>
+    <div class="content">
+      <%= raw @page.pending_content %>
+    </div>
 
 <!-- Otherwise show the approved content -->
 
 <% else %>
+  <div class="content">
     <%= raw @page.approved_content %>
+  </div>
 <% end %>
