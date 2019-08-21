@@ -100,7 +100,7 @@
                 <%= link_to "Staff Members", :aspc_staff, :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Committee Members", :aspc_committee, :class => "navbar-item" %>
+                <%= link_to "Committee Members", static_path(page_name: "committee"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
                 <%= link_to "Pomona Events Committee", :aspc_pec, :class => "navbar-item" %>
@@ -118,7 +118,7 @@
                 <%= link_to "Meetings and Minutes", "/pages/minutes", :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
-                <%= link_to "Budget", "/pages/budget", :class => "navbar-item" %>
+                <%= link_to "Budget", static_path(page_name: "budget"), :class => "navbar-item" %>
               </div>
               <div class="navbar-content">
                 <%= link_to "Constitution", :aspc_policies_constitution, :class => "navbar-item" %>

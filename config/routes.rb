@@ -92,7 +92,7 @@ Rails.application.routes.draw do
     get 'courses/reviews' => :reviews_coming_soon
 
     get 'pages/id/:id' => :show, as: :static_page
-    get 'pages/:page_name' => :show
+    get 'pages/:page_name' => :show, as: :static
 
     post 'pages/:id/update' => 'static#save', as: :static_page_update
     post 'pages/:id/upload_image' => 'static#upload_image', as: :static_page_upload_image
