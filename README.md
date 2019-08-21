@@ -1,4 +1,5 @@
-[![CircleCI](https://circleci.com/gh/aspc/aspc-website/tree/master.svg?style=svg)](https://circleci.com/gh/aspc/aspc-website/tree/master)
+[![CircleCI](https://circleci.com/gh/aspc/aspc-website/tree/master.svg?style=svg)](https://circleci.com/gh/aspc/aspc-website/tree/master) 
+[![Coverage Status](https://coveralls.io/repos/github/aspc/aspc-website/badge.svg?branch=master)](https://coveralls.io/github/aspc/aspc-website?branch=master)
 
 
 # ASPC Website 2.0
