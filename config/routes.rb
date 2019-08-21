@@ -72,27 +72,8 @@ Rails.application.routes.draw do
   scope controller: :static do
     get 'index' => :index
 
-    get 'aspc/senators' => :aspc_senators
-    get 'aspc/staff' => :aspc_staff
-    get 'aspc/committee' => :aspc_committee
-    get 'aspc/pec' => :aspc_pec
-    get 'aspc/software' => :aspc_software
-    get 'aspc/positions' => :aspc_positions
-    get 'aspc/policies' => :aspc_policies
-    get 'aspc/policies/constitution' => :aspc_policies_constitution
-    get 'aspc/policies/bylaws' => :aspc_policies_bylaws
-    get 'aspc/policies/positions' => :aspc_positions
-    get 'aspc/policies/electionscode' => :aspc_policies_electionscode
-    get 'aspc/meeting-minutes' => :aspc_meeting_minutes
-    get 'aspc/funding-request' => :aspc_funding_request
-
-    get 'resources/api' => :resources_api
-    get 'resources/coop-fountain' => :resources_coop_fountain
-
-    get 'courses/reviews' => :reviews_coming_soon
-
     get 'pages/id/:id' => :show, as: :static_page
-    get 'pages/:page_name' => :show
+    get 'pages/:page_name' => :show, as: :static
 
     post 'pages/:id/update' => 'static#save', as: :static_page_update
     post 'pages/:id/upload_image' => 'static#upload_image', as: :static_page_upload_image
