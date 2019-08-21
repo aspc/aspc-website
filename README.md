@@ -1,4 +1,8 @@
-# ASPC 2.0
+[![CircleCI](https://circleci.com/gh/aspc/aspc-website/tree/master.svg?style=svg)](https://circleci.com/gh/aspc/aspc-website/tree/master)
+
+
+# ASPC Website 2.0
+
 This repo is intended to be a complete rewrite of [pomonastudents.org](https://pomonastudents.org) (formerly [aspc.pomona.edu](http://aspc.pomona.edu)). The aim of this project is to:
  - Put the content that most people use front and center
  - Redesign the website from the ground up
