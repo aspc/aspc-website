@@ -3,8 +3,6 @@ class StaticController < ApplicationController
   require 'open-uri'
   require 'nokogiri'
 
-  # NEW - froala
-
   # Custom form in activeadmin breaks CSRF
   # This is a workaround while we figure out a better solution
   # skip_before_action :verify_authenticity_token, :only => [:upload_image]
@@ -12,10 +10,6 @@ class StaticController < ApplicationController
 
   # Reference: https://github.com/froala/editor-ruby-sdk-example
   # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload
-
-  # Index.
-  def index
-  end
 
   def show
     if params[:id]
@@ -81,8 +75,8 @@ class StaticController < ApplicationController
     render :json => FroalaEditorSDK::Image.delete(params[:src], "public/uploads/")
   end
 
-  # OLD - hand-coded static pages
-
+  ##
+  # Custom actions for special, hardcoded views
   def index
     @announcements = Announcement.all
     time = Time.parse(Time.now.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d %H:%M:%S')).to_s(:db)
@@ -90,11 +84,11 @@ class StaticController < ApplicationController
     @news = news
   end
 
-  def aspc_senators
+  def senators
     @senators = Person.senator.order("id ASC")
   end
 
-  def aspc_staff
+  def staff
     @staff = Person.staff.order("id ASC")
     @board = Person.board.order("id ASC")
   end
@@ -113,5 +107,4 @@ class StaticController < ApplicationController
     end
     return rss_results
   end
-
 end
