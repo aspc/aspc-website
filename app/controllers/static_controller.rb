@@ -1,8 +1,4 @@
 class StaticController < ApplicationController
-  require 'rss'
-  require 'open-uri'
-  require 'nokogiri'
-
   # Custom form in activeadmin breaks CSRF
   # This is a workaround while we figure out a better solution
   # skip_before_action :verify_authenticity_token, :only => [:upload_image]
@@ -96,6 +92,9 @@ class StaticController < ApplicationController
   private
 
   def news
+    require 'rss'
+    require 'open-uri'
+
     rss_results = []
     rss = RSS::Parser.parse(open("https://tsl.news/feed").read, false).items[0..2]
 
