@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     return false unless logged_in?
-    current_user.is_admin?
+    current_user.admin? || current_user.contributor?
   end
 
   def authenticate_user!
@@ -34,8 +34,7 @@ class ApplicationController < ActionController::Base
         dev_user = User.find_or_create_by(:email => "dev_user@pomonastudents.org",
                                           :first_name => "dev_user",
                                           :is_cas_authenticated => false,
-                                          :is_admin => true,
-                                          :role => :admin,
+                                          :role => :contributor,
                                           :school => :pomona,
                                           :password => "dev_password");
 
