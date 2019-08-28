@@ -24,7 +24,6 @@ require "capistrano/rvm"
 require "capistrano/rails"
 require "capistrano/puma"
 require "capistrano/yarn"
-require "byebug"
 
 install_plugin Capistrano::Puma  # Default puma tasks
 
