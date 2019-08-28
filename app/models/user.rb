@@ -3,9 +3,9 @@ class User < ApplicationRecord
   has_many :housing_reviews
 
   validates :email, :presence => true, :uniqueness => true
+  validates  :role, :presence => true
   validates :first_name, :presence => true
   validate :is_password_necessary
-  validate :is_role_valid
 
   enum school: [ :unknown, :pomona, :claremont_mckenna, :harvey_mudd, :scripps, :pitzer ]
   enum role: { :user => 0, :admin => 1, :contributor => 2 }
@@ -15,12 +15,6 @@ class User < ApplicationRecord
 
     if password.blank?
       errors.add(:password, 'needs to be present if is_cas_authenticated is false')
-    end
-  end
-
-  def is_role_valid
-    if is_admin && role.blank?
-      errors.add(:is_admin, 'must have a role if designated as admin')
     end
   end
 end
