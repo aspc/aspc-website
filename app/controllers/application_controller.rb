@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def is_admin?
@@ -28,13 +28,13 @@ class ApplicationController < ActionController::Base
 
   private
     def setup_application_controller_environment
-      if(Rails.env.development?)
+      if Rails.env.development? && !logged_in?
         # Login as a fake user in development mode
         # NOTE: this user will _never_ be available in production
         dev_user = User.find_or_create_by(:email => "dev_user@pomonastudents.org",
                                           :first_name => "dev_user",
                                           :is_cas_authenticated => false,
-                                          :role => :contributor,
+                                          :role => :admin,
                                           :school => :pomona,
                                           :password => "dev_password");
 
