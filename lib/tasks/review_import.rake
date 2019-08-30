@@ -6,8 +6,10 @@ namespace :review_import do
     reviews_file = File.read(reviews_file_path)
     reviews = JSON.parse(reviews_file)
 
+    saved = 0
+    unsaved = 0
+
     reviews.each do |review_info|
-      puts review_info
       course_review = CourseReview.find_or_create_by(
         :overall_rating => review_info['overall_rating'],
         :challenge_rating => review_info['difficulty_rating'],
@@ -22,9 +24,16 @@ namespace :review_import do
       if course_review.course and course_review.instructor
         course_review.save
         Rails.logger.info "Successfully imported review for #{course_review.course.name}"
+
+        saved += 1
       else
         course_review.destroy
+        Rails.logger.info "Could not import course review #{course_review.inspect}"
+
+        unsaved += 1
       end
     end
+
+    Rails.logger.info "Imported #{saved} course reviews. Could not save #{unsaved} course reviews"
   end
 end
