@@ -1,7 +1,7 @@
 <% academic_terms = @academic_terms %>
 <% departments = @departments %>
 
-<div class="message">
+<section class="message" id="course-search-form">
   <div class="message-header">
     <div>Search Courses</div>
   </div>
@@ -17,31 +17,26 @@
       </div>
       <div class="field">
         <label class="label">School</label>
-        <div class="field is-grouped checkboxes">
+        <div class="field is-grouped checkboxes colleges">
           <div class="control">
-            <label class="checkbox campus_PO">
-              <span class="campus">PO</span> <%= check_box_tag(:pomona) %>
-            </label>
+            <input class="is-checkradio is-block is-info" id="pomona" type="checkbox" name="pomona" checked="checked">
+            <label for="pomona" class="campus_PO">Pomona</label>
           </div>
           <div class="control">
-            <label class="checkbox campus_CM">
-              <span class="campus">CM</span> <%= check_box_tag(:claremont_mckenna) %>
-            </label>
+            <input class="is-checkradio is-block is-info" id="claremont_mckenna" type="checkbox" name="claremont_mckenna" checked="checked">
+            <label for="claremont_mckenna" class="campus_CM">CMC</label>
           </div>
           <div class="control">
-            <label class="checkbox campus_HM">
-              <span class="campus">HM</span> <%= check_box_tag(:harvey_mudd) %>
-            </label>
+            <input class="is-checkradio is-block is-info" id="harvey_mudd" type="checkbox" name="harvey_mudd" checked="checked">
+            <label for="harvey_mudd" class="campus_HM">HM</label>
           </div>
           <div class="control">
-            <label class="checkbox campus_SC">
-              <span class="campus">SC</span> <%= check_box_tag(:scripps) %>
-            </label>
+            <input class="is-checkradio is-block is-info" id="scripps" type="checkbox" name="scripps" checked="checked">
+            <label for="scripps" class="campus_SC">SC</label>
           </div>
           <div class="control">
-            <label class="checkbox campus_PZ">
-              <span class="campus">PZ</span> <%= check_box_tag(:pitzer) %>
-            </label>
+            <input class="is-checkradio is-block is-info" id="pitzer" type="checkbox" name="pitzer" checked="checked">
+            <label for="pitzer" class="campus_PZ">PZ</label>
           </div>
         </div>
       </div>
@@ -72,4 +67,4 @@
       </div>
     <% end %>
   </div>
-</div>
+</section>
