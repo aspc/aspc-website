@@ -27,33 +27,43 @@
 
         <div class="message is-dark">
           <div class="message-header <%= campus_background_color_class %>">
-            <%= instructor.name %>
-            <%= render 'components/numerical_review', rating: instructor.overall_rating, tag_classes: 'is-info', show_icon: true %>
+            <div class="margin-bottom-half is-size-5">
+              <%= instructor.name %>
+            </div>
+            <div>
+              <%= render 'components/numerical_review', rating: instructor.overall_rating, tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                         show_icon: true %>
+              <span class="tag categorized-rating">Challenge rating:&nbsp;<%= render 'components/star_review', rating: instructor.challenge_rating %></span>
+              <span class="tag categorized-rating">Inclusivity rating:&nbsp;<%= render 'components/star_review', rating: instructor.inclusivity_rating %></span>
+              <span class="tag categorized-rating">Average work per week:&nbsp;<%= instructor.work_per_week %>
+                hours</span>
+            </div>
           </div>
           <div class="message-body">
-            <p><span class="has-text-weight-semibold">Challenge rating:</span><%= render 'components/star_review', rating: instructor.challenge_rating, tag_classes: 'is-medium' %></p>
-            <p><span class="has-text-weight-semibold">Inclusivity rating:</span><%= render 'components/star_review', rating: instructor.inclusivity_rating, tag_classes: 'is-medium' %></p>
-            <p><span class="has-text-weight-semibold">Average work per week:</span>&nbsp;<span class="tag is-medium"><%= instructor.work_per_week %> hours</span></p>
-            <br/>
-            <p class="subtitle">Courses taught by this instructor</p>
-            <div id="course-schedule-list">
-              <div class="tags course-tags">
-                <% instructor.courses.each do |course| %>
-                  <span class="tag is-medium <%= campus_background_color_class %>">
-                    <%= link_to course_path(course), :class => "has-text-white no-underline" do %>
-                      <%= course.code %>
+            <div class="columns">
+              <div class="column">
+                <h5 class="subtitle is-5 margin-bottom-half has-text-weight-semibold">Courses taught:</h5>
+                <div id="course-schedule-list">
+                  <ul>
+                    <% instructor.courses.each do |course| %>
+                      <li>
+                        <%= link_to course_path(course), :class => "no-underline" do %>
+                          <%= course.code %>: <%= course.name %>
+                        <% end %>
+                      </li>
                     <% end %>
-                  </span>
-                <% end %>
+                  </ul>
+                </div>
               </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <%= link_to "View detailed reviews", instructor_path(instructor), :class => "button is-link #{campus_background_color_class}" %>
             </div>
-
-            <br />
-            <%= link_to "View detailed reviews", instructor_path(instructor), :class => "button is-light" %>
-
           </div>
         </div>
+        </div>
       <% end %>
-    </div>
+      </div>
   <% end %>
-</div>
+  </div>
