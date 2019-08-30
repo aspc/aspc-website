@@ -33,12 +33,10 @@
               <% end %>
             </div>
             <div class="tags">
-              <%= link_to course_path(course), :class => 'no-underline' do %>
-                <%= render 'components/numerical_review',
-                           rating: course.overall_rating,
-                           tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
-                           show_icon: true %>
-              <% end %>
+              <%= render 'components/numerical_review',
+                         rating: course.overall_rating,
+                         tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                         show_icon: true %>
               <span class="tag categorized-rating">Challenge rating:&nbsp;<%= render 'components/star_review', rating: course.challenge_rating %></span>
               <span class="tag categorized-rating">Inclusivity rating:&nbsp;<%= render 'components/star_review', rating: course.inclusivity_rating %></span>
               <span class="tag categorized-rating">Average work per week:&nbsp;<%= course.work_per_week %>
@@ -49,7 +47,7 @@
             <div class="columns">
               <div class="column">
                 <div id="course-schedule-list">
-                  <h5 class="subtitle is-5 margin-bottom-half has-text-weight-semibold">Previous instructors:</h5>
+                  <h5 class="subtitle is-5 margin-bottom-half has-text-weight-semibold">Previous instructors</h5>
                   <ul>
                     <% course.instructors.each do |instructor| %>
                       <li>
