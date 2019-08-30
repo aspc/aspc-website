@@ -32,7 +32,7 @@
                 <%= course.code %>: <%= course.name %>
               <% end %>
             </div>
-            <div>
+            <div class="tags">
               <%= link_to course_path(course), :class => 'no-underline' do %>
                 <%= render 'components/numerical_review',
                            rating: course.overall_rating,

@@ -30,7 +30,7 @@
             <div class="margin-bottom-half is-size-5">
               <%= instructor.name %>
             </div>
-            <div>
+            <div class="tags">
               <%= render 'components/numerical_review', rating: instructor.overall_rating, tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
                          show_icon: true %>
               <span class="tag categorized-rating">Challenge rating:&nbsp;<%= render 'components/star_review', rating: instructor.challenge_rating %></span>
@@ -55,15 +55,15 @@
                   </ul>
                 </div>
               </div>
-          </div>
-          <div class="columns">
-            <div class="column">
-              <%= link_to "View detailed reviews", instructor_path(instructor), :class => "button is-link #{campus_background_color_class}" %>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <%= link_to "View detailed reviews", instructor_path(instructor), :class => "button is-link #{campus_background_color_class}" %>
+              </div>
             </div>
           </div>
         </div>
-        </div>
       <% end %>
-      </div>
+    </div>
   <% end %>
-  </div>
+</div>
