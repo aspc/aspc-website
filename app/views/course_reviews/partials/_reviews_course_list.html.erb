@@ -4,7 +4,7 @@
 <div id="reviews-course-list-container">
   <% if courses %>
     <div class="results-heading">
-      <b>Showing <%= courses.length %> results</b>
+      Showing <%= courses.length %> results
     </div>
     <div id="reviews-list-results">
       <% courses.each do |course| %>
@@ -25,50 +25,47 @@
                end
         %>
 
-        <article class="message is-dark">
+        <article class="message">
           <div class="message-header <%= campus_background_color_class %>">
-        <span>
-          <%= link_to course_path(course), :class => 'no-underline' do %>
-            <%= course.code %> - <%= course.name %>
-          <% end %>
-        </span>
-            <span class="is-pulled-right">
-          <%= link_to course_path(course), :class => 'no-underline' do %>
-            <%= render 'components/numerical_review',
-                       rating: course.overall_rating,
-                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
-                       show_icon: true %>
-          <% end %>
-        </span>
+            <div class="margin-bottom-half is-size-5">
+              <%= link_to course_path(course), :class => 'no-underline' do %>
+                <%= course.code %>: <%= course.name %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to course_path(course), :class => 'no-underline' do %>
+                <%= render 'components/numerical_review',
+                           rating: course.overall_rating,
+                           tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                           show_icon: true %>
+              <% end %>
+              <span class="tag categorized-rating">Challenge rating:&nbsp;<%= render 'components/star_review', rating: course.challenge_rating %></span>
+              <span class="tag categorized-rating">Inclusivity rating:&nbsp;<%= render 'components/star_review', rating: course.inclusivity_rating %></span>
+              <span class="tag categorized-rating">Average work per week:&nbsp;<%= course.work_per_week %>
+                hours</span>
+            </div>
           </div>
           <div class="message-body">
             <div class="columns">
               <div class="column">
-                <p><span class="has-text-weight-semibold">Challenge rating:</span><%= render 'components/star_review', rating: course.challenge_rating, tag_classes: 'is-medium' %></p>
-                <p><span class="has-text-weight-semibold">Inclusivity rating:</span><%= render 'components/star_review', rating: course.inclusivity_rating, tag_classes: 'is-medium' %></p>
-                <p><span class="has-text-weight-semibold">Average work per week:</span>&nbsp;<span class="tag is-medium"><%= course.work_per_week %> hours</span></p>
-                <br/>
-                <p class="subtitle">Instructors who have taught this course</p>
                 <div id="course-schedule-list">
-                <div class="tags">
-                  <% course.instructors.each do |instructor| %>
-                      <span class="tag is-medium">
+                  <h5 class="subtitle is-5 margin-bottom-half has-text-weight-semibold">Previous instructors:</h5>
+                  <ul>
+                    <% course.instructors.each do |instructor| %>
+                      <li>
                         <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
-                          <%= instructor.name %> &nbsp
+                          <%= instructor.name %>
                         <% end %>
-                      </span>
-                      <%= render 'components/numerical_review',
-                                 rating: instructor.overall_rating, show_icon: true %>
-                      &nbsp;&nbsp;&nbsp;
-                  <% end %>
-                </div>
+                      </li>
+                    <% end %>
+                  </ul>
                 </div>
               </div>
             </div>
             <div class="columns">
               <div class="column">
-                <%= link_to "Leave a review", new_course_review_path(course), :class => "button #{campus_background_color_class}" %>
-                <%= link_to "View detailed reviews", course_path(course), :class => "button is-light" %>
+                <%= link_to "Leave a review", new_course_review_path(course), :class => "button is-link #{campus_background_color_class} margin-right-half" %>
+                <%= link_to "View detailed reviews", course_path(course), :class => "button" %>
               </div>
             </div>
           </div>
