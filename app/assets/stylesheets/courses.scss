@@ -1,6 +1,7 @@
 // Place all the styles related to the courses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "_variables";
 
 /*
  * Course Schedule Calendar
@@ -392,75 +393,67 @@ table.wc-time-slots {
  */
 
 .wc-cal-event.campus_CGU {
-  background-color: #71101b;
+  background-color: $CGU;
 }
 
 .wc-cal-event.campus_CGU .wc-time {
-  background-color: #71101b;
-  border-color: #71101b
+  background-color: $CGU;
 }
 
 .wc-cal-event.campus_CM {
-  background-color: #da3d38;
+  background-color: $CM;
 }
 
 .wc-cal-event.campus_CM .wc-time {
-  background-color: #da3d38;
-  border-color: #da3d38
+  background-color: $CM;
 }
 
 .wc-cal-event.campus_CU {
-  background-color: #391858;
+  background-color: $CU;
 }
 
 .wc-cal-event.campus_CU .wc-time {
-  background-color: #391858;
-  border-color: #2e1246
+  background-color: $CU;
 }
 
 .wc-cal-event.campus_KS {
-  background-color: #391858;
+  background-color: $KS;
 }
 
 .wc-cal-event.campus_KS .wc-time {
-  background-color: #391858;
-  border-color: #2e1246
+  background-color: $KS;
 }
 
 .wc-cal-event.campus_HM {
-  background-color: #ca9a0a;
+  background-color: $HM;
 }
 
 .wc-cal-event.campus_HM .wc-time {
-  background-color: #ca9a0a;
-  border-color: #be8e0a
+  background-color: $HM;
 }
 
 .wc-cal-event.campus_PO {
-  background-color: #1860cc;
+  background-color: $PO;
 }
 
 .wc-cal-event.campus_PO .wc-time {
-  background-color: #1860cc;
-  border-color: #1855a7
+  background-color: $PO;
 }
 
 .wc-cal-event.campus_PZ {
-  background-color: #f49700;
+  background-color: $PZ;
 }
 
 .wc-cal-event.campus_PZ .wc-time {
-  background-color: #f49700;
-  border-color: #d77f00
+  background-color: $PZ;
 }
 
 .wc-cal-event.campus_SC {
-  background-color: #889e5a;
+  background-color: $SC;
 }
 
 .wc-cal-event.campus_SC .wc-time {
-  background-color: #889e5a;
-  border-color: #73874c
+  background-color: $SC;
 }
 
 /*
@@ -471,7 +464,7 @@ select {
   overflow-y: auto;
 }
 
-#course-search-form {
+#course-search-form, #instructor-search-form {
 
   .message-header {
     background: #2c3e50;
@@ -528,7 +521,6 @@ select {
 }
 
 #course-list-results-container {
-
   .message-header {
     background: #2c3e50;
     font-weight: 300;
@@ -556,10 +548,28 @@ select {
 #reviews-list-results {
   height: auto;
   overflow: auto;
+
+  .button_to {
+    display: inline-block;
+  }
+
+  .message-header {
+    display: block;
+  }
 }
 
-#reviews-list-results .button_to {
-  display: inline-block;
+#instructors-list-results {
+  .message-header {
+    display: block;
+  }
+}
+
+#reviews-list-results, #instructors-list-results {
+  .tag.categorized-rating {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.45);
+  }
 }
 
 .course-tags {

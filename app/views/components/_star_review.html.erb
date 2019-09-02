@@ -1,7 +1,7 @@
 <% rating = local_assigns.fetch(:rating) || 0 %>
 <% solid_stars = (rating - 0.25).round %>
 <% half_star = (rating + 0.25 - solid_stars).round %>
-<% empty_stars = 5-half_star-solid_stars %>
+<% empty_stars = 5 - half_star - solid_stars %>
 
 <span>
   <% if solid_stars + half_star > 0 %>
@@ -18,6 +18,6 @@
     <% end %>
 
   <% else %>
-    <span class="has-text-dark">No rating</span>
+    <span>No rating</span>
   <% end %>
 </span>
