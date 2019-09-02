@@ -6,19 +6,19 @@ class Course < ApplicationRecord
   accepts_nested_attributes_for :departments
 
   def overall_rating
-    self.course_reviews&.average(:overall_rating)&.round(2, :truncate) || 0
+    self.course_reviews&.average(:overall_rating)&.round(1, :truncate) || 0
   end
 
   def inclusivity_rating
-    self.course_reviews&.average(:inclusivity_rating)&.round(2, :truncate) || 0
+    self.course_reviews&.average(:inclusivity_rating)&.round(1, :truncate) || 0
   end
 
   def challenge_rating
-    self.course_reviews&.average(:challenge_rating)&.round(2, :truncate) || 0
+    self.course_reviews&.average(:challenge_rating)&.round(1, :truncate) || 0
   end
 
   def work_per_week
-    self.course_reviews&.average(:work_per_week)&.round(2, :truncate) || 0
+    self.course_reviews&.average(:work_per_week)&.round(1, :truncate) || 0
   end
 
   # collect all instructors that have ever taught a section of this course
@@ -31,7 +31,6 @@ class Course < ApplicationRecord
 
   # collect all the schools that this course is taught at
   def schools
-    #       matches = matches.select {|section| schools.any? {|campus| section.course_meeting_details.any? {|detail| detail.campus == campus.to_s}}}
     self.course_sections
         &.collect{ |section| section.schools }
         .reduce(:+)
