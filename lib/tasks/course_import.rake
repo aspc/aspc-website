@@ -66,6 +66,9 @@ namespace :course_import do
     api_url = Rails.application.credentials[:course_api][:url]
 
     terms =  AcademicTerm.current_academic_year
+    if ENV["all"] # Allow full import by setting all=1
+      terms = AcademicTerm.all
+    end
 
     terms.each do |term|
       puts "Fetching courses for Academic Term #{term.key}"
