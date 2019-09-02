@@ -22,7 +22,7 @@ namespace :review_import do
       course_review.created_at = review_info['created_date']
 
       if course_review.course and course_review.instructor
-        course_review.save
+        course_review.save!(:validate => false)
         Rails.logger.info "Successfully imported review for #{course_review.course.name}"
 
         saved += 1
