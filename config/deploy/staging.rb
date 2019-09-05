@@ -38,3 +38,7 @@ if ENV['BRANCH']
 else
   ask :branch, "Branch to stage"
 end
+
+# Namespace the crontab to the deploy environment
+set :whenever_environment, Proc.new { fetch(:stage) }
+set :whenever_identifier, Proc.new { "#{fetch(:application)}_#{fetch(:stage)}" }
