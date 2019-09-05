@@ -34,9 +34,3 @@ set :yarn_target_path, -> { release_path }
 
 # Specify which branch to stage
 set :branch, "master"
-
-# Update the recurring tasks that run in the background (as specified in config/schedule.rb)
-namespace :deploy do
-  after :finishing, 'remote:clear_crontab'
-  after 'remote:clear_crontab', 'remote:update_crontab'
-end

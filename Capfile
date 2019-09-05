@@ -31,5 +31,8 @@ install_plugin Capistrano::Puma  # Default puma tasks
 require "capistrano/rake"
 require "capistrano/yarn"
 
+# Cron-job management
+require "whenever/capistrano"
+
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

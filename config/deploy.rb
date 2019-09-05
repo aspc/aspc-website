@@ -45,3 +45,8 @@ append :linked_dirs, "public/uploads" # Froala public image uploads
 
 # Keep the latest 3 deployments on the server at all times
 set :keep_releases, 3
+
+# Namespace the crontab to the deploy environment
+set :whenever_path, Proc.new { release_path }
+set :whenever_environment, Proc.new { fetch(:stage) }
+set :whenever_identifier, Proc.new { "#{fetch(:application)}_#{fetch(:stage)}" }
