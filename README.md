@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/aspc/aspc-website/tree/master.svg?style=svg)](https://circleci.com/gh/aspc/aspc-website/tree/master) 
+[![CircleCI](https://circleci.com/gh/aspc/aspc-website/tree/master.svg?style=svg)](https://circleci.com/gh/aspc/aspc-website/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/aspc/aspc-website/badge.svg?branch=master)](https://coveralls.io/github/aspc/aspc-website?branch=master)
 
 
@@ -20,7 +20,7 @@ with information about setting up this project to work with an IDE, our core tec
  1. Clone this repo
  2. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
  3. Run `vagrant up` from inside the cloned directory. Follow the prompts, default options are fine. This will handle dependency installation and all that jazz.
- 4. Run `vagrant ssh`, `cd /vagrant`, and then `rails server -b 0.0.0.0 -p 3000`.
+ 4. Run `vagrant ssh`, `cd /vagrant`, `bundle install`, `yarn install`, and then `rails server -b 0.0.0.0 -p 3000`.
  5. Navigate to [localhost:3000](http://localhost:3000) to see a local copy of this website up and running!
 
 ## Contributing
