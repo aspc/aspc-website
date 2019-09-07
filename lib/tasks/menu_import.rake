@@ -222,59 +222,44 @@ namespace :menu_import do
 
     puts "Importing Frary Menu for week #{_get_current_week.first}..."
 
-    # Clear any existing menus to avoid duplicates
     Menu.where(:dining_hall => :frary).destroy_all
-
-    # Pomona's system is batshit crazy (user inputted text in Google Docs),
-    # so we're just going to scrape from their website instead
-    #
-    # Menu Format
-    #
-    # | Day                                   |
-    # | Station |  Breakfast | Lunch | Dinner |
-
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto 'www.pomona.edu/administration/dining/menus/frary'
 
-    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
-    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
-      panel.click
-    end
+    menu = browser.div(:class => 'pom-accordion')
+    meal_type = ''
+    station = ''
+    meal_menu = Menu
 
-    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
-    menu_days.each_with_index do |day_table, day_index|
-      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
-        next if row_index == 0 # skip header row
+    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    panel_count = 1
 
-        station = station_row[0].try(:text)
-
-        next if station.blank? # no need to continue if cell is empty
-
-        station_row.each_with_index do |meal_for_station, meal_type_index|
-          next if meal_type_index == 0
-
-          if not meal_for_station.text.blank?
-            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-
-            # Frary splits Sunday brunch into breakfast and lunch; manually combine the two on Sundays
-            if day == 0 && (meal_for_station.class_name == "breakfast" || meal_for_station.class_name == "lunch")
-              hours = _get_pomona_hours("Frary", day, "brunch")
-              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => "brunch", :hours => hours)
-            else
-              hours = _get_pomona_hours("Frary", day, meal_for_station.class_name)
-              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name, :hours => hours)
-            end
-            
-            meal_for_station.text.split(',').each do |meal_item|
-              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
-            end
+    menu.children.each_slice(2).map do |pair|
+      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+    end.each do |pair|
+      pair[:menu].children.each do |div|
+        if div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+          div.children.each do |menu_item|
+            MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
           end
+        elsif div.tag_name == "h2"
+          meal_type = div.text.downcase
+        elsif div.tag_name == "h3"
+          station = div.text
+          hours = _get_pomona_hours('Frary', Date.strptime(pair[:day], '%A').wday, station)
+          meal_menu = Menu.find_or_create_by(
+            :day => pair[:day],
+            :dining_hall => :frary,
+            :meal_type => meal_type,
+            :hours => hours
+          )
         end
       end
+      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      panel_count += 1
     end
 
     puts "Successfully imported Frary Menu for week #{_get_current_week.first}"
-
     browser.close
   end
 
