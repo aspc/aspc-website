@@ -128,10 +128,11 @@ namespace :menu_import do
   desc "Imports Harvey Mudd Menu "
   task :harvey_mudd => :environment do
     query = {
-        :menuId => '344',
+        :menuId => '15258',
         :locationId => '13147001',
         :startDate => _get_current_week().second # Mudd menu weeks start on Monday
     }
+
     endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
     puts "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
@@ -155,9 +156,13 @@ namespace :menu_import do
         endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
         hours = starttime << '-' << endtime
 
+        if menu_item['course'].nil? || menu_item['formalName'].blank? || !meal_type.in?(['breakfast', 'brunch', 'lunch', 'dinner'])
+          next
+        end
+
         mudd_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :harvey_mudd, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
-        food_station = menu_item['course'].titleize
+        food_station = menu_item['course'].titleize.delete_prefix("Hmc ").delete_suffix(" Hmc")
         food_name = menu_item['formalName']
 
         MenuItem.create(:name => food_name, :station => food_station, :menu => mudd_menu)
