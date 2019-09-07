@@ -132,7 +132,6 @@ namespace :menu_import do
         :locationId => '13147001',
         :startDate => _get_current_week().second # Mudd menu weeks start on Monday
     }
-
     endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
     puts "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
