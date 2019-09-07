@@ -171,7 +171,7 @@ namespace :menu_import do
   desc "Imports Scripps Menu"
   task :scripps => :environment do
     query = {
-        :menuId => '288',
+        :menuId => '15245',
         :locationId => '10638001',
         :startDate => _get_current_week().second # Scripps menu weeks start on Monday
     }
@@ -204,9 +204,13 @@ namespace :menu_import do
         endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
         hours = starttime << '-' << endtime
 
+        if menu_item['course'].nil? || menu_item['formalName'].blank? || !meal_type.in?(['breakfast', 'brunch', 'lunch', 'dinner'])
+          next
+        end
+
         scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
-        food_station = menu_item['course'].titleize
+        food_station = menu_item['course'].titleize.delete_suffix(" Scr")
         food_name = menu_item['formalName']
 
         MenuItem.create(:name => food_name, :station => food_station, :menu => scripps_menu)
@@ -227,50 +231,50 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    #
-    # Menu Format
-    #
-    # | Day                                   |
-    # | Station |  Breakfast | Lunch | Dinner |
-
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto 'www.pomona.edu/administration/dining/menus/frary'
 
-    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
-    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
-      panel.click
-    end
+    menu = browser.div(:class => 'pom-accordion')
+    meal_type = ''
+    station = ''
+    meal_menu = Menu
 
-    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
-    menu_days.each_with_index do |day_table, day_index|
-      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
-        next if row_index == 0 # skip header row
+    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    panel_count = 1 # the next panel to open
 
-        station = station_row[0].try(:text)
-
-        next if station.blank? # no need to continue if cell is empty
-
-        station_row.each_with_index do |meal_for_station, meal_type_index|
-          next if meal_type_index == 0
-
-          if not meal_for_station.text.blank?
-            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-
-            # Frary splits Sunday brunch into breakfast and lunch; manually combine the two on Sundays
-            if day == 0 && (meal_for_station.class_name == "breakfast" || meal_for_station.class_name == "lunch")
-              hours = _get_pomona_hours("Frary", day, "brunch")
-              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => "brunch", :hours => hours)
-            else
-              hours = _get_pomona_hours("Frary", day, meal_for_station.class_name)
-              meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frary, :meal_type => meal_for_station.class_name, :hours => hours)
-            end
-            
-            meal_for_station.text.split(',').each do |meal_item|
-              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
-            end
+    # Map the successive divs to be pairs of {day, menu}
+    menu.children.each_slice(2).map do |pair|
+      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+    end.each do |pair|
+      # The menu for each day is structured as follows:
+      #
+      # meal type    (h2)
+      # station      (h3)
+      # menu items   (div)
+      pair[:menu].children.each do |div|
+        if div.tag_name == "h2"
+          meal_type = div.text.downcase
+          if (pair[:day] == 'saturday' || pair[:day] == 'sunday') && meal_type == 'breakfast'
+            meal_type = 'brunch'
+          end
+        elsif div.tag_name == "h3"
+          station = div.text
+          hours = _get_pomona_hours('Frary', Date.strptime(pair[:day], '%A').wday, station)
+          meal_menu = Menu.find_or_create_by(
+            :day => pair[:day],
+            :dining_hall => :frary,
+            :meal_type => meal_type,
+            :hours => hours
+          )
+        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+          div.children.each do |menu_item|
+            MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
           end
         end
       end
+      # simulate click to open the next panel after parsing the current one
+      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      panel_count += 1
     end
 
     puts "Successfully imported Frary Menu for week #{_get_current_week.first}"
@@ -288,45 +292,52 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    #
-    # Menu Format
-    #
-    # | Day                                   |
-    # | Station |  Breakfast | Lunch | Dinner |
-
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto 'www.pomona.edu/administration/dining/menus/frank'
 
-    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
-    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
-      panel.click
-    end
+    menu = browser.div(:class => 'pom-accordion')
+    meal_type = ''
+    station = ''
+    meal_menu = Menu
 
-    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
-    menu_days.each_with_index do |day_table, day_index|
-      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
-        next if row_index == 0 # skip header row
+    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    panel_count = 1 # the next panel to open
 
-        station = station_row[0].try(:text)
-
-        next if station.blank? # no need to continue if cell is empty
-
-        # Frank is closed on Fri/Sat, so don't load those days
-
-        station_row.each_with_index do |meal_for_station, meal_type_index|
-          next if meal_type_index == 0
-
-          if not meal_for_station.text.blank?
-            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            hours = _get_pomona_hours('Frank', day, meal_for_station.class_name)
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :frank, :meal_type => meal_for_station.class_name, :hours => hours)
-
-            meal_for_station.text.split(',').each do |meal_item|
-              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
+    # Map the successive divs to be pairs of {day, menu}
+    menu.children.each_slice(2).map do |pair|
+      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+    end.each do |pair|
+      # The menu for each day is structured as follows:
+      #
+      # meal type    (h2)
+      # station      (h3)
+      # menu items   (div)
+      unless pair[:day] == 'friday' || pair[:day] == 'saturday'
+        pair[:menu].children.each do |div|
+          if div.tag_name == "h2"
+            meal_type = div.text.downcase
+            if pair[:day] == 'sunday' && meal_type == 'breakfast'
+              meal_type = 'brunch'
+            end
+          elsif div.tag_name == "h3"
+            station = div.text
+            hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, station)
+            meal_menu = Menu.find_or_create_by(
+              :day => pair[:day],
+              :dining_hall => :frank,
+              :meal_type => meal_type,
+              :hours => hours
+            )
+          elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+            div.children.each do |menu_item|
+              MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
             end
           end
         end
       end
+      # simulate click to open the next panel after parsing the current one
+      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      panel_count += 1
     end
 
     puts "Successfully imported Frank Menu for week #{_get_current_week.first}"
@@ -344,43 +355,47 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    #
-    # Menu Format
-    #
-    # | Day                                   |
-    # | Station |  Breakfast | Lunch | Dinner |
-
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto 'www.pomona.edu/administration/dining/menus/oldenborg'
 
-    menu_panels = browser.div(:id => 'menu-from-google').divs(:class => ['table-caption', 'hide'])
-    menu_panels.each do |panel| # Fire off the click request to load the menu for that day
-      panel.click
-    end
+    menu = browser.div(:class => 'pom-accordion')
+    meal_type = ''
+    station = ''
+    meal_menu = Menu
 
-    menu_days = browser.div(:id => 'menu-from-google').elements(:tag_name => 'table')
-    menu_days.each_with_index do |day_table, day_index|
-      day_table.each_with_index do |station_row, row_index| # food is ordered by station then meal type
-        next if row_index == 0 # skip header row
+    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    panel_count = 1 # the next panel to open
 
-        station = station_row[0].try(:text)
-
-        next if station.blank? # no need to continue if cell is empty
-
-        station_row.each_with_index do |meal_for_station, meal_type_index|
-          next if meal_type_index == 0
-
-          if not meal_for_station.text.blank?
-            day = (day_index + 1) % 7 # Frank/Frary menus are indexed starting on Monday, not Sunday
-            hours = _get_pomona_hours('Oldenborg', day, meal_for_station.class_name)
-            meal_menu = Menu.find_or_create_by(:day => day, :dining_hall => :oldenborg, :meal_type => meal_for_station.class_name, :hours => hours)
-
-            meal_for_station.text.split(',').each do |meal_item|
-              MenuItem.create(:name => meal_item, :station => station, :menu => meal_menu)
+    # Map the successive divs to be pairs of {day, menu}
+    menu.children.each_slice(2).map do |pair|
+      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+    end.each do |pair|
+      # The menu for each day is structured as follows:
+      #
+      # meal type    (h2)
+      # station      (h3)
+      # menu items   (div)
+      unless pair[:day] == 'saturday' || pair[:day] == 'sunday'
+        pair[:menu].children.each do |div|
+          if div.tag_name == "h3"
+            station = div.text
+            hours = _get_pomona_hours('Oldenborg', Date.strptime(pair[:day], '%A').wday, station)
+            meal_menu = Menu.find_or_create_by(
+              :day => pair[:day],
+              :dining_hall => :oldenborg,
+              :meal_type => 'lunch',
+              :hours => hours
+            )
+          elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+            div.children.each do |menu_item|
+              MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
             end
           end
         end
       end
+      # simulate click to open the next panel after parsing the current one
+      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      panel_count += 1
     end
 
     puts "Successfully imported Oldenborg Menu for week #{_get_current_week.first}"
