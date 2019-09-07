@@ -171,7 +171,7 @@ namespace :menu_import do
   desc "Imports Scripps Menu"
   task :scripps => :environment do
     query = {
-        :menuId => '288',
+        :menuId => '15245',
         :locationId => '10638001',
         :startDate => _get_current_week().second # Scripps menu weeks start on Monday
     }
@@ -204,9 +204,13 @@ namespace :menu_import do
         endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
         hours = starttime << '-' << endtime
 
+        if menu_item['course'].nil? || menu_item['formalName'].blank? || !meal_type.in?(['breakfast', 'brunch', 'lunch', 'dinner'])
+          next
+        end
+
         scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
 
-        food_station = menu_item['course'].titleize
+        food_station = menu_item['course'].titleize.delete_suffix(" Scr")
         food_name = menu_item['formalName']
 
         MenuItem.create(:name => food_name, :station => food_station, :menu => scripps_menu)
