@@ -78,33 +78,35 @@ class CourseReviewsController < ApplicationController
     end
 
     # database queries
-    matches_query = Course.joins(:departments)
+    matches_query = Course.order("number")
     if (department_code)
       matches_query = matches_query
-                          .where(:departments => {:code => department_code})
+        .joins(:departments)
+        .where(:departments => {:code => department_code})
     end
 
     if (number)
       matches_query = matches_query
-                          .where(:number => number)
+        .where(:number => number)
     end
 
-    matches = matches_query.order("number").all
+    if(keywords)
+      keywords_query = keywords.map { |k| "%#{k}%" }
+
+      matches_query = matches_query
+        .where("name ILIKE ANY ( array[?] )", keywords_query)
+    else
+      matches_query = []
+    end
 
     # database response filtering
     if (schools)
-      matches = matches.select {|course| schools.any? {|school| course.schools.any? {|s| s == school}}}
+      matches_query = matches_query
+        .select {|course| schools.any? {|school| course.schools.any? {|s| s == school}}}
     end
-
-    if (keywords)
-      matches = matches.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
-      matches = matches.sort_by {|course| get_keyword_relevance(course, keywords)}
-    end
-
-    matches = matches.uniq
 
     # server response
-    @courses = matches
+    @courses = matches_query.uniq
     respond_to do |format|
       format.html {render :json => matches.to_json, :status => :ok}
       format.json {render :json => matches.to_json, :status => :ok}
@@ -115,17 +117,18 @@ class CourseReviewsController < ApplicationController
   def search_instructor_reviews
     instructor_name = params[:instructor].strip unless params[:instructor].empty?
 
-    matches_query = Instructor
-
-    matches = matches_query.order("id").all
+    matches_query = Instructor.order("id")
 
     if (instructor_name)
-      matches = matches.select {|instructor| instructor.name.downcase.include? instructor_name.downcase}
+      instructor_name_query = "%#{instructor_name}%"
+
+      matches_query = matches_query
+        .where("name ILIKE ?", instructor_name_query)
+    else
+      matches_query = []
     end
 
-    matches = matches.uniq
-
-    @instructors = matches
+    @instructors = matches_query.uniq
     respond_to do |format|
       format.html {render :json => matches.to_json, :status => :ok}
       format.json {render :json => matches.to_json, :status => :ok}
