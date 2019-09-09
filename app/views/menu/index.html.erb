@@ -66,7 +66,7 @@
 		let selectedDay = selectedDayElement.text().trim().toLowerCase();
 		$('#menu-day-field').val(selectedDay);
 
-		// Set the dining hall to fetch menu for
+		// Set the type of meal to fetch menu for
 		let selectedMealType = selectedMealTypeElement.text().trim().toLowerCase();
 		$('#meal-type-field').val(selectedMealType);
 
@@ -101,6 +101,22 @@
 				$(this).removeClass('is-active');
 		});
 		$(this).parent().toggleClass('is-active');
+		day = $(this).parent().text().trim().toLowerCase();
+
+		// Fix the meal type if necessary
+		$('.meal-type-button').parent().each(function() {
+			if ($(this).attr('class') == 'is-active') {
+				isWeekend = day == 'saturday' || day == 'sunday';
+				isBreakfastOrLunch = $(this).attr('id') == 'breakfast-button' || $(this).attr('id') == 'lunch-button';
+				if (isWeekend && isBreakfastOrLunch) {
+					$(this).removeClass('is-active');
+					$('#brunch-button').toggleClass('is-active');
+				} else if (!isWeekend && $(this).attr('id') == 'brunch-button') {
+					$(this).removeClass('is-active');
+					$('#breakfast-button').toggleClass('is-active');
+				}
+			};
+		});
 
 		// Submit the form
 		submitMenuForm();
