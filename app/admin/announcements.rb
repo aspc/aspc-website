@@ -1,6 +1,6 @@
 announcements_page = Proc.new do
   menu :priority => 2
-  permit_params :title, :caption, :background_image, :details_url
+  permit_params :title, :caption, :background_image, :details_url, :priority
 
   form do |f|
     f.inputs
@@ -13,6 +13,7 @@ announcements_page = Proc.new do
       row :title
       row :caption
       row :details_url
+      row :priority
       row :background_image do |announcement|
         image_tag url_for(announcement.background_image), :width => '100%'
       end
