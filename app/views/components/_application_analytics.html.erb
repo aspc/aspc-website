@@ -1,0 +1,11 @@
+<% gtag_code = Rails.application.credentials.dig(:google_analytics, :gtag) || "" %>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= gtag_code %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', "<%= gtag_code %>");
+</script>
+

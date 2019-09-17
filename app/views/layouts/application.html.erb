@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <%= render partial: 'components/application_analytics' %>
+
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
 
@@ -39,6 +42,5 @@
 </section>
 
 <%= render partial: 'components/application_footer' %>
-
 </body>
 </html>
