@@ -2,7 +2,7 @@ senators_page = Proc.new do
   menu :priority => 5, :label => "ASPC Senators and Staff"
 
   # TODO: allow associating with a user model
-  permit_params :name, :position, :role, :email, :biography, :image
+  permit_params :name, :position, :role, :email, :biography, :image, :priority
 
   form do |f|
     f.inputs
@@ -17,6 +17,7 @@ senators_page = Proc.new do
       row :role
       row :email
       row :biography
+      row :priority
       row :image do |person|
         if (person.image.attached?)
           image_tag url_for(person.image)
