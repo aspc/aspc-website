@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+bulma-accordion@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/bulma-accordion/-/bulma-accordion-2.0.1.tgz#5493c51dd7c5926ae47115da3efe858cfb115474"
+  integrity sha512-qqLN67Y60c0adHAVvQmJTr6rhg0FWUCWbswFaW/3+offjc6ujqrUoIdlzX1avni4d/aJEl7j9PckfRGmIJcxxQ==
+
 bulma-calendar@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/bulma-calendar/-/bulma-calendar-4.0.2.tgz#a620811f5002bbb76e408788c03050ff6926cb67"

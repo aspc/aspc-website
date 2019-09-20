@@ -6,7 +6,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Modals
+	// attach bulma-accordion objects to accordions
+	var accordions = bulmaAccordion.attach();
+	
+	// Modals
     var rootEl = document.documentElement;
     var $modals = getAll('.modal');
     var $modalButtons = getAll('.modal-open');

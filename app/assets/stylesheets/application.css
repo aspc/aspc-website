@@ -15,6 +15,7 @@
  *=
  *= require font-awesome
  *= require bulma/css/bulma.sass
+ *= require bulma-accordion/dist/css/bulma-accordion.min.css
  *= require bulma-calendar/dist/css/bulma-calendar.min.css
  *= require bulma-checkradio/dist/css/bulma-checkradio.min.css
  *= require megamenu.scss

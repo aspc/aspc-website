@@ -23,6 +23,7 @@
 
 //= require weekcalendar-2.0/jquery.weekcalendar.js
 
+//= require bulma-accordion/dist/js/bulma-accordion.js
 //= require bulma-calendar/dist/js/bulma-calendar.js
 
 //= require slick-carousel/slick/slick.js
