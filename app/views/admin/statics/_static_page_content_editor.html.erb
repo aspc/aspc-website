@@ -6,7 +6,7 @@
   </div>
   <br/>
 
-  <textarea id="editor"></textarea>
+  <div id="editor"></div>
 
   <br />
   <%= link_to "Save Content", {}, :remote => true, :id => "saveButton", :class => "button" %>
@@ -19,10 +19,10 @@
 <script type="text/javascript">
     $(function() {
         $("#saveSpinner").hide();
-        $("#saveComplete").hide();
-
-        $("#editor").froalaEditor({
-            // License Key
+		$("#saveComplete").hide();
+		
+		var editor = new FroalaEditor('#editor', {
+			// License Key
             key: "<%= Rails.application.credentials[:froala_license_keys][:production] %>",
 
             // Set the save param.
@@ -46,68 +46,72 @@
             fileUploadURL: "<%= static_page_upload_file_path %>",
 
             // Hide character counter
-            charCounterCount: false
-        });
+            charCounterCount: false,
 
-        $("#editor").on("froalaEditor.contentChanged", function(e, editor) {
-            $("#saveComplete").hide();
-        });
+			// Event handlers
+			events: {
+				"contentChanged": function(e, editor) {
+            		$("#saveComplete").hide();
+				},
 
-        $("#editor").on("froalaEditor.save.before", function(e, editor) {
-            $("#saveSpinner").show();
-            $("#saveComplete").hide();
-        });
+				"save.before": function(e, editor) {
+					$("#saveSpinner").show();
+            		$("#saveComplete").hide();
+					console.log("save.before");
+				},
 
-        $("#editor").on("froalaEditor.save.after", function(e, editor, response) {
-            $("#saveSpinner").hide();
-            $("#saveComplete").show();
-            console.log("save.after");
-        });
+				"save.after": function(e, editor, response) {
+					$("#saveSpinner").hide();
+					$("#saveComplete").show();
+					console.log("save.after");
+				},
 
-        $("#editor").on("froalaEditor.image.error", function(e, editor, error) {
-            var popup = editor.popups.get('image.insert');
-            var layer = popup.find('.fr-image-progress-bar-layer');
-            layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
-        });
+				"image.error": function(e, editor, error) {
+					var popup = editor.popups.get('image.insert');
+					var layer = popup.find('.fr-image-progress-bar-layer');
+					layer.find('h3').text('Image size must be less than 1 MB. Please resize the photo and try again.');
+				},
 
-        $("#editor").on('froalaEditor.image.removed', function (e, editor, img) {
-            $.ajax({
-                // Request method.
-                method: "POST",
+				"image.removed": function(e, editor, img) {
+					$.ajax({
+						// Request method.
+						method: "POST",
 
-                // Request URL.
-                url: "<%= static_page_delete_image_path %>",
+						// Request URL.
+						url: "<%= static_page_delete_image_path %>",
 
-                // Request params.
-                data: {
-                    src: img.attr('src')
-                }
-            });
-        });
+						// Request params.
+						data: {
+							src: img.attr('src')
+						}
+					});
+				},
 
-        $("#editor").on('froalaEditor.file.unlink', function (e, editor, link) {
-            $.ajax({
-                // Request method.
-                method: "POST",
+				"file.unlink": function(e, editor, link) {
+					$.ajax({
+						// Request method.
+						method: "POST",
 
-                // Request URL.
-                url: "<%= static_page_delete_file_path %>",
+						// Request URL.
+						url: "<%= static_page_delete_file_path %>",
 
-                // Request params.
-                data: {
-                    src: link.href
-                }
-            });
-        });
+						// Request params.
+						data: {
+							src: link.href
+						}
+					});
+				}
+			}
+		});
 
         // Load the existing preview
-        let content = "<%= page.pending_content %>"
-        decodedContent = $("<textarea></textarea>").html(content).text();   // ampersand-decoding
+        // let content = "<%= page.pending_content %>"
+        // decodedContent = $("<textarea></textarea>").html(content).text();   // ampersand-decoding
 
-        $("#editor").froalaEditor("html.set", decodedContent);
-    });
+		// editor.html.set(decodedContent);
 
-    $("#saveButton").click(function() {
-        $("#editor").froalaEditor("save.save");
+		$("#saveButton").click(function() {
+			editor.save.save();
+		});
     });
 </script>

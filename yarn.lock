@@ -29,6 +29,11 @@ codemirror@^5.48.4:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.48.4.tgz#4210fbe92be79a88f0eea348fab3ae78da85ce47"
   integrity sha512-pUhZXDQ6qXSpWdwlgAwHEkd4imA0kf83hINmUEzJpmG80T/XLtDDEzZo8f6PQLuRCcUQhmzqqIo3ZPTRaWByRA==
 
+froala-editor@^3.0.5-rc.1:
+  version "3.0.5-rc.1"
+  resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-3.0.5-rc.1.tgz#205b4f4ff26e1852f3c63afaaf2ab118432f9460"
+  integrity sha512-9d4ohl/UpntSuBerxjpcWPrt+4dWHL5PmjqbWVjIdvSkKvsDYSR/f6zC7s95ekcme/K7J17Hl/OzNFnraxVyIQ==
+
 moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"

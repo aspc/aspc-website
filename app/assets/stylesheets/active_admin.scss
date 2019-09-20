@@ -13,9 +13,10 @@
 @import "active_admin/base";
 
 /* Froala WYSIWYG styles */
-@import "froala_editor.min";
-@import "froala_style.min";
-@import "plugins/image.min.css";
+@import "froala-editor/css/froala_editor.pkgd.min.css";
+@import "froala-editor/css/froala_style.min.css";
+@import "froala-editor/css/plugins/image.min.css";
+@import "codemirror/lib/codemirror.css";
 
 /* Font Awesome */
 @import "font-awesome";

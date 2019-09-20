@@ -23,8 +23,11 @@
  *= require slick-carousel/slick/slick.css
  *= require slick-carousel/slick/slick-theme.css
  *
- *= require froala.scss
+ *= require froala-editor/css/froala_editor.pkgd.min.css
+ *= require froala-editor/css/froala_style.min.css
+ *= require froala-editor/css/plugins/image.min.css
  *= require codemirror/lib/codemirror.css
+ *
  *
  * Sass helpers file
  *= require helpers.scss

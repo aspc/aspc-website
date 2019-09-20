@@ -7,6 +7,7 @@
     "bulma-calendar": "^4.0.2",
     "bulma-checkradio": "^2.1.0",
     "codemirror": "^5.48.4",
+    "froala-editor": "^3.0.5-rc.1",
     "slick-carousel": "^1.8.1"
   }
 }

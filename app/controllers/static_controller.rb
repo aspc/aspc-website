@@ -26,7 +26,10 @@ class StaticController < ApplicationController
     @page[:last_modified_by] = current_user[:id]
     @page[:published] = false
 
-    @page.save
+	@page.save
+	
+	# stopgap to force Rails to respond to the POST request and trigger Froala's save.after event
+	render :json => {}
   end
 
   # Approve changes: copy pending_copy to approved_copy
