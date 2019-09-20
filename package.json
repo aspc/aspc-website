@@ -6,6 +6,7 @@
     "bulma-accordion": "^2.0.1",
     "bulma-calendar": "^4.0.2",
     "bulma-checkradio": "^2.1.0",
+    "codemirror": "^5.48.4",
     "slick-carousel": "^1.8.1"
   }
 }

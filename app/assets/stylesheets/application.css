@@ -24,6 +24,7 @@
  *= require slick-carousel/slick/slick-theme.css
  *
  *= require froala.scss
+ *= require codemirror/lib/codemirror.css
  *
  * Sass helpers file
  *= require helpers.scss

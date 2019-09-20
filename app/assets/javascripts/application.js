@@ -29,6 +29,8 @@
 //= require slick-carousel/slick/slick.js
 
 //= require froala.js
+//= require codemirror/lib/codemirror.js
+//= require codemirror/mode/xml/xml.js
 
 // Page specific javascript here
 //= require events.js
