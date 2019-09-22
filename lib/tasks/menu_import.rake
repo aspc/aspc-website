@@ -263,7 +263,7 @@ namespace :menu_import do
           end
         elsif div.tag_name == "h3"
           station = div.text
-          hours = _get_pomona_hours('Frary', Date.strptime(pair[:day], '%A').wday, station)
+          hours = _get_pomona_hours('Frary', Date.strptime(pair[:day], '%A').wday, meal_type)
           meal_menu = Menu.find_or_create_by(
             :day => pair[:day],
             :dining_hall => :frary,
@@ -325,7 +325,7 @@ namespace :menu_import do
             end
           elsif div.tag_name == "h3"
             station = div.text
-            hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, station)
+            hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, meal_type)
             meal_menu = Menu.find_or_create_by(
               :day => pair[:day],
               :dining_hall => :frank,
@@ -383,7 +383,7 @@ namespace :menu_import do
         pair[:menu].children.each do |div|
           if div.tag_name == "h3"
             station = div.text
-            hours = _get_pomona_hours('Oldenborg', Date.strptime(pair[:day], '%A').wday, station)
+            hours = _get_pomona_hours('Oldenborg', Date.strptime(pair[:day], '%A').wday, meal_type)
             meal_menu = Menu.find_or_create_by(
               :day => pair[:day],
               :dining_hall => :oldenborg,
