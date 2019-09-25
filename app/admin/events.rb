@@ -41,14 +41,14 @@ events_page = Proc.new do
     batch_action_collection.find(event_ids).each do |event|
       event.approve!
     end
-    redirect_to :admin_events, alert: "The posts have been approved."
+    redirect_to new_polymorphic_path([current_user.role.to_sym, Event]), alert: "The posts have been approved."
   end
 
   batch_action :reject do |event_ids|
     batch_action_collection.find(event_ids).each do |event|
       event.reject!
     end
-    redirect_to :admin_events, alert: "The posts have been rejected."
+    redirect_to new_polymorphic_path([current_user.role.to_sym, Event]), alert: "The posts have been rejected."
   end
 
   # Customize what is shown when editing/creating an event via the admin panel
