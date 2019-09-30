@@ -440,7 +440,7 @@ namespace :menu_import do
       when 0, 6
         case meal_type
         when 'breakfast'
-          hours = '8:00AM-10:30AM'
+          hours = '7:30AM-9:30AM'
           hours
         when 'brunch'
           hours = '10:30AM-1:30PM'
@@ -457,7 +457,7 @@ namespace :menu_import do
           hours = '7:30AM-10:00AM'
           hours
         when 'lunch'
-          hours = '11:00AM-1:00PM'
+          hours = '11:30AM-1:00PM'
           hours
         when 'dinner'
           hours = '5:00PM-7:00PM'
@@ -469,7 +469,7 @@ namespace :menu_import do
           hours = '11:00AM-1:00PM'
           hours
         when 'dinner'
-          hours = '5:00PM-7:00PM'
+          hours = '5:30PM-7:00PM'
           hours
         end
       end
