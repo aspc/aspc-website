@@ -56,7 +56,10 @@
             charCounterCount: false,
 
 			// Enable CodeMirror integration for html editing
-			codeMirror: true
+			codeMirror: true,
+
+			// Fix minimum height to keep the box usable
+			heightMin: 400
         });
 
         $("#editor").on("froalaEditor.contentChanged", function(e, editor) {
