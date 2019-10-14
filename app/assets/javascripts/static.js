@@ -6,6 +6,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+	var accordions = bulmaAccordion.attach(); // accordions now contains an array of all Accordion instances
+
     // Modals
     var rootEl = document.documentElement;
     var $modals = getAll('.modal');
