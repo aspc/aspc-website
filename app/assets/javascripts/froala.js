@@ -28,3 +28,6 @@
 //= require plugins/special_characters.min.js
 //= require plugins/url.min.js
 //= require plugins/video.min.js
+
+//= require codemirror.js
+//= require codemirror/modes/xml.js
