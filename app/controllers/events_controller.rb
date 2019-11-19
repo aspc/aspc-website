@@ -6,7 +6,10 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     # Only display approved events
-    @events = Event.where(:status => :approved)
+	@events = Event.where(:status => :approved)
+	
+	# Pull Engage events from API and save to database
+	EngageEventsService.new().get_events()
   end
 
   # GET /events/1
