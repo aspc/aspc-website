@@ -1,7 +1,7 @@
 <% content_for :header do %>
 
   <div class="slideshow-container primary-slideshow">
-    <%= render 'components/slideshow', :id => "main-slideshow", :slideshow_options => {
+    <%= render 'components/slideshow', :id => "main-slideshow", :classes => "", :slideshow_options => {
         :autoplay => true,
         :arrows => false,
         :dots => true,
@@ -13,10 +13,10 @@
         <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
           <div class="gradient">
             <div class="announcement-info has-shadow">
-              <h3 class="title is-1 has-text-white"><%= announcement.title %></h3>
-              <% if not announcement.caption.blank? %>
-                <p class="subtitle has-text-white"><%= announcement.caption %></p>
-              <% end %>
+              <h2 class="title is-2 has-text-white"><%= announcement.title %></h2>
+              <%# if not announcement.caption.blank? %>
+              <!-- <p class="subtitle has-text-white"><%#= announcement.caption %></p> -->
+              <%# end %>
               <% if not announcement.details_url.blank? %>
                 <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">More
                   Details</a>
@@ -31,47 +31,72 @@
 
 <div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Upcoming Events</h3>
-  <%= link_to "Event Calendar", events_path, {:class => "button is-outlined is-info"} %>
+  <a class="button is-outlined is-info" href="/events">Event Calendar</a>
 </div>
 
-<% if @events.length > 0 %>
-  <div class="columns events margin-bottom-4">
-    <% @events.each do |event| %>
-      <% campus_background_color_class =
-             case event.college_affiliation.try(:to_sym)
-             when :pomona
-               "event-PO"
-             when :claremont_mckenna
-               "event-CM"
-             when :harvey_mudd
-               "event-HM"
-             when :scripps
-               "event-SC"
-             when :pitzer
-               "event-PZ"
-             else
-               "event-PO" # catchall because Frank/Frary/Oldenborg to not symbolize to Pomona
-             end
-      %>
-      <div class="column is-4 event">
-        <div class="event-info <%= campus_background_color_class %>">
-          <p class="event-date-time"><%= event.start.strftime("%B %e") %>, <%= event.start.strftime("%l:%M%P") %>
-            -<%= event.end.strftime("%l:%M%P") %></p>
-          <p class="event-location"><%= event.location %><br></p>
+<!-- Events slideshow for desktop screens -->
+<div class="is-hidden-mobile">
+  <%= render 'components/slideshow', :id => "events-slideshow-desktop", :slideshow_options => {
+      :autoplay => true,
+      :arrows => false,
+      :dots => true,
+      :useTransform => true,
+      :easing => 'swing',
+      :fade => true
+  } do %>
+    <% @events.each_slice(3) do |list| %>
+      <div class="container events-slide">
+        <div class="columns">
+          <% list.each do |item| %>
+            <% campus_background_color_class = bg_color_class(item)
+            %>
+            <div class="column is-4 event">
+              <div class="event-info <%= campus_background_color_class %>">
+                <p class="event-date-time"><%= item.start.strftime("%B %e") %>
+                  , <%= item.start.strftime("%l:%M%P") %>
+                  -<%= item.end.strftime("%l:%M%P") %></p>
+                <p class="event-location"><%= item.location %><br></p>
+              </div>
+              <h4 class="title is-4">
+                <a href="<%= url_for(item) %>"><%= item.name %></a></h4>
+            </div>
+          <% end %>
         </div>
-        <h4 class="title is-4">
-          <a href="<%= url_for(event) %>"><%= event.name %></a>
-        </h4>
       </div>
     <% end %>
-  </div>
-<% else %>
-  <div class="columns margin-bottom-3">
-    <div class="column">
-      <p>No upcoming events. Would you like to <%= link_to "submit one?", new_event_path %></p>
-    </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+<!-- Events slideshow for mobile screens -->
+<div class="is-hidden-tablet is-hidden-desktop">
+  <%= render 'components/slideshow', :id => "events-slideshow-mobile", :slideshow_options => {
+      :autoplay => true,
+      :arrows => false,
+      :dots => true,
+      :useTransform => true,
+      :easing => 'swing',
+      :fade => true
+  } do %>
+    <% @events.each do |item| %>
+      <div class="container">
+        <div class="columns events-slide">
+          <% campus_background_color_class = bg_color_class(item)
+          %>
+          <div class="column event">
+            <div class="event-info <%= campus_background_color_class %>">
+              <p class="event-date-time"><%= item.start.strftime("%B %e") %>
+                , <%= item.start.strftime("%l:%M%P") %>
+                -<%= item.end.strftime("%l:%M%P") %></p>
+              <p class="event-location"><%= item.location %><br></p>
+            </div>
+            <h4 class="title is-4">
+              <a href="<%= url_for(item) %>"><%= item.name %></a></h4>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
 <div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">The Student Life</h3>
@@ -94,7 +119,7 @@
 <% else %>
   <div class="columns margin-bottom-3">
     <div class="column">
-      <p>No TSL articles found.</p>
+      <p>There are no articles available.</p>
     </div>
   </div>
 <% end %>

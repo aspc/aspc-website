@@ -8,7 +8,7 @@
 
 .primary-slideshow {
   z-index: 1;
-  height: 600px;
+  height: 400px;
   background: #2c3e50;
 
   .gradient {
@@ -27,23 +27,32 @@
       .title, .subtitle {
         line-height: 1.5;
       }
+
+      @media only screen and (max-width: 600px) {
+        .title, .subtitle {
+          font-size: 2rem;
+          line-height: 1.25;
+        }
+      }
     }
   }
 }
 
+
+
 .slick-dots li button::before,
 .slick-dots li.slick-active button::before {
   color: #fff;
-  font-size: 1rem;
-  width: 1rem;
-  height: 1rem;
+  font-size: 0.75rem;
+  width: 0.75rem;
+  height: 0.75rem;
   line-height: 1;
 }
 
 .slick-dots li,
 .slick-dots li button {
-  width: 1rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
   padding: 0;
   top: auto;
   bottom: 1.5rem;
@@ -82,8 +91,29 @@
  * Events section
  */
 
+#events-slideshow-desktop,
+#events-slideshow-mobile {
+
+  .slick-list {
+    margin-bottom: 3rem;
+  }
+
+  .slick-dots {
+    position: relative;
+
+    li button::before,
+    li.slick-active button::before {
+      color: #2c3e50;
+    }
+  }
+}
+
+.events-slide {
+  display: block !important;
+}
+
 .event .event-info {
-  border-bottom-width: 2px;
+  border-bottom-width: 2.5px;
   border-bottom-style: solid;
   padding-bottom: 1rem;
 }
