@@ -38,8 +38,11 @@ class CoursesController < ApplicationController
     when "2019;FA"
       term_start = DateTime.new(2019, 9, 3, 8, 10, 0)
       term_end = DateTime.new(2019, 12, 11, 22, 0, 0)
-    else
-      return redirect_to courses_path # This is temporary and MUST be made into something more permanent than hardcoding
+    when "2020;SP"
+      term_start = DateTime.new(2020, 1, 21, 8, 10, 0)
+      term_end = DateTime.new(2020, 5, 6, 22, 0, 0)
+      else
+      return redirect_to course_planner_path # This is temporary and MUST be made into something more permanent than hardcoding
     end
 
     (term_start..term_end).each do |date|
