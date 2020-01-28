@@ -206,6 +206,16 @@ namespace :menu_import do
         # Select hours and minutes from date and time and convert it to 12-hour clock format
         starttime = Time.parse(menu_item['startTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
         endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
+        
+        # Scripps API is returning outdated dinner hours - temporary solution to manually correct them
+        if meal_type == "dinner"
+          if day_name.in?(["saturday", "sunday"])
+            starttime = "5:00PM"
+            endtime = "6:30PM"
+          else
+            endtime = "7:00PM"
+          end
+        end
         hours = starttime << '-' << endtime
 
         if menu_item['course'].nil? || menu_item['formalName'].blank? || !meal_type.in?(['breakfast', 'brunch', 'lunch', 'dinner'])
@@ -431,7 +441,7 @@ namespace :menu_import do
           hours = '7:30AM-10:00AM'
           hours
         when 'lunch'
-          hours = '11:00AM-2:00PM'
+          hours = '11:30AM-2:00PM'
           hours
         when 'dinner'
           hours = '5:00PM-8:00PM'
