@@ -31,8 +31,10 @@
 
 <div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Upcoming Events</h3>
-  <a class="button is-outlined is-info" href="/events">See More Events</a>
-  <a class="button is-outlined is-info" href="/events/new">Submit an event</a>
+  <div class="buttons">
+    <a class="button is-outlined is-info" href="/events">See more events</a>
+    <a class="button is-outlined is-info" href="/events/new">Submit an event</a>
+  </div>
 </div>
 
 <!-- Events slideshow for desktop screens -->
@@ -59,7 +61,11 @@
                 <p class="event-location"><%= item.location %><br></p>
               </div>
               <h4 class="title is-4">
-                <a href="<%= url_for(item) %>"><%= item.name %></a></h4>
+                <a href="<%= url_for(item) %>"><%= item.name %></a>
+              </h4>
+              <p class="event-host is-4">
+                <%= item.host %>
+              </p>
             </div>
           <% end %>
         </div>
@@ -91,7 +97,11 @@
               <p class="event-location"><%= item.location %><br></p>
             </div>
             <h4 class="title is-4">
-              <a href="<%= url_for(item) %>"><%= item.name %></a></h4>
+              <a href="<%= url_for(item) %>"><%= item.name %></a>
+            </h4>
+            <p class="event-host is-4">
+              <%= item.host %>
+            </p>
           </div>
         </div>
       </div>
