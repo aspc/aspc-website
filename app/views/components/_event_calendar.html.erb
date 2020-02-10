@@ -1,31 +1,38 @@
 <% events = local_assigns.fetch(:events) %>
 <% default_view = local_assigns.fetch(:default_view, 'listWeek') %>
 
+<% puts events %>
+
 <div id="event-calendar">
 </div>
 
 <script>
     (function() {
-      if($('#event-calendar').empty() == false) return; // weird workaround due to turbolinks reloading this script
+        if($('#event-calendar').empty() == false) return; // weird workaround due to turbolinks reloading this script
+        
+        let events = <%= raw events.to_json %>;
+        $('#event-calendar').fullCalendar({
+            defaultView: '<%= default_view %>',
+            header: {
+                left: 'prev,next,today',
+                right: 'listDay,listWeek,month'
+            },
+            buttonText: {
+                today:    'today',
+                month:    'month',
+                week:     'week',
+                basicWeek: 'week',
+                day:      'day',
+                listDay: 'day'
+            },
+            allDaySlot: false,
+            editable: false,
+            events: events,
 
-      let events = <%= raw events.to_json %>;
-      $('#event-calendar').fullCalendar({
-          defaultView: '<%= default_view %>',
-          header: {
-              left: 'prev,next,today',
-              right: 'listDay,listWeek,month'
-          },
-          buttonText: {
-              today:    'today',
-              month:    'month',
-              week:     'week',
-              basicWeek: 'week',
-              day:      'day',
-              listDay: 'day'
-          },
-          allDaySlot: false,
-          editable: false,
-          events: events
-      });
-  })();
+            // custom behaviour to handle rendering hosts
+            eventRender: function(info) {
+                console.log(info);
+            }
+        });
+    })();
 </script>

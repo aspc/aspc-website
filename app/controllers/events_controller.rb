@@ -6,10 +6,10 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     # Only display approved events
-	@events = Event.where(:status => :approved)
-	
-	# Pull Engage events from API and save to database
-	EngageEventsService.new().get_events()
+    @events = Event.where(:status => :approved)
+    
+    # Pull Engage events from API and save to database
+    EngageEventsService.new().get_events()
   end
 
   # GET /events/1
@@ -149,10 +149,11 @@ class EventsController < ApplicationController
     def _to_event_calendar_mapping(events)
       events.map do |event|
         {
-            :title => event.name,
-            :start => event.start,
-            :end => event.end,
-            :url => event_url(event, format: :html)
+          :title => event.name,
+          :start => event.start,
+          :end => event.end,
+          :url => event_url(event, format: :html),
+          :host => event.host
         }
       end
     end
