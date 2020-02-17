@@ -1,70 +1,38 @@
 <% events = local_assigns.fetch(:events) %>
 <% default_view = local_assigns.fetch(:default_view, 'listWeek') %>
 
-<div id="calendar">
+<% puts events %>
+
+<div id="event-calendar">
 </div>
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    (function() {
+        if($('#event-calendar').empty() == false) return; // weird workaround due to turbolinks reloading this script
+        
         let events = <%= raw events.to_json %>;
-
-        var calendarEl = document.getElementById("calendar");
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ["dayGrid", "list"],
-            defaultView: "listWeek",
-
+        $('#event-calendar').fullCalendar({
+            defaultView: '<%= default_view %>',
             header: {
-                left: "title",
-                right: "listWeek,dayGridMonth prev,next,today"
+                left: 'prev,next,today',
+                right: 'listDay,listWeek,month'
             },
             buttonText: {
-                list: "week",
-                month: "month"
+                today:    'today',
+                month:    'month',
+                week:     'week',
+                basicWeek: 'week',
+                day:      'day',
+                listDay: 'day'
             },
-
+            allDaySlot: false,
+            editable: false,
             events: events,
 
+            // custom behaviour to handle rendering hosts
             eventRender: function(info) {
-                console.log($("td"));
+                console.log(info);
             }
         });
-
-        calendar.render();
-    });
-
-    (function() {
-        
     })();
-
-    // (function() {
-    //     if($('#event-calendar').empty() == false) return; // weird workaround due to turbolinks reloading this script
-        
-    //     let events = <%= raw events.to_json %>;
-    //     $('#event-calendar').fullCalendar({
-    //         defaultView: '<%= default_view %>',
-    //         header: {
-    //             left: 'prev,next,today',
-    //             right: 'listDay,listWeek,month'
-    //         },
-    //         buttonText: {
-    //             today:    'today',
-    //             month:    'month',
-    //             week:     'week',
-    //             basicWeek: 'week',
-    //             day:      'day',
-    //             listDay: 'day'
-    //         },
-    //         allDaySlot: false,
-    //         editable: false,
-    //         events: events,
-
-    //         // custom behaviour to handle rendering hosts
-    //         eventRender: function(info) {
-    //             console.log(info);
-    //         }
-    //     });
-    // })();
 </script>

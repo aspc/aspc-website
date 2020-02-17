@@ -16,9 +16,12 @@
 
 //= require cable.js
 
-//= require @fullcalendar/core/main.js
-//= require @fullcalendar/daygrid/main.js
-//= require @fullcalendar/list/main.js
+//= require fullcalendar-3.9.0/lib/jquery.min.js
+//= require fullcalendar-3.9.0/lib/jquery-ui.min.js
+//= require fullcalendar-3.9.0/lib/moment.min.js
+//= require fullcalendar-3.9.0/fullcalendar.js
+
+//= require weekcalendar-2.0/jquery.weekcalendar.js
 
 //= require bulma-calendar/dist/js/bulma-calendar.js
 
@@ -33,6 +36,3 @@
 //= require courses.js
 //= require menu.js
 //= require course_reviews.js
-
-// initialise fullCalendar
-$("#calendar").fullCalendar({});

@@ -10,9 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require @fullcalendar/core/main.css
- *= require @fullcalendar/daygrid/main.css
- *= require @fullcalendar/list/main.css
+ *= require fullcalendar-3.9.0/fullcalendar.css
+ *= require weekcalendar-2.0/jquery.weekcalendar.css
  *=
  *= require font-awesome
  *= require bulma/css/bulma.sass
