@@ -69,19 +69,19 @@ class EngageEventsService
 
         # get engage events already in database and check if they still exist on engage
         # if not, then delete
-        start_ts = Time.at(start_time / 1000)
-        end_ts = Time.at(end_time / 1000)
-        Event.where("start BETWEEN ? AND ?", start_ts, end_ts).each do |event|
+        # start_ts = Time.at(start_time / 1000)
+        # end_ts = Time.at(end_time / 1000)
+        # Event.where("start BETWEEN ? AND ?", start_ts, end_ts).each do |event|
 
-            # check if the event is from engage
-            if (event[:details_url].include? "https://claremont.campuslabs.com/engage/event/")
+        #     # check if the event is from engage
+        #     if (event[:details_url].include? "https://claremont.campuslabs.com/engage/event/")
 
-                # check if the event was on the list pulled from engage
-                if not (urls.include? event[:details_url])
-                    puts event
-                    event.destroy
-                end
-            end
-        end
+        #         # check if the event was on the list pulled from engage
+        #         if not (urls.include? event[:details_url])
+        #             puts event
+        #             event.destroy
+        #         end
+        #     end
+        # end
     end
 end
