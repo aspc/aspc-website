@@ -14,7 +14,7 @@
         $('#event-calendar').fullCalendar({
             defaultView: '<%= default_view %>',
             header: {
-                left: 'prev,next,today',
+                left: 'prev,next,today submitNewEvent',
                 right: 'listDay,listWeek,month'
             },
             buttonText: {
@@ -25,13 +25,22 @@
                 day:      'day',
                 listDay: 'day'
             },
+            customButtons: {
+                submitNewEvent: {
+                    text: "Submit an event",
+                    click: function() {
+                        window.location.href = "<%= new_event_path %>";
+                    }
+                }
+            },
             allDaySlot: false,
             editable: false,
             events: events,
 
-            // custom behaviour to handle rendering hosts
-            eventRender: function(info) {
-                console.log(info);
+            // append host name to the end of each event name in list view
+            eventRender: function(event, element) {
+                var hostElem = "<span class='event-host'> hosted by " + event.host + "</span>";
+                element.find(".fc-list-item-title").append(hostElem);
             }
         });
     })();
