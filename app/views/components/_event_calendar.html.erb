@@ -4,6 +4,9 @@
 <div id="event-calendar">
 </div>
 
+<br>
+<%= link_to "Submit an event", new_event_path, :class => "button is-info" %>
+
 <script>
     (function() {
         if($('#event-calendar').empty() == false) return; // weird workaround due to turbolinks reloading this script
@@ -12,7 +15,7 @@
         $('#event-calendar').fullCalendar({
             defaultView: '<%= default_view %>',
             header: {
-                left: 'prev,next,today submitNewEvent',
+                left: 'prev,next,today',
                 right: 'listDay,listWeek,month'
             },
             buttonText: {
