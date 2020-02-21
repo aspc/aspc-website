@@ -29,6 +29,8 @@
 
 //= require froala.js
 
+//= require js-cookie-2.2.1/js.cookie.min.js
+
 // Page specific javascript here
 //= require events.js
 //= require sessions.js
