@@ -213,7 +213,7 @@
 </div>
 </nav>
 
-<div class="modal" id="referendum">
+<!--<div class="modal" id="referendum">
   <div class="modal-background"></div>
   <div class="modal-content">
     <div class="box">
@@ -223,17 +223,18 @@
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close"></button>
-</div>
+</div>-->
 
 <script>
     $(document).ready(function () {
+        /*
         if (Cookies.get('referendumModal') !== 'true') {
             const modal = $('#referendum');
             const root = $('html');
             modal.addClass('is-active');
             root.addClass('is-clipped');
             Cookies.set('referendumModal', 'true', {expires: 30});
-        }
+        }*/
         $("#application-header .burger").click(function () {
             // Toggle the class on both the burger and the menu
             $(this).toggleClass('is-active');
