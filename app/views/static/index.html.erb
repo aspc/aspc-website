@@ -29,15 +29,38 @@
   </div>
 <% end %>
 
-<aside class="notification is-info">
-<strong>Apply for an ASPC Staff or Committee position!</strong><br>
-Do you want to be part of an important effort to improve campus?
-ASPC Staff and Committees provide vital support to our Senators,
-allowing for our student government to run smoothly. Apply through
-the Google Forms link below to view the open positions and be a
-part of ASPC Staff or a committee!
-<a href="https://forms.gle/cDGXds4X1ewy2Uun7">https://forms.gle/cDGXds4X1ewy2Uun7</a>
-</aside>
+<div class="margin-bottom-2 home-heading">
+  <h3 class="title is-3">Latest From ASPC</h3>
+</div>
+
+<div class="columns margin-bottom-3">
+  <div class="column is-full-mobile is-flex">
+    <aside class="notification">
+      <h4 class="title is-4 is-primary">ASPC Form re: Campus Culture</h4>
+      <p class="margin-bottom-2">ASPC strives to make the Pomona College community a better place for everyone that
+        takes a part in it. In order to do this effectively, your voices and experiences will help guide ASPC's actions
+        in pursuing a better Pomona for us all. Please use this form to highlight an instance of conduct that is
+        damaging to the campus community such as, but not limited to, inappropriate behavior, problematic online
+        conduct, or hate speech.</p>
+      <a class="button is-info is-outlined" href="https://forms.gle/4nVLTJdRMj1uysgCA">Go to this
+        form</a>
+    </aside>
+  </div>
+  <div class="column is-full-mobile is-flex">
+    <aside class="notification">
+      <h4 class="title is-4">ASPC Questions, Comments, and Concerns</h4>
+      <p class="margin-bottom-2">Please use this form for any questions, comments, or concerns that you would like ASPC
+        to address. If you have
+        multiple questions or comments that span different areas, make sure to note the general area in your response.
+        We will ensure your submission will be received and addressed by all relevant and related senators. Direct any
+        questions to <a class="no-underline" href="mailto:senate@aspc.pomona.edu">senate@aspc.pomona.edu</a>!
+      </p>
+      <a class="button is-info is-outlined" href="https://forms.gle/FU6vqTAcqspy8eW6A">Go to this
+        form</a>
+    </aside>
+  </div>
+</div>
+
 
 <div class="margin-bottom-3 home-heading">
   <h3 class="title is-3">Upcoming Events</h3>
@@ -49,21 +72,66 @@ part of ASPC Staff or a committee!
 
 <!-- Events slideshow for desktop screens -->
 <div class="is-hidden-mobile">
-  <%= render 'components/slideshow', :id => "events-slideshow-desktop", :slideshow_options => {
-      :autoplay => true,
-      :arrows => false,
-      :dots => true,
-      :useTransform => true,
-      :easing => 'swing',
-      :fade => true
-  } do %>
-    <% @events.each_slice(3) do |list| %>
-      <div class="container events-slide">
-        <div class="columns">
-          <% list.each do |item| %>
+  <% if @events.length > 0 %>
+    <%= render 'components/slideshow', :id => "events-slideshow-desktop", :slideshow_options => {
+        :autoplay => true,
+        :arrows => false,
+        :dots => true,
+        :useTransform => true,
+        :easing => 'swing',
+        :fade => true
+    } do %>
+      <% @events.each_slice(3) do |list| %>
+        <div class="container events-slide">
+          <div class="columns">
+            <% list.each do |item| %>
+              <% campus_background_color_class = bg_color_class(item)
+              %>
+              <div class="column is-4 event">
+                <div class="event-info <%= campus_background_color_class %>">
+                  <p class="event-date-time"><%= item.start.strftime("%B %e") %>
+                    , <%= item.start.strftime("%l:%M%P") %>
+                    -<%= item.end.strftime("%l:%M%P") %></p>
+                  <p class="event-location"><%= item.location %><br></p>
+                </div>
+                <h4 class="title is-4">
+                  <a href="<%= url_for(item) %>"><%= item.name %></a>
+                </h4>
+                <p class="event-host is-4 ">
+                  <%= item.host %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="columns margin-bottom-3">
+      <div class="column">
+        <p>There are no events available.</p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Events slideshow for mobile screens -->
+<div class="is-hidden-tablet is-hidden-desktop">
+  <% if @events.length > 0 %>
+    <%= render 'components/slideshow', :id => "events-slideshow-mobile", :slideshow_options => {
+        :autoplay => true,
+        :arrows => false,
+        :dots => true,
+        :useTransform => true,
+        :easing => 'swing',
+        :fade => true
+    } do %>
+      <% @events.each do |item| %>
+        <div class="container">
+          <div class="columns events-slide">
             <% campus_background_color_class = bg_color_class(item)
             %>
-            <div class="column is-4 event">
+            <div class="column event">
               <div class="event-info <%= campus_background_color_class %>">
                 <p class="event-date-time"><%= item.start.strftime("%B %e") %>
                   , <%= item.start.strftime("%l:%M%P") %>
@@ -73,49 +141,20 @@ part of ASPC Staff or a committee!
               <h4 class="title is-4">
                 <a href="<%= url_for(item) %>"><%= item.name %></a>
               </h4>
-              <p class="event-host is-4 ">
+              <p class="event-host is-4">
                 <%= item.host %>
               </p>
             </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-
-<!-- Events slideshow for mobile screens -->
-<div class="is-hidden-tablet is-hidden-desktop">
-  <%= render 'components/slideshow', :id => "events-slideshow-mobile", :slideshow_options => {
-      :autoplay => true,
-      :arrows => false,
-      :dots => true,
-      :useTransform => true,
-      :easing => 'swing',
-      :fade => true
-  } do %>
-    <% @events.each do |item| %>
-      <div class="container">
-        <div class="columns events-slide">
-          <% campus_background_color_class = bg_color_class(item)
-          %>
-          <div class="column event">
-            <div class="event-info <%= campus_background_color_class %>">
-              <p class="event-date-time"><%= item.start.strftime("%B %e") %>
-                , <%= item.start.strftime("%l:%M%P") %>
-                -<%= item.end.strftime("%l:%M%P") %></p>
-              <p class="event-location"><%= item.location %><br></p>
-            </div>
-            <h4 class="title is-4">
-              <a href="<%= url_for(item) %>"><%= item.name %></a>
-            </h4>
-            <p class="event-host is-4">
-              <%= item.host %>
-            </p>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
+  <% else %>
+    <div class="columns margin-bottom-3">
+      <div class="column">
+        <p>There are no events available.</p>
+      </div>
+    </div>
   <% end %>
 </div>
 
