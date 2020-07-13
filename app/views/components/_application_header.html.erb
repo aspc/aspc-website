@@ -55,15 +55,25 @@
       <!-- Home -->
       <a href="/" class="navbar-item">Home</a>
 
-      <!-- Events -->
-      <%= link_to "Events", :events, :class => "navbar-item" %>
+      <!-- Forms -->
+      <a class="navbar-item" href="<%= static_path(page_name: "forms") %>">
+        <div class="tags has-addons">
+            <span class="tag is-medium">
+              FA20
+            </span>
+          <span class="tag item-has-arrow is-info is-medium">Forms</span>
+        </div>
+      </a>
 
-      <!-- Menus -->
-      <%= link_to "Menus", :menus, :class => "navbar-item" %>
-
-
-      <!-- Housing Search / Reviews -->
-      <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+      <!-- FAQ -->
+      <a href="https://docs.google.com/document/d/e/2PACX-1vQOCuZxcSnVuj9HVTuC0tTRU-sIJ5yr2CjJacJ0TSmOMG9jK35Iwfyrb1Tq8X_waoYL_LnXw9Ah_qqI/pub" target="_blank" class="navbar-item">
+        <div class="tags has-addons">
+            <span class="tag is-medium">
+              FA20
+            </span>
+          <span class="tag item-has-arrow is-info is-medium">FAQ</span>
+        </div>
+      </a>
 
       <!-- Course Schedule / Reviews -->
       <div class="navbar-item has-dropdown is-hoverable">
@@ -152,6 +162,27 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campus -->
+    <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-link">
+        <span class="item-has-arrow">Campus</span>
+      </div>
+      <div class="navbar-dropdown">
+        <div class="navbar-content">
+          <!-- Events -->
+          <%= link_to "Events", :events, :class => "navbar-item" %>
+        </div>
+        <div class="navbar-content">
+          <!-- Menus -->
+          <%= link_to "Menus", :menus, :class => "navbar-item" %>
+        </div>
+        <div class="navbar-content">
+          <!-- Housing Search / Reviews -->
+          <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
         </div>
       </div>
     </div>

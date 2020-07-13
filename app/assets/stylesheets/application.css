@@ -200,6 +200,23 @@ a {
     background: rgba(0, 0, 0, 0.1);
 }
 
+#application-header .navbar-item .tag {
+    background-color: rgba(245, 245, 245, 0.8);
+}
+
+#application-header .navbar-item .tags:hover .tag {
+    background-color: rgba(245, 245, 245, 1);
+}
+
+#application-header .navbar-item .tag.is-info {
+    background-color: rgba(32, 156, 238, 0.8);
+}
+
+
+#application-header .navbar-item .tags:hover .tag.is-info {
+    background-color: rgba(32, 156, 238, 1);
+}
+
 /*
  * Footer
  */
