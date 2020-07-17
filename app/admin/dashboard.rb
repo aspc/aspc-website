@@ -4,42 +4,41 @@ admin_dashboard_page = Proc.new do
   page_action :import_menus, method: :get do
     # Imports all of the dining hall menus
     MenuImportJob.perform_later
-
-    redirect_to admin_dashboard_path
+    redirect_to admin_dashboard_path, notice: "Importing all menus!"
   end
 
   page_action :import_frank, method: :get do
-    MenuImportJobs::FrankMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::FrankMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Frank menus!"
   end
   page_action :import_frary, method: :get do
-    MenuImportJobs::FraryMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::FraryMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Frary menus!"
   end
   page_action :import_oldenborg, method: :get do
-    MenuImportJobs::OldenborgMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::OldenborgMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Oldenborg menus!"
   end
   page_action :import_cmc, method: :get do
-    MenuImportJobs::ClaremontMckennaMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::ClaremontMckennaMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Claremont McKenna menus!"
   end
   page_action :import_hmc, method: :get do
-    MenuImportJobs::HarveyMuddMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::HarveyMuddMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Harvey Mudd menus!"
   end
   page_action :import_scripps, method: :get do
-    MenuImportJobs::ScrippsMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::ScrippsMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Scripps menus!"
   end
   page_action :import_pitzer, method: :get do
-    MenuImportJobs::PitzerMenuImportJob.perform_now
-    redirect_to admin_dashboard_path
+    MenuImportJobs::PitzerMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Pitzer menus!"
   end
 
   page_action :import_course_data, method: :get do
     CourseImportJob.perform_later
-    redirect_to admin_dashboard_path
+    redirect_to admin_dashboard_path, notice: "Importing courses! It might take some time before courses are updated."
   end
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
