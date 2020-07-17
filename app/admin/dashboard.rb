@@ -38,7 +38,7 @@ admin_dashboard_page = Proc.new do
   end
 
   page_action :import_course_data, method: :get do
-    CourseImportJob.perform_now
+    CourseImportJob.perform_later
     redirect_to admin_dashboard_path
   end
 
