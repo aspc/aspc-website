@@ -6,12 +6,21 @@
     <div>Search Courses</div>
   </div>
   <div class="message-body">
+    <p class="margin-bottom-1 is-italic">Please enter at least a course name or a course number.</p>
     <%= form_with url: course_reviews_search_url, remote: true do |f| %>
       <div class="field">
         <label class="label">Course Name</label>
         <div class="control is-expanded">
           <div class="control">
             <%= f.text_field :keywords, :class => "input", :placeholder => "Keywords" %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Numbered</label>
+        <div class="control">
+          <div class="control">
+            <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
           </div>
         </div>
       </div>
@@ -52,20 +61,8 @@
         </div>
       </div>
       -->
-      <div class="expandable">
-        <div class="field">
-          <label class="label">Numbered</label>
-          <div class="control">
-            <div class="control">
-              <%= f.number_field :number, :class => "input", :placeholder => "Course Number", :min => 0 %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="field is-horizontal buttons margin-top-1">
-        <%= f.submit "Search", :class => "button is-link search-button margin-bottom-1" %>
-        <a href="#" class="button is-outlined text-center expand-search-options margin-bottom-1">Show advanced
-          search</a>
+      <div class="field">
+        <%= f.submit "Search", :class => "button is-link search-button margin-bottom-0 is-medium is-info" %>
       </div>
     <% end %>
   </div>
