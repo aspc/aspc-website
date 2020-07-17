@@ -60,7 +60,8 @@ class CourseReviewsController < ApplicationController
 
   def search_course_reviews
     # param initialization
-    department_code = Department.find_by(:name => params[:department]).code unless params[:department].empty?
+    # TODO: Turn back on search by department
+    # department_code = Department.find_by(:name => params[:department]).code unless params[:department].empty?
     number = params[:number].to_i rescue nil unless params[:number].empty?
     keywords = params[:keywords].split rescue nil unless params[:keywords].empty?
     schools = {
@@ -79,11 +80,12 @@ class CourseReviewsController < ApplicationController
 
     # database queries
     matches_query = Course.order("number")
-    if (department_code)
-      matches_query = matches_query
-        .joins(:departments)
-        .where(:departments => {:code => department_code})
-    end
+    # TODO: Turn back on search by department
+    # if (department_code)
+    #   matches_query = matches_query
+    #     .joins(:departments)
+    #     .where(:departments => {:code => department_code})
+    # end
 
     if (number)
       matches_query = matches_query
