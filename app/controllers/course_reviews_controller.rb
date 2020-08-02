@@ -104,7 +104,7 @@ class CourseReviewsController < ApplicationController
     # database response filtering
     if (schools)
       matches_query = matches_query
-        .select {|course| schools.any? {|school| course.schools.any? {|s| s == school}}}
+        .select {|course| schools.any? {|school| course.schools.any? {|s| s == school} rescue false}}
     end
 
     # server response
