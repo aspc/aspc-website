@@ -31,7 +31,7 @@
 <div id="alert-banner-container" class="is-overlay">
   <% if notice.present? %>
     <% if flash[:notice_subtitle] %>
-      <% msg = raw("<strong>") + notice + raw("</strong>") + " " + flash[:notice_subtitle] %>
+      <% msg = raw("<span><strong>") + notice + raw("</strong>") + " " + flash[:notice_subtitle] + raw("</span>") %>
     <% else %>
       <% msg = raw("<strong>") + notice + raw("</strong>")%>
     <% end %>
