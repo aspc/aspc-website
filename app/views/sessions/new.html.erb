@@ -10,6 +10,16 @@
       <div class="subtitle is-5">
         Log in to access more features, services, and pages
       </div>
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <div class="notification is-info">
+            We are currently experiencing issues with CAS authentication for Pomona accounts. If you need to use an ASPC
+            service that requires an account, please create an account using your personal e-mail through
+            <strong>5C Students</strong> option.
+            We apologize for any inconvenience.
+          </div>
+        </div>
+      </div>
     </div>
     <div class="columns is-centered">
       <div class="column is-one-third">
@@ -39,16 +49,12 @@
 <div class="modal" id="sign-in-to-account-modal">
   <div class="modal-background"></div>
   <div class="modal-content">
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Login to Existing Account</p>
-        <button class="delete" aria-label="close"></button>
-      </header>
-      <section class="modal-card-body">
-        <%= render 'sessions/login_to_existing_account' %>
-      </section>
-      <footer class="modal-card-foot"></footer>
-    </div>
+    <div class="modal-card"></div>
+    <header class="modal-card-head">
+      <p class="modal-card-title">Existing Account</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <%= render 'sessions/login_to_existing_account' %>
   </div>
 </div>
 
@@ -57,13 +63,10 @@
   <div class="modal-content">
     <div class="modal-card"></div>
     <header class="modal-card-head">
-      <p class="modal-card-title">Create New Account</p>
+      <p class="modal-card-title">New Account</p>
       <button class="delete" aria-label="close"></button>
     </header>
-    <section class="modal-card-body">
-      <%= render 'sessions/create_new_account' %>
-    </section>
-    <footer class="modal-card-foot"></footer>
+    <%= render 'sessions/create_new_account' %>
   </div>
 </div>
 

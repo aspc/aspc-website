@@ -20,8 +20,8 @@ class CoursesController < ApplicationController
     academic_term = course_sections.first&.academic_term
 
     if !academic_term # Academic Term is decided by the courses on the schedule
-      return redirect_to courses_path, :flash => {
-          :notice => "Cannot export schedule",
+      return redirect_to course_planner_path, :flash => {
+          :notice => "Cannot export schedule.",
           :notice_subtitle => "You haven't saved any courses to your schedule!",
           :notice_class => "is-danger",
       }

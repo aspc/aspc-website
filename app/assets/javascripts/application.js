@@ -31,6 +31,8 @@
 
 //= require js-cookie-2.2.1/js.cookie.min.js
 
+//= require bulma-toast/dist/bulma-toast.min.js
+
 // Page specific javascript here
 //= require events.js
 //= require sessions.js

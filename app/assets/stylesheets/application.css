@@ -24,6 +24,8 @@
  *
  *= require froala.scss
  *
+ *= require animate.css/animate.min.css
+ *
  * Sass helpers file
  *= require helpers.scss
  *= require overrides.scss
@@ -264,4 +266,12 @@ a {
 #alert-banner-container {
     height: 0;
     z-index: 100;
+}
+
+.modal .modal-card-foot {
+    border-top: 0;
+}
+
+.modal .modal-card-head {
+    border-bottom: 0;
 }

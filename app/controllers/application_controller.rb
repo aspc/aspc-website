@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
                                           :school => :pomona,
                                           :password => "dev_password");
 
-        session[:current_user_id] = dev_user.id
+        # session[:current_user_id] = dev_user.id
       end
     end
 end

@@ -30,7 +30,12 @@
 
 <div id="alert-banner-container" class="is-overlay">
   <% if notice.present? %>
-    <%= render partial: 'components/alert_banner' %>
+    <% if flash[:notice_subtitle] %>
+      <% msg = raw("<strong>") + notice + raw("</strong>") + " " + flash[:notice_subtitle] %>
+    <% else %>
+      <% msg = raw("<strong>") + notice + raw("</strong>")%>
+    <% end %>
+    <%= render partial: 'components/toast', locals: {message: msg, type: (flash[:notice_class] || "is-info") } %>
   <% end %>
 </div>
 

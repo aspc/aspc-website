@@ -24,6 +24,10 @@
 
 <body class="<%= controller_name %> <%= action_name %>">
 
+<% if notice.present? %>
+  <%= render partial: 'components/alert_banner' %>
+<% end %>
+
 <section class="section">
   <div class="container">
     <%= yield %>

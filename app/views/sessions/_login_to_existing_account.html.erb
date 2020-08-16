@@ -1,19 +1,25 @@
 <%= form_with url: login_credentials_url do |f| %>
-<div class="field">
-  <label class="label">Email Address</label>
-  <div class="control">
-    <%= f.email_field :email, :class => "input" %>
+  <section class="modal-card-body">
+  <div class="field">
+    <div class="field">
+      <label class="label">Email Address</label>
+      <div class="control">
+        <%= f.email_field :email, :class => "input" %>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+        <%= f.password_field :password, :class => "input" %>
+      </div>
+    </div>
   </div>
-</div>
-<div class="field">
-  <label class="label">Password</label>
-  <div class="control">
-    <%= f.password_field :password, :class => "input" %>
-  </div>
-</div>
-<div class="field">
-  <div class="control">
-    <%= f.submit "Sign in", :class => "button is-info" %>
-  </div>
-</div>
+  </section>
+  <footer class="modal-card-foot">
+    <div class="field">
+      <div class="control">
+        <%= f.submit "Sign In", :class => "button is-info" %>
+      </div>
+    </div>
+  </footer>
 <% end %>

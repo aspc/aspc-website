@@ -19,38 +19,36 @@ class SessionsController < ApplicationController
     email = params[:email]
     user = User.find_by(:email => email)
 
-    if(user)
-      return redirect_to login_url,
-                         :flash => {
-                             :notice => "Cannot create account",
-                             :notice_subtitle => "Account with provided email already exists.",
-                             :notice_class => "is-danger",
-                         }
+    if user
+      respond_to do |format|
+        format.js { render partial: "components/toast", locals: {message: "Cannot create account. Account with provided email already exists.", type: "is-danger"} }
+      end
+    else
+      school = params[:school]
+      first_name = params[:first_name].titleize
+      password = SessionsService.encrypt_password(params[:password])
+      user = User.new({
+                          :email => email,
+                          :password => password,
+                          :first_name => first_name,
+                          :school => school,
+                          :role => :user,
+                          :is_cas_authenticated => false
+                      })
+
+      if user.save
+        session[:current_user_id] = user.id
+        respond_to do |format|
+          flash[:notice] = "Account created. Welcome, #{current_user.first_name}."
+          flash[:notice_class] = "is-success"
+          format.js { render js: "window.location='#{root_url.to_s}'" }
+        end
+      else
+        respond_to do |format|
+          format.js { render partial: "components/toast", locals: {message: "Cannot create account. Please fill out all fields to create your account.", type: "is-danger"} }
+        end
+      end
     end
-
-    school = params[:school]
-    first_name = params[:first_name].titleize
-    password = SessionsService.encrypt_password(params[:password])
-    user = User.new({
-                           :email => email,
-                           :password => password,
-                           :first_name => first_name,
-                           :school => school,
-                           :role => :user,
-                           :is_cas_authenticated => false
-                       })
-
-    if not user.save
-      return redirect_to login_url,
-                         :flash => {
-                             :notice => "Cannot create account",
-                             :notice_subtitle => "Please fill out all fields to create your account.",
-                             :notice_class => "is-danger",
-                         }
-    end
-
-    session[:current_user_id] = user.id
-    redirect_to root_url, :notice => "Account created. Welcome, #{current_user.first_name}."
   end
 
   def create_via_credentials
@@ -58,17 +56,18 @@ class SessionsController < ApplicationController
     password = params[:password]
     user = SessionsService.authenticate_account(email, password)
 
-    if(!user)
-      return redirect_to login_url,
-                         :flash => {
-                             :notice => "Cannot sign in",
-                             :notice_subtitle => "An account with that email address and password combination was not found.",
-                             :notice_class => "is-danger"
-                         }
+    if user
+      session[:current_user_id] = user.id
+      respond_to do |format|
+        # flash[:notice] = "Login successful. Welcome, #{current_user.first_name}."
+        # flash[:notice_class] = "is-success"
+        format.js { render js: "window.location='#{root_url.to_s}'" }
+      end
+    else
+      respond_to do |format|
+        format.js { render partial: "components/toast", locals: {message: "We could not find a user with given e-mail and password. Please try again.", type: "is-danger"} }
+      end
     end
-
-    session[:current_user_id] = user.id
-    redirect_to root_url, :notice => "Login successful. Welcome, #{current_user.first_name}."
   end
 
   def create_via_cas
