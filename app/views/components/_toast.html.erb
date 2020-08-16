@@ -7,3 +7,8 @@
         duration: 3000
     });
 </script>
+
+<!-- Required so that, in the case of AJAX calls, the toast doesn't persist. -->
+<% flash[:notice] = nil %>
+<% flash[:notice_class] = nil %>
+<% flash[:notice_subtitle] = nil %>
