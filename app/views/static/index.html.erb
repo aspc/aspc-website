@@ -10,16 +10,18 @@
         :fade => true
     } do %>
       <% @announcements.each do |announcement| %>
-        <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
+        <% if announcement.background_image.attached? %>
+          <div class="cover-image" style="background-image: url(<%= url_for(announcement.background_image) %>);">
+        <% else %>
+          <div class="cover-image">
+        <% end %>
           <div class="gradient">
             <div class="announcement-info has-shadow">
               <h2 class="title is-2 has-text-white"><%= announcement.title %></h2>
-              <%# if not announcement.caption.blank? %>
-              <!-- <p class="subtitle has-text-white"><%#= announcement.caption %></p> -->
-              <%# end %>
               <% if not announcement.details_url.blank? %>
-                <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">More
-                  Details</a>
+                <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">
+                  <%= if announcement.caption.blank? then "More Details" else announcement.caption end %>
+                </a>
               <% end %>
             </div>
           </div>

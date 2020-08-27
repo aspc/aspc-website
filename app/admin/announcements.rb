@@ -15,8 +15,7 @@ announcements_page = Proc.new do
       row :details_url
       row :priority
       row :background_image do |announcement|
-        image_tag url_for(announcement.background_image), :width => '100%'
-      end
+        image_tag url_for(announcement.background_image), :width => '100%' if announcement.background_image.attached? end
     end
   end
 
