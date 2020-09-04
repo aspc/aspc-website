@@ -15,20 +15,24 @@
         <% else %>
           <div class="cover-image">
         <% end %>
-          <div class="gradient">
-            <div class="announcement-info has-shadow">
-              <h2 class="title is-2 has-text-white"><%= announcement.title %></h2>
-              <% if not announcement.details_url.blank? %>
-                <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">
-                  <%= if announcement.caption.blank? then "More Details" else announcement.caption end %>
-                </a>
-              <% end %>
-            </div>
+        <div class="gradient">
+          <div class="announcement-info has-shadow">
+            <h2 class="title is-2 has-text-white"><%= announcement.title %></h2>
+            <% if not announcement.details_url.blank? %>
+              <a class="button is-medium is-outlined is-info" href="<%= announcement.details_url %>" tabindex="0">
+                <%= if announcement.caption.blank? then
+                      "More Details"
+                    else
+                      announcement.caption
+                    end %>
+              </a>
+            <% end %>
           </div>
+        </div>
         </div>
       <% end %>
     <% end %>
-  </div>
+    </div>
 <% end %>
 
 <div class="margin-bottom-2 home-heading">
@@ -36,19 +40,20 @@
 </div>
 
 <div class="columns margin-bottom-3">
-  <!-- <div class="column is-full-mobile is-flex">
+  <div class="column is-full">
     <aside class="notification">
-      <h4 class="title is-4 is-primary">ASPC Form re: Campus Culture</h4>
-      <p class="margin-bottom-2">ASPC strives to make the Pomona College community a better place for everyone that
-        takes a part in it. In order to do this effectively, your voices and experiences will help guide ASPC's actions
-        in pursuing a better Pomona for us all. Please use this form to highlight an instance of conduct that is
-        damaging to the campus community such as, but not limited to, inappropriate behavior, problematic online
-        conduct, or hate speech.</p>
-      <a class="button is-info is-outlined" href="https://forms.gle/4nVLTJdRMj1uysgCA">Go to this
-        form</a>
+      <h4 class="title is-4 is-primary">2020 Fall Elections Are Live</h4>
+      <p class="margin-bottom-2">Find our informational presentation below as well as the Google form used for signups
+        and details on candidate's meetings and forums. Reach out to
+        <a class="no-underline" target="_blank" href="mailto:elections@aspc.pomona.edu">elections@aspc.pomona.edu</a> with any
+        questions!</p>
+      <a class="button is-info is-outlined" target="_blank" href="https://forms.gle/NdZuhCYv1VBxRCpj9">
+        Sign Up
+      </a>
+      <a class="button is-info is-outlined margin-right-half" target="_blank" href="https://docs.google.com/presentation/d/1KhDFk0nRdK6eSs5xk_U7OzhIqnlwXRHc-hmBMf-SYL8/edit?usp=sharing">
+        See Presentation
+      </a>
     </aside>
-  </div> -->
-  <div class="column is-full-mobile is-flex">
     <aside class="notification">
       <h4 class="title is-4">ASPC Questions, Comments, and Concerns</h4>
       <p class="margin-bottom-2">Please use this form for any questions, comments, or concerns that you would like ASPC
@@ -57,8 +62,7 @@
         We will ensure your submission will be received and addressed by all relevant and related senators. Direct any
         questions to <a class="no-underline" href="mailto:senate@aspc.pomona.edu">senate@aspc.pomona.edu</a>!
       </p>
-      <a class="button is-info is-outlined" href="https://forms.gle/FU6vqTAcqspy8eW6A">Go to this
-        form</a>
+      <a class="button is-info is-outlined" href="https://forms.gle/FU6vqTAcqspy8eW6A">Open Form</a>
     </aside>
   </div>
 </div>
