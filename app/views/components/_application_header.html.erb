@@ -57,12 +57,7 @@
 
       <!-- Forms -->
       <a class="navbar-item" href="<%= static_path(page_name: "forms") %>">
-        <div class="tags has-addons">
-            <span class="tag is-medium">
-              FA20
-            </span>
-          <span class="tag item-has-arrow is-info is-medium">Forms</span>
-        </div>
+        <span class="is-info is-medium">Forms</span>
       </a>
 
       <!-- FAQ -->
@@ -194,7 +189,10 @@
       </div>
       <div class="navbar-dropdown">
         <div class="navbar-content">
-          <a href="https://pomonastudents.org/5crideshare/" class="navbar-item">5C Rideshare</a>
+          <a href="https://pomonastudents.org/5crideshare/" class="navbar-item" target="_blank">5C Rideshare</a>
+        </div>
+        <div class="navbar-content">
+          <a href="https://coopstore.pomona.edu" class="navbar-item" target="_blank">Coop Store</a>
         </div>
         <div class="navbar-content">
           <%= link_to "Coop Fountain", static_path(page_name: "coop-fountain"), :class => "navbar-item" %>
@@ -203,7 +201,7 @@
           <%= link_to "JBoard", static_path(page_name: "jboard"), :class => "navbar-item" %>
         </div>
         <div class="navbar-content">
-          <a href="https://pomonastudents.turbovote.org" class="navbar-item">TurboVote</a>
+          <a href="https://pomonastudents.turbovote.org" class="navbar-item" target="_blank">TurboVote</a>
         </div>
         <hr class="navbar-divider"/>
         <div class="navbar-content">
