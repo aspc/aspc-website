@@ -89,6 +89,10 @@ class StaticController < ApplicationController
     @board = Person.priority_order.board.order("id ASC")
   end
 
+  def open_forum
+
+  end
+
   private
 
   def news

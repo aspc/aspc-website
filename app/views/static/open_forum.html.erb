@@ -1,0 +1,46 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Open Forum", :subtitle => "Lorem ipsum dot" %>
+<% end %>
+
+<div class="columns">
+  <div class="column">
+    <div class="notification">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac dolor ut leo consectetur lacinia. Duis magna
+      felis, eleifend at ipsum et, vehicula facilisis elit. Sed faucibus pharetra turpis ut euismod. Vivamus auctor
+      pellentesque orci, nec sagittis ligula fringilla eget.
+    </div>
+    <%= form_with url: courses_search_url, remote: true do |f| %>
+      <div class="field">
+        <label class="label">Area of concern</label>
+        <div class="control is-expanded">
+          <div class="select">
+            <select name="area" id="area">
+              <option value="academics">Academics</option>
+              <option value="title-ix">Title IX</option>
+              <option value="finances">Finances</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Question</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_area :question, :class => "textarea", :placeholder => "Type your question here", :rows => 5 %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox">
+            I would like to receive a response
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <%= f.submit "Send", :class => "button is-link is-info" %>
+      </div>
+    <% end %>
+  </div>
+</div>
