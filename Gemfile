@@ -61,7 +61,7 @@ gem 'icalendar'
 
 # WYSIWYG editor for static page editing
 gem 'wysiwyg-rails'
-gem 'froala-editor-sdk'
+gem 'froala-editor-sdk', '~> 1.2.0'
 
 # Coveralls (testing coverage monitor)
 gem 'coveralls', require: false
