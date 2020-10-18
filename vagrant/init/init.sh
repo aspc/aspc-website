@@ -29,13 +29,9 @@ else
 fi
 
 # Yarn / Node apt-get repositories
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-# Google chrome apt-get repositories
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-echo "deb https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google.list
 
 # Dependencies for ASPC Main Site
 apt-get update
@@ -47,8 +43,8 @@ apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
 # Set up PostgreSQL
 info "Setting up PostgreSQL configuration..."
 /etc/init.d/postgresql stop
-cat /vagrant/vagrant/db/pg_hba_prepend.conf /etc/postgresql/9.3/main/pg_hba.conf > /tmp/pg_hba.conf
-mv /tmp/pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+cat /vagrant/vagrant/db/pg_hba_prepend.conf /etc/postgresql/9.5/main/pg_hba.conf > /tmp/pg_hba.conf
+mv /tmp/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
 /etc/init.d/postgresql start
 
 info "Creating user 'main' in PostgreSQL (if it doesn't exist)"
