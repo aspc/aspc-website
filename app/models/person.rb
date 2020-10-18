@@ -15,7 +15,6 @@ class Person < ApplicationRecord
       file.close
     end
     image_file = MiniMagick::Image.open(attachment_path)
-    byebug
 
     # scale down image such that max(width, height) <= max_dim, preserving aspect ratio
     max_dim = 1000
@@ -30,7 +29,6 @@ class Person < ApplicationRecord
 
     image_file.resize "#{w}x#{h}"
     image_file.write attachment_path
-    byebug
     image.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
   end
 end
