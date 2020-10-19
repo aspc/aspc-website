@@ -33,6 +33,8 @@
 
 //= require bulma-toast/dist/bulma-toast.min.js
 
+//= require jquery.validate
+
 // Page specific javascript here
 //= require events.js
 //= require sessions.js

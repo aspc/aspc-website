@@ -2,7 +2,7 @@ class StaticController < ApplicationController
   # Custom form in activeadmin breaks CSRF
   # This is a workaround while we figure out a better solution
   # skip_before_action :verify_authenticity_token, :only => [:upload_image]
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, :only => [:open_forum]
 
   # Reference: https://github.com/froala/editor-ruby-sdk-example
   # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload
@@ -90,7 +90,21 @@ class StaticController < ApplicationController
   end
 
   def open_forum
-
+    respond_to do |format|
+      @message = params[:message]
+      @response = params[:response]
+      @response_method = params[:response_method]
+      # byebug
+      if @message and (@response == "true" and @response_method or @message and @response == "false")
+        # OpenForumMailer.with(message: @message, response_method: @response_method).new_open_forum_email.deliver_later
+        format.js
+        # { render partial: "components/toast", locals: {message: "Your message has been sent!", type: "is-success"} }
+      else
+        format.js
+        # { render partial: "components/toast", locals: {message: "Could not send the message! Please try again or contact software@aspc.pomona.edu.", type: "is-danger"} }
+      end
+      format.html
+    end
   end
 
   private

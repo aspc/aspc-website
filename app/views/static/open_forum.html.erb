@@ -9,16 +9,12 @@
       felis, eleifend at ipsum et, vehicula facilisis elit. Sed faucibus pharetra turpis ut euismod. Vivamus auctor
       pellentesque orci, nec sagittis ligula fringilla eget.
     </div>
-    <%= form_with url: courses_search_url, remote: true do |f| %>
+    <%= form_with url: open_forum_url, remote: true do |f| %>
       <div class="field">
         <label class="label">Area of concern</label>
         <div class="control is-expanded">
           <div class="select">
-            <select name="area" id="area">
-              <option value="academics">Academics</option>
-              <option value="title-ix">Title IX</option>
-              <option value="finances">Finances</option>
-            </select>
+            <%= f.collection_select :topic, OpenForumMapping.all, :id, :topic  %>
           </div>
         </div>
       </div>
@@ -31,11 +27,22 @@
         </div>
       </div>
       <div class="field">
+        <label class="label">Would you like to be contacted?</label>
         <div class="control">
-          <label class="checkbox">
-            <input type="checkbox">
-            I would like to receive a response
+          <label class="radio">
+            <%= f.radio_button :response, true %>
+            Yes
           </label>
+          <label class="radio">
+            <%= f.radio_button :response, false, :checked => true %>
+            No
+          </label>
+        </div>
+      </div>
+      <div class="field" id="response-method">
+        <label class="label">How would you like to be contacted?</label>
+        <div class="control">
+          <%= f.text_field :method, :class => "input", :placeholder => "Type the way we can reach you (email, phone number, etc.)" %>
         </div>
       </div>
       <div class="field">
@@ -44,3 +51,26 @@
     <% end %>
   </div>
 </div>
+
+<script>
+    $('#response_true').click(function() {
+        $('#response-method').show();
+    });
+    $('#response_false').click(function() {
+        $('#response-method').hide();
+    });
+    // $("form[id='open-forum-form']").validate({
+    //     submitHandler: function (form) {
+    //         form.submit();
+    //     },
+    //     errorPlacement: function(error, element) {
+    //         // Prevents validate from creating a new label when a validation error occurs
+    //     },
+    //     errorClass: "is-danger"
+    // });
+    // $.validator.addClassRules({
+    //     candidates: {
+    //         required: true,
+    //     }
+    // });
+</script>
