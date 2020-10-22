@@ -15,7 +15,9 @@
 
 //= require cable.js
 
-//= require fullcalendar-3.9.0/lib/jquery.min.js
+//= require jquery
+//= require jquery_ujs
+
 //= require fullcalendar-3.9.0/lib/jquery-ui.min.js
 //= require fullcalendar-3.9.0/lib/moment.min.js
 //= require fullcalendar-3.9.0/fullcalendar.js

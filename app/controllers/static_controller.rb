@@ -91,16 +91,58 @@ class StaticController < ApplicationController
 
   def open_forum
     respond_to do |format|
-      @message = params[:message]
-      @response = params[:response]
-      @response_method = params[:response_method]
-      # byebug
-      if @message and (@response == "true" and @response_method or @message and @response == "false")
-        # OpenForumMailer.with(message: @message, response_method: @response_method).new_open_forum_email.deliver_later
-        format.js
-        # { render partial: "components/toast", locals: {message: "Your message has been sent!", type: "is-success"} }
+      # Validate parameters
+      valid_params = %w[topic question response response_method]
+      valid_params.each do |param|
+        unless params.has_key? param
+          format.js {
+            render partial: "components/toast",
+                   locals: {
+                       message: "Invalid request.",
+                       type: "is-danger"
+                   }
+          }
+        end
+      end
+
+      # Find an email associated with the provided topic
+      begin
+        topic_email_mapping = OpenForumMapping.find(params[:topic])
+      rescue
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "Could not find an email for the selected area of concern.",
+                     type: "is-danger"
+                 }
+        }
+        return
+      end
+
+      # Assign parameters
+      question = params[:question]
+      should_respond = params[:response]
+      response_method = params[:response_method]
+      to = topic_email_mapping.email
+
+      # Make sure that the question is not empty and that the response method is not empty in case the user wanted a response
+      if not question.blank? and (should_respond == "true" and not response_method.blank? or should_respond == "false")
+        OpenForumMailer.with(question: question, response_method: response_method, to: to).new_open_forum_email.deliver_later
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "Your message has been sent!",
+                     type: "is-success"
+                 }
+        }
       else
-        format.js
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "An error occurred while sending your message. Please check your form and try again.",
+                     type: "is-danger"
+                 }
+        }
       end
       format.html
     end

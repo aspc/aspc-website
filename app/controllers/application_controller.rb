@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authorized(exception)
-    redirect_to unauthorized_path
+    redirect_to unauthomrized_path
   end
 
   private

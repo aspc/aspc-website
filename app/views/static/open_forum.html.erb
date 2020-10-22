@@ -9,7 +9,7 @@
       felis, eleifend at ipsum et, vehicula facilisis elit. Sed faucibus pharetra turpis ut euismod. Vivamus auctor
       pellentesque orci, nec sagittis ligula fringilla eget.
     </div>
-    <%= form_with url: open_forum_url, remote: true do |f| %>
+    <%= form_with url: open_forum_path, remote: true, id: "open-forum-form" do |f| %>
       <div class="field">
         <label class="label">Area of concern</label>
         <div class="control is-expanded">
@@ -22,7 +22,7 @@
         <label class="label">Question</label>
         <div class="control is-expanded">
           <div class="control">
-            <%= f.text_area :question, :class => "textarea", :placeholder => "Type your question here", :rows => 5 %>
+            <%= f.text_area :question, :class => "textarea", :placeholder => "Type your question here", :rows => 5, :required => true %>
           </div>
         </div>
       </div>
@@ -42,11 +42,11 @@
       <div class="field" id="response-method">
         <label class="label">How would you like to be contacted?</label>
         <div class="control">
-          <%= f.text_field :method, :class => "input", :placeholder => "Type the way we can reach you (email, phone number, etc.)" %>
+          <%= f.text_field :response_method, :class => "input method", :placeholder => "Type the way we can reach you (email, phone number, etc.)" %>
         </div>
       </div>
       <div class="field">
-        <%= f.submit "Send", :class => "button is-link is-info" %>
+        <%= f.submit "Send", :class => "button is-link is-info", :id => "send" %>
       </div>
     <% end %>
   </div>
@@ -54,23 +54,25 @@
 
 <script>
     $('#response_true').click(function() {
-        $('#response-method').show();
+        $('#response-method').show()
     });
     $('#response_false').click(function() {
-        $('#response-method').hide();
+        $('#response-method').hide()
     });
-    // $("form[id='open-forum-form']").validate({
-    //     submitHandler: function (form) {
-    //         form.submit();
-    //     },
-    //     errorPlacement: function(error, element) {
-    //         // Prevents validate from creating a new label when a validation error occurs
-    //     },
-    //     errorClass: "is-danger"
-    // });
-    // $.validator.addClassRules({
-    //     candidates: {
-    //         required: true,
-    //     }
-    // });
+    $("form[id='open-forum-form']").validate({
+        submitHandler: function(form) {
+            $.rails.handleRemote($(form))
+            form.reset()
+            $('#response-method').hide()
+        },
+        errorPlacement: function(error, element) {
+            error.addClass("help").insertAfter(element)
+        },
+        errorClass: "is-danger"
+    });
+    $.validator.addClassRules({
+        method: {
+            required: "#response_true:checked"
+        }
+    });
 </script>

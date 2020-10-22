@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     # Hardcoded pages not created via the CMS
     get 'index' => :index
     get 'senators' => :senators
+
     match 'open-forum' => :open_forum, :via => [:get, :post]
 
     # Editable pages created via the CMS

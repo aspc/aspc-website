@@ -354,6 +354,7 @@ DEPENDENCIES
   httparty (~> 0.16.2)
   icalendar
   jbuilder (~> 2.5)
+  jquery-rails
   jquery-validation-rails
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)

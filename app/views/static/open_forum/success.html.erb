@@ -1,0 +1,12 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Open Forum", :subtitle => "Lorem ipsum dot" %>
+<% end %>
+
+<div class="columns">
+  <div class="column">
+    <div class="notification is-success">
+      Your message has been sent! Please keep the ID below for reference in case you ever want to follow up on your message.
+      <p>ID: <%= @id %></p>
+    </div>
+  </div>
+</div>
