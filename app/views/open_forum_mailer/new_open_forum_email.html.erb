@@ -6,7 +6,7 @@
 <body>
 <p><strong>Message:</strong></p>
 <p><%= @question %></p>
-<% unless @response_method.blank? %>
+<% if @should_respond == "true" %>
 <p><strong>Respond to:</strong></p>
 <p><%= @response_method %></p>
 <% end %>

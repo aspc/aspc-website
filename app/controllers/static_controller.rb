@@ -127,7 +127,7 @@ class StaticController < ApplicationController
 
       # Make sure that the question is not empty and that the response method is not empty in case the user wanted a response
       if not question.blank? and (should_respond == "true" and not response_method.blank? or should_respond == "false")
-        OpenForumMailer.with(question: question, response_method: response_method, to: to).new_open_forum_email.deliver_later
+        OpenForumMailer.with(question: question, should_respond: should_respond, response_method: response_method, to: to).new_open_forum_email.deliver_later
         format.js {
           render partial: "components/toast",
                  locals: {
