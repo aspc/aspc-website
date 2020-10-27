@@ -2,10 +2,6 @@
   <%= render 'components/page_header', :title => "Course Planner", :subtitle => "Browse courses and plan your schedule" %>
 <% end %>
 
-<div class="notification">
-  Courses have been updated to reflect changes for the Fall 2020 semester.
-</div>
-
 <div class="columns">
   <div class="column is-3">
     <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments, course_meeting_details: @course_meeting_details %>
