@@ -41,7 +41,8 @@ echo "deb https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/a
 apt-get update
 apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
     libsasl2-dev libssl-dev libffi-dev gnupg2 nodejs \
-    curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn google-chrome-stable
+    curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn google-chrome-stable \
+	imagemagick
 
 
 # Set up PostgreSQL
