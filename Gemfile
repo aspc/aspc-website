@@ -27,7 +27,7 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.10.1'
 
 # For scraping the Pomona menu
 gem 'watir', '~> 6.14.0'
@@ -59,12 +59,12 @@ gem 'activerecord-session_store', '~> 1.1.1'
 # Calendar export
 gem 'icalendar'
 
-# WYSIWYG editor for static page editing
-gem 'wysiwyg-rails'
-gem 'froala-editor-sdk'
-
 # Coveralls (testing coverage monitor)
 gem 'coveralls', require: false
+
+# WYSIWYG editor for static page editing
+gem 'wysiwyg-rails', '~> 2.9'
+gem 'froala-editor-sdk', '~> 1.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -100,4 +100,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails'
 
 gem 'jquery-validation-rails'
-
