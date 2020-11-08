@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     get 'index' => :index
     get 'senators' => :senators
 
-    match 'open-forum' => :open_forum, :via => [:get, :post]
+    match 'contact-aspc' => :open_forum, :via => [:get, :post]
 
     # Editable pages created via the CMS
     get 'pages/id/:id' => :show, as: :static_page

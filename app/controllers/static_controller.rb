@@ -3,6 +3,7 @@ class StaticController < ApplicationController
   # This is a workaround while we figure out a better solution
   # skip_before_action :verify_authenticity_token, :only => [:upload_image]
   skip_before_action :verify_authenticity_token, :except => [:open_forum]
+  before_action :authenticate_user!, :only => [:open_forum]
 
   # Reference: https://github.com/froala/editor-ruby-sdk-example
   # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload

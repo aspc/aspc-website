@@ -5,6 +5,6 @@ class OpenForumMailer < ApplicationMailer
     @response_method = params[:response_method]
     @to = params[:to]
 
-    mail(to: @to, subject: "[ASPC Open Forum] New message!")
+    mail(to: @to, subject: "[ASPC Contact Form] New message!")
   end
 end

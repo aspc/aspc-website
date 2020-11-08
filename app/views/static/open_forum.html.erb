@@ -1,5 +1,5 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Open Forum", :subtitle => "Lorem ipsum dot" %>
+  <%= render 'components/page_header', :title => "ASPC Questions, Comments, and Concernsr", :subtitle => "Lorem ipsum dot" %>
 <% end %>
 
 <div class="columns">
@@ -9,7 +9,7 @@
       felis, eleifend at ipsum et, vehicula facilisis elit. Sed faucibus pharetra turpis ut euismod. Vivamus auctor
       pellentesque orci, nec sagittis ligula fringilla eget.
     </div>
-    <%= form_with url: open_forum_path, remote: true, id: "open-forum-form" do |f| %>
+    <%= form_with url: contact_aspc_path, remote: true, id: "open-forum-form" do |f| %>
       <div class="field">
         <label class="label">Area of concern</label>
         <div class="control is-expanded">
