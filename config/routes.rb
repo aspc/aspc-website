@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     # Hardcoded pages not created via the CMS
     get 'index' => :index
     get 'senators' => :senators
+    get 'housing-platform' => :housing_platform
 
     # Editable pages created via the CMS
     get 'pages/id/:id' => :show, as: :static_page
