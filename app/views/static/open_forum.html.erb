@@ -5,16 +5,17 @@
 <div class="columns">
   <div class="column">
     <div class="notification">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac dolor ut leo consectetur lacinia. Duis magna
-      felis, eleifend at ipsum et, vehicula facilisis elit. Sed faucibus pharetra turpis ut euismod. Vivamus auctor
-      pellentesque orci, nec sagittis ligula fringilla eget.
+      Please select the area of interest most relevant to your submission and click the box below if you'd like to be
+      personally contacted with the response. If your inquiry is completely separate from these areas, select
+      miscellaneous and your submission will be received by our staff team and delegated accordingly. Contact
+      <a href="mailto:chiefofstaff@aspc.pomona.edu">chiefofstaff@aspc.pomona.edu</a> for additional help.
     </div>
     <%= form_with url: contact_aspc_path, remote: true, id: "open-forum-form" do |f| %>
       <div class="field">
         <label class="label">Area of concern</label>
         <div class="control is-expanded">
           <div class="select">
-            <%= f.collection_select :topic, OpenForumMapping.all, :id, :topic  %>
+            <%= f.collection_select :topic, OpenForumMapping.all, :id, :topic %>
           </div>
         </div>
       </div>
@@ -53,19 +54,19 @@
 </div>
 
 <script>
-    $('#response_true').click(function() {
+    $('#response_true').click(function () {
         $('#response-method').show()
     });
-    $('#response_false').click(function() {
+    $('#response_false').click(function () {
         $('#response-method').hide()
     });
     $("form[id='open-forum-form']").validate({
-        submitHandler: function(form) {
+        submitHandler: function (form) {
             $.rails.handleRemote($(form))
             form.reset()
             $('#response-method').hide()
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             error.addClass("help").insertAfter(element)
         },
         errorClass: "is-danger"
