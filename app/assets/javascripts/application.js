@@ -12,11 +12,12 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require activestorage
 
 //= require cable.js
 
-//= require fullcalendar-3.9.0/lib/jquery.min.js
+//= require jquery
+//= require jquery_ujs
+
 //= require fullcalendar-3.9.0/lib/jquery-ui.min.js
 //= require fullcalendar-3.9.0/lib/moment.min.js
 //= require fullcalendar-3.9.0/fullcalendar.js
@@ -32,6 +33,8 @@
 //= require js-cookie-2.2.1/js.cookie.min.js
 
 //= require bulma-toast/dist/bulma-toast.min.js
+
+//= require jquery.validate
 
 // Page specific javascript here
 //= require events.js

@@ -2,7 +2,8 @@ class StaticController < ApplicationController
   # Custom form in activeadmin breaks CSRF
   # This is a workaround while we figure out a better solution
   # skip_before_action :verify_authenticity_token, :only => [:upload_image]
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, :except => [:open_forum]
+  before_action :authenticate_user!, :only => [:open_forum]
 
   # Reference: https://github.com/froala/editor-ruby-sdk-example
   # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload
@@ -90,7 +91,65 @@ class StaticController < ApplicationController
   end
 
   def housing_platform
+  end
 
+  def open_forum
+    respond_to do |format|
+      # Validate parameters
+      valid_params = %w[topic question response response_method]
+      valid_params.each do |param|
+        unless params.has_key? param
+          format.js {
+            render partial: "components/toast",
+                   locals: {
+                       message: "Invalid request.",
+                       type: "is-danger"
+                   }
+          }
+        end
+      end
+
+      # Find an email associated with the provided topic
+      begin
+        topic_email_mapping = OpenForumMapping.find(params[:topic])
+      rescue
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "Could not find an email for the selected area of concern.",
+                     type: "is-danger"
+                 }
+        }
+        return
+      end
+
+      # Assign parameters
+      question = params[:question]
+      should_respond = params[:response]
+      response_method = params[:response_method]
+      to = topic_email_mapping.email
+
+      # Make sure that the question is not empty and that the response method is not empty in case the user wanted a response
+      if not question.blank? and (should_respond == "true" and not response_method.blank? or should_respond == "false")
+        OpenForumMailer.with(question: question, should_respond: should_respond, response_method: response_method, to: to).new_open_forum_email.deliver_later
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "Your message has been sent!",
+                     type: "is-success"
+                 }
+        }
+      else
+        format.js {
+          render partial: "components/toast",
+                 locals: {
+                     message: "An error occurred while sending your message. Please check your form and try again.",
+                     type: "is-danger"
+                 }
+        }
+      end
+      format.html
+    end
   end
 
   private

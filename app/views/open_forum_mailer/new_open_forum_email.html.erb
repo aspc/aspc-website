@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<p><strong>Message:</strong></p>
+<p><%= @question %></p>
+<% if @should_respond == "true" %>
+<p><strong>Respond to:</strong></p>
+<p><%= @response_method %></p>
+<% end %>
+</body>
+</html>

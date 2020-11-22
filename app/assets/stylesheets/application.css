@@ -78,6 +78,10 @@ a {
     color: #209cee;
 }
 
+.input, .textarea {
+    box-shadow: none;
+}
+
 /*
  * Header
  */

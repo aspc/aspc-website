@@ -1,0 +1,79 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "ASPC Questions, Comments, and Concerns" %>
+<% end %>
+
+<div class="columns">
+  <div class="column">
+    <div class="notification">
+      Please select the area of interest most relevant to your submission and click the box below if you'd like to be
+      personally contacted with the response. If your inquiry is completely separate from these areas, select
+      miscellaneous and your submission will be received by our staff team and delegated accordingly. Contact
+      <a href="mailto:chiefofstaff@aspc.pomona.edu">chiefofstaff@aspc.pomona.edu</a> for additional help.
+    </div>
+    <%= form_with url: contact_aspc_path, remote: true, id: "open-forum-form" do |f| %>
+      <div class="field">
+        <label class="label">Area of concern</label>
+        <div class="control is-expanded">
+          <div class="select">
+            <%= f.collection_select :topic, OpenForumMapping.all, :id, :topic %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Question</label>
+        <div class="control is-expanded">
+          <div class="control">
+            <%= f.text_area :question, :class => "textarea", :placeholder => "Type your question here", :rows => 5, :required => true %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Would you like to be contacted?</label>
+        <div class="control">
+          <label class="radio">
+            <%= f.radio_button :response, true %>
+            Yes
+          </label>
+          <label class="radio">
+            <%= f.radio_button :response, false, :checked => true %>
+            No
+          </label>
+        </div>
+      </div>
+      <div class="field" id="response-method">
+        <label class="label">How would you like to be contacted?</label>
+        <div class="control">
+          <%= f.text_field :response_method, :class => "input method", :placeholder => "Type the way we can reach you (email, phone number, etc.)" %>
+        </div>
+      </div>
+      <div class="field margin-top-1">
+        <%= f.submit "Send", :class => "button is-link is-medium is-info", :id => "send" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+    $('#response_true').click(function () {
+        $('#response-method').show()
+    });
+    $('#response_false').click(function () {
+        $('#response-method').hide()
+    });
+    $("form[id='open-forum-form']").validate({
+        submitHandler: function (form) {
+            $.rails.handleRemote($(form))
+            form.reset()
+            $('#response-method').hide()
+        },
+        errorPlacement: function (error, element) {
+            error.addClass("help").insertAfter(element)
+        },
+        errorClass: "is-danger"
+    });
+    $.validator.addClassRules({
+        method: {
+            required: "#response_true:checked"
+        }
+    });
+</script>

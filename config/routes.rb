@@ -75,6 +75,8 @@ Rails.application.routes.draw do
     get 'senators' => :senators
     get 'housing-platform' => :housing_platform
 
+    match 'contact-aspc' => :open_forum, :via => [:get, :post]
+
     # Editable pages created via the CMS
     get 'pages/id/:id' => :show, as: :static_page
     get 'pages/:page_name' => :show, as: :static
