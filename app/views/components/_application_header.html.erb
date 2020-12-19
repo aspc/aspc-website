@@ -52,23 +52,91 @@
         <% end %>
       </div>
 
-      <!-- Home -->
-      <a href="/" class="navbar-item">Home</a>
-
-      <!-- Forms -->
-      <a class="navbar-item" href="<%= static_path(page_name: "forms") %>">
-        <span class="is-info is-medium">Forms</span>
-      </a>
-
       <!-- FAQ -->
       <a href="https://docs.google.com/document/d/e/2PACX-1vQOCuZxcSnVuj9HVTuC0tTRU-sIJ5yr2CjJacJ0TSmOMG9jK35Iwfyrb1Tq8X_waoYL_LnXw9Ah_qqI/pub" target="_blank" class="navbar-item">
         <div class="tags has-addons">
             <span class="tag is-medium">
-              FA20
+              2020
             </span>
           <span class="tag item-has-arrow is-info is-medium">FAQ</span>
         </div>
       </a>
+
+      <!-- ASPC -->
+      <div class="navbar-item has-dropdown is-hoverable is-mega">
+        <div class="navbar-link">
+          <span class="item-has-arrow">ASPC</span>
+        </div>
+        <div id="blogDropdown" class="navbar-dropdown">
+          <div class="container is-fluid">
+            <div class="columns">
+              <div class="column">
+                <h1 class="title is-6 is-mega-menu-title">Our Organization</h1>
+                <div class="navbar-content">
+                  <%= link_to "Bylaws", static_path(page_name: "bylaws"), :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Constitution", static_path(page_name: "constitution"), :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Elections Code", static_path(page_name: "elections"), :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Positions", static_path(page_name: "positions"), :class => "navbar-item" %>
+                </div>
+              </div>
+              <div class="column">
+                <h1 class="title is-6 is-mega-menu-title">2020-21</h1>
+                <div class="navbar-content">
+                  <%= link_to "Budget", static_path(page_name: "budget"), :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Meetings and Minutes", static_path(page_name: "minutes"), :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Senate", senators_path, :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Software Development Group", static_path(page_name: "software"), :class => "navbar-item" %>
+                </div>
+              </div>
+              <div class="column">
+                <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
+                <div class="navbar-content">
+                  <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
+                </div>
+                <div class="navbar-content">
+                  <%= link_to "Funding Request", static_path(page_name: "funding-request"), :class => "navbar-item" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campus -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <span class="item-has-arrow">Campus</span>
+        </div>
+        <div class="navbar-dropdown">
+          <div class="navbar-content">
+            <!-- Events -->
+            <%= link_to "Events", :events, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <!-- Housing Search / Reviews -->
+            <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "JBoard", static_path(page_name: "jboard"), :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <!-- Menus -->
+            <%= link_to "Menus", :menus, :class => "navbar-item" %>
+          </div>
+        </div>
+      </div>
 
       <!-- Course Schedule / Reviews -->
       <div class="navbar-item has-dropdown is-hoverable">
@@ -88,154 +156,68 @@
         </div>
       </div>
 
-      <!-- ASPC -->
-      <div class="navbar-item has-dropdown is-hoverable is-mega">
-        <div class="navbar-link"/>
-        <span class="item-has-arrow">ASPC</span>
-      </div>
-      <div id="blogDropdown" class="navbar-dropdown ">
-        <div class="container is-fluid">
-          <div class="columns">
-            <div class="column">
-              <h1 class="title is-6 is-mega-menu-title">Who We Are</h1>
-              <div class="navbar-content">
-                <%= link_to "Senate", senators_path, :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Committee Members", static_path(page_name: "committee"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Pomona Events Committee", static_path(page_name: "pec"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Software Development Group", static_path(page_name: "software"), :class => "navbar-item" %>
-              </div>
-            </div>
-            <div class="column">
-              <h1 class="title is-6 is-mega-menu-title">What We Do</h1>
-              <div class="navbar-content">
-                <%= link_to "Positions", static_path(page_name: "positions"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Meetings and Minutes", static_path(page_name: "minutes"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Budget", static_path(page_name: "budget"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Constitution", static_path(page_name: "constitution"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Bylaws", static_path(page_name: "bylaws"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Elections Code", static_path(page_name: "elections"), :class => "navbar-item" %>
-              </div>
-            </div>
-            <div class="column">
-              <h1 class="title is-6 is-mega-menu-title">Other Resources</h1>
-              <div class="navbar-content">
-                <%= link_to "Funding Request", static_path(page_name: "funding-request"), :class => "navbar-item" %>
-              </div>
-              <div class="navbar-content">
-                <%= link_to "Agenda Item Submission", "https://docs.google.com/forms/d/e/1FAIpQLSfGztqoEVwBBYGDFB7bDlW11fOy3UXNtSug89mD0_1g-9CKNg/viewform", :class => "navbar-item" %>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Forms -->
+      <a class="navbar-item" href="<%= static_path(page_name: "forms") %>">
+        <span class="is-info is-medium">Forms</span>
+      </a>
 
-        <div class="navbar-item">
+      <!-- More Resources -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <span class="item-has-arrow">More Resources</span>
+        </div>
+        <div class="navbar-dropdown">
           <div class="navbar-content">
-            <div class="level is-mobile">
-              <div class="level-left">
-                <div class="level-item">
-                </div>
-              </div>
-              <div class="level-right">
-                <div class="level-item">
-                </div>
-              </div>
-            </div>
+            <a href="https://pomonastudents.org/5crideshare/" class="navbar-item" target="_blank">5C Rideshare</a>
+          </div>
+          <div class="navbar-content">
+            <a href="https://pomonastudents.turbovote.org" class="navbar-item" target="_blank">TurboVote</a>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Campus -->
-    <div class="navbar-item has-dropdown is-hoverable">
-      <div class="navbar-link">
-        <span class="item-has-arrow">Campus</span>
-      </div>
-      <div class="navbar-dropdown">
-        <div class="navbar-content">
-          <!-- Events -->
-          <%= link_to "Events", :events, :class => "navbar-item" %>
+      <!-- SCC -->
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <span class="item-has-arrow">SCC</span>
         </div>
-        <div class="navbar-content">
-          <!-- Menus -->
-          <%= link_to "Menus", :menus, :class => "navbar-item" %>
-        </div>
-        <div class="navbar-content">
-          <!-- Housing Search / Reviews -->
-          <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
+        <div class="navbar-dropdown">
+          <div class="navbar-content">
+            <a href="https://coopstore.pomona.edu" class="navbar-item" target="_blank">Coop Store</a>
+          </div>
+          <div class="navbar-content">
+            <%= link_to "Coop Fountain", static_path(page_name: "coop-fountain"), :class => "navbar-item" %>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- More Resources -->
-    <div class="navbar-item has-dropdown is-hoverable">
-      <div class="navbar-link">
-        <span class="item-has-arrow">More Resources</span>
-      </div>
-      <div class="navbar-dropdown">
-        <div class="navbar-content">
-          <a href="https://pomonastudents.org/5crideshare/" class="navbar-item" target="_blank">5C Rideshare</a>
-        </div>
-        <div class="navbar-content">
-          <a href="https://coopstore.pomona.edu" class="navbar-item" target="_blank">Coop Store</a>
-        </div>
-        <div class="navbar-content">
-          <%= link_to "Coop Fountain", static_path(page_name: "coop-fountain"), :class => "navbar-item" %>
-        </div>
-        <div class="navbar-content">
-          <%= link_to "JBoard", static_path(page_name: "jboard"), :class => "navbar-item" %>
-        </div>
-        <div class="navbar-content">
-          <a href="https://pomonastudents.turbovote.org" class="navbar-item" target="_blank">TurboVote</a>
-        </div>
-        <hr class="navbar-divider"/>
-        <div class="navbar-content">
-          <%= link_to "API (Developers)", static_path(page_name: "api"), :class => "navbar-item" %>
-        </div>
-      </div>
-    </div>
-
-    <!-- Show login and admin access buttons as last items in the nav bar for screens larger than mobile -->
-    <div class="navbar-item is-hidden-mobile">
-      <% unless logged_in? %>
-        <div class="field is-grouped">
-          <p class="control">
-            <a href="<%= login_path %>" class="button is-info">
-              <span>Login</span>
-            </a>
-          </p>
-        </div>
-      <% else %>
-        <div class="field is-grouped">
-          <% if is_admin? %>
+      <!-- Show login and admin access buttons as last items in the nav bar for screens larger than mobile -->
+      <div class="navbar-item is-hidden-mobile">
+        <% unless logged_in? %>
+          <div class="field is-grouped">
             <p class="control">
-              <a href="<%= polymorphic_path([current_user.role.to_sym, 'root']) %>" class="button is-danger">
-                <span>Admin</span>
+              <a href="<%= login_path %>" class="button is-info">
+                <span>Login</span>
               </a>
             </p>
-          <% end %>
-          <p class="control">
-            <a href="<%= logout_path %>" class="button is-light">
-              <span>Logout</span>
-            </a>
-          </p>
-        </div>
-      <% end %>
+          </div>
+        <% else %>
+          <div class="field is-grouped">
+            <% if is_admin? %>
+              <p class="control">
+                <a href="<%= polymorphic_path([current_user.role.to_sym, 'root']) %>" class="button is-danger">
+                  <span>Admin</span>
+                </a>
+              </p>
+            <% end %>
+            <p class="control">
+              <a href="<%= logout_path %>" class="button is-light">
+                <span>Logout</span>
+              </a>
+            </p>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
