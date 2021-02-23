@@ -547,34 +547,6 @@ select {
   }
 }
 
-details {
-  summary {
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:hover .summary-chevron-up, &:hover .summary-chevron-down {
-      opacity: 1;
-    }
-
-    .summary-chevron-up, .summary-chevron-down {
-      opacity: 0.5;
-    }
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-  }
-
-  &[open] .summary-chevron-up {
-    display: none;
-  }
-
-  &:not([open]) .summary-chevron-down {
-    display: none;
-  }
-}
-
 #reviews-list-results {
   height: auto;
   overflow: auto;

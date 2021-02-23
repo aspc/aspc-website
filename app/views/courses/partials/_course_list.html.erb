@@ -29,90 +29,67 @@
         %>
 
         <article class="message is-dark">
-          <details>
-            <summary>
-              <div class="message-header <%= campus_background_color_class %>">
-                <span>
-                  <!-- <%= link_to course_path(section.course), :class => 'no-underline' do %> -->
-                    <%= section.code %> - <%= section.course.name %>
-                  <!-- <% end %> -->
-                </span>
-                <span class="is-pulled-right">
-                  <%= link_to course_path(section.course), :class => 'no-underline' do %>
-                    <%= render 'components/numerical_review',
-                        rating: section.course.overall_rating,
-                        tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
-                        show_icon: true %>
-                  <% end %>
-                </span>
-
-                <div class="summary-chevron-up">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" class="feather feather-chevron-down">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-		        </div>
-
-                <div class="summary-chevron-down">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" class="feather feather-chevron-up">
-                    <polyline points="18 15 12 9 6 15"></polyline>
-                  </svg>
-                </div>
-              </div>
-
-              <div class="message-body">
-                <div class="columns">
-                  <div class="column">
-                    <p>
-                      <% section.instructors.each do |instructor| %>
-                        <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
-                          <strong><%= instructor.name %> &nbsp;</strong>
-                          <%= render 'components/numerical_review',
-                                     rating: instructor.overall_rating, show_icon: true %>
-                        <% end %>
-  
-                        <br/>
-                      <% end %>
-                    </p>
-                  </div>
-                </div>
-                <div class="columns">
-                  <div class="column">
-                    <% section.course_meeting_details.each do |detail| %>
-                      <p><%= detail.to_s %></p>
+          <div class="message-header <%= campus_background_color_class %>">
+        <span>
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= section.code %> - <%= section.course.name %>
+          <% end %>
+        </span>
+            <span class="is-pulled-right">
+          <%= link_to course_path(section.course), :class => 'no-underline' do %>
+            <%= render 'components/numerical_review',
+                       rating: section.course.overall_rating,
+                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                       show_icon: true %>
+          <% end %>
+        </span>
+          </div>
+          <div class="message-body">
+            <div class="columns">
+              <div class="column">
+                <p>
+                  <% section.instructors.each do |instructor| %>
+                    <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                      <strong><%= instructor.name %> &nbsp;</strong>
+                      <%= render 'components/numerical_review',
+                                 rating: instructor.overall_rating, show_icon: true %>
                     <% end %>
-                  </div>
-                </div>
-              </div>
-            </summary>
 
-            <div class="message-body">
-              <div class="columns">
-                <div class="column">
-                  <p>
-                    <%= raw section.description %>
-                  </p>
+                    <br/>
+                  <% end %>
+
                   <br/>
                   <%= section.credit %> credits
-                </div>
+                </p>
               </div>
-              <div class="columns">
-                <div class="column">
-                  <div class="buttons is-left">
-                    <%= button_to "Add to Schedule",
-                                  :courses_add,
-                                  :class => "button",
-                                  :method => :post,
-                                  :remote => true,
-                                  :params => {:section_id => section.id} %>
-                  </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <p>
+                  <%= raw section.description %>
+                </p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= detail.to_s %></p>
+                <% end %>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <div class="buttons is-left">
+                  <%= button_to "Add to Schedule",
+                                :courses_add,
+                                :class => "button",
+                                :method => :post,
+                                :remote => true,
+                                :params => {:section_id => section.id} %>
                 </div>
               </div>
             </div>
-          </details>
+          </div>
         </article>
       <% end %>
     </section>
