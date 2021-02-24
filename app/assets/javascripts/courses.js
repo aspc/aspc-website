@@ -40,8 +40,8 @@ jQuery(function() {
 // https://stackoverflow.com/questions/2762597/how-to-bind-to-javascript-events-after-the-dom-changes
 
 $(document).on('click', '.more-details-chevron', function(e) {
-    const chevrons = $(e.target).closest(".more-details-chevron");
+    var chevrons = $(e.target).closest(".more-details-chevron");
     chevrons.children("span[class^='chevron-']").toggle();
-    const container = chevrons.closest('.message');
+    var container = chevrons.closest('.message');
     container.children('.message-body').toggle();
 });
