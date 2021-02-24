@@ -15,7 +15,7 @@ jQuery(function() {
         });
     });
 
-    let expanded = false;
+    var expanded = false;
 
     $("#expand-course-planner").on("click", function(e) {
         $(".application-content-container").toggleClass("is-fluid");
