@@ -91,6 +91,11 @@ class StaticController < ApplicationController
   end
 
   def housing_platform
+    # Hardcoded page, no logic needed
+  end
+
+  def liaisons
+    # Hardcoded page, no logic needed
   end
 
   def open_forum
