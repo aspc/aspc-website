@@ -3,7 +3,20 @@
 <% end %>
 
 <div class="columns">
-  <div class="column is-3">
+  <div class="column">
+    <button class="button is-info is-outlined is-hidden-touch is-hidden-desktop-only" id="expand-course-planner">
+      <span class="icon is-large margin-right-quarter">
+        <i class="fa fa-arrows-h"></i>
+      </span>
+      <span id="expand-course-planner-text">
+        Expand course planner
+      </span>
+    </button>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column is-3" id="course-search-form-container">
     <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments, course_meeting_details: @course_meeting_details %>
   </div>
   <div class="column is-4 is-hidden" id="course-list-container">

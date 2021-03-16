@@ -1,7 +1,7 @@
 <% course_sections = local_assigns.fetch(:course_sections, []) %>
 
 <% if course_sections %>
-  <section class="message" id="course-list-results-container">
+  <section class="message equal-height" id="course-list-results-container">
     <div class="message-header">
       <% if course_sections.length > 0 %>
         Showing <%= course_sections.length %> results
@@ -29,20 +29,43 @@
         %>
 
         <article class="message is-dark">
-          <div class="message-header <%= campus_background_color_class %>">
-        <span>
-          <%= link_to course_path(section.course), :class => 'no-underline' do %>
-            <%= section.code %> - <%= section.course.name %>
-          <% end %>
-        </span>
-            <span class="is-pulled-right">
-          <%= link_to course_path(section.course), :class => 'no-underline' do %>
-            <%= render 'components/numerical_review',
-                       rating: section.course.overall_rating,
-                       tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
-                       show_icon: true %>
-          <% end %>
-        </span>
+          <div class="message-header <%= campus_background_color_class %> has-text-centered-mobile">
+            <div class="columns">
+              <div class="column">
+                <div class="margin-bottom-half">
+                <%= link_to course_path(section.course), :class => 'no-underline' do %>
+                  <%= section.code %><br>
+                  <strong><%= section.course.name %></strong>
+                <% end %>
+                </div>
+                <div>
+                  <%= link_to course_path(section.course), :class => 'no-underline' do %>
+                    <%= render 'components/numerical_review',
+                              rating: section.course.overall_rating,
+                              tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                              show_icon: true %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="column chevron-container is-narrow">
+                <div class="more-details-chevron has-text-centered-mobile">
+                  <span class="chevron-up">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="feather feather-chevron-down">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
+                  <span class="chevron-down">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="feather feather-chevron-up">
+                      <polyline points="18 15 12 9 6 15"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="message-body">
             <div class="columns">
@@ -82,7 +105,7 @@
                 <div class="buttons is-left">
                   <%= button_to "Add to Schedule",
                                 :courses_add,
-                                :class => "button",
+                                :class => "button is-info",
                                 :method => :post,
                                 :remote => true,
                                 :params => {:section_id => section.id} %>

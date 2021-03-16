@@ -35,6 +35,22 @@
   margin-left: 0.5rem !important;
 }
 
+.margin-top-quarter {
+  margin-top: 0.25rem !important;
+}
+
+.margin-right-quarter {
+  margin-right: 0.25rem !important;
+}
+
+.margin-bottom-quarter {
+  margin-bottom: 0.25rem !important;
+}
+
+.margin-left-quarter {
+  margin-left: 0.25rem !important;
+}
+
 /*
  * 5C accent colors
  */
@@ -72,10 +88,6 @@ a.campus_CM:hover {
 
 .campus_CU:hover {
   background-color: lighten($CU, $lighten) !important;
-}
-
-.has-brightness {
-  filter: brightness(1.25);
 }
 
 .results-heading {
@@ -170,7 +182,7 @@ a.campus_SC:hover {
 }
 
 .has-brightness {
-  filter: brightness(1.25);
+  filter: brightness(1.15);
 }
 
 .has-background-blue {
