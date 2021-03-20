@@ -11,8 +11,20 @@
         Log in to access more features, services, and pages
       </div>
     </div>
+    <% if @redirected_from_vote_app %>
     <div class="columns is-centered">
-      <div class="column is-one-third">
+      <div class="column is-two-thirds-desktop">
+        <div class="notification is-info">
+          <strong>Logging in to vote?</strong>
+          After a successful log in, you will be redirected to the main website.
+          To vote, please navigate to <i>pomonastudents.org/vote</i> after
+          you have logged in.
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="columns is-centered">
+      <div class="column is-one-third-desktop">
         <div class="box">
           <h2 class="title is-4 has-text-weight-semibold">Pomona Students</h2>
           <p class="subtitle margin-bottom-2">Sign in with the CAS Login System you know and love!</p>
@@ -21,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="column is-one-third">
+      <div class="column is-one-third-desktop">
         <div class="box">
           <h2 class="title is-4 has-text-weight-semibold">5C Students</h2>
           <p class="subtitle">Sign in or create an account</p>

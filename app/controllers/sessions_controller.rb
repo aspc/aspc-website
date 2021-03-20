@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   layout "blank"
 
   def new
+    @redirected_from_vote_app = params[:next].present? && params[:next] == "vote"
   end
 
   def destroy
