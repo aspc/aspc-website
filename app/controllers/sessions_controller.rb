@@ -83,7 +83,7 @@ class SessionsController < ApplicationController
       next_page = 'https://' + root_domain + '/'
     end
     
-    service_url = 'https://' + root_domain + Rails.application.routes.url_helpers.login_cas_path + '?next=' + next_page
+    service_url = 'https://' + root_domain + Rails.application.routes.url_helpers.login_cas_path + '?next=' + '/'
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
