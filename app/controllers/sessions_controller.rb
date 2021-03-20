@@ -76,9 +76,14 @@ class SessionsController < ApplicationController
                   then 'staging.aspc.pomona.edu'
                   else 'aspc.pomonastudents.org'
                   end
-
-    next_page = '/'
-    service_url = 'https://' + root_domain + Rails.application.routes.url_helpers.login_cas_path + '?next=' + CGI::escape(next_page)
+    
+    if params[:next].present?
+      next_page = CGI::escape(params[:next])
+    else
+      next_page = 'https://' + root_domain + '/'
+    end
+    
+    service_url = 'https://' + root_domain + Rails.application.routes.url_helpers.login_cas_path + '?next=' + next_page
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
@@ -115,8 +120,8 @@ class SessionsController < ApplicationController
     # then create the login session for the user
     session[:current_user_id] = user.id
 
-    # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to PHP_AUTH_URL + "login.php"
+    # Complete PHP session login/authentication and redirect the user
+    return redirect_to PHP_AUTH_URL + "login.php?redirect=" + next_page
   end
 
   def _login_url(service_url)
