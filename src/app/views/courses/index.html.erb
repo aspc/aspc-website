@@ -1,0 +1,33 @@
+<% content_for :header do %>
+  <%= render 'components/page_header', :title => "Course Planner", :subtitle => "Browse courses and plan your schedule" %>
+<% end %>
+
+<div class="columns">
+  <div class="column is-3">
+    <%= render 'courses/partials/course_search_form', academic_terms: @academic_terms, departments: @departments, course_meeting_details: @course_meeting_details %>
+  </div>
+  <div class="column is-4 is-hidden" id="course-list-container">
+    <%= render 'courses/partials/course_list' %>
+  </div>
+  <div class="column">
+    <div id="course-schedule-container">
+      <%= render 'courses/partials/course_schedule', course_sections: @course_sections %>
+    </div>
+    <div class="buttons">
+      <%= button_to "Save Schedule",
+                    courses_save_path,
+                    :class => "button is-link is-info",
+                    :method => :post,
+                    :remote => true %>
+      <%= button_to "Clear Schedule",
+                    courses_clear_path,
+                    :class => "button is-light",
+                    :method => :post,
+                    :remote => true %>
+      <%= button_to "Export Schedule",
+                    courses_export_path,
+                    :class => "button is-light",
+                    :method => :get %>
+    </div>
+  </div>
+</div>

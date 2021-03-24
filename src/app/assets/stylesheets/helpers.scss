@@ -1,0 +1,178 @@
+// Place all the helpers and mixins here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "_variables";
+
+/*
+ * Spacing helper
+ * Generates classes margin-top-x, margin-right-x, margin-bottom-x and margin-left-x for all x = {0, 1, 2, 3, 4, 5, 10}
+ */
+@each $size in (0, 1, 2, 3, 4, 5, 10) {
+  @each $pos in ('top', 'right', 'bottom', 'left') {
+    .margin-#{$pos}-#{$size} {
+      margin-#{$pos}: $size + rem !important;
+    }
+    .padding-#{$pos}-#{$size} {
+      padding-#{$pos}: $size + rem !important;
+    }
+  }
+}
+
+.margin-top-half {
+  margin-top: 0.5rem !important;
+}
+
+.margin-right-half {
+  margin-right: 0.5rem !important;
+}
+
+.margin-bottom-half {
+  margin-bottom: 0.5rem !important;
+}
+
+.margin-left-half {
+  margin-left: 0.5rem !important;
+}
+
+/*
+ * 5C accent colors
+ */
+.campus_UU {
+  background-color: $UU !important;
+  color: white !important;
+}
+
+a.campus_UU:hover {
+  background-color: lighten($UU, $lighten) !important;
+}
+
+.campus_CGU {
+  background-color: $CGU !important;
+  color: white !important;
+}
+
+a.campus_CGU:hover {
+  background-color: lighten($CGU, $lighten) !important;
+}
+
+.campus_CM {
+  background-color: $CM !important;
+  color: white !important;
+}
+
+a.campus_CM:hover {
+  background-color: lighten($CM, $lighten) !important;
+}
+
+.campus_CU {
+  background-color: $CU !important;
+  color: white !important;
+}
+
+.campus_CU:hover {
+  background-color: lighten($CU, $lighten) !important;
+}
+
+.has-brightness {
+  filter: brightness(1.25);
+}
+
+.results-heading {
+  margin: 20px auto 10px 0;
+}
+
+.campus_KS {
+  background-color: $KS !important;
+  color: white !important;
+}
+
+a.campus_KS:hover {
+  background-color: lighten($KS, $lighten) !important;
+}
+
+.campus_HM {
+  background-color: $HM !important;
+  color: white !important;
+}
+
+a.campus_HM:hover {
+  background-color: lighten($HM, $lighten) !important;
+}
+
+.campus_PO {
+  background-color: $PO !important;
+  color: white !important;
+}
+
+a.campus_PO:hover {
+  background-color: lighten($PO, $lighten) !important;
+}
+
+.campus_PZ {
+  background-color: $PZ !important;
+  color: white !important;
+}
+
+a.campus_PZ:hover {
+  background-color: lighten($PZ, $lighten) !important;
+}
+
+.campus_SC {
+  background-color: $SC !important;
+  color: white !important;
+}
+
+a.campus_SC:hover {
+  background-color: lighten($SC, $lighten) !important;
+}
+
+/*
+ * Linear gradient background mixin
+ */
+@mixin linear-gradient($from, $end, $to, $start) {
+  background: $to;
+  background: -moz-linear-gradient(top, $from $end, $to $start);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop($end, $from), color-stop($start, $to));
+  background: -webkit-linear-gradient(top, $from $end, $to $start);
+  background: -o-linear-gradient(top, $from $end, $to $start);
+  background: linear-gradient(to bottom, $from $end, $to $start);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to})
+}
+
+/*
+ * Text shadow mixin
+ */
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+  text-shadow: $x $y $blur $color;
+}
+
+/*
+ * Miscellaneous helpers
+ */
+
+.horizontal-scroll {
+  overflow-x: scroll;
+}
+
+.vertical-scroll {
+  overflow-y: scroll;
+}
+
+.cover-image {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.has-brightness {
+  filter: brightness(1.25);
+}
+
+.has-background-blue {
+  background-color: #0071a6;
+}
