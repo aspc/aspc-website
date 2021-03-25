@@ -36,7 +36,7 @@ RUN bundle install
 
 COPY package.json yarn.lock /aspc/
 
-RUN yarn install --check-files
+RUN yarn install
 
 EXPOSE 8080
 
