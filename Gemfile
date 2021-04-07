@@ -100,3 +100,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails'
 
 gem 'jquery-validation-rails'
+
+# 0.3.10 fixes issue with licensing on older versions of mimemagic, a dependency of Rails itself
+gem 'mimemagic', '0.3.10'
