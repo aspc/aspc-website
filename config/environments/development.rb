@@ -63,14 +63,6 @@ Rails.application.configure do
 
   config.web_console.whitelisted_ips = '10.0.2.2'
 
-  # TODO Remove and set config.action_mailer.delivery_method = :test
-  # config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
-  config.action_mailer.smtp_settings = {
-      :address              => "smtp.gmail.com",
-      :port                 => 587,
-      :user_name            => Rails.application.credentials[:email][:system][:username],
-      :password             => Rails.application.credentials[:email][:system][:password],
-      :authentication       => "plain",
-      :enable_starttls_auto => true
-  }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+  config.action_mailer.delivery_method = :test
 end

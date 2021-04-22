@@ -16,7 +16,7 @@ BEGIN
       FROM   pg_catalog.pg_user
       WHERE  usename = 'test') THEN
 
-      CREATE ROLE test LOGIN;
+      CREATE ROLE test LOGIN PASSWORD 'test';
    END IF;
    ALTER USER test CREATEDB;
 END

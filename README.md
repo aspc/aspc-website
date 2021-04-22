@@ -17,11 +17,16 @@ If you attend Pomona College or any of the other Claremont Colleges and would li
 It's simple to start contributing! We've also provided a more detailed [Getting Started Guide](docs/getting-started.md)
 with information about setting up this project to work with an IDE, our core technologies, and more helpful tips.
 
- 1. Clone this repo
- 2. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
- 3. Run `vagrant up` from inside the cloned directory. Follow the prompts, default options are fine. This will handle dependency installation and all that jazz.
- 4. Run `vagrant ssh`, `cd /vagrant`, and then `rails server -b 0.0.0.0 -p 3000`.
- 5. Navigate to [localhost:3000](http://localhost:3000) to see a local copy of this website up and running!
+1. Clone this repo
+2. Install [Docker](https://docs.docker.com/get-started/#download-and-install-docker)
+3. Run `docker-compose build` from inside the cloned directory
+4. Run `docker-compose up -d`
+5. Initalize the database with the following commands:
+```
+docker-compose run web bundle exec rails db:create
+docker-compose run web bundle exec rails db:migrate
+```
+5. Navigate to [localhost:3000](http://localhost:3000) to see a local copy of this website up and running!
 
 ## Contributing
 For guidelines of how to contribute to this project, head to [CONTRIBUTING.md](CONTRIBUTING.md)
