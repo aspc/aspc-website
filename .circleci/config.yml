@@ -13,6 +13,7 @@ jobs: # a collection of steps
           PGPASSWORD: test
           RAILS_ENV: test
       - image: circleci/postgres:9.6.10-alpine # database image
+        name: db
         environment: # environment variables for database
           POSTGRES_DB: aspc_test
           POSTGRES_USER: test
