@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.4.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 5.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -82,7 +82,7 @@ group :development do
   # Deployment tool
   gem 'capistrano', '~> 3.11', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano3-puma', '~> 3.1.1', require: false
+  gem 'capistrano3-puma', '~> 5.0.4', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-rake', require: false
   gem 'capistrano-yarn', '~> 2.0', require: false
