@@ -21,11 +21,15 @@ An amazing, modern frontend framework streamlines our UI work by providing custo
 The virtual machine managed by Vagrant which provides our developers a local environment where they can access 
 their local version of the ASPC website and database in the same environment as the site running on production.
 
-#### Vagrant: Virtual Machine Manager
+#### Vagrant: Virtual Machine Manager (Depreciated)
 
 This command-line tool provisions and manages virtual machines, meaning that it can start, refresh, and stop the 
 local environment that we use for development and ensure consistency across our many development machines and production
 environment.
+
+#### Docker
+This tool allows us to create an isolated container which allows development in a consistent environment regardless of 
+the host OS the developer is using.
 
 #### PostgresQL 
 
