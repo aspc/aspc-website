@@ -18,6 +18,9 @@ dbIsSetup() {
     else return 1 
 }
 
+setupYarnPackages
+dbIsSetup && echo "Database is Already Setup!" || setupDB
+
 
 
 
