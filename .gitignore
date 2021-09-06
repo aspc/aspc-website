@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+#Ignore Completion Marker
+setup_completion_marker
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
