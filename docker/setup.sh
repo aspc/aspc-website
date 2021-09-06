@@ -8,14 +8,15 @@ setupYarnPackages(){
 
 setupDB() {
     echo "Setting up DB"
-    bundle exec db:create 
-    bundle exec db:migrate
+    bundle exec rails db:create 
+    bundle exec rails db:migrate
 }
 
 dbIsSetup() {
     if test -f $FILE; then 
     return 0
-    else return 1 
+    else return 1
+    fi
 }
 
 setupYarnPackages
