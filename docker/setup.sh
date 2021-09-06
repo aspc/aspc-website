@@ -22,6 +22,7 @@ dbIsSetup() {
 
 setupYarnPackages
 dbIsSetup && echo "Database is Already Setup!" || setupDB
+echo "Setup Complete"
 
 
 
