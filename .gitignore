@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+#Ignore Completion Marker
+setup_completion_marker
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -22,7 +25,7 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+master.key
 
 # Ignore vagrant builds
 .vagrant/
