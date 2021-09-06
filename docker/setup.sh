@@ -10,6 +10,7 @@ setupDB() {
     echo "Setting up DB"
     bundle exec rails db:create 
     bundle exec rails db:migrate
+    touch $FILE 
 }
 
 dbIsSetup() {
