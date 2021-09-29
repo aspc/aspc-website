@@ -27,7 +27,12 @@ RUN apt-get -y install build-essential git nginx postgresql libpq-dev python-dev
 #To correct bundler 2 error https://stackoverflow.com/questions/53231667/bundler-you-must-use-bundler-2-or-greater-with-this-lockfile
 RUN gem install bundler 
 
-WORKDIR /aspc
+# Adding the rails root to env 
+ENV RAILS_ROOT /aspc
+
+WORKDIR $RAILS_ROOT
+
+
 
 COPY Gemfile Gemfile.lock /aspc/
 
