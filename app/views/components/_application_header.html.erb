@@ -38,7 +38,7 @@
           <div class="field is-grouped">
             <% if is_admin? %>
               <p class="control">
-                <a href="<%= polymorphic_path([current_user.role.to_sym, 'root']) %>" class="button is-danger">
+                <a href="<%= admin_root_path %>" class="button is-danger">
                   <span>Admin</span>
                 </a>
               </p>
