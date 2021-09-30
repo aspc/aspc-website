@@ -5,7 +5,7 @@
 # config/deploy/production.rb, config/deploy/staging.rb
 
 # Config valid for current version and patch releases of Capistrano
-lock "~> 3.14.1"
+lock "~> 3.16.0"
 
 # The repo we are deploying. This should be the same
 # across production/staging configs.
