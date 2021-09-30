@@ -245,15 +245,22 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    browser = Watir::Browser.new :chrome, headless: true
+    browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
     browser.goto 'www.pomona.edu/administration/dining/menus/frary'
 
-    menu = browser.div(:class => 'pom-accordion')
+    # The website was updated during COVID, so the structure is slightly different
+    # e.g. no need to click this button
+    # browser.button(class: 'accordion__header').click
+
+    menu = browser.div(class: ['accordion', 'js-accordion'])
+    # menu.each do |e|
+    #   menu = e
+    # end
     meal_type = ''
     station = ''
     meal_menu = Menu
 
-    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    menu_panels = menu.buttons(:class => 'accordion__header')
     panel_count = 1 # the next panel to open
 
     # Map the successive divs to be pairs of {day, menu}
@@ -265,7 +272,7 @@ namespace :menu_import do
       # meal type    (h2)
       # station      (h3)
       # menu items   (div)
-      pair[:menu].children.each do |div|
+      pair[:menu].div.children.each do |div|
         if div.tag_name == "h2"
           meal_type = div.text.downcase
           if (pair[:day] == 'saturday' || pair[:day] == 'sunday') && meal_type == 'breakfast'
@@ -282,12 +289,12 @@ namespace :menu_import do
           )
         elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
           div.children.each do |menu_item|
-            MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
+            MenuItem.find_or_create_by(:name => menu_item.p.text, :station => station, :menu => meal_menu)
           end
         end
       end
       # simulate click to open the next panel after parsing the current one
-      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      menu_panels[panel_count].fire_event('click') unless panel_count >= menu_panels.length
       panel_count += 1
     end
 
@@ -306,15 +313,19 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    browser = Watir::Browser.new :chrome, headless: true
+    browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
     browser.goto 'www.pomona.edu/administration/dining/menus/frank'
 
-    menu = browser.div(:class => 'pom-accordion')
+    # The website was updated during COVID, so the structure is slightly different
+    # e.g. class names have been slightly changed
+    # e.g. Frank is now open on Fridays sometimes
+
+    menu = browser.div(class: ['accordion', 'js-accordion'])
     meal_type = ''
     station = ''
     meal_menu = Menu
 
-    menu_panels = menu.h3s(:class => 'ui-accordion-header')
+    menu_panels = menu.buttons(:class => 'accordion__header')
     panel_count = 1 # the next panel to open
 
     # Map the successive divs to be pairs of {day, menu}
@@ -326,31 +337,33 @@ namespace :menu_import do
       # meal type    (h2)
       # station      (h3)
       # menu items   (div)
-      unless pair[:day] == 'friday' || pair[:day] == 'saturday'
-        pair[:menu].children.each do |div|
-          if div.tag_name == "h2"
-            meal_type = div.text.downcase
-            if pair[:day] == 'sunday' && meal_type == 'breakfast'
-              meal_type = 'brunch'
-            end
-          elsif div.tag_name == "h3"
-            station = div.text
-            hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, meal_type)
-            meal_menu = Menu.find_or_create_by(
-              :day => pair[:day],
-              :dining_hall => :frank,
-              :meal_type => meal_type,
-              :hours => hours
-            )
-          elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
-            div.children.each do |menu_item|
-              MenuItem.create(:name => menu_item.p.text, :station => station, :menu => meal_menu)
-            end
+      pair[:menu].div.children.each do |div|
+        if div.tag_name == "p"
+          # <p> is used to denote that Frank is closed that day
+          next
+        end
+        if div.tag_name == "h2"
+          meal_type = div.text.downcase
+          if pair[:day] == 'sunday' && meal_type == 'breakfast'
+            meal_type = 'brunch'
+          end
+        elsif div.tag_name == "h3"
+          station = div.text
+          hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, meal_type)
+          meal_menu = Menu.find_or_create_by(
+            :day => pair[:day],
+            :dining_hall => :frank,
+            :meal_type => meal_type,
+            :hours => hours
+          )
+        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+          div.children.each do |menu_item|
+            MenuItem.find_or_create_by(:name => menu_item.p.text, :station => station, :menu => meal_menu)
           end
         end
       end
       # simulate click to open the next panel after parsing the current one
-      menu_panels[panel_count].fire_event('click') unless panel_count > 6
+      menu_panels[panel_count].fire_event('click') unless panel_count >= menu_panels.length
       panel_count += 1
     end
 
@@ -369,7 +382,7 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    browser = Watir::Browser.new :chrome, headless: true
+    browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
     browser.goto 'www.pomona.edu/administration/dining/menus/oldenborg'
 
     menu = browser.div(:class => 'pom-accordion')
