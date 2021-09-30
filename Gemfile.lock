@@ -247,6 +247,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.5)
     rspec-core (3.9.3)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.4)
@@ -264,6 +265,8 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.4)
+    rss (0.2.9)
+      rexml
     ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     rubyzip (2.3.2)
@@ -366,6 +369,7 @@ DEPENDENCIES
   rails (~> 5.2.4.4)
   redis (~> 4.0)
   rspec-rails (~> 3.8)
+  rss
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
