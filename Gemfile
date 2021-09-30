@@ -54,7 +54,7 @@ gem 'whenever', '~> 0.10.0', require: false
 gem 'font-awesome-rails', '~> 4.7.0'
 
 # Session persistence
-gem 'activerecord-session_store', '~> 1.1.1'
+gem 'activerecord-session_store', '~> 2.0.0'
 
 # Calendar export
 gem 'icalendar'
