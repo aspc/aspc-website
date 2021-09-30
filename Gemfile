@@ -30,10 +30,10 @@ gem 'redis', '~> 4.0'
 gem 'mini_magick', '~> 4.10.1'
 
 # For scraping the Pomona menu
-gem 'watir', '~> 6.14.0'
+gem 'watir', '~> 6.19.1'
 
 # Automatic installation and updates for all supported webdrivers
-gem 'webdrivers', '~> 4.0'
+gem 'webdrivers', '~> 4.6.1'
 
 # For sending http requests
 gem 'httparty', '~> 0.16.2'
