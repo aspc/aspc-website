@@ -13,16 +13,17 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/so
 
 # Google chrome apt-get repositories - not sure if needed
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-RUN echo "deb https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google.list
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
 #added line due to not found error https://stackoverflow.com/questions/27423684/unable-to-locate-package-google-chrome-stable-ubuntu12-on-openstack
-RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-# Dependencies for ASPC Main Site - removed google-chrome-stable
+# Dependencies for ASPC Main Site
+RUN apt update
 RUN apt-get -y install build-essential git nginx postgresql libpq-dev python-dev \
     libsasl2-dev libssl-dev libffi-dev gnupg2 nodejs \
     curl libjpeg-dev libxml2-dev libxslt-dev nodejs yarn \
-    imagemagick
+    imagemagick google-chrome-stable
 
 #To correct bundler 2 error https://stackoverflow.com/questions/53231667/bundler-you-must-use-bundler-2-or-greater-with-this-lockfile
 RUN gem install bundler 
