@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     # Hardcoded pages not created via the CMS
     get 'index' => :index
     get 'senators' => :senators
+    get 'staff' => :staff
     get 'housing-platform' => :housing_platform
     get 'career-opportunities' => :career_opportunities
     

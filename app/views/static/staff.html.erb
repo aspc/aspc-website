@@ -2,60 +2,7 @@
     <%= render 'components/page_header', :title => "Staff" %>
 <% end %>
 
-<h3 class="title is-3 margin-bottom-2">ASPC Staff</h3>
 <% @staff.in_groups_of(3, false).each do |group| %>
-    <div class="columns">
-      <% group.each do |member| %>
-        <div class="column is-4">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image senator-image">
-                <%= avatar_photo member %>
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <h5 class="title is-5 margin-bottom-2">
-                    <%= member.name %></h5>
-                  <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
-                    <%= member.position %></h6>
-                  <h6 class="subtitle is-6 margin-bottom-1">
-                    <%= member.email %></h6>
-                  <% if member.biography.empty? %>
-                    <span class="button is-static">Biography</span>
-                  <% else %>
-                    <a class="button is-info is-outlined modal-open"
-                       data-target="<%= member.name.parameterize %>-biography">Biography</a>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <% if not member.biography.empty? %>
-          <div class="modal" id="<%= member.name.parameterize %>-biography">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-              <div class="modal-card">
-                <div class="box">
-                  <h4 class="title is-4">
-                    <%= member.name %></h4>
-                  <p>
-                    <%= member.biography %></p>
-                </div>
-              </div>
-            </div>
-            <button class="modal-close is-large" aria-label="close"></button>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-<% end %>
-
-<h3 class="title is-3 margin-bottom-2">Board of Trustees Representatives</h3>
-<% @board.in_groups_of(3, false).each do |group| %>
     <div class="columns">
       <% group.each do |member| %>
         <div class="column is-4">

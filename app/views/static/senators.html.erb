@@ -2,7 +2,7 @@
     <%= render 'components/page_header', :title => "Senate" %>
 <% end %>
 
-<% @senators.in_groups_of(3, false).each do |group| %>
+<% @senators_and_board.in_groups_of(3, false).each do |group| %>
     <div class="columns">
       <% group.each do |senator| %>
         <div class="column is-4">

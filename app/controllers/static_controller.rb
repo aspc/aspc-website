@@ -83,12 +83,13 @@ class StaticController < ApplicationController
   end
 
   def senators
-    @senators = Person.priority_order.order("id ASC")
+    @senators = Person.priority_order.senator.order("id ASC")
+    @board = Person.priority_order.board.order("id ASC")
+    @senators_and_board = @senators + @board
   end
 
   def staff
     @staff = Person.priority_order.staff.order("id ASC")
-    @board = Person.priority_order.board.order("id ASC")
   end
 
   def housing_platform
