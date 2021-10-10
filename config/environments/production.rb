@@ -101,6 +101,15 @@ Rails.application.configure do
       :authentication       => "plain",
       :enable_starttls_auto => true
   }
+
+  config.action_mailer.delivery_method = :sendmail
+  # Defaults to:
+  # config.action_mailer.sendmail_settings = {
+  #   location: '/usr/sbin/sendmail',
+  #   arguments: '-i -t'
+  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 end
 
 Rails.application.config.middleware.use ExceptionNotification::Rack,
@@ -109,12 +118,3 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
     sender_address: %{"Status Notifier" <notifier@pomonastudents.org>},
     exception_recipients: %w{sgab2018@mymail.pomona.edu}
   }
-
-config.action_mailer.delivery_method = :sendmail
-# Defaults to:
-# config.action_mailer.sendmail_settings = {
-#   location: '/usr/sbin/sendmail',
-#   arguments: '-i -t'
-# }
-config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = true
