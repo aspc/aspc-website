@@ -157,7 +157,6 @@ class StaticController < ApplicationController
   private
 
   def news
-    raise Exception.new "Test exception"
     require 'rss'
     require 'open-uri'
 

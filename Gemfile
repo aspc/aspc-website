@@ -103,6 +103,3 @@ gem 'jquery-validation-rails'
 
 # 0.3.10 fixes issue with licensing on older versions of mimemagic, a dependency of Rails itself
 gem 'mimemagic', '0.3.10'
-
-# Used to send email notification when site goes down
-gem 'exception_notification'
