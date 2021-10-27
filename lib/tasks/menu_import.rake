@@ -240,9 +240,6 @@ namespace :menu_import do
 
     puts "Importing Frary Menu for week #{_get_current_week.first}..."
 
-    # Clear any existing menus to avoid duplicates
-    Menu.where(:dining_hall => :frary).destroy_all
-
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
     browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
@@ -252,10 +249,21 @@ namespace :menu_import do
     # e.g. no need to click this button
     # browser.button(class: 'accordion__header').click
 
-    menu = browser.div(class: ['accordion', 'js-accordion'])
-    # menu.each do |e|
-    #   menu = e
-    # end
+    begin
+      menu = browser.div(class: ['accordion', 'js-accordion'])
+      # Map the successive divs to be pairs of {day, menu}
+      menu_pairs = menu.children.each_slice(2).map do |pair|
+        {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+      end
+    rescue
+      puts "Frary menu did not load, existing menu will be kept."
+    else
+      # Clear any existing menus to avoid duplicates
+      # Wrap this in a begin clause so that menu is not destroyed if the page doesn't load (curse
+      # you Pomona website)
+      Menu.where(:dining_hall => :frary).destroy_all
+    end
+
     meal_type = ''
     station = ''
     meal_menu = Menu
@@ -263,10 +271,7 @@ namespace :menu_import do
     menu_panels = menu.buttons(:class => 'accordion__header')
     panel_count = 1 # the next panel to open
 
-    # Map the successive divs to be pairs of {day, menu}
-    menu.children.each_slice(2).map do |pair|
-      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
-    end.each do |pair|
+    menu_pairs.each do |pair|
       # The menu for each day is structured as follows:
       #
       # meal type    (h2)
@@ -308,9 +313,6 @@ namespace :menu_import do
 
     puts "Importing Frank Menu for week #{_get_current_week.first}..."
 
-    # Clear any existing menus to avoid duplicates
-    Menu.where(:dining_hall => :frank).destroy_all
-
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
     browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
@@ -319,6 +321,21 @@ namespace :menu_import do
     # The website was updated during COVID, so the structure is slightly different
     # e.g. class names have been slightly changed
     # e.g. Frank is now open on Fridays sometimes
+
+    begin
+      menu = browser.div(class: ['accordion', 'js-accordion'])
+      # Map the successive divs to be pairs of {day, menu}
+      menu_pairs = menu.children.each_slice(2).map do |pair|
+        {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
+      end
+    rescue
+      puts "Frank menu did not load, existing menu will be kept."
+    else
+      # Clear any existing menus to avoid duplicates
+      # Wrap this in a begin clause so that menu is not destroyed if the page doesn't load (curse
+      # you Pomona website)
+      Menu.where(:dining_hall => :frank).destroy_all
+    end
 
     menu = browser.div(class: ['accordion', 'js-accordion'])
     meal_type = ''
@@ -329,9 +346,7 @@ namespace :menu_import do
     panel_count = 1 # the next panel to open
 
     # Map the successive divs to be pairs of {day, menu}
-    menu.children.each_slice(2).map do |pair|
-      {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
-    end.each do |pair|
+    menu_pairs.each do |pair|
       # The menu for each day is structured as follows:
       #
       # meal type    (h2)
