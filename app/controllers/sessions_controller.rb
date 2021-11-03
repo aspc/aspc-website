@@ -83,6 +83,8 @@ class SessionsController < ApplicationController
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
+    Rails.logger.debug 'SERVICE_URL: ' + service_url
+    Rails.logger.debug '_LOGIN_URL: ' + _login_url(service_url)
     return redirect_to _login_url(service_url) unless ticket
 
     # otherwise attempt login
