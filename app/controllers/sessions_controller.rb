@@ -83,8 +83,6 @@ class SessionsController < ApplicationController
     ticket = params[:ticket]
 
     # if request doesn't have CAS Ticket, direct them there
-    Rails.logger.debug 'SERVICE_URL: ' + service_url
-    Rails.logger.debug '_LOGIN_URL: ' + _login_url(service_url)
     return redirect_to _login_url(service_url) unless ticket
 
     # otherwise attempt login
@@ -119,7 +117,8 @@ class SessionsController < ApplicationController
     session[:current_user_id] = user.id
 
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to PHP_AUTH_URL + "login.php"
+    # return redirect_to PHP_AUTH_URL + "login.php"
+    return redirect_to root_path
   end
 
   def _login_url(service_url)
