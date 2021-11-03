@@ -30,7 +30,10 @@ class SessionsService
     validate_url = [cas_server_url, 'serviceValidate'].join('/') + '?' + query_params.to_query.to_s
 
     Rails.logger.info "Validating ticket against #{validate_url}"
-    validation_response = HTTParty.get(validate_url, :format => :xml).parsed_response
+    # validation_response = HTTParty.get(validate_url, :format => :xml).parsed_response
+    validation_response_raw = HTTParty.get(validate_url, :format => :xml)
+    Rails.logger.debug validation_response_raw
+    validation_response = validation_response_raw.parsed_response
     Rails.logger.debug validation_response
 
     validation_response_body = validation_response['serviceResponse']['authenticationSuccess']['attributes']
