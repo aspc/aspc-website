@@ -104,10 +104,6 @@ class SessionsController < ApplicationController
     # otherwise, login was successful, so
     # find or create user from login data
     user = User.find_by(:email => user_info[:email])
-    puts ''
-    puts user_info[:email]
-    puts user_info[:first_name]
-    puts ''
     if user.nil?
       user = User.create({
         :email => user_info[:email],
