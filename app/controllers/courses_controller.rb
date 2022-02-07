@@ -201,7 +201,6 @@ class CoursesController < ApplicationController
                           .where(:course_meeting_details => days)
     end
 
-    # Remove time filter TODO: re-enable
     if (consider_time)
       matches_query = matches_query
                            .joins(:course_meeting_details)
