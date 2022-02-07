@@ -78,18 +78,14 @@
         </div>
       </div>
 
-      <!-- TODO: re-enable -->
-      <!-- Temporary disable time filter
       <div class="field">
         <label class="label">Time</label>
         <div class="control time">
-          <%#=  f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
+          <%=  f.time_select :start_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "Start"}} %>
         </div>
         <div class="control">
-          <%#= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
+          <%= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
         </div>
-      </div>
-      -->
       
       <div class="field">
         <label class="label">Taught by</label>
