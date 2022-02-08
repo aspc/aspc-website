@@ -37,13 +37,15 @@ class EventsController < ApplicationController
     start_hour = event_params[:start_hour]
     start_minute = event_params[:start_minute]
     start_meridiem = event_params[:start_meridiem]
-    start_time = DateTime.strptime("#{start_date} #{start_hour}:#{start_minute} #{start_meridiem}", '%Y-%m-%d %H:%M %p') rescue error_parsing_time = true
+    start_time = DateTime.strptime("#{start_date} #{start_hour}:#{start_minute} #{start_meridiem}",
+                                   '%Y-%m-%d %H:%M %p') rescue error_parsing_time = true
 
     end_date = event_params[:end_date]
     end_hour = event_params[:end_hour]
     end_minute = event_params[:end_minute]
     end_meridiem = event_params[:end_meridiem]
-    end_time = DateTime.strptime("#{end_date} #{end_hour}:#{end_minute} #{end_meridiem}", '%Y-%m-%d %H:%M %p') rescue error_parsing_time = true
+    end_time = DateTime.strptime("#{end_date} #{end_hour}:#{end_minute} #{end_meridiem}", '%Y-%m-%d
+                                 %H:%M %p') rescue error_parsing_time = true
 
     @event = Event.new(
         :name => event_params[:name],
@@ -61,7 +63,10 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully submitted.' }
+        OpenForumMailer.with(question: @event.name, should_respond: true, response_method:
+                             @event.location, to:
+                             "sgab2018@mymail.pomona.edu").new_open_forum_email.deliver_later
+        format.html { redirect_to @event, notice: 'Event was successfully asdf submitted.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -129,15 +134,19 @@ class EventsController < ApplicationController
     def event_params
       params
           .require(:event)
-          .permit(:name, :location, :description, :host, :details_url, :status, :submitted_by_user_fk,
-                  :end_date, :end_hour, :end_minute, :end_meridiem, :start_date, :start_hour, :start_minute, :start_meridiem)
+          .permit(:name, :location, :description, :host, :details_url, :status,
+                  :submitted_by_user_fk,
+                  :end_date, :end_hour, :end_minute, :end_meridiem, :start_date, :start_hour,
+                  :start_minute, :start_meridiem)
     end
 
     def new_calendar_event(calendar, date, course_section, detail)
       event = calendar.event
       event.summary = "#{course_section.course.code} #{course_section.course.name}"
-      start_time = DateTime.new(date.year, date.month, date.day, detail.start_time.hour, detail.start_time.min, 0)
-      end_time = DateTime.new(date.year, date.month, date.day, detail.end_time.hour, detail.end_time.min, 0)
+      start_time = DateTime.new(date.year, date.month, date.day, detail.start_time.hour,
+                                detail.start_time.min, 0)
+      end_time = DateTime.new(date.year, date.month, date.day, detail.end_time.hour,
+                              detail.end_time.min, 0)
       event.dtstart = Icalendar::Values::DateTime.new(start_time)
       event.dtend = Icalendar::Values::DateTime.new(end_time)
       event.description = course_section.description
