@@ -63,9 +63,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        OpenForumMailer.with(question: @event.name, should_respond: true, response_method:
-                             @event.location, to:
-                             "sgab2018@mymail.pomona.edu").new_open_forum_email.deliver_later
+        # Send notification email using EventsMailer
+        EventsMailer.events_notification_email(@event).deliver_later
+
         format.html { redirect_to @event, notice: 'Event was successfully asdf submitted.' }
         format.json { render :show, status: :created, location: @event }
       else
