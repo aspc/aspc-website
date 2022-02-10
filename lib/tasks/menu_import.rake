@@ -174,63 +174,54 @@ namespace :menu_import do
 
   desc "Imports Scripps Menu"
   task :scripps => :environment do
+    endpoint = 'http://legacy.cafebonappetit.com/api/2/menus'
     query = {
-        :menuId => '15245',
-        :locationId => '10638001',
-        :startDate => _get_current_week().second # Scripps menu weeks start on Monday
+        :format => 'json',
+        :cafe => '2253',
+        :date => _get_current_week().join(',')
     }
-    endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
     puts "Importing Scripps Menu for week #{_get_current_week.first}..."
-
-    # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
-    menu_page = Nokogiri::HTML(open(endpoint))
-    menu_week = JSON.parse menu_page.css('div#nutData').text
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :scripps).destroy_all
 
-    menu_week.each do |day|
+    response = HTTParty.get(endpoint, :format => :json, :query => query).parsed_response
+
+    food_id_to_names = response['items'] # Mapping for food ids -> food item names
+    response['days'].each do |day|
       day_name = DateTime.parse(day['date']).strftime('%A').downcase # "Monday" --> "monday"
 
-      menu_items = day['menuItems']
-      menu_items.each do |menu_item|
-        meal_type = menu_item['meal'].downcase.split('/')
-        if meal_type.length == 2
-          meal_type = meal_type[1] # lunch/brunch ==> brunch
-        else
-          meal_type = meal_type[0]
-        end
-        hours = menu_item['startTime'][/\d\d:\d\d/, 0] << '-' << menu_item['endTime'][/\d\d:\d\d/, 0] # Select hours and minutes from date and time
+      all_meals = day['cafes']['2253']['dayparts'][0]
+      all_meals.each do |meal|
+        meal_type = meal['label'].downcase
 
         # Select hours and minutes from date and time and convert it to 12-hour clock format
-        starttime = Time.parse(menu_item['startTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
-        endtime = Time.parse(menu_item['endTime'][/\d\d:\d\d/, 0]).strftime('%l:%M%p').strip
-        
-        # Scripps API is returning outdated dinner hours - temporary solution to manually correct them
-        if meal_type == "dinner"
-          if day_name.in?(["saturday", "sunday"])
-            starttime = "5:00PM"
-            endtime = "6:30PM"
-          else
-            endtime = "7:00PM"
-          end
-        end
+        starttime = Time.parse(meal['starttime']).strftime('%l:%M%p').strip
+        endtime = Time.parse(meal['endtime']).strftime('%l:%M%p').strip
         hours = starttime << '-' << endtime
 
-        if menu_item['course'].nil? || menu_item['formalName'].blank? || !meal_type.in?(['breakfast', 'brunch', 'lunch', 'dinner'])
-          next
-        end
+        next unless Menu.meal_types.keys.include? meal_type # Skip "Late Night" meal type
 
         scripps_menu = Menu.find_or_create_by(:day => day_name, :dining_hall => :scripps, :meal_type => meal_type, :hours => hours) # No duplicate menus
+        scripps_menu.menu_items.destroy_all # No duplicate menu items
 
-        food_station = menu_item['course'].titleize.delete_suffix(" Scr")
-        food_name = menu_item['formalName']
+        stations = meal['stations']
+        stations.each do |station|
+          food_ids = station['items']
+          food_ids.each do |food_id|
 
-        MenuItem.create(:name => food_name, :station => food_station, :menu => scripps_menu)
+            # tiers 2+ display too much detail
+            next unless food_id_to_names[food_id]['tier'] == 1
 
+            station_name = station['label'].titleize
+            food_name = food_id_to_names[food_id]['label'].capitalize
+            MenuItem.create(:name => food_name, :station => station_name, :menu => scripps_menu)
+          end
+        end
       end
     end
+
 
     puts "Successfully imported Scripps Menu for week #{_get_current_week.first}"
   end
