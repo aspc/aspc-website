@@ -64,7 +64,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         # Send notification email using EventsMailer
-        EventsMailer.events_notification_email(@event).deliver_later
+        EventsMailer.event_notification_email(@event).deliver_later
 
         format.html { redirect_to @event, notice: 'Event was successfully asdf submitted.' }
         format.json { render :show, status: :created, location: @event }
