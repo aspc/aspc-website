@@ -138,6 +138,8 @@ class CoursesController < ApplicationController
       return render :json => {error: "No academic term specified"}, :status => :bad_request
     end
 
+    avoid_schedule = params[:avoid_schedule]
+    course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     term_key = params[:academic_term].split.reverse.join(';')
     department_code = Department.find_by(:name => params[:department]).code unless params[:department].empty?
     instructor_name = params[:instructor].strip unless params[:instructor].empty?
@@ -217,6 +219,19 @@ class CoursesController < ApplicationController
     #                       .where(:course_meeting_details => {:start_time => start_time..end_time})
     #                       .where(:course_meeting_details => {:end_time => start_time..end_time})
     # end
+
+    if (avoid_schedule)
+      course_schedule.course_sections.each do |course_section|
+        details = course_section.course_meeting_details.first
+        sched_start_time = details.try(:start_time)
+        sched_end_time = details.try(:end_time)
+        sched_days = details.days
+        matches_query = matches_query.joins(:course_meeting_details)
+                           .where.not(:course_meeting_details => {:start_time => sched_start_time..sched_end_time})
+                           .where.not(:course_meeting_details => {:end_time => sched_start_time..sched_end_time})
+                           .where.not(:course_meeting_details => days)
+      end
+    end
 
     if (department_code)
       matches_query = matches_query

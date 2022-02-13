@@ -490,7 +490,7 @@ select {
       }
     }
 
-    .meets-on {
+    .meets-on, .avoid-schedule {
       .is-checkradio[type="checkbox"].is-block + label,
       .is-checkradio[type="radio"].is-block + label {
         background: #dbdbdb;
