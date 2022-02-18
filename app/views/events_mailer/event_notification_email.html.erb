@@ -1,20 +1,20 @@
 <h3>New event submitted</h3>
 
 <p>
-<%= link_to "Link to event on pomonastudents.org", admin_event_url(@event) %> <br>
-<% if @event.details_url %>
-  <%= link_to "Link to provided details URL", @event.details_url %>
-<% end %>
+  <%= link_to "Link to event on pomonastudents.org", admin_event_url(@event) %> <br>
+  <% if @event.details_url %>
+    <%= link_to "Link to provided details URL", @event.details_url %>
+  <% end %>
 </p>
 
 <p>
-Name: <%= @event.name %> <br>
-Start: <%= @event.start_date %> <%= @event.start_hour %>:<%= @event.start_minute %> <%= @event.start_meridiem %> <br>
-End: <%= @event.end_date %> <%= @event.end_hour %>:<%= @event.end_minute %> <%= @event.end_meridiem %> <br>
-Location: <%= @event.location %> <br>
-Host: <%= @event.host %>
+  Name: <%= @event.name %> <br>
+  Start: <%= @event.start %> <br>
+  End: <%= @event.end %> <br>
+  Location: <%= @event.location %> <br>
+  Host: <%= @event.host %>
 </p>
 
 <p>
-Description: <%= @event.description %>
+  Description: <%= @event.description %>
 </p>
