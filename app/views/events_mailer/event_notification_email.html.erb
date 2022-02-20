@@ -1,0 +1,20 @@
+<h3>New event submitted</h3>
+
+<p>
+  <%= link_to "Link to event on pomonastudents.org", admin_event_url(@event) %> <br>
+  <% if @event.details_url %>
+    <%= link_to "Link to provided details URL", @event.details_url %>
+  <% end %>
+</p>
+
+<p>
+  Name: <%= @event.name %> <br>
+  Start: <%= @event.start %> <br>
+  End: <%= @event.end %> <br>
+  Location: <%= @event.location %> <br>
+  Host: <%= @event.host %>
+</p>
+
+<p>
+  Description: <%= @event.description %>
+</p>
