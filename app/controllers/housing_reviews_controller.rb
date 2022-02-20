@@ -1,4 +1,5 @@
 class HousingReviewsController < InheritedResources::Base
+
   before_action :set_housing_room
   before_action :authenticate_user!
 

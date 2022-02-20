@@ -101,5 +101,10 @@ gem 'jquery-rails'
 
 gem 'jquery-validation-rails'
 
+# For web scraping
+gem install 'pry' #debugging tool
+gem install 'nokogiri' #parsing gem
+gem install 'HTTParty' #HTTP request gem
+
 # 0.3.10 fixes issue with licensing on older versions of mimemagic, a dependency of Rails itself
 gem 'mimemagic', '0.3.10'
