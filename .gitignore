@@ -50,6 +50,11 @@ master.key
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+
+# Obsidian
+**/workspace 
+
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries

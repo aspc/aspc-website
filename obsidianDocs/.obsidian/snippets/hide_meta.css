@@ -1,0 +1,5 @@
+div[data-path='docMeta'], 
+div[data-path='docMeta'] + div.nav-folder-children 
+{
+    display: none;
+}

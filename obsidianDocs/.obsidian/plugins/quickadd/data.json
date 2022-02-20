@@ -1,0 +1,146 @@
+{
+  "choices": [
+    {
+      "id": "ff9513a5-785c-4e18-8efc-d07301210f12",
+      "name": "Create Component",
+      "type": "Template",
+      "command": true,
+      "templatePath": "docMeta/Templates/Component",
+      "fileNameFormat": {
+        "enabled": true,
+        "format": "Component"
+      },
+      "folder": {
+        "enabled": true,
+        "folders": [
+          "docMeta/Tables/Components"
+        ],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": true,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "7713fe83-542a-4127-8943-fe6564b22eeb",
+      "name": "Create Method",
+      "type": "Template",
+      "command": true,
+      "templatePath": "docMeta/Templates/Method",
+      "fileNameFormat": {
+        "enabled": true,
+        "format": "Method"
+      },
+      "folder": {
+        "enabled": true,
+        "folders": [
+          "docMeta/Tables/Methods"
+        ],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": true,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "3fe34e83-b8c9-423d-acb7-6f5440b13952",
+      "name": "Create Feature",
+      "type": "Template",
+      "command": true,
+      "templatePath": "docMeta/Templates/Feature",
+      "fileNameFormat": {
+        "enabled": true,
+        "format": "Feature"
+      },
+      "folder": {
+        "enabled": true,
+        "folders": [
+          "docMeta/Tables/Features"
+        ],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": true,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "d232ec08-1cd1-4dc2-bebb-996679b29533",
+      "name": "Create Type",
+      "type": "Template",
+      "command": true,
+      "templatePath": "docMeta/Templates/Type",
+      "fileNameFormat": {
+        "enabled": true,
+        "format": "Type"
+      },
+      "folder": {
+        "enabled": true,
+        "folders": [
+          "docMeta/Tables/Types"
+        ],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": true,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "d19b5ad8-543f-4204-b3e6-d60e2a67ec1a",
+      "name": "Create UseCase",
+      "type": "Template",
+      "command": true,
+      "templatePath": "docMeta/Templates/UseCase",
+      "fileNameFormat": {
+        "enabled": true,
+        "format": "UseCase"
+      },
+      "folder": {
+        "enabled": true,
+        "folders": [
+          "docMeta/Tables/UseCases"
+        ],
+        "chooseWhenCreatingNote": false,
+        "createInSameFolderAsActiveFile": false
+      },
+      "appendLink": false,
+      "incrementFileName": true,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": true,
+      "openFileInMode": "default"
+    }
+  ],
+  "macros": [],
+  "inputPrompt": "single-line"
+}
