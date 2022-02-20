@@ -1,6 +1,6 @@
 ---
 type: feature
-status:
+status: in-progress
 ---
 
 
@@ -17,7 +17,9 @@ title:Acceptance Critiera
 ```
 
 
-## Whiteboarding
+## Research and Design
+
+
 
 
 
