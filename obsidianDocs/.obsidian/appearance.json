@@ -1,6 +1,8 @@
 {
   "baseFontSize": 17,
-  "enabledCssSnippets": [],
+  "enabledCssSnippets": [
+    "hide_meta"
+  ],
   "cssTheme": "",
   "theme": "obsidian"
 }

@@ -3,12 +3,15 @@ class PomonaEventsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    html = open("https://www.pomona.edu/events")
-    doc = Nokogiri::HTML(html)
-    doc.css("tr.twSimpleTableEventRow0").each |item| do
-      put item 
-    end
-
+    # Check obsidianDocs for PomonaTrumbaEvent interface 
+    jsonData = get_event_json
+    puts jsonData[0]
+    
   end
-  
+
+  def get_event_json() 
+    request = HTTParty.get("https://www.trumba.com/calendars/pomona-college-json.json")
+    return JSON.parse(request.body)
+  end 
+
 end

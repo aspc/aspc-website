@@ -10,6 +10,9 @@ from "docMeta/Tables/UseCases"
 
 
 
+
+
+
 ```button
 name Create UseCase
 type command
