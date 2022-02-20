@@ -4,7 +4,7 @@ class EventsMailer < ApplicationMailer
     @event = event
     @recipient = [Rails.application.credentials[:email][:product_manager][:username],
                   Rails.application.credentials[:email][:lead_developer][:username]]
-    mail(to: @recipient, subject: @event.name)
+    mail(to: @recipient, subject: 'New event submitted to pomonastudents.org')
   end
 
 end
