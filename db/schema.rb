@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_18_213807) do
+ActiveRecord::Schema.define(version: 2022_02_27_204834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,6 +271,13 @@ ActiveRecord::Schema.define(version: 2020_10_18_213807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority"
+  end
+
+  create_table "pomona_event_maps", force: :cascade do |t|
+    t.text "event_id"
+    t.text "mapped_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|

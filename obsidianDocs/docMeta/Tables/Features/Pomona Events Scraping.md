@@ -19,6 +19,13 @@ title:Acceptance Critiera
 
 ## Research and Design
 
+```ad-question
+Not sure what to use for Host field.
+Additionally, it seems that the title field, description and location aren't always filled out.
+
+```
+
+
 ```ad-note
 title:Extracting Data
 It turns out there is a URL that can be used
@@ -65,6 +72,25 @@ for college use "Pomona"
 for startDate use startDateTime
 for endDate use endDateTime 
 
+```
+
+```ad-note
+title: Approach
+Using Rails:
+Rails has frameworks which can be used to keep track of data. One of the data models needed is a simple table pairing eventID's to uuidv4 id's.  A simple datamodel can be created for this and can be queried against using Active Records.
+
+To do so, we can use [[Generate a Model in Rails]]
+to generate a model
+
+bin/rails generate model PomonaEventMap event_id:text mapped_id:text 
+
+
+the event_id will be the id attached to the original event and the mapped_id will be the id that is transfered to the Event model.
+
+
+This has a particular flow 
+
+RakeTask -> for each Event [if has Transform(PomonaEventMap) return] else  -> Event -> Create PomonaEventMap -> Create Event 
 ```
 
 
