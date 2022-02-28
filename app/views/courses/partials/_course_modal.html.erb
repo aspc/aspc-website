@@ -1,0 +1,94 @@
+<%# https://www.jquery-az.com/bulma-modal/%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<% course_section = local_assigns.fetch(:course_section) %>
+
+<% section = course_section %>
+<% modal_id = "modal"+course_section.course.id.to_s%>
+
+ <div id="<%= modal_id -%>" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+       <% campus_background_color_class =
+               case section.course_meeting_details.first.try(:campus).try(:to_sym)
+               when :pomona
+                 "campus_PO"
+               when :claremont_mckenna
+                 "campus_CM"
+               when :harvey_mudd
+                 "campus_HM"
+               when :scripps
+                 "campus_SC"
+               when :pitzer
+                 "campus_PZ"
+               else
+                 "campus_KS"
+               end
+        %>
+
+        <article class="message is-dark">
+          <div class="message-header <%= campus_background_color_class %> has-text-centered-mobile">
+            <div class="columns">
+              <div class="column">
+                <div class="margin-bottom-half">
+                <%= link_to course_path(section.course), :class => 'no-underline' do %>
+                  <%= section.code %><br>
+                  <strong><%= section.course.name %></strong>
+                <% end %>
+                </div>
+                <div>
+                  <%= link_to course_path(section.course), :class => 'no-underline' do %>
+                    <%= render 'components/numerical_review',
+                              rating: section.course.overall_rating,
+                              tag_classes: "#{campus_background_color_class} has-text-white has-brightness",
+                              show_icon: true %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="message-body">
+            <div class="columns">
+              <div class="column">
+                <p>
+                  <% section.instructors.each do |instructor| %>
+                    <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                      <strong><%= instructor.name %> &nbsp;</strong>
+                      <%= render 'components/numerical_review',
+                                 rating: instructor.overall_rating, show_icon: true %>
+                    <% end %>
+
+                    <br/>
+                  <% end %>
+
+                  <br/>
+                  <%= section.credit %> credits
+                </p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= detail.to_s %></p>
+                <% end %>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= raw course_section.description %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>       
+        </article> 
+    </div>
+  </div>
+  <button id="<%= modal_id -%>" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<script>
+$(".modal-close").click(function() {
+   $(".modal").removeClass("is-active");
+});
+</script>

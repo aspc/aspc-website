@@ -20,6 +20,10 @@
 
 <div id="course-schedule"></div>
 
+ <% course_sections.each do |course_section| %>
+    <%= render :partial => 'courses/partials/course_modal', locals: { course_section: course_section } %>
+<% end %>
+
 <script>
     (function () {
         if ($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
@@ -39,6 +43,10 @@
             height: function (calendar) {
                 return $('table.wc-time-slots').height() + $(".wc-toolbar").outerHeight() + $(".wc-header").outerHeight();
             },
+            eventClick: function(calEvent, element, dayFreeBusyManager, 
+                                                      calendar, clickEvent) {
+                                                        console.log('click', calEvent);
+                                                        $(".modal").addClass("is-active"); },
             eventHeader: function (calEvent, calendar) {
                 return calEvent.title;
             },
