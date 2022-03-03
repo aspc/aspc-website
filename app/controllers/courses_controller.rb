@@ -154,7 +154,7 @@ class CoursesController < ApplicationController
     consider_time = false
     start_time = nil
     end_time = nil
-    Time.use_zone('America/Los_Angeles') {
+    Time.use_zone('UTC') {
       if not start_hour.nil?  # if user specifies start time
         start_time = Time.new(1970, 1, 1, start_hour, start_minute)
       
@@ -170,6 +170,9 @@ class CoursesController < ApplicationController
         consider_time = true
       end
     }
+    Rails.logger.info "TIME INFORMATION"
+    Rails.logger.info "#{start_hour} #{end_hour}"
+    Rails.logger.info "#{start_time} #{end_time}"
 
     # Gets results from individual checkboxes with corresponding symbols
     schools = {
