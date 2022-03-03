@@ -87,6 +87,8 @@ class CoursesController < ApplicationController
   def add_course_section_to_schedule
     section_id = params[:section_id]
     @course_section = CourseSection.find_by(:id => section_id)
+    puts "COURSE SECTION"
+    puts @course_section.course_meeting_details.inspect
 
     @course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     if (@course_schedule.course_sections.none? {|section| section.code_slug == @course_section.code_slug})
@@ -152,8 +154,8 @@ class CoursesController < ApplicationController
     end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
     consider_time = false
-    puts "START_TIME " + start_hour + " " start_minute
-    puts "END_TIME " + end_hour + " " end_minute
+    puts "START_TIME " + start_hour.to_s + " " + start_minute.to_s
+    puts "END_TIME " + end_hour.to_s + " " + end_minute.to_s
     if not start_hour.nil?  # if user specifies start time
       start_time = Time.new(1970, 1, 1, start_hour, start_minute)
     
