@@ -154,22 +154,20 @@ class CoursesController < ApplicationController
     consider_time = false
     start_time = nil
     end_time = nil
-    Time.use_zone('UTC') {
-      if not start_hour.nil?  # if user specifies start time
-        start_time = Time.new(1970, 1, 1, start_hour, start_minute)
-      
-        if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
-        end_time = Time.new(1970, 1, 1, end_hour, end_minute)
-        consider_time = true
+    if not start_hour.nil?  # if user specifies start time
+      start_time = Time.new(1970, 1, 1, start_hour, start_minute, "+00:00")
+    
+      if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
+      end_time = Time.new(1970, 1, 1, end_hour, end_minute, "+00:00")
+      consider_time = true
 
-      elsif not end_hour.nil?   # if user only specifies end time but not start time
-        end_time = Time.new(1970, 1, 1, end_hour, end_minute)
-        
-        if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
-        start_time = Time.new(1970, 1, 1, start_hour, start_minute)
-        consider_time = true
-      end
-    }
+    elsif not end_hour.nil?   # if user only specifies end time but not start time
+      end_time = Time.new(1970, 1, 1, end_hour, end_minute, "+00:00")
+      
+      if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
+      start_time = Time.new(1970, 1, 1, start_hour, start_minute, "+00:00")
+      consider_time = true
+    end
     Rails.logger.info "TIME INFORMATION"
     Rails.logger.info "#{start_hour} #{end_hour}"
     Rails.logger.info "#{start_time} #{end_time}"
