@@ -152,6 +152,8 @@ class CoursesController < ApplicationController
     end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
     consider_time = false
+    puts "START_TIME " + start_hour + " " start_minute
+    puts "END_TIME " + end_hour + " " end_minute
     if not start_hour.nil?  # if user specifies start time
       start_time = Time.new(1970, 1, 1, start_hour, start_minute)
     
