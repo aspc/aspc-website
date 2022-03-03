@@ -1,6 +1,5 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
   config.log_level = :info
 
   # In the development environment your application's code is reloaded on
@@ -61,7 +60,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.web_console.whitelisted_ips = '10.0.2.2'
+  config.web_console.whitelisted_ips = ['10.0.2.2', '172.20.0.1']
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
   config.action_mailer.delivery_method = :test

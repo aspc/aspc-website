@@ -254,6 +254,8 @@ namespace :menu_import do
       # you Pomona website)
       Menu.where(:dining_hall => :frary).destroy_all
     end
+    
+    valid_meals = ['breakfast', 'lunch', 'dinner', 'brunch']
 
     meal_type = ''
     station = ''
@@ -261,6 +263,7 @@ namespace :menu_import do
 
     menu_panels = menu.buttons(:class => 'accordion__header')
     panel_count = 1 # the next panel to open
+    skip_until_meal = false # flag to keep track of meals to skip (e.g. all day menus)
 
     menu_pairs.each do |pair|
       # The menu for each day is structured as follows:
@@ -270,11 +273,16 @@ namespace :menu_import do
       # menu items   (div)
       pair[:menu].div.children.each do |div|
         if div.tag_name == "h2"
+          skip_until_meal = false
           meal_type = div.text.downcase
+          if !valid_meals.include?(meal_type)
+            skip_until_meal = true
+            next
+          end
           if (pair[:day] == 'saturday' || pair[:day] == 'sunday') && meal_type == 'breakfast'
             meal_type = 'brunch'
           end
-        elsif div.tag_name == "h3"
+        elsif div.tag_name == "h3" && !skip_until_meal
           station = div.text
           hours = _get_pomona_hours('Frary', Date.strptime(pair[:day], '%A').wday, meal_type)
           meal_menu = Menu.find_or_create_by(
@@ -283,7 +291,7 @@ namespace :menu_import do
             :meal_type => meal_type,
             :hours => hours
           )
-        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section" && !skip_until_meal
           div.children.each do |menu_item|
             MenuItem.find_or_create_by(:name => menu_item.p.text, :station => station, :menu => meal_menu)
           end
@@ -328,6 +336,8 @@ namespace :menu_import do
       Menu.where(:dining_hall => :frank).destroy_all
     end
 
+    valid_meals = ['breakfast', 'lunch', 'dinner', 'brunch']
+
     menu = browser.div(class: ['accordion', 'js-accordion'])
     meal_type = ''
     station = ''
@@ -335,6 +345,7 @@ namespace :menu_import do
 
     menu_panels = menu.buttons(:class => 'accordion__header')
     panel_count = 1 # the next panel to open
+    skip_until_meal = false # flag to keep track of meals to skip (e.g. all day menus)
 
     # Map the successive divs to be pairs of {day, menu}
     menu_pairs.each do |pair|
@@ -349,11 +360,16 @@ namespace :menu_import do
           next
         end
         if div.tag_name == "h2"
+          skip_until_meal = false
           meal_type = div.text.downcase
+          if !valid_meals.include?(meal_type)
+            skip_until_meal = true
+            next
+          end
           if pair[:day] == 'sunday' && meal_type == 'breakfast'
             meal_type = 'brunch'
           end
-        elsif div.tag_name == "h3"
+        elsif div.tag_name == "h3" && !skip_until_meal
           station = div.text
           hours = _get_pomona_hours('Frank', Date.strptime(pair[:day], '%A').wday, meal_type)
           meal_menu = Menu.find_or_create_by(
@@ -362,9 +378,10 @@ namespace :menu_import do
             :meal_type => meal_type,
             :hours => hours
           )
-        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section"
+        elsif div.tag_name == "div" && div.class_name == "nutrition-menu-section" && !skip_until_meal
           div.children.each do |menu_item|
-            MenuItem.find_or_create_by(:name => menu_item.p.text, :station => station, :menu => meal_menu)
+            MenuItem.find_or_create_by(:name => menu_item.p.text, :station => station,
+                                       :menu => meal_menu)
           end
         end
       end
