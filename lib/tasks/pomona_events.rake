@@ -12,12 +12,16 @@ end
 
 def create_event(json_data) 
     event_id = json_data["eventID"]
-    puts json_data
+ 
+    if !has_title json_data 
+        return 
+    end 
+
     new_event = transform_json_to_event json_data
-    puts new_event
     event = Event.new do |e| 
         e.name = new_event["name"]
         e.start = new_event["start"]
+        e.status = new_event["status"]
         e.end  = new_event["end"]
         e.location = new_event["location"]
         e.description = new_event["description"]
@@ -37,17 +41,32 @@ end
 
 def transform_json_to_event(data) 
     return {
-        "status" => 2,
-        "name" => data["title"],
-        "start" => data["startDateTime"],
-        "end" => data["endDateTime"],
-        "college_affiliation" => 2,
-        "location" => data["location"],
-        "description" => data["description"],
+        "status" => 1,
+        "name" => (extract_field data["title"]),
+        "start" => (extract_field data["startDateTime"]),
+        "end" => (extract_field data["endDateTime"]),
+        "college_affiliation" => 1,
+        "location" => (extract_field data["location"]),
+        "description" => (extract_field data["description"]),
         "host" => "Pomona", #@todo Figure out if this is correct
-        "details_url" => data["webLink"],
+        "details_url" =>(extract_field data["webLink"]),
     }
 
+end
+
+def has_title(data) 
+    if (data["title"].empty?)
+        return false 
+    end 
+
+    return true 
+end 
+
+def extract_field(field)
+    if field.nil? or field.empty?
+        return "N/A" 
+    end 
+    return field 
 end 
 
 def retrieve_event_json() 
