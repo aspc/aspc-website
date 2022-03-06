@@ -57,7 +57,7 @@
         <div class="field is-grouped checkboxes">
            <div class="control avoid-schedule">
               <input class="is-checkradio is-block is-info" id="avoid_schedule" type="checkbox" name="avoid_schedule">
-              <label for="avoid_schedule">Avoid Schedule</label>
+              <label for="avoid_schedule">Hide courses conflicting with schedule</label>
           </div>
         </div>
       </div>
@@ -95,6 +95,7 @@
         <div class="control">
           <%= f.time_select :end_time, {ampm: true, start_hour: 8, end_hour: 23, ignore_date: true, prompt: true, prompt: {hour: "End"}} %>
         </div>
+      </div>
       
       <div class="field">
         <label class="label">Taught by</label>
