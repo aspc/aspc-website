@@ -88,7 +88,7 @@
 </div>
 
 <script>
-$(".modal-close").click(function() {
-   $(".modal").removeClass("is-active");
+$(".modal-close").click(function(e) {
+    e.currentTarget.classList.remove("is-active")
 });
 </script>
