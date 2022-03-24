@@ -118,7 +118,6 @@ class SessionsController < ApplicationController
 
     # TODO: complete PHP session login/authentication and redirect user
     return redirect_to PHP_AUTH_URL + "login.php"
-    # return redirect_to root_url
   end
 
   def _login_url(service_url)
