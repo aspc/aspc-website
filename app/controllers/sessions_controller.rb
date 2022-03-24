@@ -6,7 +6,6 @@ class SessionsController < ApplicationController
 
   def new
     @redirected_from_vote_app = params[:next].present? && params[:next] == "vote"
-    Rails.logger.debug params.inspect
   end
 
   def destroy
@@ -119,7 +118,11 @@ class SessionsController < ApplicationController
 
     # TODO: complete PHP session login/authentication and redirect user
     # return redirect_to PHP_AUTH_URL + "login.php"
-    return redirect_to root_path
+    if @redirected_from_vote_app
+      return redirect_to root_path + "vote"
+    else
+      return redirect_to root_path
+    end
   end
 
   def _login_url(service_url)
