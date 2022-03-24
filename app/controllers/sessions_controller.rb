@@ -118,6 +118,7 @@ class SessionsController < ApplicationController
 
     # TODO: complete PHP session login/authentication and redirect user
     # return redirect_to PHP_AUTH_URL + "login.php"
+    Rails.logger.debug @redirected_from_vote_app
     if @redirected_from_vote_app
       Rails.logger.debug root_url + "vote"
       return redirect_to root_url + "vote"
