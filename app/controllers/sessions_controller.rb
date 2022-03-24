@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
 
   def new
     @redirected_from_vote_app = params[:next].present? && params[:next] == "vote"
+    Rails.logger.debug params.inspect
   end
 
   def destroy
