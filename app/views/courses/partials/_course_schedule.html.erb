@@ -20,6 +20,10 @@
 
 <div id="course-schedule"></div>
 
+ <% course_sections.each do |course_section| %>
+    <%= render :partial => 'courses/partials/course_modal', locals: { course_section: course_section } %>
+<% end %>
+
 <script>
     (function () {
         if ($('#course-schedule').empty() == false) return; // weird workaround due to turbolinks reloading this script
@@ -38,6 +42,11 @@
             overlapEventsSeparate: true,
             height: function (calendar) {
                 return $('table.wc-time-slots').height() + $(".wc-toolbar").outerHeight() + $(".wc-header").outerHeight();
+            },
+            eventClick: function(calEvent) {
+                const classID = calEvent.modalID
+                const modalID = `modal${classID}`
+                $(`#${modalID}`).addClass("is-active")
             },
             eventHeader: function (calEvent, calendar) {
                 return calEvent.title;
@@ -80,6 +89,7 @@
                 end: new Date(1970, 0, 5 + <%= day_offset %>, <%= end_time.hour %>, <%= end_time.min %>),
                 title: "<%= course_section.course.code %> <%= course_section.course.name %>",
                 id: "<%= detail.id.to_s + "_" + day_offset.to_s %>",
+                modalID: "<%= course_section.course.id.to_s %>",
                 campus: "<%= detail.campus_abbreviation %>"
             });
         <% end %>

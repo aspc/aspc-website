@@ -1,17 +1,15 @@
-<% course_sections = local_assigns.fetch(:course_sections, []) %>
+<%# https://www.jquery-az.com/bulma-modal/%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<% course_section = local_assigns.fetch(:course_section) %>
 
-<% if course_sections %>
-  <section class="message equal-height" id="course-list-results-container">
-    <div class="message-header">
-      <% if course_sections.length > 0 %>
-        Showing <%= course_sections.length %> results
-      <% else %>
-        No results
-      <% end %>
-    </div>
-    <section class="message-body vertical-scroll" id="course-list-results">
-      <% course_sections.each do |section| %>
-        <% campus_background_color_class =
+<% section = course_section %>
+<% modal_id = "modal"+course_section.course.id.to_s%>
+
+ <div id="<%= modal_id -%>" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+       <% campus_background_color_class =
                case section.course_meeting_details.first.try(:campus).try(:to_sym)
                when :pomona
                  "campus_PO"
@@ -47,24 +45,6 @@
                   <% end %>
                 </div>
               </div>
-              <div class="column chevron-container is-narrow">
-                <div class="more-details-chevron has-text-centered-mobile">
-                  <span class="chevron-up">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="feather feather-chevron-down">
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span>
-                  <span class="chevron-down">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="feather feather-chevron-up">
-                      <polyline points="18 15 12 9 6 15"></polyline>
-                    </svg>
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="message-body">
@@ -88,11 +68,6 @@
             </div>
             <div class="columns">
               <div class="column">
-                c
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
                 <% section.course_meeting_details.each do |detail| %>
                   <p><%= detail.to_s %></p>
                 <% end %>
@@ -100,19 +75,20 @@
             </div>
             <div class="columns">
               <div class="column">
-                <div class="buttons is-left">
-                  <%= button_to "Add to Schedule",
-                                :courses_add,
-                                :class => "button is-info",
-                                :method => :post,
-                                :remote => true,
-                                :params => {:section_id => section.id} %>
-                </div>
+                <% section.course_meeting_details.each do |detail| %>
+                  <p><%= raw course_section.description %></p>
+                <% end %>
               </div>
             </div>
-          </div>
-        </article>
-      <% end %>
-    </section>
-  </section>
-<% end %>
+          </div>       
+        </article> 
+    </div>
+  </div>
+  <button id="<%= modal_id -%>" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<script>
+$(".modal-close").click(function(e) {
+    e.currentTarget.classList.remove("is-active")
+});
+</script>
