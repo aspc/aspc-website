@@ -138,41 +138,37 @@ class CoursesController < ApplicationController
       return render :json => {error: "No academic term specified"}, :status => :bad_request
     end
 
+    avoid_schedule = params[:avoid_schedule]
+    course_schedule = CourseSchedule.find_or_create_by(:user => current_user)
     term_key = params[:academic_term].split.reverse.join(';')
     department_code = Department.find_by(:name => params[:department]).code unless params[:department].empty?
     instructor_name = params[:instructor].strip unless params[:instructor].empty?
     number = params[:number].to_i rescue nil unless params[:number].empty?
     keywords = params[:keywords].split rescue nil unless params[:keywords].empty?
 
+    start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
+    start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
+    end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
+    end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
 
-    # Remove time filter TODO: re-enable
-    # start_hour = params["start_time(4i)"].to_i rescue nil unless params["start_time(4i)"].empty?
-    # start_minute = params["start_time(5i)"].to_i rescue nil unless params["start_time(5i)"].empty?
-    # end_hour = params["end_time(4i)"].to_i rescue nil unless params["end_time(4i)"].empty?
-    # end_minute = params["end_time(5i)"].to_i rescue nil unless params["end_time(5i)"].empty?
+    consider_time = false
+    if not start_hour.nil?  # if user specifies start time
+      start_time = ActiveSupport::TimeZone['UTC'].local(1970, 1, 1, start_hour, start_minute).to_datetime
+    
+      if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
+      end_time = ActiveSupport::TimeZone['UTC'].local(1970, 1, 1, end_hour, end_minute).to_datetime
+      consider_time = true
 
-    # Remove time filter TODO: re-enable
-    # consider_time = false
-    # if not start_hour.nil?  # if user specifies start time
-    #   start_time = Time.new(1970, 1, 1, start_hour, start_minute)
-    #
-    #   if end_hour.nil? then end_hour = 23 end   # if user doesn't specify end time, set default value to display all classes after start time
-    #
-    #   end_time = Time.new(1970, 1, 1, end_hour, end_minute)
-    #   consider_time = true
-    # elsif not end_hour.nil?   # if user only specifies end time but not start time
-    #   end_time = Time.new(1970, 1, 1, end_hour, end_minute)
-    #
-    #   if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
-    #
-    #   start_time = Time.new(1970, 1, 1, start_hour, start_minute)
-    #   consider_time = true
-    # end
-
-    # times are given in PST/PDT, but database auto-converts times to UTC before performing query
-    # times need to be shifted back 7/8 hours by converting from UTC to PST/PDT
-    # start_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(start_time) if start_time
-    # end_time = ActiveSupport::TimeZone.new('America/Los_Angeles').utc_to_local(end_time) if end_time
+    elsif not end_hour.nil?   # if user only specifies end time but not start time
+      end_time = ActiveSupport::TimeZone['UTC'].local(1970, 1, 1, end_hour, end_minute).to_datetime
+      
+      if start_hour.nil? then start_hour = 0 end   # double check that user did not set start time, set default value to display all classes before end time
+      start_time = ActiveSupport::TimeZone['UTC'].local(1970, 1, 1, start_hour, start_minute).to_datetime
+      consider_time = true
+    end
+    Rails.logger.info "TIME INFORMATION"
+    Rails.logger.info "#{start_hour} #{end_hour}"
+    Rails.logger.info "#{start_time} #{end_time}"
 
     # Gets results from individual checkboxes with corresponding symbols
     schools = {
@@ -210,13 +206,25 @@ class CoursesController < ApplicationController
                           .where(:course_meeting_details => days)
     end
 
-    # Remove time filter TODO: re-enable
-    # if (consider_time)
-    #   matches_query = matches_query
-    #                       .joins(:course_meeting_details)
-    #                       .where(:course_meeting_details => {:start_time => start_time..end_time})
-    #                       .where(:course_meeting_details => {:end_time => start_time..end_time})
-    # end
+    if (consider_time)
+      matches_query = matches_query
+                           .joins(:course_meeting_details)
+                           .where(:course_meeting_details => {:start_time => start_time..end_time})
+                           .where(:course_meeting_details => {:end_time => start_time..end_time})
+    end
+
+    if (avoid_schedule)
+      course_schedule.course_sections.each do |course_section|
+        details = course_section.course_meeting_details.first
+        sched_start_time = details.try(:start_time)
+        sched_end_time = details.try(:end_time)
+        sched_days = details.days
+        matches_query = matches_query.joins(:course_meeting_details)
+                           .where.not(:course_meeting_details => {:start_time => sched_start_time..sched_end_time})
+                           .where.not(:course_meeting_details => {:end_time => sched_start_time..sched_end_time})
+                           .where.not(:course_meeting_details => days)
+      end
+    end
 
     if (department_code)
       matches_query = matches_query

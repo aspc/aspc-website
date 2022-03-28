@@ -64,7 +64,7 @@ end
 course_meeting_details_page = Proc.new do
   belongs_to :course_section
 
-  permit_params :start_time, :end_time, :monday, :tuesday, :wednesday, :thursday, :friday, :campus, :location
+  permit_params :start_time, :end_time, :monday, :tuesday, :wednesday, :thursday, :friday, :campus, :location, :avoid_schedule
 end
 
 ActiveAdmin.register Course, :namespace => :admin, &course_page

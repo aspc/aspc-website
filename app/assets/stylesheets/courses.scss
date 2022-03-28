@@ -490,12 +490,15 @@ select {
       }
     }
 
-    .meets-on {
+    .meets-on, .avoid-schedule {
+      display: flex;
+      flex-shrink: 1;
+
       .is-checkradio[type="checkbox"].is-block + label,
       .is-checkradio[type="radio"].is-block + label {
         background: #dbdbdb;
         color: #363636;
-        opacity: 0.5;
+        opacity: 0.5;    
       }
 
       .is-checkradio[type="checkbox"]:checked + label,
