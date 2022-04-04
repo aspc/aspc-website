@@ -20,7 +20,7 @@
 
 <div id="course-schedule"></div>
 
- <% course_sections.each do |course_section| %>
+<% course_sections.each do |course_section| %>
     <%= render :partial => 'courses/partials/course_modal', locals: { course_section: course_section } %>
 <% end %>
 

@@ -6,7 +6,7 @@
 <% modal_id = "modal"+course_section.course.id.to_s%>
 
  <div id="<%= modal_id -%>" class="modal">
-  <div class="modal-background"></div>
+  <div class="modal-background" onclick="getElementById('<%= modal_id -%>').classList.remove('is-active')"  ></div>
   <div class="modal-content">
     <div class="box">
        <% campus_background_color_class =
@@ -84,11 +84,5 @@
         </article> 
     </div>
   </div>
-  <button id="<%= modal_id -%>" class="modal-close is-large" aria-label="close"></button>
+  <button id="<%= modal_id -%>" onclick="getElementById('<%= modal_id -%>').classList.remove('is-active')" class="modal-close is-large" aria-label="close"></button>
 </div>
-
-<script>
-$(".modal-close").click(function(e) {
-    e.currentTarget.classList.remove("is-active")
-});
-</script>
