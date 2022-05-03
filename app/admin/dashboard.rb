@@ -13,7 +13,7 @@ admin_dashboard_page = Proc.new do
   end
   page_action :import_frary, method: :get do
     # MenuImportJobs::FraryMenuImportJob.perform_later
-    Rake::Task['menu_import:frary'].invoke
+    system "rake menu_import:frary"
     redirect_to admin_dashboard_path, notice: "Importing Frary menus!"
   end
   page_action :import_oldenborg, method: :get do
