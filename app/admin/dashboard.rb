@@ -8,14 +8,13 @@ admin_dashboard_page = Proc.new do
   end
 
   page_action :import_frank, method: :get do
-    # MenuImportJobs::FrankMenuImportJob.perform_later
-    system "RAKE_ENV=production rake menu_import:frary"
-    redirect_to admin_dashboard_path, notice: "Imported Frank menus!"
+    MenuImportJobs::FrankMenuImportJob.perform_later
+    redirect_to admin_dashboard_path, notice: "Importing Frank menus!"
   end
   page_action :import_frary, method: :get do
     # MenuImportJobs::FraryMenuImportJob.perform_later
-    system "RAKE_ENV=production rake menu_import:frary"
-    redirect_to admin_dashboard_path, notice: "Imported Frary menus!"
+    Rake::Task['menu_import:frary'].invoke
+    redirect_to admin_dashboard_path, notice: "Importing Frary menus!"
   end
   page_action :import_oldenborg, method: :get do
     MenuImportJobs::OldenborgMenuImportJob.perform_later
