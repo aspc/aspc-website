@@ -234,7 +234,6 @@ namespace :menu_import do
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
     browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
-    Rails.logger.info "Loading Frary website"
     browser.goto 'www.pomona.edu/administration/dining/menus/frary'
 
     # The website was updated during COVID, so the structure is slightly different
@@ -242,7 +241,6 @@ namespace :menu_import do
     # browser.button(class: 'accordion__header').click
 
     begin
-      Rails.logger.info "Accessing Frary menu"
       menu = browser.div(class: ['accordion', 'js-accordion'])
       # Map the successive divs to be pairs of {day, menu}
       menu_pairs = menu.children.each_slice(2).map do |pair|
@@ -254,7 +252,6 @@ namespace :menu_import do
       # Clear any existing menus to avoid duplicates
       # Wrap this in a begin clause so that menu is not destroyed if the page doesn't load (curse
       # you Pomona website)
-      Rails.logger.info "Deleting old Frary menus"
       Menu.where(:dining_hall => :frary).destroy_all
     end
     
@@ -400,9 +397,6 @@ namespace :menu_import do
 
   desc "Imports Oldenborg Menu"
   task :oldenborg => :environment do
-    # Oldenborg menu import does not work, needs to be updated to match the Pomona website once the
-    # dining hall opens
-    # Refer to Frank and Frary import tasks, since they should be the same/similar
 
     Rails.logger.info "Importing Oldenborg Menu for week #{_get_current_week.first}..."
 
