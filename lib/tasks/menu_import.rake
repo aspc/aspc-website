@@ -5,7 +5,7 @@ require 'resolv-replace'
 namespace :menu_import do
   desc "Imports All Menus"
   task :all => :environment do
-    Rails.logger.info "Importing all menus..."
+    puts "Importing all menus..."
 
     tasks = [
         Rake::Task['menu_import:claremont_mckenna'],
@@ -18,7 +18,7 @@ namespace :menu_import do
     ]
 
     tasks.each { |t| t.invoke }
-    Rails.logger.info "------"
+    puts "------"
   end
 
   desc "Imports Claremont McKenna Menu "
@@ -30,7 +30,7 @@ namespace :menu_import do
         :date => _get_current_week().join(',')
     }
 
-    Rails.logger.info "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
+    puts "Importing Claremont McKenna Menu for week #{_get_current_week.first}..."
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :claremont_mckenna).destroy_all
@@ -71,7 +71,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Claremont McKenna Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Claremont McKenna Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Pitzer Menu "
@@ -83,7 +83,7 @@ namespace :menu_import do
         :date => _get_current_week().join(',')
     }
 
-    Rails.logger.info "Importing Pitzer Menu for week #{_get_current_week.first}..."
+    puts "Importing Pitzer Menu for week #{_get_current_week.first}..."
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :pitzer).destroy_all
@@ -122,7 +122,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Pitzer Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Pitzer Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Harvey Mudd Menu "
@@ -134,7 +134,7 @@ namespace :menu_import do
     }
     endpoint = 'https://menus.sodexomyway.com/BiteMenu/MenuOnly' + '?' + query.to_query.to_s
 
-    Rails.logger.info "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
+    puts "Importing Harvey Mudd Menu for week #{_get_current_week.first}..."
 
     # Mudd's menu is weird. The JSON is stored inside an HTML page, so we handle that mess here.
     menu_page = Nokogiri::HTML(open(endpoint))
@@ -169,7 +169,7 @@ namespace :menu_import do
       end
     end
 
-    Rails.logger.info "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Harvey Mudd Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Scripps Menu"
@@ -181,7 +181,7 @@ namespace :menu_import do
         :date => _get_current_week().join(',')
     }
 
-    Rails.logger.info "Importing Scripps Menu for week #{_get_current_week.first}..."
+    puts "Importing Scripps Menu for week #{_get_current_week.first}..."
 
     # Destroy all existing menus to avoid duplicates
     Menu.where(:dining_hall => :scripps).destroy_all
@@ -223,13 +223,13 @@ namespace :menu_import do
     end
 
 
-    Rails.logger.info "Successfully imported Scripps Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Scripps Menu for week #{_get_current_week.first}"
   end
 
   desc "Imports Frary Menu"
   task :frary => :environment do
 
-    Rails.logger.info "Importing Frary Menu for week #{_get_current_week.first}..."
+    puts "Importing Frary Menu for week #{_get_current_week.first}..."
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
@@ -247,7 +247,7 @@ namespace :menu_import do
         {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
       end
     rescue
-      Rails.logger.info "Frary menu did not load, existing menu will be kept."
+      puts "Frary menu did not load, existing menu will be kept."
     else
       # Clear any existing menus to avoid duplicates
       # Wrap this in a begin clause so that menu is not destroyed if the page doesn't load (curse
@@ -302,7 +302,7 @@ namespace :menu_import do
       panel_count += 1
     end
 
-    Rails.logger.info "Successfully imported Frary Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Frary Menu for week #{_get_current_week.first}"
 
     browser.close
   end
@@ -310,7 +310,7 @@ namespace :menu_import do
   desc "Imports Frank Menu"
   task :frank => :environment do
 
-    Rails.logger.info "Importing Frank Menu for week #{_get_current_week.first}..."
+    puts "Importing Frank Menu for week #{_get_current_week.first}..."
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
@@ -328,7 +328,7 @@ namespace :menu_import do
         {:day => pair[0].text.split(",")[0].downcase, :menu => pair[1] }
       end
     rescue
-      Rails.logger.info "Frank menu did not load, existing menu will be kept."
+      puts "Frank menu did not load, existing menu will be kept."
     else
       # Clear any existing menus to avoid duplicates
       # Wrap this in a begin clause so that menu is not destroyed if the page doesn't load (curse
@@ -390,7 +390,7 @@ namespace :menu_import do
       panel_count += 1
     end
 
-    Rails.logger.info "Successfully imported Frank Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Frank Menu for week #{_get_current_week.first}"
 
     browser.close
   end
@@ -398,7 +398,7 @@ namespace :menu_import do
   desc "Imports Oldenborg Menu"
   task :oldenborg => :environment do
 
-    Rails.logger.info "Importing Oldenborg Menu for week #{_get_current_week.first}..."
+    puts "Importing Oldenborg Menu for week #{_get_current_week.first}..."
 
     # Clear any existing menus to avoid duplicates
     Menu.where(:dining_hall => :oldenborg).destroy_all
@@ -448,7 +448,7 @@ namespace :menu_import do
       panel_count += 1
     end
 
-    Rails.logger.info "Successfully imported Oldenborg Menu for week #{_get_current_week.first}"
+    puts "Successfully imported Oldenborg Menu for week #{_get_current_week.first}"
 
     browser.close
   end
