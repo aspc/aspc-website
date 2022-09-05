@@ -30,6 +30,14 @@ docker-compose run web bundle exec rails db:migrate
 ## Contributing
 For guidelines of how to contribute to this project, head to [CONTRIBUTING.md](CONTRIBUTING.md)
 
+## Troubleshooting
+
+### Step 5 - NoMethodError 
+
+If `NoMethodError: undefined method '[]' for nil:NilClass` is received when running `docker-compose run web bundle exec rails db:create`, change line 89 in config/database.yml to 
+```
+password: <%= Rails.application.credentials[:database_credentials_production] %>
+```
 ## License
 
 This project is licensed under the MIT standard license, which may be read at [LICENSE.md](LICENSE.md).
