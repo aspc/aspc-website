@@ -32,9 +32,18 @@ For guidelines of how to contribute to this project, head to [CONTRIBUTING.md](C
 
 ## Troubleshooting
 
+### Step 3 - Yarn/Node fail (on ARM Apple Silicon)
+
+When running `docker-compose build` on an M1/M2 mac, if `apt-key output should not be parsed` or `gpg: no valid OpenPGP data found` is received: 
+
+In [Dockerfile](/Dockerfile)
+ - Comment out lines 10 - 12
+ - Comment out lines 15 - 16
+ - Change line 26 to `imagemagick chromium`
+
 ### Step 5 - NoMethodError 
 
-If `NoMethodError: undefined method '[]' for nil:NilClass` is received when running `docker-compose run web bundle exec rails db:create`, change line 89 in config/database.yml to 
+If `NoMethodError: undefined method '[]' for nil:NilClass` is received when running `docker-compose run web bundle exec rails db:create`, change line 89 in [config/database.yml](/config/database.yml) to 
 ```
 password: <%= Rails.application.credentials[:database_credentials_production] %>
 ```
