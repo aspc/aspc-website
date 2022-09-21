@@ -47,6 +47,11 @@ If `NoMethodError: undefined method '[]' for nil:NilClass` is received when runn
 ```
 password: <%= Rails.application.credentials[:database_credentials_production] %>
 ```
+
+### localhost not working
+
+Check if `aspc-rails` and `aspc-postgres` are running on Docker. If `aspc-rails` has exited, review logs. Possible solution (if specified in logs) is to delete `/tmp/pids/server.pid`
+
 ## License
 
 This project is licensed under the MIT standard license, which may be read at [LICENSE.md](LICENSE.md).
