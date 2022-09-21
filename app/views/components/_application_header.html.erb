@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="navbar-menu">
+  <div class="navbar-menu">r
     <div class="navbar-end">
 
       <!-- Show login and admin access buttons on top on mobile -->
@@ -29,9 +29,7 @@
         <% unless logged_in? %>
           <div class="field is-grouped">
             <p class="control">
-              <a href="<%= login_path %>" class="button is-info">
-                <span>Login</span>
-              </a>
+              <%= button_to 'Sign In', :login_cas, :class => 'button is-info' %>
             </p>
           </div>
         <% else %>
@@ -180,9 +178,7 @@
         <% unless logged_in? %>
           <div class="field is-grouped">
             <p class="control">
-              <a href="<%= login_path %>" class="button is-info">
-                <span>Login</span>
-              </a>
+              <%= button_to 'Sign In', :login_cas, :class => 'button is-info' %>
             </p>
           </div>
         <% else %>
