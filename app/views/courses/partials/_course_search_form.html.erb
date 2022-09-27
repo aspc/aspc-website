@@ -122,7 +122,8 @@
         </div>
       </div>
       <div class="field">
-        <%= f.submit "Search", :class => "button is-link is-fullwidth is-info" %>
+        <%= f.button "Search", :class => "button is-link is-fullwidth is-info",
+            :data => { disable_with: "<i class='fa fa-spinner fa-spin'></i>&nbspLoading".html_safe} %>
       </div>
     </div>
   </section>
