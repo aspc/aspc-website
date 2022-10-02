@@ -9731,7 +9731,7 @@ var Calendar = /** @class */ (function () {
     };
     Calendar.prototype.forceFreezeContentHeight = function () {
         this.contentEl.css({
-            width: '100%',
+            width: '150%',
             height: this.contentEl.height(),
             overflow: 'hidden'
         });
