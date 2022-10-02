@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="navbar-menu">r
+  <div class="navbar-menu">
     <div class="navbar-end">
 
       <!-- Show login and admin access buttons on top on mobile -->
@@ -118,10 +118,6 @@
         </div>
         <div class="navbar-dropdown">
           <div class="navbar-content">
-            <!-- Events -->
-            <%= link_to "Events", :events, :class => "navbar-item" %>
-          </div>
-          <div class="navbar-content">
             <!-- Housing Search / Reviews -->
             <%= link_to "Housing", :housing_rooms, :class => "navbar-item" %>
           </div>
@@ -131,6 +127,9 @@
           <div class="navbar-content">
             <!-- Menus -->
             <%= link_to "Menus", :menus, :class => "navbar-item" %>
+          </div>
+          <div class="navbar-content">
+            <a href="https://coopstore.pomona.edu" class="navbar-item" target="_blank">Coop Store</a>
           </div>
         </div>
       </div>
@@ -152,23 +151,13 @@
           </div>
         </div>
       </div>
-
-      <!-- Forms -->
-      <a class="navbar-item" href="<%= static_path(page_name: "forms") %>">
-        <span class="is-info is-medium">Forms</span>
+      
+      <!-- Events -->
+      <a class="navbar-item" href="/events">
+        <span class="is-info is-medium">Events</span>
       </a>
+     
 
-      <!-- SCC -->
-      <div class="navbar-item has-dropdown is-hoverable">
-        <div class="navbar-link">
-          <span class="item-has-arrow">SCC</span>
-        </div>
-        <div class="navbar-dropdown">
-          <div class="navbar-content">
-            <a href="https://coopstore.pomona.edu" class="navbar-item" target="_blank">Coop Store</a>
-          </div>
-        </div>
-      </div>
 
       <!-- Show login and admin access buttons as last items in the nav bar for screens larger than mobile -->
       <div class="navbar-item is-hidden-mobile">
