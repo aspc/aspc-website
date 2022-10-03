@@ -5,7 +5,7 @@
 </div>
 
 <br>
-<%= link_to "Submit an event", new_event_path, :class => "button is-info" %>
+<%= link_to "Submit an event", "https://pomona.campuslabs.com/engage/", :class => "button is-info" %>
 
 <script>
     (function() {
@@ -30,7 +30,7 @@
                 submitNewEvent: {
                     text: "Submit an event",
                     click: function() {
-                        window.location.href = "<%= new_event_path %>";
+                        window.location.href = "https://pomona.campuslabs.com/engage/";
                     }
                 }
             },
