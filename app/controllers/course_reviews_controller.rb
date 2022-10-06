@@ -97,8 +97,6 @@ class CourseReviewsController < ApplicationController
 
       matches_query = matches_query
         .where("name ILIKE ANY ( array[?] )", keywords_query)
-    else
-      matches_query = []
     end
 
     # database response filtering
