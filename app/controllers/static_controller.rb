@@ -78,8 +78,8 @@ class StaticController < ApplicationController
     @announcements = Announcement.priority_order.all
     time = Time.parse(Time.now.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d %H:%M:%S')).to_s(:db)
     @events = Event.where("start >= ?", time).where(:status => :approved).order(:start).take(9)
-    # @news = news
-    @news = []
+    @news = news
+    # @news = []
   end
 
   def senators
