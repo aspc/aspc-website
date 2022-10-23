@@ -9730,11 +9730,19 @@ var Calendar = /** @class */ (function () {
         }
     };
     Calendar.prototype.forceFreezeContentHeight = function () {
+        if (this.contentEl.width() < 600) {
+            this.contentEl.css({
+                width: '150%',
+                height: this.contentEl.height(),
+                overflow: 'hidden'
+            });
+        } else {
         this.contentEl.css({
-            width: '150%',
+            width: '100%',
             height: this.contentEl.height(),
             overflow: 'hidden'
         });
+        }
     };
     Calendar.prototype.thawContentHeight = function () {
         this.freezeContentHeightDepth--;
