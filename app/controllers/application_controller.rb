@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to login_cas unless logged_in?
+    redirect_to :login_cas unless logged_in?
   end
 
   def not_authorized(exception)
