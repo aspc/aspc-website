@@ -1,0 +1,56 @@
+<% content_for :header do %>
+    <%= render 'components/page_header', :title => "Software Development Group" %>
+<% end %>
+
+<% if @group %>
+  <% @sdg.in_groups_of(3, false).each do |group| %>
+      <div class="columns">
+        <% group.each do |sdg| %>
+          <div class="column is-4">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image senator-image">
+                  <%= avatar_photo sdg %>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <h5 class="title is-5 margin-bottom-2">
+                      <%= sdg.name %></h5>
+                    <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
+                      <%= sdg.position %></h6>
+                    <h6 class="subtitle is-6 margin-bottom-1">
+                      <%= sdg.email %></h6>
+                    <% if sdg.biography.empty? %>
+                      <span class="button is-static">Biography</span>
+                    <% else %>
+                      <a class="button is-info is-outlined modal-open"
+                        data-target="<%= sdg.name.parameterize %>-biography">Biography</a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if not sdg.biography.empty? %>
+            <div class="modal" id="<%= sdg.name.parameterize %>-biography">
+              <div class="modal-background"></div>
+              <div class="modal-content">
+                <div class="modal-card">
+                  <div class="box">
+                    <h4 class="title is-4">
+                      <%= sdg.name %></h4>
+                    <p>
+                      <%= sdg.biography %></p>
+                  </div>
+                </div>
+              </div>
+              <button class="modal-close is-large" aria-label="close"></button>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+  <% end %>
+<% end %>

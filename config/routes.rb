@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     get 'index' => :index
     get 'senators' => :senators
     get 'staff' => :staff
+    get 'sdg' => :sdg
     get 'housing-platform' => :housing_platform
     get 'career-opportunities' => :career_opportunities
     

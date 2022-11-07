@@ -1,7 +1,7 @@
 require "mini_magick"
 
 class Person < ApplicationRecord
-  enum role: [:senator, :staff, :board]
+  enum role: [:senator, :staff, :board, :sdg]
   scope :priority_order, -> {order(priority: :asc)}
   has_one_attached :image
 
