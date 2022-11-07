@@ -92,18 +92,22 @@ class CourseReviewsController < ApplicationController
         .where(:number => number)
     end
 
-    if(keywords)
-      keywords_query = keywords.map { |k| "%#{k}%" }
-
-      matches_query = matches_query
-        .where("name ILIKE ANY ( array[?] )", keywords_query)
+    if (keywords)
+      matches_query = matches_query.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
+      matches_query = matches_query.sort_by {|course| get_keyword_relevance(course, keywords)}
     end
 
     # database response filtering
     if (schools)
-      matches_query = matches_query
-        .select {|course| schools.any? {|school| course.schools.any? {|s| s == school} rescue false}}
+      matches_query = matches_query.select {|course| schools.any? {|school| course.schools.any? {|s| s == school} rescue false}}
     end
+
+    # if(keywords)
+    #   keywords_query = keywords.map { |k| "%#{k}%" }
+
+    #   matches_query = matches_query
+    #     .where("name ILIKE ANY ( array[?] )", keywords_query)
+    # end
 
     # server response
     @courses = matches_query.uniq
