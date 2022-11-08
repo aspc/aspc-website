@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_18_213807) do
+ActiveRecord::Schema.define(version: 2022_11_07_230134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(version: 2020_10_18_213807) do
     t.index ["department_id"], name: "index_courses_departments_on_department_id"
   end
 
+  create_table "courses_requirements", id: false, force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.bigint "requirement_id", null: false
+    t.index ["course_id", "requirement_id"], name: "index_courses_requirements_on_course_id_and_requirement_id"
+    t.index ["requirement_id", "course_id"], name: "index_courses_requirements_on_requirement_id_and_course_id"
+  end
+
   create_table "departments", force: :cascade do |t|
     t.string "code", null: false
     t.string "name", null: false
@@ -271,6 +278,14 @@ ActiveRecord::Schema.define(version: 2020_10_18_213807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority"
+  end
+
+  create_table "requirements", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_requirements_on_code", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|

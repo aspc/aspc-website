@@ -61,6 +61,34 @@ namespace :course_import do
     end
   end
 
+  desc "Imports Requirements"
+  task :requirements => :environment do
+    api_url = Rails.application.credentials[:course_api][:url]
+    departments_url = [api_url, 'courseareas'].join('/')
+
+    puts "Fetching requirements from #{departments_url}"
+    departments = HTTParty.get(departments_url, :format => :json).parsed_response
+
+    departments.each do |department_info|
+      code = department_info['Code']
+
+      next unless !(code[0] =~ /[[:alpha:]]/) # If it starts with a letter, then it's not a Requirement
+
+      requirement = Requirement.find_by_code(code)
+      if(requirement.nil?)
+        puts "Creating new Requirement for code: #{code}"
+        requirement = Requirement.new({code: code})
+      else
+        puts "Found existing Requirement for code: #{code}"
+      end
+
+      requirement.name = department_info['Description']
+
+      requirement.save
+      puts "Successfully updated Requirement: #{requirement}"
+    end
+  end
+
   desc "Imports Courses"
   task :courses => :environment do
     api_url = Rails.application.credentials[:course_api][:url]
@@ -175,6 +203,36 @@ namespace :course_import do
 
           section.save
           puts "Successfully updated Course Section #{section.code} for Course #{course.code}"
+        end
+      end
+
+      # adding requirements to courses
+
+      requirements = Requirement.all
+      requirements.each do |requirement|
+        puts "Fetching courses for Requirement #{requirement.code} in Academic Term #{term.key}"
+
+        courses_url = [api_url, 'courses', term.key, requirement.code].join('/')
+        courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
+
+        next if courses.nil?
+
+        courses.each do |course_info|
+          next if course_info['CourseCode'].nil?
+
+          # Create or update a course
+          course_code = course_info['CourseCode'][0...-3] # e.g. 'ANTH088 PZ' instead of 'ANTH088 PZ-01'
+          course = Course.find_by(
+              :code => course_code,
+              :code_slug => course_code.parameterize.upcase
+          )
+
+          next unless !(course.nil?)
+
+          course.requirements << requirement unless course.requirements.any? { |r| r.code == requirement.code }
+
+          course.save
+          puts "Successfully updated requirements for Course: #{course.code}"
         end
       end
     end
