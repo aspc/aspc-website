@@ -93,7 +93,7 @@ class StaticController < ApplicationController
   end
 
   def sdg
-    @sdg = Person.priority_order.staff.order("id ASC")
+    @sdg = Person.priority_order.sdg.order("id ASC")
   end
 
   def housing_platform
