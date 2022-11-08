@@ -1,56 +1,67 @@
 <% content_for :header do %>
-    <%= render 'components/page_header', :title => "Software Development Group" %>
+    <%= render 'components/page_header', :title => "Software Development Group", :subtitle => "2022-2023"%>
 <% end %>
 
-<% if @group %>
-  <% @sdg.in_groups_of(3, false).each do |group| %>
-      <div class="columns">
-        <% group.each do |sdg| %>
-          <div class="column is-4">
-            <div class="card">
-              <div class="card-image">
-                <figure class="image senator-image">
-                  <%= avatar_photo sdg %>
-                </figure>
-              </div>
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <h5 class="title is-5 margin-bottom-2">
-                      <%= sdg.name %></h5>
-                    <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
-                      <%= sdg.position %></h6>
-                    <h6 class="subtitle is-6 margin-bottom-1">
-                      <%= sdg.email %></h6>
-                    <% if sdg.biography.empty? %>
-                      <span class="button is-static">Biography</span>
-                    <% else %>
-                      <a class="button is-info is-outlined modal-open"
-                        data-target="<%= sdg.name.parameterize %>-biography">Biography</a>
-                    <% end %>
-                  </div>
+<div class="content">
+    <h2>Who We Are</h2>
+    <p>We are a team of students hoping to improve the daily lives of other students. The Software Development Group is part of ASPC’s staff and works closely with Senate, fellow staff members, and affiliated 5C clubs and organizations. Our goal is to provide useful services, tools, and resources to the students of Pomona College and the 5C community. In addition to creating the site you are now visiting, we maintain the central ASPC server, coordinate the online voting system with ASPC, and provide web hosting for official ASPC clubs.</p>
+    <h2>How You Can Contribute
+    </h2><p>We aim to build things that benefit the lives of the 5,000+ students who attend the Claremont Colleges. As students ourselves, we understand the importance of community input and realize that there is always room for improvement. If you have any ideas for the website, please feel free to reach out to us!</p>
+    <p>In addition, if you want to contribute to the website or start hacking on your own, check out our <a href="https://github.com/aspc/aspc-website">GitHub</a>.</p>
+    <h2>Our Team</h2>
+</div>
+
+<% @sdg.in_groups_of(3, false).each do |group| %>
+    <div class="columns">
+      <% group.each do |sdg| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image senator-image">
+                <%= avatar_photo sdg %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <h5 class="title is-5 margin-bottom-2">
+                    <%= sdg.name %></h5>
+                  <h6 class="subtitle is-6 has-text-weight-semibold margin-bottom-0">
+                    <%= sdg.position %></h6>
+                  <h6 class="subtitle is-6 margin-bottom-1">
+                    <%= sdg.email %></h6>
+                  <% if sdg.biography.empty? %>
+                    <span class="button is-static">Biography</span>
+                  <% else %>
+                    <a class="button is-info is-outlined modal-open"
+                      data-target="<%= sdg.name.parameterize %>-biography">Biography</a>
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <% if not sdg.biography.empty? %>
-            <div class="modal" id="<%= sdg.name.parameterize %>-biography">
-              <div class="modal-background"></div>
-              <div class="modal-content">
-                <div class="modal-card">
-                  <div class="box">
-                    <h4 class="title is-4">
-                      <%= sdg.name %></h4>
-                    <p>
-                      <%= sdg.biography %></p>
-                  </div>
+        <% if not sdg.biography.empty? %>
+          <div class="modal" id="<%= sdg.name.parameterize %>-biography">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="modal-card">
+                <div class="box">
+                  <h4 class="title is-4">
+                    <%= sdg.name %></h4>
+                  <p>
+                    <%= sdg.biography %></p>
                 </div>
               </div>
-              <button class="modal-close is-large" aria-label="close"></button>
             </div>
-          <% end %>
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
         <% end %>
-      </div>
-  <% end %>
+      <% end %>
+    </div>
 <% end %>
+
+<div class="content">
+<h2>Contact Us</h2><p>For administrative inquiries or product suggestions: <a href="mailto:product@aspc.pomona.edu"></a><a href="mailto:product@aspc.pomona.edu">product@aspc.pomona.edu</a></p>
+</div>
