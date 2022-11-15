@@ -1,5 +1,6 @@
 class Course < ApplicationRecord
   has_and_belongs_to_many :departments
+  has_and_belongs_to_many :requirements
   has_many :course_sections
   has_many :course_reviews
 
@@ -35,5 +36,17 @@ class Course < ApplicationRecord
         &.collect{ |section| section.schools }
         .reduce(:+)
         .uniq
+  end
+
+  def requirements_to_s
+    str_requirements = Array.new
+    if self.requirements.length() == 0
+      "Fulfills no requirements"
+    else
+      self.requirements.each do |requirement|
+        str_requirements << requirement.name
+      end
+      "Fulfills " + str_requirements.join(", ")
+    end
   end
 end

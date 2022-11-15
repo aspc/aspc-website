@@ -4,6 +4,7 @@ class CourseImportJob < ApplicationJob
   def perform(*args)
     system "rake course_import:academic_terms"
     system "rake course_import:departments"
+    system "rake course_import:requirements"
     system "rake course_import:courses"
   end
 end
