@@ -166,11 +166,20 @@ class StaticController < ApplicationController
 
     rss_results = []
 
-    rss = RSS::Parser.parse(URI.open("https://tsl.news/feed/").read, false).items[0..2]
+    url = 'https://tsl.news/feed/'
+    # rss = RSS::Parser.parse(URI.open("https://tsl.news/feed/").read, false).items[0..2]
 
-    rss.each do |result|
-      html = Nokogiri::HTML(result.description)
-      description = html.xpath("//p")[0].to_s + "..."
+    # rss.each do |result|
+    #   html = Nokogiri::HTML(result.description)
+    #   description = html.xpath("//p")[0].to_s + "..."
+    #   result = {title: result.title, date: result.pubDate, link: result.link, description: description}
+    #   rss_results.push(result)
+    # end
+    # return rss_results
+
+    URI.open(url) do |rss|
+      feed = RSS::Parser.parse(rss)
+      description = feed.xpath("//p")[0].to_s + "..."
       result = {title: result.title, date: result.pubDate, link: result.link, description: description}
       rss_results.push(result)
     end
