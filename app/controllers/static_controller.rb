@@ -165,7 +165,8 @@ class StaticController < ApplicationController
     require 'open-uri'
 
     rss_results = []
-    rss = RSS::Parser.parse(open("https://tsl.news/feed/").read, false).items[0..2]
+
+    rss = RSS::Parser.parse(URI.open("https://tsl.news/feed/").read, false).items[0..2]
 
     rss.each do |result|
       html = Nokogiri::HTML(result.description)
