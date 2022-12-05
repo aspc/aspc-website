@@ -264,6 +264,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.4)
+    rss (0.2.7)
     ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     rubyzip (2.3.2)
@@ -366,6 +367,7 @@ DEPENDENCIES
   rails (~> 5.2.4.4)
   redis (~> 4.0)
   rspec-rails (~> 3.8)
+  rss
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
@@ -382,4 +384,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.2.29
+   2.3.21
