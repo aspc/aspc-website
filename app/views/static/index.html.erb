@@ -50,121 +50,137 @@
   </div>
 </div> -->
 
-<div class="margin-bottom-3 home-heading">
-  <h3 class="title is-3">Upcoming Events</h3>
-  <div class="buttons">
-    <a class="button is-outlined is-info" href="/events">See more events</a>
-    <a class="button is-outlined is-info" href="https://pomona.campuslabs.com/engage/">Submit an event</a>
-  </div>
-</div>
-
-<!-- Events slideshow for desktop screens -->
-<div class="is-hidden-mobile">
-  <% if @events.length > 0 %>
-    <%= render 'components/slideshow', :id => "events-slideshow-desktop", :slideshow_options => {
-        :autoplay => true,
-        :arrows => false,
-        :dots => true,
-        :useTransform => true,
-        :easing => 'swing',
-        :fade => true
-    } do %>
-      <% @events.each_slice(3) do |list| %>
-        <div class="container events-slide">
-          <div class="columns">
-            <% list.each do |item| %>
-              <% campus_background_color_class = bg_color_class(item)
-              %>
-              <div class="column is-4 event">
-                <div class="event-info <%= campus_background_color_class %>">
-                  <p class="event-date-time"><%= item.start.strftime("%B %e") %>
-                    , <%= item.start.strftime("%l:%M%P") %>
-                    -<%= item.end.strftime("%l:%M%P") %></p>
-                  <p class="event-location"><%= item.location %><br></p>
-                </div>
-                <h4 class="title is-4">
-                  <a href="<%= url_for(item) %>"><%= item.name %></a>
-                </h4>
-                <p class="event-host is-4 ">
-                  <%= item.host %>
-                </p>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  <% else %>
-    <div class="columns margin-bottom-3">
-      <div class="column">
-        <p>There are no events available.</p>
+    <div class="margin-bottom-3 home-heading upcoming-events-header-container columns">
+      <div class="buttons ta-center column">
+      <h3 class="title is-3 upcoming-events-header">Upcoming Events</h3>
+        <a class="button is-outlined is-info" href="/events">See more events</a>
+        <a class="button is-outlined is-info" href="https://pomona.campuslabs.com/engage/">Submit an event</a>
       </div>
     </div>
-  <% end %>
-</div>
 
-<!-- Events slideshow for mobile screens -->
-<div class="is-hidden-tablet is-hidden-desktop">
-  <% if @events.length > 0 %>
-    <%= render 'components/slideshow', :id => "events-slideshow-mobile", :slideshow_options => {
-        :autoplay => true,
-        :arrows => false,
-        :dots => true,
-        :useTransform => true,
-        :easing => 'swing',
-        :fade => true
-    } do %>
-      <% @events.each do |item| %>
-        <div class="container">
-          <div class="columns events-slide">
-            <% campus_background_color_class = bg_color_class(item)
-            %>
-            <div class="column event">
-              <div class="event-info <%= campus_background_color_class %>">
-                <p class="event-date-time"><%= item.start.strftime("%B %e") %>
-                  , <%= item.start.strftime("%l:%M%P") %>
-                  -<%= item.end.strftime("%l:%M%P") %></p>
-                <p class="event-location"><%= item.location %><br></p>
+    <!-- Events slideshow for desktop screens -->
+    <div class="is-hidden-mobile">
+      <% if @events.length > 0 %>
+        <%= render 'components/slideshow', :id => "events-slideshow-desktop", :slideshow_options => {
+            :autoplay => true,
+            :arrows => false,
+            :dots => true,
+            :useTransform => true,
+            :easing => 'swing',
+            :fade => true
+        } do %>
+          <% @events.each_slice(3) do |list| %>
+            <div class="container events-slide">
+              <div class="columns">
+                <% list.each do |item| %>
+                  <% campus_background_color_class = bg_color_class(item)
+                  %>
+                  <div class="column box is-4 event">
+                    <div class="event-info <%= campus_background_color_class %>">
+                      <p class="event-date-time"><%= item.start.strftime("%B %e") %>
+                        , <%= item.start.strftime("%l:%M%P") %>
+                        -<%= item.end.strftime("%l:%M%P") %></p>
+                      <p class="event-location"><%= item.location %><br></p>
+                    </div>
+                    <h4 class="title is-4">
+                      <a href="<%= url_for(item) %>"><%= item.name %></a>
+                    </h4>
+                    <p class="event-host is-4 ">
+                      <%= item.host %>
+                    </p>
+                  </div>
+                <% end %>
               </div>
-              <h4 class="title is-4">
-                <a href="<%= url_for(item) %>"><%= item.name %></a>
-              </h4>
-              <p class="event-host is-4">
-                <%= item.host %>
-              </p>
             </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="columns margin-bottom-3">
+          <div class="column ta-center">
+            <p>There are no events available.</p>
           </div>
         </div>
       <% end %>
-    <% end %>
-  <% else %>
+    </div>
+
+    <!-- Events slideshow for mobile screens -->
+    <div class="is-hidden-tablet is-hidden-desktop">
+      <% if @events.length > 0 %>
+        <%= render 'components/slideshow', :id => "events-slideshow-mobile", :slideshow_options => {
+            :autoplay => true,
+            :arrows => false,
+            :dots => true,
+            :useTransform => true,
+            :easing => 'swing',
+            :fade => true
+        } do %>
+          <% @events.each do |item| %>
+            <div class="container">
+              <div class="columns events-slide">
+                <% campus_background_color_class = bg_color_class(item)
+                %>
+                <div class="column event">
+                  <div class="event-info <%= campus_background_color_class %>">
+                    <p class="event-date-time"><%= item.start.strftime("%B %e") %>
+                      , <%= item.start.strftime("%l:%M%P") %>
+                      -<%= item.end.strftime("%l:%M%P") %></p>
+                    <p class="event-location"><%= item.location %><br></p>
+                  </div>
+                  <h4 class="title is-4">
+                    <a href="<%= url_for(item) %>"><%= item.name %></a>
+                  </h4>
+                  <p class="event-host is-4">
+                    <%= item.host %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="columns margin-bottom-3">
+          <div class="column">
+            <p>There are no events available.</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+<div class="columns main-box">
+  <div class="column">
+    <div class="margin-bottom-2 home-heading">
+      <h3 class="title is-3">Latest From ASPC</h3>
+    </div>
+
     <div class="columns margin-bottom-3">
-      <div class="column">
-        <p>There are no events available.</p>
+      <div class="column is-full">
+        <aside class="box">
+          <h4 class="title is-4">Spring 2023 Funding Request Forms</h4>
+          <p class="margin-bottom-2">
+          Request funds allocated for student and club events from ASPC.
+          </p>
+          <%= link_to "Click Here", static_path("funding-request"), :class => "button is-info is-outlined" %>
+        </aside>
       </div>
     </div>
-  <% end %>
-</div>
-
-<div class="margin-bottom-2 home-heading">
-  <h3 class="title is-3">Latest From ASPC</h3>
-</div>
-
-<div class="columns margin-bottom-3">
-  <div class="column is-full">
-  <aside class="box">
-    <h4 class="title is-4">Spring 2023 Funding Request Forms</h4>
-    <p class="margin-bottom-2">
-    Request funds allocated for student and club events from ASPC.
-    </p>
-    <%= link_to "Click Here", static_path("funding-request"), :class => "button is-info is-outlined" %>
-  </aside>
   </div>
-</div>
 
-<div class="margin-bottom-3 home-heading">
-  <h3 class="title is-3">The Student Life</h3>
-  <a class="button is-outlined is-info" href="https://tsl.news" target="_blank">Go to TSL</a>
+  <div class="column ">
+    <div class="margin-bottom-2 home-heading">
+      <h3 class="title is-3">The Student Life</h3>
+    </div>
+    <div class="columns margin-bottom-3">
+    <div class="column is-full">
+    <aside class="box">
+        <h4 class="title is-4"> The Claremont Colleges Student Life</h4>
+        <p class="margin-bottom-2">
+        Access latest news of the 7Cs from the TSL Newspaper.
+        </p>
+        <a class="button is-outlined is-info" href="https://tsl.news" target="_blank">Go to TSL</a>        </aside>
+    </aside>
+    </div>
+    </div>
+  </div>
 </div>
 
 <!--
