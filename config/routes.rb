@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     get 'sdg' => :sdg
     get 'housing-platform' => :housing_platform
     get 'career-opportunities' => :career_opportunities
+    get 'seniorclass' => :senior_class
     
     match 'contact-aspc' => :open_forum, :via => [:get, :post]
 
