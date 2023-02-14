@@ -30,18 +30,19 @@
  */
  
 .box {
+  box-shadow: none;
   border: 1px solid #dbdbdb;
   border-radius: 4px;
 }
 
-.main-box .box {
-  box-shadow: -10px 10px 0px -1px #2c3e50;
-  background: #dfeffa;
-}
+// .main-box .box {
+//   box-shadow: -10px 10px 0px -1px #2c3e50;
+//   background: #dfeffa;
+// }
 
-.upcoming-events-header-container {
-  text-align: center;
-}
+// .upcoming-events-header-container {
+//   text-align: center;
+// }
 
 .ta-center {
   text-align: center;
