@@ -1,9 +1,9 @@
 
 <!-- Display the countdown timer in an element -->
-<p class="title is-1">Graduation Countdown: <span id="grad-timer"></span></p>
+<p style="text-align:center;" class="title is-1">Graduation Countdown <br> <span style="font-weight: lighter;", id="grad-timer"></span></p>
 
 
-<p dir="ltr"><strong><span style="font-size: 36px;">Senior Class Gift</span></strong></p>
+<p dir="ltr"><strong><span style="font-size: 36px; ">Senior Class Gift</span></strong></p>
 
 <p dir="ltr">
 	<br>
@@ -189,9 +189,6 @@
 	<li dir="ltr">Return your cap &amp; gowns!</li>
 </ul>
 
-<p data-f-id="pbf" style="text-align: center; font-size: 14px; margin-top: 30px; opacity: 0.65; font-family: sans-serif;">Powered by <a href="https://www.froala.com/wysiwyg-editor?pb=1" title="Froala Editor">Froala Editor</a></p>
-
-
 
 <script>
 var countDownDate = new Date("May 14, 2023 10:00:00").getTime();
@@ -210,8 +207,8 @@ var x = setInterval(function() {
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  document.getElementById("grad-timer").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
+  document.getElementById("grad-timer").innerHTML = days + " Days " + hours + " Hours "
+  + minutes + " Minutes " + seconds + " Seconds ";	
 
   // If the count down is finished, write some text
   if (distance < 0) {
