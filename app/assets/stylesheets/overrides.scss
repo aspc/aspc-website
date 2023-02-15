@@ -35,14 +35,16 @@
   border-radius: 4px;
 }
 
-// .main-box .box {
-//   box-shadow: -10px 10px 0px -1px #2c3e50;
-//   background: #dfeffa;
-// }
+.column.landing-page-slideshow-column {
+  width: 50% !important
+}
 
-// .upcoming-events-header-container {
-//   text-align: center;
-// }
+@media screen and (max-width: 768px) {
+  .column.landing-page-slideshow-column {
+    width: 100% !important
+  }
+}
+
 
 .ta-center {
   text-align: center;
