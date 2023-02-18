@@ -90,23 +90,33 @@
   color: #fff;
 }
 
-.slick-prev {
-  left: 0.5rem;
+
+/*
+ * Slideshow landing page
+ */
+
+.main-box {
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+
+.main-box .slick-prev {
+  left: -2.6rem !important;  
   top: 60%;
   height: 40px;
   width: 40px
 }
 
-.slick-next {
-  right: 0.5rem;
+.main-box .slick-next {
+  right: -2.6rem !important;
   top: 60%;
   height: 40px;
   width: 40px
 }
 
-.slick-prev:before {
-  color: black;
+.main-box .slick-prev:before {
+  color: #717171;
 }
-.slick-next:before {
-  color: black;
+.main-box .slick-next:before {
+  color: #717171;
 }
