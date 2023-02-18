@@ -89,3 +89,24 @@
   background-color: #209cee;
   color: #fff;
 }
+
+.slick-prev {
+  left: 0.5rem;
+  top: 60%;
+  height: 40px;
+  width: 40px
+}
+
+.slick-next {
+  right: 0.5rem;
+  top: 60%;
+  height: 40px;
+  width: 40px
+}
+
+.slick-prev:before {
+  color: black;
+}
+.slick-next:before {
+  color: black;
+}
