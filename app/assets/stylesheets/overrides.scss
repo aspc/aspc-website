@@ -28,11 +28,29 @@
 /*
  * Boxes
  */
+ 
 .box {
   box-shadow: none;
   border: 1px solid #dbdbdb;
   border-radius: 4px;
 }
+
+.column.landing-page-slideshow-column {
+  width: 50% !important
+}
+
+@media screen and (max-width: 768px) {
+  .column.landing-page-slideshow-column {
+    width: 100% !important
+  }
+}
+
+
+.ta-center {
+  text-align: center;
+}
+
+// }
 
 /*
  * Calendar
@@ -70,4 +88,35 @@
 .fc-state-active {
   background-color: #209cee;
   color: #fff;
+}
+
+
+/*
+ * Slideshow landing page
+ */
+
+.main-box {
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+}
+
+.main-box .slick-prev {
+  left: -2.6rem !important;  
+  top: 60%;
+  height: 40px;
+  width: 40px
+}
+
+.main-box .slick-next {
+  right: -2.6rem !important;
+  top: 60%;
+  height: 40px;
+  width: 40px
+}
+
+.main-box .slick-prev:before {
+  color: #717171;
+}
+.main-box .slick-next:before {
+  color: #717171;
 }
