@@ -1,7 +1,7 @@
 housing_building_page = Proc.new do
   menu parent: "Models"
 
-  permit_params :name, :slug, :floor, :descrip, :image
+  permit_params :name, :slug, :description, :floor, :image
 
   form do |f|
     f.inputs
@@ -13,8 +13,9 @@ housing_building_page = Proc.new do
     attributes_table do
       row :name
       row :slug
+
+      row :description
       row :floor
-      row: descrip
       row :image do |building|
         image_tag url_for(building.image), :width => '50%'
       end
