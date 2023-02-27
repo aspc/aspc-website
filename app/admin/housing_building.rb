@@ -1,7 +1,7 @@
 housing_building_page = Proc.new do
   menu parent: "Models"
 
-  permit_params :name, :slug, :description, :floor, :image
+  permit_params :name, :slug,:description, :floor, :image
 
   form do |f|
     f.inputs
