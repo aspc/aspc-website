@@ -238,6 +238,7 @@ namespace :menu_import do
       puts "We have reached google"
     end
 
+    puts browser.exists?
     puts "Is this reached"
 
 
