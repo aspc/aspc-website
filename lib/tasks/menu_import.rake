@@ -230,6 +230,7 @@ namespace :menu_import do
   task :frary => :environment do
 
     puts "Importing Frary Menu for week #{_get_current_week.first}..."
+    puts "Is this reached"
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
