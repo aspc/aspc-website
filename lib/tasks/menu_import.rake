@@ -236,6 +236,9 @@ namespace :menu_import do
     browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
     browser.goto 'www.pomona.edu/administration/dining/menus/frary'
 
+    puts Browser.title
+    puts "This is reached"
+
     # The website was updated during COVID, so the structure is slightly different
     # e.g. no need to click this button
     # browser.button(class: 'accordion__header').click
