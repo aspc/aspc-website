@@ -233,7 +233,7 @@ namespace :menu_import do
 
     
     browser=Watir::Browser.new :firefox
-    puts "Is this reached"
+    puts "Is this reached?"
 
     browser.goto "https://www.google.co.in"
     if browser.title.include? "Google"
