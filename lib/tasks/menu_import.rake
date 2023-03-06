@@ -232,10 +232,12 @@ namespace :menu_import do
     puts "Importing Frary Menu for week #{_get_current_week.first}..."
 
     
-    browser=Watir::Browser.new:firefox
+    browser=Watir::Browser.new :chrome
     browser.goto "https://www.google.co.in"
     if browser.title.include? "Google"
       puts "We have reached google"
+    else
+      puts "This is not google"
     end
 
     puts browser.exists?
