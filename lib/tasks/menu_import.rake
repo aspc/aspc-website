@@ -233,6 +233,8 @@ namespace :menu_import do
 
     
     browser=Watir::Browser.new :chrome
+    puts "Is this reached"
+
     browser.goto "https://www.google.co.in"
     if browser.title.include? "Google"
       puts "We have reached google"
@@ -241,7 +243,6 @@ namespace :menu_import do
     end
 
     puts browser.exists?
-    puts "Is this reached"
 
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
