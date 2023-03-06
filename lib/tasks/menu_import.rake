@@ -234,10 +234,9 @@ namespace :menu_import do
 
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
-    begin
-      browser = Watir::Browser.new :chrome, headless: true, :args => [ "--no-sandbox" ]
-      browser.goto 'www.pomona.edu/administration/dining/menus/frary'
-    end
+    browser_opts = {args: ['--no-sandbox']}
+    browser = Watir::Browser.new :chrome, headless: true, options: browser_opts
+    browser.goto('www.pomona.edu/administration/dining/menus/frary')
 
     puts browser.title
     puts "This is reached"
