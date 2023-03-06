@@ -232,6 +232,13 @@ namespace :menu_import do
     puts "Importing Frary Menu for week #{_get_current_week.first}..."
     puts "Is this reached"
 
+
+    browser=Watir::Browser.new:firefox
+    browser.goto "https://www.google.co.in"
+    if browser.title.include? "Google"
+      puts "We have reached google"
+    end
+
     # Pomona's system is batshit crazy (user inputted text in Google Docs),
     # so we're just going to scrape from their website instead
     browser_opts = {args: ['--no-sandbox']}
@@ -240,6 +247,8 @@ namespace :menu_import do
 
     puts browser.title
     puts "This is reached"
+
+    
 
     # The website was updated during COVID, so the structure is slightly different
     # e.g. no need to click this button
