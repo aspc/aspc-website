@@ -115,9 +115,11 @@ class SessionsController < ApplicationController
 
     # then create the login session for the user
     session[:current_user_id] = user.id
+    
 
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to PHP_AUTH_URL + "login.php"
+    return redirect_to request.referer.blank? ? root_path : :back
+    # return redirect_to PHP_AUTH_URL + "login.php"
   end
 
   def _login_url(service_url)
