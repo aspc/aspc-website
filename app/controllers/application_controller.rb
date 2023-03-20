@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin?
   helper_method :logged_in?
 
+  before_filter :get_referrer, :except => [:create, :update, :destroy]
+
+  def get_referrer
+    session[:return_to] = request.referrer
+  end
+
   def current_user
     User.find_by_id(session[:current_user_id])
   end
