@@ -118,7 +118,7 @@ class SessionsController < ApplicationController
     
 
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to request.referer.blank? ? root_path : :back
+    return redirect_to request.referrer.blank? ? root_path : :back
     # return redirect_to PHP_AUTH_URL + "login.php"
   end
 
