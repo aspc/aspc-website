@@ -99,7 +99,7 @@ class SessionsController < ApplicationController
     end
 
     puts "Testing"
-    puts :current_user
+    puts :get_previous_url
 
     # if CAS Ticket is invalid, redirect to CAS ticketing system
     return redirect_to _login_url(service_url) unless user_info
