@@ -125,12 +125,11 @@ class SessionsController < ApplicationController
     puts request.referrer
     puts "Referer"
     puts request.referer
-    puts :back
+    puts "original"
+    puts PHP_AUTH_URL + "login.php"
 
-    redirect_back fallback_location: PHP_AUTH_URL + "login.php"
     # TODO: complete PHP session login/authentication and redirect user
-    # return redirect_to "http://www.rubyonrails.org"
-    # return redirect_to PHP_AUTH_URL + "login.php"
+    return redirect_to PHP_AUTH_URL + "login.php"
   end
 
   def _login_url(service_url)
