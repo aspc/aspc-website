@@ -116,6 +116,10 @@ class SessionsController < ApplicationController
     # then create the login session for the user
     session[:current_user_id] = user.id
     
+    puts "Testing"
+    puts "Testing"
+    puts "Testing"
+    puts "Testing"
     puts request
     puts
     puts request.referrer
