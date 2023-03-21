@@ -115,18 +115,6 @@ class SessionsController < ApplicationController
 
     # then create the login session for the user
     session[:current_user_id] = user.id
-    
-    puts "Testing"
-    puts "Testing"
-    puts "Testing"
-    puts "Testing"
-    puts request
-    puts "Referrer"
-    puts request.referrer
-    puts "Referer"
-    puts request.referer
-    puts "original"
-    puts PHP_AUTH_URL + "login.php"
 
     # TODO: complete PHP session login/authentication and redirect user
     return redirect_to PHP_AUTH_URL + "login.php"
