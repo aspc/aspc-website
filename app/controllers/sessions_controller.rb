@@ -127,7 +127,7 @@ class SessionsController < ApplicationController
     puts request.referer
     puts :back
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to :back
+    return redirect_to "http://www.rubyonrails.org"
     # return redirect_to PHP_AUTH_URL + "login.php"
   end
 
