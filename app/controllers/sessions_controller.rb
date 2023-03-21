@@ -121,8 +121,11 @@ class SessionsController < ApplicationController
     puts "Testing"
     puts "Testing"
     puts request
-    puts
+    puts "Referrer"
     puts request.referrer
+    puts "Referer"
+    puts request.referer
+    puts :back
     # TODO: complete PHP session login/authentication and redirect user
     return redirect_to :back
     # return redirect_to PHP_AUTH_URL + "login.php"
