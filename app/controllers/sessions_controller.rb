@@ -5,9 +5,7 @@ class SessionsController < ApplicationController
   layout "blank"
 
   def new
-    session[:last_index_page] = request.fullpath
     @redirected_from_vote_app = params[:next].present? && params[:next] == "vote"
-    return redirect_to session[:last_index_page]
   end
 
   def destroy
