@@ -24,10 +24,6 @@ class ApplicationController < ActionController::Base
     redirect_to unauthomrized_path
   end
 
-  def get_previous_url
-    return "google.com"
-  end
-
   private
     def setup_application_controller_environment
       if Rails.env.development? && !logged_in?
