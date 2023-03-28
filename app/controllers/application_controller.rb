@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
+    session[:last_index_page] = request.fullpath
     redirect_to :login_cas unless logged_in?
   end
 
