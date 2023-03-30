@@ -1,15 +1,59 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 <% content_for :header do %>
   <%= render 'components/page_header', :title => "Housing Information" %>
 <% end %>
 
-<% @housing_buildings.sort_by{|b| b.slug.downcase}.in_groups_of(2, false).each do |group| %>
-  <div class="columns">
+<div class="north-buildings">
+  <h1> North Campus </h1>
+  <% north_buildings = @housing_buildings.select{|b| b.slug.downcase == 'north'}.sort_by{|b| b.name.downcase} %>
+  <% north_buildings.in_groups_of(2, false).each do |group| %>
+    <div class="columns">
     <% group.each do |building| %>
       <div class="column is-6">
         <div class="card">
           <div class="card-image">
             <figure class="image residence-hall-image">
-              <img src="<%= url_for(building.image) rescue nil %>"/>
+              <div class="housing-carousel">
+                <div id=<%= building.name %> class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target=#<%= building.name %>data-slide-to="0" class="active"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="1"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="2"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="3"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="4"></li>
+                  </ol>
+                  <div class="housing-carousel carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="<%= url_for(building.image1) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                      <img src="<%= url_for(building.image2) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                      <img src="<%= url_for(building.image3) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                    <img src="<%= url_for(building.image4) rescue nil %>"/>
+                  </div>
+                  <div class="housing-carousel carousel-item">
+                  <img src="<%= url_for(building.image5) rescue nil %>"/>
+                </div>
+                  </div>
+                  <a class="carousel-control-prev" href=#<%= building.name %> role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href=#<%= building.name %> role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
             </figure>
           </div>
           <div class="card-content">
@@ -29,7 +73,81 @@
         </div>
       </div>
     <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="south-buildings">
+  <h1> South Campus </h1>
+
+  <% south_buildings = @housing_buildings.select{|b| b.slug.downcase == 'south'}.sort_by{|b| b.name.downcase} %>
+  <% south_buildings.in_groups_of(2, false).each do |group| %>
+    <div class="columns">
+    <% group.each do |building| %>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image residence-hall-image">
+              <div class="housing-carousel">
+                <div id=<%= building.name %> class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target=#<%= building.name %>data-slide-to="0" class="active"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="1"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="2"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="3"></li>
+                    <li data-target=#<%= building.name %> data-slide-to="4"></li>
+                  </ol>
+                  <div class="housing-carousel carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="<%= url_for(building.image1) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                      <img src="<%= url_for(building.image2) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                      <img src="<%= url_for(building.image3) rescue nil %>"/>
+                    </div>
+                    <div class="housing-carousel carousel-item">
+                    <img src="<%= url_for(building.image4) rescue nil %>"/>
+                  </div>
+                  <div class="housing-carousel carousel-item">
+                  <img src="<%= url_for(building.image5) rescue nil %>"/>
+                </div>
+                  </div>
+                  <a class="carousel-control-prev" href=#<%= building.name %> role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href=#<%= building.name %> role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content" style="
+              display: flex;
+              justify-content: space-between;
+          ">
+                <h5 class="title is-5 margin-bottom-2">
+                  <%= building.name %></h5>
+                <%= link_to "Rooms", show_housing_rooms_for_dorm_path(:dorm_id => building.id), class: "button is-info is-outlined" %>
+              </div>
+            </div>
+            <p><%= building.description %></p>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+
 
 
