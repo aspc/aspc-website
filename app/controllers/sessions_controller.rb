@@ -6,6 +6,9 @@ class SessionsController < ApplicationController
 
   def new
     @redirected_from_vote_app = params[:next].present? && params[:next] == "vote"
+    if @redirected_from_vote_app
+      session[:last_index_page] = "https://aspc.pomona.edu/vote"
+    end
   end
 
   def destroy
