@@ -116,6 +116,11 @@ class SessionsController < ApplicationController
     # then create the login session for the user
     session[:current_user_id] = user.id
 
+
+    if @redirected_from_vote_app
+      return redirect_to "https://aspc.pomona.edu/vote"
+    end
+    
     # TODO: complete PHP session login/authentication and redirect user
     return redirect_to session[:last_index_page] || (PHP_AUTH_URL + "login.php")
   end
