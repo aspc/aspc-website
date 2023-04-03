@@ -1,11 +1,15 @@
 housing_building_page = Proc.new do
   menu parent: "Models"
 
-  permit_params :name, :slug,:description, :floor, :image
+  permit_params :name, :slug,:description, :floor, :image1, :image2, :image3, :image4, :image5
 
   form do |f|
     f.inputs
-    f.input :image, :as => :file
+    f.input :image1, :as => :file
+    f.input :image2, :as => :file
+    f.input :image3, :as => :file
+    f.input :image4, :as => :file
+    f.input :image5, :as => :file
     f.actions
   end
 
@@ -16,8 +20,20 @@ housing_building_page = Proc.new do
 
       row :description
       row :floor
-      row :image do |building|
-        image_tag url_for(building.image), :width => '50%'
+      row :image1 do |building|
+        image_tag url_for(building.image1), :width => '50%'
+      end
+      row :image2 do |building|
+        image_tag url_for(building.image2), :width => '50%'
+      end
+      row :image3 do |building|
+        image_tag url_for(building.image3), :width => '50%'
+      end
+      row :image4 do |building|
+        image_tag url_for(building.image4), :width => '50%'
+      end
+      row :image5 do |building|
+        image_tag url_for(building.image5), :width => '50%'
       end
     end
   end
