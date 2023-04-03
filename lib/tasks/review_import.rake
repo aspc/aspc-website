@@ -15,6 +15,7 @@ namespace :review_import do
         :challenge_rating => review_info['difficulty_rating'],
         :inclusivity_rating => review_info['inclusivity_rating'],
         :work_per_week => review_info['work_per_week'],
+        :total_cost => review_info['total_cost']
         :comments => review_info['comments'],
       )
       course_review.course = Course.find_by(:code_slug => review_info['code_slug'])
