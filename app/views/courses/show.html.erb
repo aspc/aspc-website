@@ -60,6 +60,14 @@
         </span>
       </p>
       <p>
+        <% if review.total_cost %>
+          <span class="tag has-background-white-bis">
+            <span class="has-text-grey">
+              Average Cost:&nbsp; <%= review.total_cost %>
+            </span> 
+          </span>
+        <% end %>
+
         <% if review.inclusivity_rating %>
           <span class="tag has-background-white-bis">
             <span class="has-text-grey">
