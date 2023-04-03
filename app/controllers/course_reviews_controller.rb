@@ -39,6 +39,7 @@ class CourseReviewsController < ApplicationController
        :inclusivity_rating => review_params[:inclusivity_rating],
        :challenge_rating => review_params[:challenge_rating],
        :work_per_week => review_params[:work_per_week],
+       :total_cost => review_params[:total_cost],
        :comments => review_params[:comments],
        :course_id => review_params[:course_id],
        :instructor_id => review_params[:instructor_id],
