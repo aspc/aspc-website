@@ -117,7 +117,7 @@ class SessionsController < ApplicationController
     session[:current_user_id] = user.id
 
     # TODO: complete PHP session login/authentication and redirect user
-    return redirect_to session[:last_index_page] || (PHP_AUTH_URL + "login.php")
+    return redirect_to PHP_AUTH_URL + "login.php"
   end
 
   def _login_url(service_url)
