@@ -4,37 +4,42 @@
 
 animate.css@^4.1.0:
   version "4.1.1"
-  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  resolved "https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz"
   integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
+
+bootstrap@^5.2.3:
+  version "5.2.3"
+  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz"
+  integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
 
 bulma-calendar@^4.0.2:
   version "4.0.2"
-  resolved "https://registry.yarnpkg.com/bulma-calendar/-/bulma-calendar-4.0.2.tgz#a620811f5002bbb76e408788c03050ff6926cb67"
+  resolved "https://registry.npmjs.org/bulma-calendar/-/bulma-calendar-4.0.2.tgz"
   integrity sha512-nVcedvvUlrvJH8jNCZerSZnCKXtxISvDb3nyqIYW0swBnxjZ68GS531C0YssvXIW4C41TvjrkD8z+00FT0DOSg==
   dependencies:
     moment "^2.22.2"
 
 bulma-checkradio@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.yarnpkg.com/bulma-checkradio/-/bulma-checkradio-2.1.0.tgz#494ab05b0245a41a0083bbd08436fafbde4b3814"
+  resolved "https://registry.npmjs.org/bulma-checkradio/-/bulma-checkradio-2.1.0.tgz"
   integrity sha512-u/EBioHqmeMaUyVc+P9ellOldIVER4SSzkCYo7+KOBAIZuRm6zRWKste8DAFfsk8sq2xrX16gKXr7vCy7NC0zw==
 
 bulma-toast@^2.0.1:
   version "2.0.3"
-  resolved "https://registry.yarnpkg.com/bulma-toast/-/bulma-toast-2.0.3.tgz#925e8d35af9829eed8b8b5d64a57cf6164bba06b"
+  resolved "https://registry.npmjs.org/bulma-toast/-/bulma-toast-2.0.3.tgz"
   integrity sha512-zGsu+ObMXSky7+e+OZACJiNznhRHm87He430M2cFQtWE+dsJcBJWMD22twIlVTl7G8ySMLcsUh1A908eaxDk/Q==
 
 bulma@^0.7.1:
   version "0.7.1"
-  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.7.1.tgz#73c2e3b2930c90cc272029cbd19918b493fca486"
+  resolved "https://registry.npmjs.org/bulma/-/bulma-0.7.1.tgz"
   integrity sha512-wRSO2LXB+qI9Pyz2id+uZr4quz5aftSN7Ay1ysr1+krzVp3utD+Ci4CeKuZdrYGc800t65b7heXBL6qw2Wo/lQ==
 
 moment@^2.22.2:
   version "2.22.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.22.2.tgz"
   integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
 
 slick-carousel@^1.8.1:
   version "1.8.1"
-  resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
+  resolved "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz"
   integrity sha512-XB9Ftrf2EEKfzoQXt3Nitrt/IPbT+f1fgqBdoxO3W/+JYvtEOW6EgxnWfr9GH6nmULv7Y2tPmEX3koxThVmebA==
