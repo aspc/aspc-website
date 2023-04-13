@@ -8,8 +8,9 @@
   <%= render 'components/page_header', :title => "Housing Information" %>
 <% end %>
 
-<div class="north-buildings">
+<div id="north-buildings" class="north-buildings">
   <h1> North Campus </h1>
+  <br />
   <% north_buildings = @housing_buildings.select{|b| b.slug.downcase == 'north'}.sort_by{|b| b.name.downcase} %>
   <% north_buildings.in_groups_of(2, false).each do |group| %>
     <div class="columns">
@@ -77,9 +78,11 @@
   <% end %>
 </div>
 
-<div class="south-buildings">
+<br />
+<br />
+<div id="south-buildings"  class="south-buildings">
   <h1> South Campus </h1>
-
+  <br />
   <% south_buildings = @housing_buildings.select{|b| b.slug.downcase == 'south'}.sort_by{|b| b.name.downcase} %>
   <% south_buildings.in_groups_of(2, false).each do |group| %>
     <div class="columns">
