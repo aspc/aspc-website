@@ -4,8 +4,9 @@ class CreateCourseReviews < ActiveRecord::Migration[5.2]
       t.decimal :overall_rating
       t.decimal :challenge_rating
       t.decimal :inclusivity_rating
+      t.decimal :work_per_week
       t.text :comments
-                  
+
       t.timestamps
     end
 
