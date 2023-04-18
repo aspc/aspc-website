@@ -24,6 +24,11 @@
         Average work per week: <span class="tag is-medium"><%= @course.work_per_week %> hours</span>
       </h3>
     </div>
+    <div class="column">
+      <h3 class="subtitle">
+        Average Cost: <span class="tag is-medium"><%= @course.total_cost %> dollars</span>
+      </h3>
+    </div>
   </div>
   <hr />
   <% @course.course_reviews.each do |review| %>
@@ -51,7 +56,6 @@
   </div>
   <div class="columns">
     <div class="column">
-      <p><span class="tag has-background-white-bis">Average Cost: <%= review.total_cost %></span></p>
       <p><span class="tag has-background-white-bis"><%= review.work_per_week %> Hours work per week</span></p>
       <p>
         <span class="tag has-background-white-bis">
