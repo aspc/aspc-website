@@ -212,7 +212,7 @@ namespace :course_import do
       requirements.each do |requirement|
         puts "Fetching courses for Requirement #{requirement.code} in Academic Term #{term.key}"
 
-        courses_url = [api_url, 'courses', term.key, requirement.code].join('/')
+        courses_url = [api_url, 'courses', term.key, requirement.code].join('/') + "?api_key=" + Rails.application.credentials.api_key[:key]
         courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
 
         next if courses.nil?
