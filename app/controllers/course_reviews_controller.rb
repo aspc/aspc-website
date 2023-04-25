@@ -37,6 +37,7 @@ class CourseReviewsController < ApplicationController
     @course_review = CourseReview.new(
        :overall_rating => review_params[:overall_rating],
        :inclusivity_rating => review_params[:inclusivity_rating],
+       :total_cost => review_params[:total_cost],
        :challenge_rating => review_params[:challenge_rating],
        :work_per_week => review_params[:work_per_week],
        :comments => review_params[:comments],
@@ -146,7 +147,7 @@ class CourseReviewsController < ApplicationController
   def review_params
     params
         .require(:course_review)
-        .permit(:overall_rating, :challenge_rating, :inclusivity_rating, :work_per_week, :comments,
+        .permit(:overall_rating, :challenge_rating, :total_cost, :inclusivity_rating, :work_per_week, :comments,
                 :course_id, :instructor_id, :id)
   end
 

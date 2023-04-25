@@ -22,6 +22,10 @@ class Course < ApplicationRecord
     self.course_reviews&.average(:work_per_week)&.round(1, :truncate) || 0
   end
 
+  def total_cost
+    self.course_reviews&.average(:total_cost)&.round(1, :truncate) || 0
+  end
+
   # collect all instructors that have ever taught a section of this course
   def instructors
     self.course_sections

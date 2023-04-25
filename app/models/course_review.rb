@@ -10,6 +10,7 @@ class CourseReview < ApplicationRecord
   validates :inclusivity_rating, :presence => true
   validates :challenge_rating, :presence => true
   validates :work_per_week, :presence => true
+  validates :total_cost, :presence => true
 
   accepts_nested_attributes_for :course
   accepts_nested_attributes_for :instructor
