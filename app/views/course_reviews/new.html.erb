@@ -53,6 +53,17 @@
       <div class="select">
         <%= form.select :work_per_week, options_for_select((0..20)) %>
       </div> hours
+
+    <div class="field">
+    <%= form.label :total_cost %>
+    <div class="control">
+      <div class="select">
+        <%= form.select :total_cost, options_for_select((0..1000)) %>
+      </div> dollars
+    </div>
+  </div>
+
+
     </div>
   </div>
   <div class="field">

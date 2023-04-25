@@ -14,6 +14,7 @@ namespace :review_import do
         :overall_rating => review_info['overall_rating'],
         :challenge_rating => review_info['difficulty_rating'],
         :inclusivity_rating => review_info['inclusivity_rating'],
+        :total_cost => review_info['total_cost'],
         :work_per_week => review_info['work_per_week'],
         :comments => review_info['comments'],
       )
