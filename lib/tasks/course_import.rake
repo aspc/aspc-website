@@ -104,8 +104,9 @@ namespace :course_import do
       departments = Department.all
       departments.each do |department|
         puts "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
+        puts "API Key: #{Rails.application.credentials.course_api[:api_key]}"
 
-        courses_url = [api_url, 'courses', term.key, department.code].join('/')
+        courses_url = [api_url, 'courses', term.key, department.code].join('/') + "?api_key=" + Rails.application.credentials.course_api[:api_key]
         courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
 
         next if courses.nil?
