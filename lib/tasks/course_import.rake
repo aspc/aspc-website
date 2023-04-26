@@ -1,5 +1,7 @@
 require 'httparty'
 
+puts "API Key: #{Rails.application.credentials.course_api[:api_key]}"
+
 namespace :course_import do
   desc "Imports Academic Terms"
   task :academic_terms => :environment do
@@ -105,7 +107,7 @@ namespace :course_import do
       departments.each do |department|
         puts "Fetching courses for Department #{department.code} in Academic Term #{term.key}"
 
-        courses_url = [api_url, 'courses', term.key, department.code].join('/')
+        courses_url = [api_url, 'courses', term.key, department.code].join('/') + "?api_key=" + Rails.application.credentials.course_api[:api_key]
         courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
 
         next if courses.nil?
@@ -212,7 +214,7 @@ namespace :course_import do
       requirements.each do |requirement|
         puts "Fetching courses for Requirement #{requirement.code} in Academic Term #{term.key}"
 
-        courses_url = [api_url, 'courses', term.key, requirement.code].join('/') + "?api_key=" + Rails.application.credentials.api_key[:key]
+        courses_url = [api_url, 'courses', term.key, requirement.code].join('/')
         courses = HTTParty.get(courses_url, :format => :json).parsed_response rescue nil
 
         next if courses.nil?
