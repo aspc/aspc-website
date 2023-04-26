@@ -78,6 +78,7 @@ jobs: # a collection of steps
       - run:
           name: Run rspec in parallel
           command: |
+            bin/rails db:migrate RAILS_ENV=test
             bundle exec rspec --profile 10 \
                               --out test_results/rspec.xml \
                               --format progress \
