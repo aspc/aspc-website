@@ -36,7 +36,7 @@ gem 'watir', '~> 6.19.1'
 gem 'webdrivers', '~> 4.6.1'
 
 # For sending http requests
-gem 'httparty', '~> 0.16.2'
+gem 'httparty', '~> 0.21.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
