@@ -26,6 +26,7 @@ RUN apt-get -y install build-essential git nginx postgresql libpq-dev python-dev
     imagemagick chromium
 
 #To correct bundler 2 error https://stackoverflow.com/questions/53231667/bundler-you-must-use-bundler-2-or-greater-with-this-lockfile
+# To fix bundler requires Ruby version >= version error : RUN gem install bundler -v '2.4.22', see https://github.com/rubygems/bundler/issues/6865
 RUN gem install bundler 
 
 WORKDIR /aspc
