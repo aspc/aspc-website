@@ -7,11 +7,6 @@ animate.css@^4.1.0:
   resolved "https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz"
   integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
 
-bootstrap@^5.2.3:
-  version "5.2.3"
-  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.3.tgz"
-  integrity sha512-cEKPM+fwb3cT8NzQZYEu4HilJ3anCrWqh3CHAok1p9jXqMPsPTBhU25fBckEJHJ/p+tTxTFTsFQGM+gaHpi3QQ==
-
 bulma-calendar@^4.0.2:
   version "4.0.2"
   resolved "https://registry.npmjs.org/bulma-calendar/-/bulma-calendar-4.0.2.tgz"

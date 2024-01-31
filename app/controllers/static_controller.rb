@@ -7,14 +7,11 @@ class StaticController < ApplicationController
 
   # Reference: https://github.com/froala/editor-ruby-sdk-example
   # https://www.froala.com/wysiwyg-editor/docs/sdks/ruby/image-server-upload
-
-  cas_needed_pages = [:minutes]
  
   def show
     if params[:id]
       @page = Static.find_by(:id => params[:id])
     elsif params[:page_name]
-      authenticate_user! if params[:page_name] in cas_needed_pages
       @page = Static.find_by(:page_name => params[:page_name])
     end
 
