@@ -10,7 +10,7 @@ class StaticController < ApplicationController
  
   def show
     if params[:id]
-      authenticate_user! if params[:id] == 1
+      authenticate_user! if params[:id] == 5
       @page = Static.find_by(:id => params[:id])
     elsif params[:page_name]
       authenticate_user! if params[:page_name] == "minutes" 
