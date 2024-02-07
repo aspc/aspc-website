@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   scope controller: :housing_rooms do
     get 'housing' => :show_buildings, :as => :housing_rooms
     get 'housing/dorms/:dorm_id' => :show_building_rooms, :as => :show_housing_rooms_for_dorm
+    get 'housing/dorms/:dorm_id/floor_plans' => :floor_plans, :as => :floor_plans
     get 'housing/rooms/:room_id' => :show, :as => :show_housing_room
   end
 
