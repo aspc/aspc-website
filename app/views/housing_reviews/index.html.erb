@@ -49,6 +49,15 @@
       </div>
     </div>
     <div class="columns">
+    <div class="column">
+    <% if review.image.attached? %>
+    <%= image_tag review.image, class: "image-review" %>
+  <% else %>
+    <p>No image available</p>
+  <% end %>
+    </div>
+  </div>
+    <div class="columns">
       <div class="column">
         <p>
           <span class="tag has-background-white-bis">

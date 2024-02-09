@@ -51,6 +51,13 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= form.label :image %>
+    <div class="control">
+    <%= form.file_field :image, accept: 'image/jpeg,image/png,image/gif,application/pdf', :placeholder => "Upload your file" %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= form.submit "Submit housing review", class: "button is-link margin-bottom-0" %>
   </div>
