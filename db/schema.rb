@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 2023_02_27_055635) do
     t.decimal "challenge_rating"
     t.decimal "inclusivity_rating"
     t.decimal "work_per_week"
-    t.decimal "total_cost"
     t.text "comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
