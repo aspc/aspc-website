@@ -1,7 +1,7 @@
 <% content_for :header do %>
-  <%= render 'components/page_header', :title => "Floor Plans" %>
+  <%= render 'components/page_header', :title => "#{@housing_building.name} FLoor Plans" %>
 <% end %>
 
-<div class="floor-plans">
-  <!-- Add your floor plan content here -->
+<div class="floor-plans"> 
+  <embed src="<%= rails_blob_path(@housing_building.floor_plans) %>" width="1100" height="600" type="application/pdf">
 </div>

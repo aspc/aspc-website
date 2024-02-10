@@ -15,6 +15,11 @@ class HousingRoomsController < InheritedResources::Base
     @housing_reviews = HousingReview.all
   end
 
+  def floor_plans
+    building_id = params[:dorm_id]
+    @housing_building = HousingBuilding.find(building_id)
+  end
+
   def show
     room_id = params[:room_id]
     @housing_room = HousingRoom.find(room_id)
