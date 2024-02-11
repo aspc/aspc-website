@@ -1,7 +1,7 @@
 <% content_for :header do %>
   <%= render 'components/page_header', :title => "#{@housing_building.name} Rooms" %>
 <% end %>
-<%= link_to "Floor Plans", floor_plans_path(:dorm_id => @housing_building.id), class: "button is-primary" %>
+<%= link_to "Floor Plans", floor_plans_path(:dorm_id => @housing_building.id), class: "button is-link is-info" %>
 <br>
 <br>
 
