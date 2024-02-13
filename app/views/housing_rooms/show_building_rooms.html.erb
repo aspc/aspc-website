@@ -1,6 +1,9 @@
 <% content_for :header do %>
   <%= render 'components/page_header', :title => "#{@housing_building.name} Rooms" %>
 <% end %>
+<%= link_to "Floor Plans", floor_plans_path(:dorm_id => @housing_building.id), class: "button is-link is-info" %>
+<br>
+<br>
 
 <% @housing_rooms.sort_by{|r| r.room_number.to_i}.in_groups_of(3, false).each do |group| %>
   <div class="columns">
