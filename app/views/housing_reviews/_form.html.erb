@@ -52,9 +52,9 @@
   </div>
 
   <div class="field">
-    <%= form.label :image %>
+  <%= form.label "images", "Images of the room:" %>
     <div class="control">
-    <%= form.file_field :image, accept: 'image/jpeg,image/png,image/gif,application/pdf', :placeholder => "Upload your file" %>
+    <%= form.file_field :images, multiple: true, accept: 'image/jpeg,image/png,image/gif,application/pdf', :placeholder => "Upload your file" %>
     </div>
   </div>
 
