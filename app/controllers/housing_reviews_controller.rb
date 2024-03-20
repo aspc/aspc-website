@@ -30,7 +30,7 @@ class HousingReviewsController < InheritedResources::Base
     end
 
     def housing_review_params
-      whitelisted = params.require(:housing_review).permit(:overall_rating, :quiet_rating, :layout_rating, :temperature_rating, :comments, :housing_room, :user_id)
+      whitelisted = params.require(:housing_review).permit(:overall_rating, :quiet_rating, :layout_rating, :temperature_rating, :comments, :housing_room, :user_id, images: [])
 
       if whitelisted[:housing_room].present?
         whitelisted[:housing_room] = HousingRoom.find_by(:id => whitelisted[:housing_room])

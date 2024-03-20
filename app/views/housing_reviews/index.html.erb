@@ -50,6 +50,17 @@
     </div>
     <div class="columns">
       <div class="column">
+        <% if review.images.attached? %>
+          <% review.images.each do |image| %>
+            <%= image_tag(image, style: 'height:12rem; width:auto;') %>
+            <% end %>
+      <% else %>
+        <p>No images available</p>
+        <% end %>
+      </div>
+  </div>
+    <div class="columns">
+      <div class="column">
         <p>
           <span class="tag has-background-white-bis">
             Quiet rating: &nbsp;

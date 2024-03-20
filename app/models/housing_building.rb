@@ -9,6 +9,5 @@ class HousingBuilding < ApplicationRecord
   has_one_attached :image5
   has_one_attached :floor_plans
 
-
   validates :name, :presence => true, :allow_blank => true, :uniqueness => false
 end
