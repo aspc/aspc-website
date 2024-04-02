@@ -114,13 +114,15 @@
 
     <div class="columns margin-bottom-3">
       <div class="column is-full">
-        <% @latest_news.each do |latest_news_item| %>
+        <% @latest_news.first(2).each do |latest_news_item| %>
           <aside class="box">
             <h4 class="title is-4"><%= latest_news_item.title %></h4>
             <p class="margin-bottom-2">
               <%= latest_news_item.caption %>
             </p>
-            <%= link_to "Click Here", latest_news_item.details_url, :class => "button is-info is-outlined" %>
+            <% if latest_news_item.details_url.present? %>
+              <%= link_to "Click Here", latest_news_item.details_url, :class => "button is-info is-outlined" %>
+            <% end %>
           </aside>
         <% end %>
       </div>
