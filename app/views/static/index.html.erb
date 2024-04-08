@@ -114,20 +114,17 @@
 
     <div class="columns margin-bottom-3">
       <div class="column is-full">
-        <aside class="box">
-          <h4 class="title is-4">Fall 2023 Funding Request Forms</h4>
-          <p class="margin-bottom-2">
-          Request funds allocated for conferences, alcohol, and club events from ASPC.
-          </p>
-          <%= link_to "Click Here", static_path("funding-request"), :class => "button is-info is-outlined" %>
-        </aside>
-        <aside class="box">
-          <h4 class="title is-4">COVID-19 Isolation FAQ</h4>
-          <p class="margin-bottom-2">
-          Your COVID isolation questions answered. 
-          </p>
-          <%= link_to "Click Here", static_path("covid-faq"), :class => "button is-info is-outlined" %>
-        </aside>
+        <% @latest_news.first(2).each do |latest_news_item| %>
+          <aside class="box">
+            <h4 class="title is-4"><%= latest_news_item.title %></h4>
+            <p class="margin-bottom-2">
+              <%= latest_news_item.caption %>
+            </p>
+            <% if latest_news_item.details_url.present? %>
+              <%= link_to "Click Here", latest_news_item.details_url, :class => "button is-info is-outlined" %>
+            <% end %>
+          </aside>
+        <% end %>
       </div>
     </div>
   </div>

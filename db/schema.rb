@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_27_055635) do
+ActiveRecord::Schema.define(version: 2024_04_02_033746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,13 +88,13 @@ ActiveRecord::Schema.define(version: 2023_02_27_055635) do
     t.decimal "challenge_rating"
     t.decimal "inclusivity_rating"
     t.decimal "work_per_week"
-    t.decimal "total_cost"
     t.text "comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "course_id"
     t.bigint "instructor_id"
     t.bigint "user_id"
+    t.decimal "total_cost"
     t.index ["course_id"], name: "index_course_reviews_on_course_id"
     t.index ["instructor_id"], name: "index_course_reviews_on_instructor_id"
     t.index ["user_id"], name: "index_course_reviews_on_user_id"
@@ -239,6 +239,15 @@ ActiveRecord::Schema.define(version: 2023_02_27_055635) do
     t.decimal "inclusivity_rating"
     t.decimal "competency_rating"
     t.decimal "challenge_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "latest_news", force: :cascade do |t|
+    t.string "title"
+    t.string "caption"
+    t.string "details_url"
+    t.integer "priority"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

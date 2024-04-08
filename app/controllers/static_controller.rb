@@ -78,6 +78,7 @@ class StaticController < ApplicationController
   # Custom actions for special, hardcoded views
   def index
     @announcements = Announcement.priority_order.all
+    @latest_news = LatestNews.priority_order.all
     time = Time.parse(Time.now.in_time_zone("Pacific Time (US & Canada)").strftime('%Y-%m-%d %H:%M:%S')).to_s(:db)
     @events = Event.where("start >= ?", time).where(:status => :approved).order(:start).take(9)
     # @news = news

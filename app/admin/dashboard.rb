@@ -157,6 +157,15 @@ contributor_dashboard_page = Proc.new do
           end
         end
       end
+
+      column do
+        panel "Latest News" do
+          para "To create or edit a new announcement on the home page, navigate to 'Latest News' or click the button below."
+          form :action => contributor_dashboard_new_announcement_path do
+            button "Create New Latest News", :type => "submit"
+          end
+        end
+      end
     end
   end
 end
