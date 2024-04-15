@@ -62,9 +62,35 @@
       </div>
       -->
       <div class="field">
-        <%= f.button "Search", :class => "button is-link search-button margin-bottom-0 is-medium is-info",
-            :data => { disable_with: "<i class='fa fa-spinner fa-spin'></i>&nbspLoading".html_safe} %>
+        <%= f.button "Search", id: "search_button", :class => "button is-link search-button margin-bottom-0 is-medium is-info" %>
+      </div>
+      
+      <!-- Sort button -->
+      <div class="field">
+        <%= f.button "Sort by Rating", id: "sort_button", :name => "sort_button", :class => "button is-link search-button margin-bottom-0 is-medium is-info" %>
       </div>
     <% end %>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    $('#search_button').on('click', function() {
+      var $button = $(this);
+      $button.html('<i class="fa fa-spinner fa-spin"></i>&nbsp;Searching');
+      
+      setTimeout(function() {
+        $button.html('Search');
+      }, 3000); 
+    });
+
+    $('#sort_button').on('click', function() {
+      var $button = $(this);
+      $button.html('<i class="fa fa-spinner fa-spin"></i>&nbsp;Sorting');
+      
+      setTimeout(function() {
+        $button.html('Sort by Rating');
+      }, 3000); 
+    });
+  });
+</script>
