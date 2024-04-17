@@ -10,7 +10,6 @@ class CourseReviewsController < ApplicationController
   def new
     course_id = params[:course_id]
     @course = Course.find_by(:id => course_id)
-
     @course_review = CourseReview.new
   end
 
@@ -81,6 +80,7 @@ class CourseReviewsController < ApplicationController
 
     # database queries
     matches_query = Course.order("number")
+    matches_query = matches_query.where(number: number) if number
     # TODO: Turn back on search by department
     # if (department_code)
     #   matches_query = matches_query
@@ -88,14 +88,16 @@ class CourseReviewsController < ApplicationController
     #     .where(:departments => {:code => department_code})
     # end
 
-    if (number)
-      matches_query = matches_query
-        .where(:number => number)
-    end
-
+    # if (keywords)
+    #   matches_query = matches_query.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
+    #   matches_query = matches_query.sort_by {|course| get_keyword_relevance(course, keywords)}
+    # end
+    
+    # Using SQL rather than Ruby to filter by keywords
     if (keywords)
-      matches_query = matches_query.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
-      matches_query = matches_query.sort_by {|course| get_keyword_relevance(course, keywords)}
+      keywords_query = keywords.map { |k| "%#{k.downcase}%" }
+      matches_query = matches_query.where("LOWER(name) LIKE ANY ( array[?] )", keywords_query)
+      matches_query = matches_query.order(Arel.sql("get_keyword_relevance(name, ARRAY[#{keywords_query.join(',')}])"))
     end
 
     # database response filtering
@@ -103,12 +105,6 @@ class CourseReviewsController < ApplicationController
       matches_query = matches_query.select {|course| schools.any? {|school| course.schools.any? {|s| s == school} rescue false}}
     end
 
-    # if(keywords)
-    #   keywords_query = keywords.map { |k| "%#{k}%" }
-
-    #   matches_query = matches_query
-    #     .where("name ILIKE ANY ( array[?] )", keywords_query)
-    # end
 
     # server response
     @courses = matches_query.uniq

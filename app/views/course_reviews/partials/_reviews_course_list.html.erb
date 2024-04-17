@@ -50,14 +50,28 @@
                 <div id="course-schedule-list">
                   <h5 class="subtitle is-5 margin-bottom-half has-text-weight-semibold">Previous instructors</h5>
                   <ul>
-                    <% course.instructors.each do |instructor| %>
-                      <li>
+                  <% displayed_instructors = course.instructors.first(3) %>
+                  <% displayed_instructors.each do |instructor| %>
+                    <li>
+                      <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
+                        <%= instructor.name %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                  <% if course.instructors.length > 3 %>
+                    <li class="see-all-instructors" style="display: none;">
+                      <% (course.instructors - displayed_instructors).each do |instructor| %>
                         <%= link_to instructor_path(instructor), :class => 'no-underline' do %>
                           <%= instructor.name %>
                         <% end %>
-                      </li>
-                    <% end %>
-                  </ul>
+                        <% if instructor != course.instructors.last %>, <% end %>
+                      <% end %>
+                    </li>
+                    <li>
+                    <a href="#" id="toggle-button" onclick="toggleInstructors(); return false;">Show More</a>
+                    </li>
+                  <% end %>
+                </ul>
                 </div>
               </div>
             </div>
