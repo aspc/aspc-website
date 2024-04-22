@@ -106,6 +106,10 @@ class CourseReviewsController < ApplicationController
     end
 
 
+    if params[:sort_button]
+      matches_query = matches_query.sort_by {|course| -course.overall_rating}
+    end
+
     # server response
     @courses = matches_query.uniq
     respond_to do |format|
