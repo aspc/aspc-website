@@ -86,4 +86,4 @@ production:
   <<: *default
   database: aspc_production
   username: aspc
-  password: <%= Rails.application.credentials[:database_credentials][:production] %>
+  password: <%= Rails.application.credentials[:database_credentials_production] %>
