@@ -62,6 +62,9 @@ class CoursesController < ApplicationController
     when "2024;FA"
       term_start = DateTime.new(2024, 8, 26, 8, 10, 0)
       term_end = DateTime.new(2024, 12, 13, 22, 0, 0)
+    when "2025;SP"
+      term_start = DateTime.new(2025, 1, 21, 8, 10, 0)
+      term_end = DateTime.new(2025, 5, 16, 22, 0, 0)
     else
       return redirect_to course_planner_path # This is temporary and MUST be made into something more permanent than hardcoding
     end
