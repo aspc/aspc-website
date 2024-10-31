@@ -81,6 +81,12 @@ class CourseReviewsController < ApplicationController
     # database queries
     matches_query = Course.order("number")
     matches_query = matches_query.where(number: number) if number
+
+    if (number)
+      matches_query = matches_query
+      .where(:number => number)
+    end
+
     # TODO: Turn back on search by department
     # if (department_code)
     #   matches_query = matches_query
@@ -88,17 +94,12 @@ class CourseReviewsController < ApplicationController
     #     .where(:departments => {:code => department_code})
     # end
 
-    # if (keywords)
-    #   matches_query = matches_query.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
-    #   matches_query = matches_query.sort_by {|course| get_keyword_relevance(course, keywords)}
-    # end
-    
-    # Using SQL rather than Ruby to filter by keywords
+  
     if (keywords)
-      keywords_query = keywords.map { |k| "%#{k.downcase}%" }
-      matches_query = matches_query.where("LOWER(name) LIKE ANY ( array[?] )", keywords_query)
-      matches_query = matches_query.order(Arel.sql("get_keyword_relevance(name, ARRAY[#{keywords_query.join(',')}])"))
+      matches_query = matches_query.select {|course| keywords.any? {|keyword| course.name.downcase.include? keyword.downcase}}
+      matches_query = matches_query.sort_by {|course| get_keyword_relevance(course, keywords)}
     end
+    
 
     # database response filtering
     if (schools)
