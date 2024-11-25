@@ -34,3 +34,26 @@ set :yarn_target_path, -> { release_path }
 
 # Specify which branch to stage
 set :branch, "master"
+
+# Deployment Tasks
+namespace :deploy do
+    desc "Ensure log files exist"
+    task :create_log_files do
+        on roles(:app) do
+            execute :mkdir, "-p", "#{shared_path}/log"
+            execute :touch, "#{shared_path}/log/puma_access.log #{shared_path}/log/puma_error.log"
+            execute :chmod, "666 #{shared_path}/log/puma_access.log #{shared_path}/log/puma_error.log"
+        end
+    end
+  
+    desc "Remove stale Puma PID and state files"
+    task :cleanup_puma_files do
+        on roles(:app) do
+            execute :rm, "-f", "#{shared_path}/tmp/pids/puma.pid #{shared_path}/tmp/pids/puma.state"
+        end
+    end
+end
+  
+# Hooks
+before "puma:restart", "deploy:create_log_files"
+before "puma:restart", "deploy:cleanup_puma_files"

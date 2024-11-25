@@ -92,6 +92,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # disable log files 
+  config.logger = Logger.new(nil)
+  config.log_level = :fatal
+
   # SMTP settings for gmail
   config.action_mailer.default_url_options = { :host => "www.pomonastudents.org" }
   config.action_mailer.delivery_method = :smtp
