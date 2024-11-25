@@ -50,6 +50,3 @@ set :keep_releases, 3
 set :whenever_path, Proc.new { release_path }
 set :whenever_environment, Proc.new { fetch(:stage) }
 set :whenever_identifier, Proc.new { "#{fetch(:application)}_#{fetch(:stage)}" }
-
-# disable logs for troubleshooting
-set :format_options, truncate: false, log_file: nil

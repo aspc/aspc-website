@@ -9,9 +9,5 @@ rm -f /myapp/tmp/pids/server.pid
 echo "Running Setup"
 sh docker/setup.sh 
 
-# Cleanup stale server.pid and logs
-rm -f /aspc/tmp/pids/server.pid
-touch /aspc/log/development.log /aspc/log/capistrano.log
-chmod 777 /aspc/log/*.log
-
+# Then exec the container's main process (what's set as CMD in the Dockerfile)
 exec "$@"
