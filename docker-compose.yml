@@ -16,10 +16,14 @@ services:
     container_name: aspc-rails
     volumes:
     - .:/aspc:Z
+    - ./config/master.key:/aspc/config/master.key
+    - log_volume:/aspc/log
+
     ports:
     - "3000:3000"
     depends_on:
     - db
 
 volumes:
+  log_volume:
   pgdata:
